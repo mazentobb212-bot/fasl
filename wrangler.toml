@@ -2,7 +2,11 @@ name = "fasl"
 main = "src/index.js"
 compatibility_date = "2026-09-15"
 
+[assets]
+directory = "."
+run_worker_first = ["/api/*"]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "fasl-db"
-database_id = "356669e4-6f01-4740-b2e2-1f563a4ed67a"
+database_id = "YOUR_DATABASE_ID"
