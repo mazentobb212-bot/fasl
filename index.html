@@ -1731,8 +1731,7 @@
 
   async function reportPost(id) {
     if (!(await requireLogin())) return;
-    const reason = prompt("ليه عايز تبلغ عن البوست؟
-اكتب السبب باختصار:");
+    const reason = prompt("ليه عايز تبلغ عن البوست؟\nاكتب السبب باختصار:");
     if (!reason || !reason.trim()) return;
     try {
       await api(`/posts/${encodeURIComponent(id)}/report`, {
@@ -1748,8 +1747,7 @@
   async function sharePost(id) {
     const post = posts.find(p => String(p.id) === String(id));
     if (!post) return;
-    const text = `${post.title || "بوست من فَصْل"}
-${post.body}`;
+    const text = `${post.title || "بوست من فَصْل"}\n${post.body}`;
     try {
       if (navigator.share) await navigator.share({title:"فَصْل", text});
       else {
@@ -1858,8 +1856,7 @@ ${post.body}`;
       openAuth("login");
       return;
     }
-    const logout = confirm(`أنت داخل باسم ${currentUser.username}
-عايز تعمل تسجيل خروج؟`);
+    const logout = confirm(`أنت داخل باسم ${currentUser.username}\nعايز تعمل تسجيل خروج؟`);
     if (!logout) return;
     try {
       await api("/logout", {method:"POST"});
