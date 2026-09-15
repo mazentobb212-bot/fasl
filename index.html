@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>فَصْل — كل فصل عنده حكاية</title>
+  <meta name="description" content="فَصْل — مجتمع الطلاب المصريين. مواقف، أسئلة، ترندات وحكايات المدرسة.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =====================================================
+       FASL — DESIGN SYSTEM
+    ===================================================== */
+
+    :root {
+      --bg: #08090c;
+      --bg-2: #0e1015;
+      --card: rgba(20, 22, 29, .88);
+      --card-2: #151821;
+      --border: rgba(255,255,255,.08);
+      --border-hover: rgba(255,255,255,.16);
+
+      --text: #f6f7fb;
+      --muted: #8d93a1;
+      --muted-2: #626977;
+
+      --gold: #f3c969;
+      --gold-2: #e7ad3d;
+      --gold-soft: rgba(243,201,105,.12);
+
+      --green: #65d69a;
+      --red: #ff6678;
+      --blue: #6da7ff;
+      --purple: #a88bff;
+
+      --radius: 22px;
+      --radius-sm: 14px;
+
+      --shadow:
+        0 20px 70px rgba(0,0,0,.35);
+
+      --max: 1320px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(243,201,105,.08), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(122,91,255,.07), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =====================================================
+       BACKGROUND
+    ===================================================== */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .orb {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .08;
+    }
+
+    .orb.one {
+      background: var(--gold);
+      top: -200px;
+      right: -100px;
+    }
+
+    .orb.two {
+      background: #705cff;
+      bottom: -250px;
+      left: -100px;
+    }
+
+    /* =====================================================
+       TOP BAR
+    ===================================================== */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 72px;
+
+      background: rgba(8,9,12,.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      height: 100%;
+      margin: auto;
+      padding: 0 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: max-content;
+    }
+
+    .brand-logo {
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+
+      display: grid;
+      place-items: center;
+
+      background:
+        linear-gradient(145deg, var(--gold), var(--gold-2));
+
+      color: #18120a;
+      font-weight: 900;
+      font-size: 19px;
+
+      box-shadow:
+        0 7px 25px rgba(243,201,105,.16);
+    }
+
+    .brand-name {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+    }
+
+    .brand-name span {
+      color: var(--gold);
+    }
+
+    .search {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      height: 43px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: rgba(255,255,255,.045);
+      color: var(--text);
+
+      outline: none;
+      padding: 0 45px 0 15px;
+
+      transition: .2s;
+    }
+
+    .search input:focus {
+      border-color: rgba(243,201,105,.4);
+      background: rgba(255,255,255,.065);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      color: var(--text);
+
+      display: grid;
+      place-items: center;
+
+      transition: .2s;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255,255,255,.09);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .profile-mini {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+
+      background: linear-gradient(145deg,#f3c969,#c98b22);
+      color: #1a1409;
+
+      display: grid;
+      place-items: center;
+
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    /* =====================================================
+       LAYOUT
+    ===================================================== */
+
+    .layout {
+      max-width: var(--max);
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: 230px minmax(0, 650px) 280px;
+
+      justify-content: center;
+      gap: 22px;
+
+      padding: 28px 22px 100px;
+    }
+
+    /* =====================================================
+       SIDEBARS
+    ===================================================== */
+
+    .sidebar {
+      position: sticky;
+      top: 95px;
+      height: max-content;
+    }
+
+    .side-title {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      margin: 8px 10px 10px;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      padding: 12px 13px;
+      border-radius: 14px;
+
+      color: #c6cad3;
+      font-weight: 700;
+      font-size: 14px;
+
+      transition: .2s;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,.05);
+      color: white;
+    }
+
+    .nav-item.active {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .nav-icon {
+      width: 22px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .school-card {
+      margin-top: 25px;
+      padding: 17px;
+
+      border-radius: 19px;
+      border: 1px solid var(--border);
+
+      background: linear-gradient(
+        145deg,
+        rgba(243,201,105,.08),
+        rgba(255,255,255,.025)
+      );
+    }
+
+    .school-card small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .school-card h3 {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+
+    .school-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+
+      min-height: 220px;
+      padding: 30px;
+
+      border: 1px solid rgba(243,201,105,.13);
+      border-radius: 28px;
+
+      background:
+        radial-gradient(circle at 85% 20%, rgba(243,201,105,.16), transparent 28%),
+        linear-gradient(145deg,#171922,#101218);
+
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border: 1px solid rgba(243,201,105,.12);
+      border-radius: 50%;
+      left: -70px;
+      bottom: -100px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 6px 11px;
+      border-radius: 30px;
+
+      background: rgba(243,201,105,.1);
+      color: var(--gold);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(29px,5vw,44px);
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: -1.8px;
+      max-width: 530px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 13px;
+      max-width: 470px;
+    }
+
+    /* =====================================================
+       COMPOSER
+    ===================================================== */
+
+    .composer {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      padding: 18px;
+      margin-bottom: 18px;
+
+      box-shadow: 0 10px 40px rgba(0,0,0,.18);
+    }
+
+    .composer-top {
+      display: flex;
+      gap: 12px;
+    }
+
+    .avatar {
+      flex: 0 0 43px;
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+
+      background: linear-gradient(145deg,#8b7cff,#5f4ee8);
+      display: grid;
+      place-items: center;
+
+      font-weight: 900;
+    }
+
+    .composer-input {
+      flex: 1;
+
+      min-height: 48px;
+      border-radius: 16px;
+
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+
+      color: var(--muted);
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 16px;
+
+      cursor: text;
+      transition: .2s;
+    }
+
+    .composer-input:hover {
+      background: rgba(255,255,255,.065);
+    }
+
+    .composer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-top: 14px;
+      padding-top: 13px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .compose-action {
+      background: transparent;
+      color: var(--muted);
+
+      padding: 8px 9px;
+      border-radius: 10px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition: .2s;
+    }
+
+    .compose-action:hover {
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+    }
+
+    .post-btn {
+      padding: 9px 17px;
+      border-radius: 11px;
+
+      background: var(--gold);
+      color: #18120a;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      transition: .2s;
+    }
+
+    .post-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(243,201,105,.18);
+    }
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    .filters {
+      display: flex;
+      gap: 7px;
+
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      margin-bottom: 14px;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter {
+      flex: 0 0 auto;
+
+      padding: 8px 13px;
+      border-radius: 30px;
+
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+
+      transition: .2s;
+    }
+
+    .filter:hover,
+    .filter.active {
+      background: var(--gold-soft);
+      color: var(--gold);
+      border-color: rgba(243,201,105,.2);
+    }
+
+    /* =====================================================
+       POST
+    ===================================================== */
+
+    .post {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      padding: 18px;
+      margin-bottom: 14px;
+
+      animation: postIn .4s ease both;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .post:hover {
+      border-color: rgba(255,255,255,.12);
+    }
+
+    @keyframes postIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .post-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .post-user {
+      flex: 1;
+    }
+
+    .post-user strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .post-user span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 10px;
+      margin-top: 1px;
+    }
+
+    .post-menu {
+      color: var(--muted);
+      background: transparent;
+      padding: 7px;
+      font-size: 18px;
+    }
+
+    .post-tag {
+      display: inline-block;
+
+      padding: 4px 8px;
+      border-radius: 7px;
+
+      background: rgba(243,201,105,.09);
+      color: var(--gold);
+
+      font-size: 9px;
+      font-weight: 800;
+
+      margin-top: 14px;
+    }
+
+    .post h2 {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-top: 7px;
+      font-weight: 800;
+    }
+
+    .post-text {
+      color: #c4c8d0;
+      font-size: 13px;
+      line-height: 1.9;
+      margin-top: 6px;
+      white-space: pre-wrap;
+    }
+
+    .post-image {
+      width: 100%;
+      border-radius: 16px;
+      margin-top: 14px;
+      max-height: 420px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .post-stats {
+      display: flex;
+      justify-content: space-between;
+
+      color: var(--muted-2);
+      font-size: 10px;
+
+      padding: 14px 3px 9px;
+    }
+
+    .post-actions {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+
+      border-top: 1px solid var(--border);
+      padding-top: 7px;
+    }
+
+    .post-action {
+      padding: 9px;
+      border-radius: 11px;
+
+      background: transparent;
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition: .2s;
+    }
+
+    .post-action:hover {
+      background: rgba(255,255,255,.045);
+      color: white;
+    }
+
+    .post-action.liked {
+      color: var(--red);
+    }
+
+    /* =====================================================
+       TRENDING
+    ===================================================== */
+
+    .trend-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+
+      background: rgba(255,255,255,.025);
+
+      padding: 17px;
+    }
+
+    .trend-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 12px;
+    }
+
+    .trend-title h3 {
+      font-size: 15px;
+    }
+
+    .trend-title span {
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    .trend {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trend:last-child {
+      border: 0;
+      padding-bottom: 0;
+    }
+
+    .trend small {
+      color: var(--muted-2);
+      font-size: 9px;
+    }
+
+    .trend p {
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .online-card {
+      margin-top: 15px;
+      padding: 15px;
+
+      border-radius: 19px;
+      background: rgba(101,214,154,.045);
+      border: 1px solid rgba(101,214,154,.1);
+    }
+
+    .online-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    .online-card p {
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 5px;
+    }
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    .modal-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(12px);
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .modal-layer.show {
+      display: flex;
+      animation: fadeIn .2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0}
+      to {opacity:1}
+    }
+
+    .modal {
+      width: min(580px,100%);
+
+      background: #11131a;
+      border: 1px solid var(--border);
+
+      border-radius: 25px;
+      padding: 21px;
+
+      box-shadow: 0 30px 100px rgba(0,0,0,.55);
+
+      animation: modalIn .25s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity:0;
+        transform: translateY(20px) scale(.97);
+      }
+      to {
+        opacity:1;
+        transform:none;
+      }
+    }
+
+    .modal-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+
+    .modal-head h2 {
+      font-size:19px;
+    }
+
+    .close {
+      width:35px;
+      height:35px;
+      border-radius:11px;
+
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+    }
+
+    .field {
+      margin-bottom:13px;
+    }
+
+    .field label {
+      display:block;
+      font-size:11px;
+      font-weight:800;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width:100%;
+
+      border:1px solid var(--border);
+      border-radius:13px;
+
+      background:#0c0e13;
+      color:var(--text);
+
+      outline:none;
+      padding:12px 13px;
+
+      resize:vertical;
+    }
+
+    .field textarea {
+      min-height:120px;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color:rgba(243,201,105,.4);
+    }
+
+    .modal-footer {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .anonymous {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .anonymous input {
+      accent-color:var(--gold);
+    }
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translateX(-50%) translateY(20px);
+
+      background:#f5f5f5;
+      color:#111;
+
+      padding:11px 17px;
+      border-radius:13px;
+
+      font-size:12px;
+      font-weight:800;
+
+      opacity:0;
+      pointer-events:none;
+
+      transition:.3s;
+      z-index:900;
+      box-shadow:0 12px 40px rgba(0,0,0,.35);
+    }
+
+    .toast.show {
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    /* =====================================================
+       MOBILE NAV
+    ===================================================== */
+
+    .mobile-nav {
+      display:none;
+    }
+
+    /* =====================================================
+       EMPTY
+    ===================================================== */
+
+    .empty {
+      text-align:center;
+      padding:50px 20px;
+      color:var(--muted);
+    }
+
+    .empty-icon {
+      font-size:38px;
+      margin-bottom:10px;
+    }
+
+    .empty h3 {
+      color:white;
+      font-size:16px;
+    }
+
+    .empty p {
+      font-size:12px;
+      margin-top:5px;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width:1050px) {
+      .layout {
+        grid-template-columns: 200px minmax(0,650px);
+      }
+
+      .right-sidebar {
+        display:none;
+      }
+    }
+
+    @media (max-width:760px) {
+      .topbar {
+        height:64px;
+      }
+
+      .topbar-inner {
+        padding:0 14px;
+      }
+
+      .brand-name {
+        font-size:20px;
+      }
+
+      .search {
+        display:none;
+      }
+
+      .top-actions .icon-btn:nth-child(2) {
+        display:none;
+      }
+
+      .layout {
+        display:block;
+        padding:17px 12px 90px;
+      }
+
+      .left-sidebar {
+        display:none;
+      }
+
+      .hero {
+        min-height:205px;
+        padding:24px 20px;
+        border-radius:23px;
+      }
+
+      .hero h1 {
+        font-size:31px;
+      }
+
+      .composer {
+        border-radius:20px;
+        padding:14px;
+      }
+
+      .composer-bottom {
+        align-items:flex-start;
+      }
+
+      .composer-actions {
+        max-width:70%;
+        overflow:hidden;
+      }
+
+      .compose-action {
+        white-space:nowrap;
+      }
+
+      .post {
+        padding:15px;
+        border-radius:19px;
+      }
+
+      .mobile-nav {
+        position:fixed;
+        display:flex;
+        bottom:0;
+        left:0;
+        right:0;
+
+        height:67px;
+        z-index:200;
+
+        background:rgba(10,11,15,.92);
+        backdrop-filter:blur(20px);
+
+        border-top:1px solid var(--border);
+
+        justify-content:space-around;
+        align-items:center;
+      }
+
+      .mobile-nav button {
+        background:transparent;
+        color:var(--muted);
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:2px;
+        font-size:10px;
+        font-weight:700;
+      }
+
+      .mobile-nav button.active {
+        color:var(--gold);
+      }
+
+      .mobile-nav .add {
+        width:43px;
+        height:43px;
+        border-radius:14px;
+        background:var(--gold);
+        color:#171109;
+        font-size:20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+  </div>
+
+  <!-- ===================================================
+       TOP BAR
+  ==================================================== -->
+
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <a class="brand" href="#">
+        <div class="brand-logo">ف</div>
+        <div class="brand-name">فَ<span>ص</span>ل</div>
+      </a>
+
+      <div class="search">
+        <span class="search-icon">⌕</span>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="دور على موقف، سؤال، ترند..."
+        >
+      </div>
+
+      <div class="top-actions">
+        <button class="icon-btn" onclick="showToast('الإشعارات هتتوصل قريب 🔔')">
+          🔔
+        </button>
+
+        <button class="icon-btn" onclick="toggleTheme()">
+          ◐
+        </button>
+
+        <div class="profile-mini">م</div>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ===================================================
+       MAIN
+  ==================================================== -->
+
+  <main class="layout">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar left-sidebar">
+
+      <div class="side-title">اكتشف</div>
+
+      <nav class="nav-list">
+
+        <a href="#" class="nav-item active">
+          <span class="nav-icon">🏠</span>
+          الرئيسية
+        </a>
+
+        <a href="#" class="nav-item">
+          <span class="nav-icon">🔥</span>
+          الترند
+        </a>
+
+        <a href="#" class="nav-item">
+          <span class="nav-icon">🏫</span>
+          مدرستي
+        </a>
+
+        <a href="#" class="nav-item">
+          <span class="nav-icon">❓</span>
+          الأسئلة
+        </a>
+
+        <a href="#" class="nav-item">
+          <span class="nav-icon">😂</span>
+          المواقف
+        </a>
+
+      </nav>
+
+      <div class="school-card">
+        <small>مدرستك</small>
+        <h3>لسه هنختار 👀</h3>
+        <p>اختار مدرستك عشان تشوف مجتمعها.</p>
+      </div>
+
+    </aside>
+
+
+    <!-- FEED -->
+
+    <section>
+
+      <div class="hero">
+
+        <div class="hero-badge">
+          🟡 مجتمع الطلاب المصريين
+        </div>
+
+        <h1>
+          إيه اللي حصل
+          <span>في المدرسة</span>
+          النهارده؟
+        </h1>
+
+        <p>
+          مواقف، أسئلة، ترندات وحكايات من قلب المدرسة.
+          قول اللي عندك 👀
+        </p>
+
+      </div>
+
+
+      <!-- COMPOSER -->
+
+      <div class="composer">
+
+        <div class="composer-top">
+
+          <div class="avatar">م</div>
+
+          <div
+            class="composer-input"
+            onclick="openComposer()"
+          >
+            حصل معاك إيه النهارده؟ 😂
+          </div>
+
+        </div>
+
+        <div class="composer-bottom">
+
+          <div class="composer-actions">
+
+            <button class="compose-action" onclick="openComposer('story')">
+              😂 موقف
+            </button>
+
+            <button class="compose-action" onclick="openComposer('question')">
+              🤔 سؤال
+            </button>
+
+            <button class="compose-action" onclick="openComposer('trend')">
+              🔥 ترند
+            </button>
+
+          </div>
+
+          <button class="post-btn" onclick="openComposer()">
+            انشر
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- FILTERS -->
+
+      <div class="filters">
+
+        <button class="filter active" data-filter="all">
+          الكل
+        </button>
+
+        <button class="filter" data-filter="story">
+          😂 مواقف
+        </button>
+
+        <button class="filter" data-filter="teacher">
+          👨‍🏫 مدرسين
+        </button>
+
+        <button class="filter" data-filter="question">
+          🤔 أسئلة
+        </button>
+
+        <button class="filter" data-filter="trend">
+          🔥 ترند
+        </button>
+
+        <button class="filter" data-filter="school">
+          🏫 المدرسة
+        </button>
+
+      </div>
+
+
+      <!-- POSTS -->
+
+      <div id="feed"></div>
+
+    </section>
+
+
+    <!-- RIGHT SIDEBAR -->
+
+    <aside class="sidebar right-sidebar">
+
+      <div class="trend-card">
+
+        <div class="trend-title">
+          <h3>🔥 ترند دلوقتي</h3>
+          <span>الكل</span>
+        </div>
+
+        <div class="trend">
+          <small>#مواقف_المدرسة</small>
+          <p>أغرب موقف حصل في الحصة 😂</p>
+        </div>
+
+        <div class="trend">
+          <small>#المدرسة</small>
+          <p>المدرس اللي بيقول آخر سؤال وبعدين يجيب 7 أسئلة 😭</p>
+        </div>
+
+        <div class="trend">
+          <small>#امتحانات</small>
+          <p>مين بدأ يذاكر ولا لسه؟ 👀</p>
+        </div>
+
+        <div class="trend">
+          <small>#فصل</small>
+          <p>احكيلنا أغرب حاجة حصلت النهارده.</p>
+        </div>
+
+      </div>
+
+
+      <div class="online-card">
+
+        <div class="online-head">
+          <span class="online-dot"></span>
+          FASL LIVE
+        </div>
+
+        <p>
+          النسخة التجريبية شغالة. قريب كل طالب هيكون ليه حساب ومجتمع مدرسة.
+        </p>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+
+  <!-- ===================================================
+       MOBILE NAV
+  ==================================================== -->
+
+  <nav class="mobile-nav">
+
+    <button class="active">
+      <span>🏠</span>
+      الرئيسية
+    </button>
+
+    <button>
+      <span>🔥</span>
+      الترند
+    </button>
+
+    <button class="add" onclick="openComposer()">
+      +
+    </button>
+
+    <button>
+      <span>🏫</span>
+      مدرستي
+    </button>
+
+    <button>
+      <span>👤</span>
+      حسابي
+    </button>
+
+  </nav>
+
+
+  <!-- ===================================================
+       CREATE POST MODAL
+  ==================================================== -->
+
+  <div class="modal-layer" id="composerModal">
+
+    <div class="modal">
+
+      <div class="modal-head">
+
+        <h2>قول اللي عندك 👀</h2>
+
+        <button class="close" onclick="closeComposer()">
+          ✕
+        </button>
+
+      </div>
+
+      <div class="field">
+
+        <label>نوع البوست</label>
+
+        <select id="postType">
+
+          <option value="story">
+            😂 موقف
+          </option>
+
+          <option value="teacher">
+            👨‍🏫 موقف مع مدرس
+          </option>
+
+          <option value="question">
+            🤔 سؤال
+          </option>
+
+          <option value="trend">
+            🔥 ترند
+          </option>
+
+          <option value="school">
+            🏫 حاجة حصلت في المدرسة
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="field">
+
+        <label>العنوان</label>
+
+        <input
+          id="postTitle"
+          maxlength="100"
+          placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها 😂"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>البوست</label>
+
+        <textarea
+          id="postBody"
+          maxlength="1000"
+          placeholder="احكيلنا اللي حصل..."
+        ></textarea>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <label class="anonymous">
+
+          <input
+            type="checkbox"
+            id="anonymousPost"
+          >
+
+          نشر بشكل مجهول 👤
+
+        </label>
+
+        <button
+          class="post-btn"
+          onclick="createPost()"
+        >
+          نشر البوست 🚀
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div class="toast" id="toast"></div>
+
+
+  <script>
+    /* =====================================================
+       FASL — JAVASCRIPT
+    ===================================================== */
+
+    const initialPosts = [
+
+      {
+        id: 1,
+        type: "teacher",
+        user: "طالب مجهول",
+        avatar: "😂",
+        time: "منذ 12 دقيقة",
+        title: "لما المدرس يقول آخر سؤال بجد",
+        body:
+          "قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",
+        likes: 126,
+        comments: 18,
+        liked: false,
+        anonymous: true
+      },
+
+      {
+        id: 2,
+        type: "story",
+        user: "محمد",
+        avatar: "م",
+        time: "منذ 28 دقيقة",
+        title: "موقف حصل في الفسحة",
+        body:
+          "واحد من صحابي كان بيجري ورا الكورة، دخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 💀",
+        likes: 89,
+        comments: 12,
+        liked: false,
+        anonymous: false
+      },
+
+      {
+        id: 3,
+        type: "question",
+        user: "طالب مجهول",
+        avatar: "🤔",
+        time: "منذ 41 دقيقة",
+        title: "حد فاهم الجزئية دي؟",
+        body:
+          "يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ أنا حاسس إني قريت الصفحة 20 مرة ومفيش فايدة 😭",
+        likes: 54,
+        comments: 27,
+        liked: false,
+        anonymous: true
+      },
+
+      {
+        id: 4,
+        type: "trend",
+        user: "سيف",
+        avatar: "س",
+        time: "منذ ساعة",
+        title: "المدرس دخل وقال صباح الخير...",
+        body:
+          "إحنا كلنا عرفنا إن فيه امتحان 😂",
+        likes: 231,
+        comments: 43,
+        liked: false,
+        anonymous: false
+      }
+
+    ];
+
+
+    let posts = JSON.parse(
+      localStorage.getItem("fasl_posts")
+    ) || initialPosts;
+
+
+    let activeFilter = "all";
+
+
+    /* =====================================================
+       TYPE LABEL
+    ===================================================== */
+
+    function typeLabel(type) {
+
+      const labels = {
+        story: "😂 موقف",
+        teacher: "👨‍🏫 موقف مع مدرس",
+        question: "🤔 سؤال",
+        trend: "🔥 ترند",
+        school: "🏫 المدرسة"
+      };
+
+      return labels[type] || "📝 بوست";
+
+    }
+
+
+    /* =====================================================
+       RENDER FEED
+    ===================================================== */
+
+    function renderFeed() {
+
+      const feed = document.getElementById("feed");
+
+      const query =
+        document.getElementById("searchInput").value
+        .trim()
+        .toLowerCase();
+
+
+      let visiblePosts = posts.filter(post => {
+
+        const matchesFilter =
+          activeFilter === "all" ||
+          post.type === activeFilter;
+
+        const searchable =
+          `${post.title || ""} ${post.body || ""} ${post.user || ""}`
+          .toLowerCase();
+
+        const matchesSearch =
+          !query ||
+          searchable.includes(query);
+
+        return matchesFilter && matchesSearch;
+
+      });
+
+
+      if (!visiblePosts.length) {
+
+        feed.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">👀</div>
+            <h3>مفيش حاجة هنا لسه</h3>
+            <p>كن أول واحد ينشر حاجة.</p>
+          </div>
+        `;
+
+        return;
+      }
+
+
+      feed.innerHTML = visiblePosts
+        .map(createPostHTML)
+        .join("");
+
+    }
+
+
+    /* =====================================================
+       POST HTML
+    ===================================================== */
+
+    function createPostHTML(post) {
+
+      return `
+        <article class="post">
+
+          <div class="post-head">
+
+            <div class="avatar">
+              ${post.anonymous ? "👤" : post.avatar}
+            </div>
+
+            <div class="post-user">
+
+              <strong>
+                ${escapeHTML(
+                  post.anonymous
+                    ? "طالب مجهول"
+                    : post.user
+                )}
+              </strong>
+
+              <span>
+                ${post.time || "دلوقتي"}
+              </span>
+
+            </div>
+
+            <button
+              class="post-menu"
+              onclick="reportPost(${post.id})"
+            >
+              ⋯
+            </button>
+
+          </div>
+
+
+          <span class="post-tag">
+            ${typeLabel(post.type)}
+          </span>
+
+
+          ${
+            post.title
+              ? `<h2>${escapeHTML(post.title)}</h2>`
+              : ""
+          }
+
+
+          <div class="post-text">
+            ${escapeHTML(post.body)}
+          </div>
+
+
+          <div class="post-stats">
+
+            <span>
+              ❤️ ${post.likes || 0} إعجاب
+            </span>
+
+            <span>
+              💬 ${post.comments || 0} تعليق
+            </span>
+
+          </div>
+
+
+          <div class="post-actions">
+
+            <button
+              class="post-action ${post.liked ? "liked" : ""}"
+              onclick="likePost(${post.id})"
+            >
+              ${post.liked ? "❤️" : "♡"} إعجاب
+            </button>
+
+            <button
+              class="post-action"
+              onclick="commentPost(${post.id})"
+            >
+              💬 تعليق
+            </button>
+
+            <button
+              class="post-action"
+              onclick="sharePost(${post.id})"
+            >
+              ↗ مشاركة
+            </button>
+
+          </div>
+
+        </article>
+      `;
+
+    }
+
+
+    /* =====================================================
+       LIKE
+    ===================================================== */
+
+    function likePost(id) {
+
+      const post = posts.find(p => p.id === id);
+
+      if (!post) return;
+
+      post.liked = !post.liked;
+
+      post.likes += post.liked ? 1 : -1;
+
+      savePosts();
+      renderFeed();
+
+    }
+
+
+    /* =====================================================
+       COMMENT
+    ===================================================== */
+
+    function commentPost(id) {
+
+      const post = posts.find(p => p.id === id);
+
+      if (!post) return;
+
+      const comment = prompt(
+        "اكتب تعليقك 👇"
+      );
+
+      if (!comment || !comment.trim()) return;
+
+      post.comments++;
+
+      savePosts();
+      renderFeed();
+
+      showToast("تم إضافة تعليقك 💬");
+
+    }
+
+
+    /* =====================================================
+       SHARE
+    ===================================================== */
+
+    async function sharePost(id) {
+
+      const post = posts.find(p => p.id === id);
+
+      if (!post) return;
+
+      const text =
+        `${post.title || "بوست من فَصْل"}\n${post.body}`;
+
+      try {
+
+        if (navigator.share) {
+
+          await navigator.share({
+            title: "فَصْل",
+            text
+          });
+
+        } else {
+
+          await navigator.clipboard.writeText(text);
+
+          showToast("اتنسخ البوست 📋");
+
+        }
+
+      } catch (error) {}
+
+    }
+
+
+    /* =====================================================
+       REPORT
+    ===================================================== */
+
+    function reportPost(id) {
+
+      const reason = prompt(
+        "ليه عايز تبلغ عن البوست؟\n\n" +
+        "اكتب السبب باختصار:"
+      );
+
+      if (!reason || !reason.trim()) return;
+
+      showToast(
+        "تم إرسال البلاغ للمراجعة 🚩"
+      );
+
+    }
+
+
+    /* =====================================================
+       COMPOSER
+    ===================================================== */
+
+    function openComposer(type = null) {
+
+      const modal =
+        document.getElementById("composerModal");
+
+      modal.classList.add("show");
+
+      if (type) {
+
+        document.getElementById("postType").value =
+          type;
+
+      }
+
+      setTimeout(() => {
+        document.getElementById("postTitle").focus();
+      }, 100);
+
+    }
+
+
+    function closeComposer() {
+
+      document
+        .getElementById("composerModal")
+        .classList.remove("show");
+
+    }
+
+
+    /* =====================================================
+       CREATE POST
+    ===================================================== */
+
+    function createPost() {
+
+      const type =
+        document.getElementById("postType").value;
+
+      const title =
+        document.getElementById("postTitle").value.trim();
+
+      const body =
+        document.getElementById("postBody").value.trim();
+
+      const anonymous =
+        document.getElementById("anonymousPost").checked;
+
+
+      if (!body) {
+
+        showToast("اكتب البوست الأول 😭");
+
+        return;
+
+      }
+
+
+      if (body.length < 5) {
+
+        showToast("اكتب شوية تفاصيل أكتر 👀");
+
+        return;
+
+      }
+
+
+      const newPost = {
+
+        id: Date.now(),
+
+        type,
+
+        user: anonymous
+          ? "طالب مجهول"
+          : "مستخدم جديد",
+
+        avatar: anonymous
+          ? "👤"
+          : "م",
+
+        time: "دلوقتي",
+
+        title,
+
+        body,
+
+        likes: 0,
+
+        comments: 0,
+
+        liked: false,
+
+        anonymous
+
+      };
+
+
+      posts.unshift(newPost);
+
+      savePosts();
+
+      renderFeed();
+
+      closeComposer();
+
+      clearComposer();
+
+      showToast("البوست نزل في فَصْل 🚀");
+
+    }
+
+
+    function clearComposer() {
+
+      document.getElementById("postTitle").value = "";
+
+      document.getElementById("postBody").value = "";
+
+      document.getElementById("anonymousPost").checked = false;
+
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    document
+      .querySelectorAll(".filter")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          document
+            .querySelectorAll(".filter")
+            .forEach(b =>
+              b.classList.remove("active")
+            );
+
+          button.classList.add("active");
+
+          activeFilter =
+            button.dataset.filter;
+
+          renderFeed();
+
+        });
+
+      });
+
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
+
+    document
+      .getElementById("searchInput")
+      .addEventListener(
+        "input",
+        renderFeed
+      );
+
+
+    /* =====================================================
+       STORAGE
+    ===================================================== */
+
+    function savePosts() {
+
+      localStorage.setItem(
+        "fasl_posts",
+        JSON.stringify(posts)
+      );
+
+    }
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    let toastTimer;
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.textContent = message;
+
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 2500);
+
+    }
+
+
+    /* =====================================================
+       THEME
+    ===================================================== */
+
+    function toggleTheme() {
+
+      const light =
+        document.body.dataset.theme === "light";
+
+      if (!light) {
+
+        document.body.dataset.theme = "light";
+
+        document.documentElement.style.setProperty(
+          "--bg",
+          "#f3f1ec"
+        );
+
+        document.documentElement.style.setProperty(
+          "--text",
+          "#17181c"
+        );
+
+        document.documentElement.style.setProperty(
+          "--card",
+          "rgba(255,255,255,.92)"
+        );
+
+        document.documentElement.style.setProperty(
+          "--muted",
+          "#6c7079"
+        );
+
+        showToast("الوضع الفاتح ☀️");
+
+      } else {
+
+        document.body.dataset.theme = "dark";
+
+        document.documentElement.style.setProperty(
+          "--bg",
+          "#08090c"
+        );
+
+        document.documentElement.style.setProperty(
+          "--text",
+          "#f6f7fb"
+        );
+
+        document.documentElement.style.setProperty(
+          "--card",
+          "rgba(20,22,29,.88)"
+        );
+
+        document.documentElement.style.setProperty(
+          "--muted",
+          "#8d93a1"
+        );
+
+        showToast("الوضع الداكن 🌙");
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SECURITY — BASIC HTML ESCAPING
+    ===================================================== */
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
+
+    document
+      .getElementById("composerModal")
+      .addEventListener("click", event => {
+
+        if (
+          event.target.id === "composerModal"
+        ) {
+
+          closeComposer();
+
+        }
+
+      });
+
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    renderFeed();
+
+  </script>
+
+</body>
+</html>
