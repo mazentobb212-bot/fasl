@@ -1123,6 +1123,13 @@
 
     .auth-note { color: var(--muted); font-size: 11px; line-height: 1.7; margin-top: 8px; }
 
+
+    #schoolFields .field { margin-top: 12px; }
+    #schoolFields select, #schoolFields input { width:100%; }
+    #communityBadge { text-align:right; }
+    .post-card { animation: fadeUp .35s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
   </style>
 </head>
 
@@ -1240,6 +1247,12 @@
           مواقف، أسئلة، ترندات وحكايات من قلب المدرسة.
           قول اللي عندك 👀
         </p>
+
+        <div id="communityBadge" class="school-card" style="margin-top:18px;display:inline-block;min-width:280px;">
+          <small>مجتمعك</small>
+          <h3>سجّل دخول عشان تدخل جروب مدرستك 👥</h3>
+          <p>المحافظة • المدرسة • الصف</p>
+        </div>
 
       </div>
 
@@ -1551,365 +1564,328 @@
 
 
   
-<script>
-  const API_BASE = "/api";
+<script type="module">
+  // =========================================================
+  // FASL + FIREBASE
+  // Paste your Firebase web config into firebaseConfig below.
+  // =========================================================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+    signInWithEmailAndPassword, signOut
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+  import {
+    getFirestore, collection, doc, getDoc, setDoc, addDoc, updateDoc,
+    deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp,
+    increment, onSnapshot
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "PASTE_YOUR_API_KEY_HERE",
+    authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+    projectId: "PASTE_YOUR_PROJECT_ID_HERE",
+    storageBucket: "PASTE_YOUR_STORAGE_BUCKET_HERE",
+    messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
+    appId: "PASTE_YOUR_APP_ID_HERE"
+  };
+
+  const firebaseReady = !Object.values(firebaseConfig).some(v => String(v).includes("PASTE_YOUR_"));
+  let app, auth, db;
+  if (firebaseReady) {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+  }
+
   let activeFilter = "all";
   let currentUser = null;
+  let currentProfile = null;
   let authMode = "login";
+  let allPosts = [];
+  let unsubscribePosts = null;
 
-  const initialPosts = [
+  const governorates = [
+    "القاهرة","الجيزة","الإسكندرية","القليوبية","الدقهلية","الشرقية",
+    "الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد",
+    "الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","الفيوم","بني سويف",
+    "المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر",
+    "الوادي الجديد","مطروح"
+  ];
+
+  const grades = [
+    "ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتدائي 4","ابتدائي 5","ابتدائي 6",
+    "إعدادي 1","إعدادي 2","إعدادي 3",
+    "ثانوي 1","ثانوي 2","ثانوي 3",
+    "فني 1","فني 2","فني 3","فني 4","فني 5"
+  ];
+
+  const demoPosts = [
     {id:"demo-1", type:"teacher", user:"طالب مجهول", avatar:"😂", time:"مثال", title:"لما المدرس يقول آخر سؤال بجد", body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂", likes:126, comments:18, liked:false, anonymous:true},
-    {id:"demo-2", type:"story", user:"محمد", avatar:"م", time:"مثال", title:"موقف حصل في الفسحة", body:"واحد من صحابي كان بيجري ورا الكورة، دخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 💀", likes:89, comments:12, liked:false, anonymous:false},
+    {id:"demo-2", type:"story", user:"محمد", avatar:"م", time:"مثال", title:"موقف حصل في الفسحة", body:"واحد من صحابي كان بيجري ورا الكورة، دخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂", likes:89, comments:12, liked:false, anonymous:false},
     {id:"demo-3", type:"question", user:"طالب مجهول", avatar:"🤔", time:"مثال", title:"حد فاهم الجزئية دي؟", body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭", likes:54, comments:27, liked:false, anonymous:true}
   ];
 
-  let posts = [];
-
-  function escapeHTML(value) {
-    return String(value ?? "")
-      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-  }
-
-  function typeLabel(type) {
-    return ({
-      story:"😂 موقف", teacher:"👨‍🏫 موقف مع مدرس", question:"🤔 سؤال",
-      trend:"🔥 ترند", school:"🏫 المدرسة"
-    })[type] || "📝 بوست";
-  }
-
-  function formatTime(value) {
-    if (!value) return "دلوقتي";
-    const d = new Date(value.replace(" ","T") + (value.includes("Z") ? "" : "Z"));
-    if (Number.isNaN(d.getTime())) return "دلوقتي";
-    const diff = Math.max(0, Date.now() - d.getTime());
-    const mins = Math.floor(diff/60000);
-    if (mins < 1) return "دلوقتي";
-    if (mins < 60) return `منذ ${mins} دقيقة`;
-    const hrs = Math.floor(mins/60);
-    if (hrs < 24) return `منذ ${hrs} ساعة`;
-    return `منذ ${Math.floor(hrs/24)} يوم`;
-  }
-
-  async function api(path, options = {}) {
-    const opts = {...options, headers: {...(options.headers || {})}};
-    if (opts.body && typeof opts.body !== "string") {
-      opts.headers["Content-Type"] = "application/json";
-      opts.body = JSON.stringify(opts.body);
-    }
-    const res = await fetch(API_BASE + path, opts);
-    let data = {};
-    try { data = await res.json(); } catch (_) {}
-    if (!res.ok || data.success === false) {
-      throw new Error(data.error || `HTTP ${res.status}`);
-    }
-    return data;
-  }
-
-  async function loadMe() {
-    try {
-      const data = await api("/me");
-      currentUser = data.user || null;
-    } catch (_) {
-      currentUser = null;
-    }
-    updateAccountUI();
-  }
-
-  async function loadPosts() {
-    try {
-      const data = await api("/posts");
-      const serverPosts = Array.isArray(data.posts) ? data.posts : [];
-      posts = serverPosts.map(p => ({
-        id: p.id,
-        type: p.type || "story",
-        user: p.is_anonymous ? "طالب مجهول" : (p.username || "طالب"),
-        avatar: p.is_anonymous ? "👤" : (p.username || "ط").charAt(0).toUpperCase(),
-        time: formatTime(p.created_at),
-        title: p.title || "",
-        body: p.body || "",
-        likes: Number(p.likes || p.like_count || 0),
-        comments: Number(p.comments || p.comment_count || 0),
-        liked: Boolean(p.liked),
-        anonymous: Boolean(p.is_anonymous)
-      }));
-      if (!posts.length) posts = initialPosts;
-    } catch (error) {
-      posts = initialPosts;
-      showToast("تعذر تحميل البوستات من السيرفر");
-    }
-    renderFeed();
-  }
-
-  function updateAccountUI() {
-    const mini = document.querySelector(".profile-mini");
-    if (!mini) return;
-    mini.textContent = currentUser
-      ? escapeHTML((currentUser.username || "ط").charAt(0).toUpperCase())
-      : "م";
-    mini.title = currentUser ? `حساب ${currentUser.username}` : "تسجيل الدخول";
-  }
-
-  function renderFeed() {
-    const feed = document.getElementById("feed");
-    const input = document.getElementById("searchInput");
-    const query = (input?.value || "").trim().toLowerCase();
-
-    const visible = posts.filter(post => {
-      const filterOK = activeFilter === "all" || post.type === activeFilter;
-      const haystack = `${post.title || ""} ${post.body || ""} ${post.user || ""}`.toLowerCase();
-      return filterOK && (!query || haystack.includes(query));
-    });
-
-    if (!visible.length) {
-      feed.innerHTML = `<div class="empty"><div class="empty-icon">👀</div><h3>مفيش حاجة هنا لسه</h3><p>كن أول واحد ينشر حاجة.</p></div>`;
-      return;
-    }
-    feed.innerHTML = visible.map(createPostHTML).join("");
-  }
-
-  function createPostHTML(post) {
-    return `
-      <article class="post">
-        <div class="post-head">
-          <div class="avatar">${post.anonymous ? "👤" : escapeHTML(post.avatar)}</div>
-          <div class="post-user">
-            <strong>${escapeHTML(post.anonymous ? "طالب مجهول" : post.user)}</strong>
-            <span>${escapeHTML(post.time || "دلوقتي")}</span>
-          </div>
-          <button class="post-menu" onclick="reportPost('${escapeHTML(post.id)}')">⋯</button>
-        </div>
-        <span class="post-tag">${typeLabel(post.type)}</span>
-        ${post.title ? `<h2>${escapeHTML(post.title)}</h2>` : ""}
-        <div class="post-text">${escapeHTML(post.body)}</div>
-        <div class="post-stats">
-          <span>❤️ ${post.likes || 0} إعجاب</span>
-          <span>💬 ${post.comments || 0} تعليق</span>
-        </div>
-        <div class="post-actions">
-          <button class="post-action ${post.liked ? "liked" : ""}" onclick="likePost('${escapeHTML(post.id)}')">
-            ${post.liked ? "❤️" : "♡"} إعجاب
-          </button>
-          <button class="post-action" onclick="commentPost('${escapeHTML(post.id)}')">💬 تعليق</button>
-          <button class="post-action" onclick="sharePost('${escapeHTML(post.id)}')">↗ مشاركة</button>
-        </div>
-      </article>`;
-  }
-
-  async function requireLogin() {
-    if (currentUser) return true;
-    showToast("سجل دخول الأول عشان تعمل الحركة دي 👋");
-    openAuth("login");
-    return false;
-  }
-
-  async function likePost(id) {
-    if (!(await requireLogin())) return;
-    try {
-      await api(`/posts/${encodeURIComponent(id)}/like`, {method:"POST"});
-      await loadPosts();
-    } catch (error) {
-      showToast(error.message);
-    }
-  }
-
-  async function commentPost(id) {
-    if (!(await requireLogin())) return;
-    const comment = prompt("اكتب تعليقك 👇");
-    if (!comment || !comment.trim()) return;
-    try {
-      await api(`/posts/${encodeURIComponent(id)}/comments`, {
-        method:"POST",
-        body:{body:comment.trim()}
-      });
-      showToast("تم إضافة تعليقك 💬");
-      await loadPosts();
-    } catch (error) {
-      showToast(error.message);
-    }
-  }
-
-  async function reportPost(id) {
-    if (!(await requireLogin())) return;
-    const reason = prompt("ليه عايز تبلغ عن البوست؟\nاكتب السبب باختصار:");
-    if (!reason || !reason.trim()) return;
-    try {
-      await api(`/posts/${encodeURIComponent(id)}/report`, {
-        method:"POST",
-        body:{reason:reason.trim()}
-      });
-      showToast("تم إرسال البلاغ للمراجعة 🚩");
-    } catch (error) {
-      showToast(error.message);
-    }
-  }
-
-  async function sharePost(id) {
-    const post = posts.find(p => String(p.id) === String(id));
-    if (!post) return;
-    const text = `${post.title || "بوست من فَصْل"}\n${post.body}`;
-    try {
-      if (navigator.share) await navigator.share({title:"فَصْل", text});
-      else {
-        await navigator.clipboard.writeText(text);
-        showToast("اتنسخ البوست 📋");
-      }
-    } catch (_) {}
-  }
-
-  function openComposer(type = null) {
-    if (!currentUser) {
-      showToast("اعمل حساب أو سجل دخول الأول 👋");
-      openAuth("login");
-      return;
-    }
-    document.getElementById("composerModal").classList.add("show");
-    if (type) document.getElementById("postType").value = type;
-    setTimeout(() => document.getElementById("postTitle").focus(), 100);
-  }
-
-  function closeComposer() {
-    document.getElementById("composerModal").classList.remove("show");
-  }
-
-  async function createPost() {
-    if (!(await requireLogin())) return;
-    const type = document.getElementById("postType").value;
-    const title = document.getElementById("postTitle").value.trim();
-    const body = document.getElementById("postBody").value.trim();
-    const anonymous = document.getElementById("anonymousPost").checked;
-
-    if (body.length < 5) {
-      showToast("اكتب شوية تفاصيل أكتر 👀");
-      return;
-    }
-
-    try {
-      await api("/posts", {
-        method:"POST",
-        body:{type, title, body, anonymous}
-      });
-      closeComposer();
-      clearComposer();
-      showToast("البوست نزل في فَصْل 🚀");
-      await loadPosts();
-    } catch (error) {
-      showToast(error.message);
-    }
-  }
-
-  function clearComposer() {
-    document.getElementById("postTitle").value = "";
-    document.getElementById("postBody").value = "";
-    document.getElementById("anonymousPost").checked = false;
-  }
-
-  function openAuth(mode = "login") {
-    authMode = mode;
-    document.getElementById("authModal").classList.add("show");
-    document.getElementById("authTitle").textContent = mode === "login" ? "تسجيل الدخول 👋" : "اعمل حساب جديد 🎉";
-    document.getElementById("usernameField").style.display = mode === "login" ? "none" : "block";
-    document.getElementById("authSubmit").textContent = mode === "login" ? "دخول 🚀" : "إنشاء الحساب 🚀";
-    document.getElementById("authSwitch").textContent = mode === "login"
-      ? "معندكش حساب؟ اعمل حساب"
-      : "عندك حساب؟ سجل دخول";
-  }
-
-  function closeAuth() {
-    document.getElementById("authModal").classList.remove("show");
-  }
-
-  function toggleAuthMode() {
-    openAuth(authMode === "login" ? "register" : "login");
-  }
-
-  async function submitAuth() {
-    const username = document.getElementById("authUsername").value.trim();
-    const email = document.getElementById("authEmail").value.trim();
-    const password = document.getElementById("authPassword").value;
-
-    if (!email || !password || (authMode === "register" && !username)) {
-      showToast("كمّل البيانات الأول 👀");
-      return;
-    }
-
-    try {
-      const endpoint = authMode === "login" ? "/login" : "/register";
-      const body = authMode === "login"
-        ? {email, password}
-        : {username, email, password};
-
-      const data = await api(endpoint, {method:"POST", body});
-      currentUser = data.user || null;
-      closeAuth();
-      document.getElementById("authPassword").value = "";
-      await loadMe();
-      await loadPosts();
-      showToast(authMode === "login" ? "نورت فَصْل 👋" : "أهلاً بيك في فَصْل 🎉");
-    } catch (error) {
-      showToast(error.message);
-    }
-  }
-
-  async function accountAction() {
-    if (!currentUser) {
-      openAuth("login");
-      return;
-    }
-    const logout = confirm(`أنت داخل باسم ${currentUser.username}\nعايز تعمل تسجيل خروج؟`);
-    if (!logout) return;
-    try {
-      await api("/logout", {method:"POST"});
-      currentUser = null;
-      updateAccountUI();
-      showToast("تم تسجيل الخروج 👋");
-    } catch (error) {
-      showToast(error.message);
-    }
-  }
+  const $ = id => document.getElementById(id);
+  const escapeHTML = value => String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c]));
+  const timeText = ts => {
+    if (!ts?.toDate) return "دلوقتي";
+    const d = ts.toDate(), diff = Math.max(0, Date.now() - d.getTime()) / 1000;
+    if (diff < 60) return "منذ لحظات";
+    if (diff < 3600) return `منذ ${Math.floor(diff/60)} د`;
+    if (diff < 86400) return `منذ ${Math.floor(diff/3600)} س`;
+    return d.toLocaleDateString("ar-EG", {day:"numeric", month:"short"});
+  };
+  const communityId = (gov, school, grade) =>
+    `${gov}__${school}__${grade}`.trim().toLowerCase().replace(/\s+/g,"-");
 
   function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+    const t = $("toast");
+    t.textContent = message;
+    t.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  window.showToast = showToast;
+
+  function fillSelect(id, values, placeholder) {
+    const el = $(id);
+    if (!el) return;
+    el.innerHTML = `<option value="">${placeholder}</option>` + values.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("");
   }
 
-  function toggleTheme() {
-    const light = document.body.dataset.theme === "light";
-    document.body.dataset.theme = light ? "dark" : "light";
-    document.documentElement.style.setProperty("--bg", light ? "#08090c" : "#f3f1ec");
-    document.documentElement.style.setProperty("--text", light ? "#f6f7fb" : "#17181c");
-    document.documentElement.style.setProperty("--card", light ? "rgba(20,22,29,.88)" : "rgba(255,255,255,.92)");
-    document.documentElement.style.setProperty("--muted", light ? "#8d93a1" : "#6c7079");
-    showToast(light ? "الوضع الداكن 🌙" : "الوضع الفاتح ☀️");
+  function setupSchoolFields() {
+    fillSelect("authGovernorate", governorates, "اختار المحافظة");
+    fillSelect("authGrade", grades, "اختار الصف");
   }
 
-  document.querySelectorAll(".filter").forEach(button => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-      button.classList.add("active");
-      activeFilter = button.dataset.filter;
-      renderFeed();
+  function openAuth(mode="login") {
+    authMode = mode;
+    $("authModal").classList.add("show");
+    $("authTitle").textContent = mode === "login" ? "تسجيل الدخول 👋" : "اعمل حساب في فَصْل 🚀";
+    $("authSwitch").textContent = mode === "login" ? "معندكش حساب؟ اعمل حساب" : "عندك حساب؟ سجل دخول";
+    $("authSubmit").textContent = mode === "login" ? "دخول 🚀" : "إنشاء الحساب ✨";
+    $("usernameField").style.display = mode === "login" ? "none" : "block";
+    $("schoolFields").style.display = mode === "login" ? "none" : "block";
+  }
+  function closeAuth(){ $("authModal").classList.remove("show"); }
+  function toggleAuthMode(){ openAuth(authMode === "login" ? "register" : "login"); }
+  window.openAuth = openAuth; window.closeAuth = closeAuth; window.toggleAuthMode = toggleAuthMode;
+
+  async function submitAuth(){
+    if (!firebaseReady) return showToast("حط Firebase config في أول ملف HTML الأول ⚙️");
+    const email = $("authEmail").value.trim();
+    const password = $("authPassword").value;
+    if (!email || password.length < 6) return showToast("اكتب إيميل وكلمة مرور 6 حروف أو أكثر.");
+    try {
+      if (authMode === "login") {
+        await signInWithEmailAndPassword(auth, email, password);
+        closeAuth(); showToast("أهلاً بيك تاني في فَصْل 👋");
+      } else {
+        const username = $("authUsername").value.trim();
+        const governorate = $("authGovernorate").value;
+        const school = $("authSchool").value.trim();
+        const grade = $("authGrade").value;
+        if (!username || !governorate || !school || !grade) return showToast("كمّل المحافظة والمدرسة والصف.");
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", cred.user.uid), {
+          username, governorate, school, grade,
+          communityId: communityId(governorate, school, grade),
+          createdAt: serverTimestamp()
+        });
+        closeAuth(); showToast("الحساب اتعمل! أهلاً بيك في مجتمعك 🎉");
+      }
+    } catch (err) {
+      const map = {
+        "auth/email-already-in-use":"الإيميل ده مستخدم بالفعل.",
+        "auth/invalid-email":"الإيميل مش صحيح.",
+        "auth/weak-password":"كلمة المرور ضعيفة. استخدم 6 حروف أو أكثر.",
+        "auth/invalid-credential":"الإيميل أو كلمة المرور غلط.",
+        "auth/operation-not-allowed":"فعّل Email/Password من Firebase Authentication."
+      };
+      showToast(map[err.code] || "حصل خطأ. جرّب تاني.");
+      console.error(err);
+    }
+  }
+  window.submitAuth = submitAuth;
+
+  async function loadProfile(user){
+    if (!db || !user) return null;
+    const snap = await getDoc(doc(db,"users",user.uid));
+    return snap.exists() ? {id:snap.id, ...snap.data()} : null;
+  }
+
+  function updateUI(){
+    const initial = currentProfile?.username?.trim()?.[0] || "م";
+    document.querySelectorAll(".profile-mini,.composer .avatar").forEach(el => el.textContent = initial);
+    const schoolCard = document.querySelector(".school-card");
+    if (schoolCard && currentProfile) {
+      schoolCard.querySelector("h3").textContent = currentProfile.school;
+      schoolCard.querySelector("p").textContent = `${currentProfile.governorate} • ${currentProfile.grade}`;
+    }
+    const communityBadge = $("communityBadge");
+    if (communityBadge && currentProfile) {
+      communityBadge.querySelector("h3").textContent = `جروب ${currentProfile.school} — ${currentProfile.grade} 👥`;
+      communityBadge.querySelector("p").textContent = `${currentProfile.governorate} • كل البوستات هنا خاصة بالمجتمع ده`;
+    }
+  }
+
+  async function loadPosts(){
+    if (!firebaseReady || !db || !currentProfile) { allPosts = demoPosts; renderFeed(); return; }
+    try {
+      const q = query(collection(db,"posts"), where("communityId","==",currentProfile.communityId), limit(100));
+      if (unsubscribePosts) unsubscribePosts();
+      unsubscribePosts = onSnapshot(q, async snap => {
+        allPosts = snap.docs.map(d => ({id:d.id, ...d.data()}));
+        allPosts.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+        if (currentUser) {
+          const likedPairs = await Promise.all(allPosts.map(async p => [p.id, (await getDoc(doc(db,"posts",p.id,"likes",currentUser.uid))).exists()]));
+          const likedIds = new Set(likedPairs.filter(([,yes]) => yes).map(([id]) => id));
+          allPosts = allPosts.map(p => ({...p, liked:likedIds.has(p.id)}));
+        }
+        renderFeed();
+      }, err => { console.error(err); allPosts = demoPosts; renderFeed(); showToast("تعذر تحميل البوستات دلوقتي."); });
+    } catch(err){ console.error(err); allPosts = demoPosts; renderFeed(); }
+  }
+
+  function renderFeed(){
+    const search = $("searchInput").value.trim().toLowerCase();
+    let posts = allPosts.filter(p => {
+      const filterOk = activeFilter === "all" || p.type === activeFilter;
+      const text = `${p.title||""} ${p.body||""}`.toLowerCase();
+      return filterOk && (!search || text.includes(search));
     });
-  });
+    if (!posts.length) posts = [{id:"empty", type:"story", user:"فَصْل", avatar:"ف", time:"دلوقتي", title:"مفيش بوستات لسه 👀", body:"كن أول واحد يحكي حاجة في مجتمع مدرستك!", likes:0, comments:0, liked:false, anonymous:false, empty:true}];
+    $("feed").innerHTML = posts.map(renderPost).join("");
+  }
 
-  document.getElementById("searchInput").addEventListener("input", renderFeed);
-  document.querySelector(".profile-mini").addEventListener("click", accountAction);
+  function renderPost(post){
+    const avatar = post.anonymous ? "👤" : escapeHTML((post.user||post.username||"م").slice(0,1));
+    const user = post.anonymous ? "طالب مجهول" : escapeHTML(post.user||post.username||"طالب");
+    return `<article class="post-card" data-id="${escapeHTML(post.id)}">
+      <div class="post-head"><div class="post-avatar">${avatar}</div><div class="post-user"><strong>${user}</strong><span>${escapeHTML(timeText(post.createdAt)||post.time||"دلوقتي")}</span></div><span class="post-type">${typeLabel(post.type)}</span></div>
+      <h3>${escapeHTML(post.title||"")}</h3><p>${escapeHTML(post.body||"")}</p>
+      <div class="post-actions">
+        <button onclick="likePost('${escapeHTML(post.id)}')">${post.liked?'❤️':'🤍'} ${Number(post.likes||0)}</button>
+        <button onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments||0)}</button>
+        ${post.empty?'':'<button onclick="reportPost(\''+escapeHTML(post.id)+'\')">🚩 إبلاغ</button>'}
+      </div>
+    </article>`;
+  }
+  function typeLabel(type){ return ({story:"😂 موقف",teacher:"👨‍🏫 مدرس",question:"🤔 سؤال",trend:"🔥 ترند",school:"🏫 المدرسة"}[type]||"📝 بوست"); }
 
-  document.getElementById("composerModal").addEventListener("click", e => {
-    if (e.target.id === "composerModal") closeComposer();
-  });
-  document.getElementById("authModal").addEventListener("click", e => {
-    if (e.target.id === "authModal") closeAuth();
-  });
+  function openComposer(type="story"){
+    if (!currentUser) return openAuth("login");
+    $("composerModal").classList.add("show");
+    $("postType").value = type;
+  }
+  function closeComposer(){ $("composerModal").classList.remove("show"); }
+  window.openComposer=openComposer; window.closeComposer=closeComposer;
 
-  (async function start() {
-    renderFeed();
-    await loadMe();
-    await loadPosts();
-  })();
+  async function createPost(){
+    if (!currentUser || !currentProfile) return openAuth("login");
+    const type=$("postType").value, title=$("postTitle").value.trim(), body=$("postBody").value.trim(), anonymous=$("anonymousPost").checked;
+    if (!body) return showToast("اكتب البوست الأول ✍️");
+    try {
+      await addDoc(collection(db,"posts"), {
+        type,title,body,anonymous,
+        authorId:currentUser.uid,
+        user:anonymous?"طالب مجهول":currentProfile.username,
+        communityId:currentProfile.communityId,
+        governorate:currentProfile.governorate,
+        school:currentProfile.school,
+        grade:currentProfile.grade,
+        likes:0, comments:0, createdAt:serverTimestamp()
+      });
+      $("postTitle").value=""; $("postBody").value=""; $("anonymousPost").checked=false; closeComposer(); showToast("البوست اتنشر 🚀");
+    } catch(err){ console.error(err); showToast("مش قادر أنشر دلوقتي. راجع Firestore Rules."); }
+  }
+  window.createPost=createPost;
+
+  async function likePost(postId){
+    if (!currentUser) return openAuth("login");
+    if (String(postId).startsWith("demo-")) return showToast("سجّل دخول عشان تتفاعل مع البوستات الحقيقية.");
+    const likeRef=doc(db,"posts",postId,"likes",currentUser.uid);
+    const snap=await getDoc(likeRef);
+    try {
+      const postRef = doc(db,"posts",postId);
+      if (snap.exists()) { await deleteDoc(likeRef); await updateDoc(postRef,{likes:increment(-1)}); }
+      else { await setDoc(likeRef,{userId:currentUser.uid,postId,createdAt:serverTimestamp()}); await updateDoc(postRef,{likes:increment(1)}); }
+    } catch(err){ console.error(err); showToast("التفاعل مش متاح دلوقتي."); }
+  }
+  window.likePost=likePost;
+
+  async function openComments(postId){
+    if (!currentUser) return openAuth("login");
+    if (String(postId).startsWith("demo-")) return showToast("التعليقات هتظهر مع البوستات الحقيقية.");
+    const q=query(collection(db,"posts",postId,"comments"),orderBy("createdAt","desc"),limit(30));
+    const snap=await getDocs(q);
+    const comments=snap.docs.map(d=>d.data());
+    const text=comments.length ? comments.map(c=>`${c.anonymous?"طالب مجهول":c.username||"طالب"}: ${c.body}`).join("\n\n") : "مفيش تعليقات لسه.";
+    const body=prompt(`تعليقات البوست:\n\n${text}\n\nاكتب تعليق جديد (أو Cancel):`);
+    if (!body?.trim()) return;
+    try { await addDoc(collection(db,"posts",postId,"comments"),{authorId:currentUser.uid,username:currentProfile.username,body:body.trim().slice(0,500),anonymous:false,createdAt:serverTimestamp()}); await updateDoc(doc(db,"posts",postId),{comments:increment(1)}); showToast("تم إضافة التعليق 💬"); }
+    catch(err){ console.error(err); showToast("مش قادر أضيف التعليق."); }
+  }
+  window.openComments=openComments;
+
+  async function reportPost(postId){
+    if (!currentUser) return openAuth("login");
+    const reason=prompt("ليه عايز تبلغ عن البوست؟\nاكتب السبب باختصار:");
+    if (!reason?.trim()) return;
+    try { await addDoc(collection(db,"posts",postId,"reports"),{reporterId:currentUser.uid,reason:reason.trim().slice(0,300),createdAt:serverTimestamp()}); showToast("وصل البلاغ لفريق المراجعة 🚩"); }
+    catch(err){ console.error(err); showToast("تعذر إرسال البلاغ."); }
+  }
+  window.reportPost=reportPost;
+
+  async function accountAction(){
+    if (!currentUser) return openAuth("login");
+    const answer=confirm(`حسابك: ${currentProfile?.username||"طالب"}\n${currentProfile?.school||""} • ${currentProfile?.grade||""}\n\nاضغط OK لتسجيل الخروج.`);
+    if (answer) { await signOut(auth); showToast("خرجت من الحساب 👋"); }
+  }
+  window.accountAction=accountAction;
+
+  function toggleTheme(){
+    const light=document.body.dataset.theme==="light";
+    document.body.dataset.theme=light?"dark":"light";
+    document.documentElement.style.setProperty("--bg",light?"#08090c":"#f3f1ec");
+    document.documentElement.style.setProperty("--text",light?"#f6f7fb":"#17181c");
+    document.documentElement.style.setProperty("--card",light?"rgba(20,22,29,.88)":"rgba(255,255,255,.92)");
+    document.documentElement.style.setProperty("--muted",light?"#8d93a1":"#6c7079");
+    showToast(light?"الوضع الداكن 🌙":"الوضع الفاتح ☀️");
+  }
+  window.toggleTheme=toggleTheme;
+
+  document.querySelectorAll(".filter").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));button.classList.add("active");activeFilter=button.dataset.filter;renderFeed();}));
+  $("searchInput").addEventListener("input",renderFeed);
+  document.querySelector(".profile-mini").addEventListener("click",accountAction);
+  $("composerModal").addEventListener("click",e=>{if(e.target.id==="composerModal")closeComposer();});
+  $("authModal").addEventListener("click",e=>{if(e.target.id==="authModal")closeAuth();});
+
+  // Add the school/grade controls to the existing auth modal without needing another HTML file.
+  const usernameField=$("usernameField");
+  const schoolFields=document.createElement("div");
+  schoolFields.id="schoolFields";
+  schoolFields.style.display="none";
+  schoolFields.innerHTML=`
+    <div class="field"><label>المحافظة</label><select id="authGovernorate"></select></div>
+    <div class="field"><label>اسم المدرسة</label><input id="authSchool" maxlength="120" placeholder="اكتب اسم مدرستك"></div>
+    <div class="field"><label>الصف</label><select id="authGrade"></select></div>
+    <div class="auth-note">اكتب اسم المدرسة فقط — بدون عنوان أو رقم تليفون أو أي بيانات شخصية.</div>`;
+  usernameField.parentNode.insertBefore(schoolFields, usernameField.nextSibling);
+  setupSchoolFields();
+
+  if (!firebaseReady) {
+    showToast("الخطوة الأخيرة: حط Firebase config في الملف ⚙️");
+    allPosts=demoPosts; renderFeed();
+  } else {
+    onAuthStateChanged(auth, async user=>{
+      currentUser=user;
+      currentProfile=user ? await loadProfile(user) : null;
+      updateUI();
+      if (user && !currentProfile) { showToast("كمّل بيانات المدرسة من إنشاء الحساب."); }
+      await loadPosts();
+    });
+  }
 </script>
 
 
