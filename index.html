@@ -1293,6 +1293,11 @@ a{
   }
 }
 </style>
+<style id="fasl-v2-badge">
+.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:8px 11px;border:1px solid rgba(244,201,104,.22);border-radius:999px;background:rgba(18,20,28,.86);backdrop-filter:blur(12px);color:#f4c968;font:800 10px/1 system-ui;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
+body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
+@media(max-width:700px){.fasl-v2-badge{left:8px;bottom:8px;font-size:9px}}
+</style>
 </head>
 
 <body>
@@ -2129,8 +2134,8 @@ function escapeHTML(value){
     }[char]));
 }
 
-function communityId(governorate, school, grade){
-  return `${governorate}__${school}__${grade}`
+function communityId(governorate, school){
+  return `${governorate}__${school}`
     .trim()
     .toLowerCase()
     .replace(/\s+/g,"-");
@@ -3833,6 +3838,232 @@ onAuthStateChanged(
 
 updateUI();
 
+</script>
+
+
+<!-- Fَصْل v2 — Next Level School Community Layer -->
+<div class="fasl-v2-badge">فَصْل • School Community v2</div>
+
+<style id="fasl-v2-style">
+:root{--v2-gold:#f4c968;--v2-purple:#7966ff;--v2-green:#5ee0a0;--v2-red:#ff6b7a;--v2-card:rgba(255,255,255,.045)}
+.v2-overlay{position:fixed;inset:0;background:rgba(4,6,10,.72);backdrop-filter:blur(10px);z-index:10000;display:none;align-items:center;justify-content:center;padding:18px}
+.v2-overlay.show{display:flex}
+.v2-panel{width:min(1100px,100%);max-height:min(92vh,900px);overflow:auto;background:#11141c;border:1px solid rgba(244,201,104,.18);border-radius:28px;box-shadow:0 30px 100px rgba(0,0,0,.55);color:#fff}
+body.light .v2-panel{background:#fff;color:#171922}
+.v2-head{position:sticky;top:0;z-index:3;padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08);background:inherit;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.v2-head h2{margin:0;font-size:20px}.v2-head p{margin:5px 0 0;color:#9da3b3;font-size:11px}
+.v2-close{width:38px;height:38px;border:0;border-radius:12px;background:rgba(255,255,255,.07);color:inherit;cursor:pointer;font-size:20px}
+.v2-content{padding:22px}
+.v2-school-hero{border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,#191d2b,#10121a)}
+.v2-cover{height:150px;background:radial-gradient(circle at 75% 25%,rgba(244,201,104,.35),transparent 25%),linear-gradient(135deg,#2c2557,#11131b);position:relative}
+.v2-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.v2-school-meta{padding:0 22px 22px;display:flex;gap:16px;align-items:end;margin-top:-36px;position:relative;z-index:2}
+.v2-avatar{width:78px;height:78px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#16110a;font-weight:1000;font-size:30px;border:4px solid #11141c;flex:0 0 auto}
+.v2-school-meta h1{font-size:25px;margin:0}.v2-school-meta p{margin:5px 0 0;color:#a8adba;font-size:12px}
+.v2-tabs{display:flex;gap:7px;overflow:auto;padding:14px 0 0}.v2-tab{border:0;background:rgba(255,255,255,.06);color:#b9bdc8;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap}.v2-tab.active{background:rgba(244,201,104,.15);color:var(--v2-gold)}
+.v2-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.8fr);gap:16px;margin-top:16px}
+.v2-box{padding:17px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:var(--v2-card)}
+.v2-box h3{margin:0 0 12px;font-size:15px}.v2-box p{color:#aeb3c0;font-size:11px;line-height:1.8}
+.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.v2-stat{padding:13px;border-radius:14px;background:rgba(255,255,255,.045);text-align:center}.v2-stat strong{display:block;font-size:19px}.v2-stat span{color:#8e94a3;font-size:9px}
+.v2-actions{display:flex;gap:8px;flex-wrap:wrap}.v2-btn{border:0;border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:900}.v2-primary{background:var(--v2-gold);color:#181208}.v2-soft{background:rgba(255,255,255,.07);color:inherit}
+.v2-feed-card{border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:15px;margin-bottom:10px;background:rgba(255,255,255,.035)}.v2-feed-top{display:flex;align-items:center;gap:10px}.v2-mini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;font-weight:1000}.v2-feed-card h4{margin:0;font-size:12px}.v2-feed-card small{color:#818796}.v2-feed-card .body{margin-top:11px;font-size:12px;line-height:1.8}.v2-pills{display:flex;gap:7px;flex-wrap:wrap}.v2-pill{font-size:10px;padding:7px 10px;border-radius:999px;background:rgba(121,102,255,.12);color:#b9afff}
+.v2-list{display:flex;flex-direction:column;gap:8px}.v2-row{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.04)}.v2-row strong{font-size:11px}.v2-row span{font-size:10px;color:#8e94a3}
+.v2-empty{padding:25px;text-align:center;color:#8e94a3;font-size:12px}
+.v2-admin{border:1px solid rgba(255,107,122,.22);background:rgba(255,107,122,.06)}
+.v2-form{display:grid;gap:9px}.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:11px;background:rgba(255,255,255,.05);color:inherit;outline:0}.v2-textarea{min-height:90px;resize:vertical}
+@media(max-width:800px){.v2-grid{grid-template-columns:1fr}.v2-school-meta{align-items:center}.v2-cover{height:115px}.v2-content{padding:14px}.v2-panel{border-radius:20px}.v2-statgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.v2-school-meta h1{font-size:18px}.v2-avatar{width:62px;height:62px;border-radius:17px;font-size:23px}.v2-stat strong{font-size:16px}.v2-head{padding:15px}.v2-head h2{font-size:17px}}
+</style>
+
+<div id="v2SchoolHub" class="v2-overlay" aria-hidden="true">
+  <div class="v2-panel">
+    <div class="v2-head">
+      <div><h2 id="v2HubTitle">جروب المدرسة</h2><p>مجتمع طلابي خاص بالمدرسة</p></div>
+      <button class="v2-close" onclick="closeV2('v2SchoolHub')">×</button>
+    </div>
+    <div class="v2-content">
+      <div class="v2-school-hero">
+        <div class="v2-cover"></div>
+        <div class="v2-school-meta">
+          <div id="v2HubAvatar" class="v2-avatar">🏫</div>
+          <div><h1 id="v2HubSchool">مدرستك</h1><p id="v2HubGov">مصر</p></div>
+        </div>
+        <div style="padding:0 22px 20px">
+          <div class="v2-actions">
+            <button class="v2-btn v2-primary" onclick="v2OpenPost()">✍️ اكتب بوست</button>
+            <button class="v2-btn v2-soft" onclick="v2JoinCurrent()">🚀 دخول الجروب</button>
+            <button class="v2-btn v2-soft" onclick="v2OpenAdmin()">🛡️ الإدارة</button>
+          </div>
+          <div class="v2-tabs">
+            <button class="v2-tab active" data-v2tab="posts" onclick="v2Tab('posts')">المنشورات</button>
+            <button class="v2-tab" data-v2tab="announcements" onclick="v2Tab('announcements')">الإعلانات</button>
+            <button class="v2-tab" data-v2tab="events" onclick="v2Tab('events')">الفعاليات</button>
+            <button class="v2-tab" data-v2tab="students" onclick="v2Tab('students')">الطلاب</button>
+          </div>
+        </div>
+      </div>
+      <div id="v2HubBody"></div>
+    </div>
+  </div>
+</div>
+
+<div id="v2PostModal" class="v2-overlay" aria-hidden="true">
+  <div class="v2-panel" style="max-width:650px">
+    <div class="v2-head"><div><h2>منشور جديد</h2><p>شارك حاجة مفيدة مع مجتمع مدرستك</p></div><button class="v2-close" onclick="closeV2('v2PostModal')">×</button></div>
+    <div class="v2-content">
+      <div class="v2-form">
+        <input id="v2PostTitle" class="v2-input" placeholder="عنوان اختياري">
+        <textarea id="v2PostBody" class="v2-textarea" placeholder="اكتب منشورك..."></textarea>
+        <select id="v2PostType" class="v2-select"><option value="post">📝 منشور</option><option value="announcement">📢 إعلان</option><option value="question">❓ سؤال</option><option value="study">📚 مذاكرة</option></select>
+        <button class="v2-btn v2-primary" onclick="v2CreatePost()">نشر 🚀</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="v2AdminModal" class="v2-overlay" aria-hidden="true">
+  <div class="v2-panel" style="max-width:720px">
+    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات آمنة لإدارة المنشورات والبلاغات</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
+    <div class="v2-content">
+      <div class="v2-box v2-admin">
+        <h3>🛡️ الإشراف</h3>
+        <p>هذه الواجهة تظهر أدوات الإدارة فقط عند ضبط <b>moderator=true</b> في ملف المستخدم من لوحة Firebase. لا تعتمد على الواجهة وحدها للحماية؛ قواعد Firestore هي طبقة الأمان الأساسية.</p>
+      </div>
+      <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات المتاحة لحساب الإدارة.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()">تحديث</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const V2 = {
+    school: null,
+    gov: null,
+    tab: "posts"
+  };
+  window.__FASL_V2 = V2;
+
+  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+  function show(id){const e=document.getElementById(id); if(e)e.classList.add("show");}
+  function hide(id){const e=document.getElementById(id); if(e)e.classList.remove("show");}
+  window.closeV2=hide;
+
+  function currentSchool(){
+    return window.currentProfile?.school || "";
+  }
+  function currentGov(){
+    return window.currentProfile?.governorate || "";
+  }
+
+  window.openV2SchoolHub = async function(school, gov){
+    if(!window.currentUser){
+      if(typeof window.openAuth==="function") window.openAuth("login");
+      return;
+    }
+    V2.school = school || currentSchool();
+    V2.gov = gov || currentGov();
+    document.getElementById("v2HubSchool").textContent = V2.school || "مدرستك";
+    document.getElementById("v2HubGov").textContent = V2.gov || "مصر";
+    document.getElementById("v2HubTitle").textContent = `جروب ${V2.school || "المدرسة"}`;
+    document.getElementById("v2HubAvatar").textContent = (V2.school||"م").trim().charAt(0).toUpperCase();
+    show("v2SchoolHub");
+    await v2Tab("posts");
+  };
+
+  window.v2Tab = async function(tab){
+    V2.tab = tab;
+    document.querySelectorAll(".v2-tab").forEach(b=>b.classList.toggle("active",b.dataset.v2tab===tab));
+    const body=document.getElementById("v2HubBody");
+    body.innerHTML='<div class="v2-empty">جاري التحميل…</div>';
+    if(tab==="students") return v2Students(body);
+    if(tab==="events") return v2Events(body);
+    if(tab==="announcements") return v2Posts(body,"announcement");
+    return v2Posts(body,null);
+  };
+
+  async function v2Posts(body,type){
+    const q=window.query(window.collection(window.db,"posts"), window.where("communityId","==",window.communityId(V2.gov,V2.school)), window.orderBy("createdAt","desc"), window.limit(40));
+    const snap=await window.getDocs(q);
+    const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>!type || p.type===type || (type==="announcement" && p.postType==="announcement"));
+    if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات هنا. كن أول واحد يشارك حاجة مفيدة ✨</div>';return;}
+    body.innerHTML='<div class="v2-grid"><main>'+docs.map(p=>`
+      <article class="v2-feed-card">
+        <div class="v2-feed-top"><div class="v2-mini">${esc((p.anonymous?"ط":(p.username||"ط")).charAt(0))}</div><div><h4>${p.anonymous?"طالب مجهول":esc(p.username||"طالب")}</h4><small>${esc(p.type||"post")}</small></div></div>
+        ${p.title?`<h3 style="margin:12px 0 0;font-size:14px">${esc(p.title)}</h3>`:""}
+        <div class="body">${esc(p.body||"")}</div>
+        <div class="v2-pills" style="margin-top:11px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
+      </article>`).join("")+'</main><aside><div class="v2-box"><h3>📌 مجتمع المدرسة</h3><p>احترم زملاءك، ومتشاركش بيانات شخصية زي رقم التليفون أو العنوان.</p></div><div class="v2-box" style="margin-top:10px"><h3>✨ اختصارات</h3><div class="v2-actions"><button class="v2-btn v2-soft" onclick="v2OpenPost()">منشور</button><button class="v2-btn v2-soft" onclick="v2Tab(\'events\')">فعالية</button></div></div></aside></div>';
+  }
+
+  async function v2Students(body){
+    const q=window.query(window.collection(window.db,"users"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.limit(60));
+    const snap=await window.getDocs(q);
+    const docs=snap.docs.map(d=>d.data());
+    body.innerHTML=`<div class="v2-box"><h3>👥 طلاب ${esc(V2.school)}</h3><div class="v2-statgrid"><div class="v2-stat"><strong>${docs.length}</strong><span>طلاب ظاهرون</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("ثانوي")).length}</strong><span>ثانوي</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("إعدادي")).length}</strong><span>إعدادي</span></div></div><div class="v2-list" style="margin-top:12px">${docs.map(x=>`<div class="v2-row"><strong>${esc(x.username||"طالب")}</strong><span>${esc(x.grade||"طالب")}</span></div>`).join("") || '<div class="v2-empty">مفيش طلاب ظاهرين لسه.</div>'}</div>`;
+  }
+
+  async function v2Events(body){
+    const q=window.query(window.collection(window.db,"events"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.orderBy("startAt","asc"),window.limit(30));
+    let docs=[];
+    try{const snap=await window.getDocs(q);docs=snap.docs.map(d=>({id:d.id,...d.data()}));}catch(e){}
+    body.innerHTML=`<div class="v2-box"><h3>📅 فعاليات المدرسة</h3>${docs.map(x=>`<div class="v2-row"><strong>${esc(x.title||"فعالية")}</strong><span>${esc(x.dateLabel||x.startAt||"موعد لاحق")}</span></div>`).join("")||'<div class="v2-empty">مفيش فعاليات مضافة لسه.</div>'}</div>`;
+  }
+
+  window.v2OpenPost=function(){ if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;} show("v2PostModal"); };
+  window.v2CreatePost=async function(){
+    const body=document.getElementById("v2PostBody").value.trim();
+    if(!body){alert("اكتب المنشور الأول.");return;}
+    const title=document.getElementById("v2PostTitle").value.trim();
+    const type=document.getElementById("v2PostType").value;
+    try{
+      await window.addDoc(window.collection(window.db,"posts"),{
+        title,body,type,
+        postType:type,
+        authorId:window.currentUser.uid,
+        username:window.currentProfile?.username||"طالب",
+        communityId:window.communityId(V2.gov,V2.school),
+        governorate:V2.gov,school:V2.school,grade:window.currentProfile?.grade||"",
+        likes:0,comments:0,createdAt:window.serverTimestamp()
+      });
+      document.getElementById("v2PostBody").value="";
+      document.getElementById("v2PostTitle").value="";
+      hide("v2PostModal");
+      if(window.showToast)window.showToast("اتنشر في جروب المدرسة 🚀");
+      await v2Tab(V2.tab);
+    }catch(e){console.error(e);alert("النشر فشل. راجع Firestore Rules.");}
+  };
+
+  window.v2JoinCurrent=async function(){
+    if(window.showToast)window.showToast("أنت داخل مجتمع المدرسة الحالي.");
+  };
+
+  window.v2OpenAdmin=function(){
+    if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;}
+    show("v2AdminModal");
+  };
+
+  window.v2LoadReports=async function(){
+    const box=document.getElementById("v2Reports");
+    try{
+      const snap=await window.getDocs(window.query(window.collection(window.db,"reports"),window.orderBy("createdAt","desc"),window.limit(30)));
+      const docs=snap.docs.map(d=>({id:d.id,...d.data()}));
+      box.innerHTML='<h3>🚩 البلاغات</h3>'+ (docs.map(r=>`<div class="v2-row"><strong>${esc(r.reason||"بلاغ")}</strong><span>${esc(r.postId||"")}</span></div>`).join("")||'<div class="v2-empty">مفيش بلاغات.</div>');
+    }catch(e){box.innerHTML='<h3>🚩 البلاغات</h3><div class="v2-empty">حسابك مش عنده صلاحية عرض البلاغات.</div>'; }
+  };
+
+  // Upgrade the old school button to the real hub.
+  window.openMySchool=function(event){
+    if(event)event.preventDefault();
+    if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;}
+    window.openV2SchoolHub(currentSchool(),currentGov());
+  };
+
+  // Close on backdrop click.
+  ["v2SchoolHub","v2PostModal","v2AdminModal"].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener("click",e=>{if(e.target===el)hide(id);});
+  });
+})();
 </script>
 
 </body>
