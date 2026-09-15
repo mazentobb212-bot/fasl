@@ -1120,6 +1120,9 @@
         font-size:20px;
       }
     }
+
+    .auth-note { color: var(--muted); font-size: 11px; line-height: 1.7; margin-top: 8px; }
+
   </style>
 </head>
 
@@ -1507,681 +1510,411 @@
   </div>
 
 
+
+  <!-- AUTH MODAL -->
+  <div class="modal-layer" id="authModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="authTitle">تسجيل الدخول 👋</h2>
+        <button class="close" onclick="closeAuth()">✕</button>
+      </div>
+
+      <div class="field" id="usernameField" style="display:none">
+        <label>اسم المستخدم</label>
+        <input id="authUsername" maxlength="30" placeholder="مثلاً: mazen123">
+      </div>
+
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input id="authEmail" type="email" maxlength="120" placeholder="example@email.com">
+      </div>
+
+      <div class="field">
+        <label>كلمة المرور</label>
+        <input id="authPassword" type="password" maxlength="128" placeholder="••••••••">
+      </div>
+
+      <div class="modal-footer">
+        <button class="compose-action" onclick="toggleAuthMode()" id="authSwitch">
+          معندكش حساب؟ اعمل حساب
+        </button>
+        <button class="post-btn" onclick="submitAuth()" id="authSubmit">
+          دخول 🚀
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST -->
 
   <div class="toast" id="toast"></div>
 
 
-  <script>
-    /* =====================================================
-       FASL — JAVASCRIPT
-    ===================================================== */
+  
+<script>
+  const API_BASE = "/api";
+  let activeFilter = "all";
+  let currentUser = null;
+  let authMode = "login";
 
-    const initialPosts = [
+  const initialPosts = [
+    {id:"demo-1", type:"teacher", user:"طالب مجهول", avatar:"😂", time:"مثال", title:"لما المدرس يقول آخر سؤال بجد", body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂", likes:126, comments:18, liked:false, anonymous:true},
+    {id:"demo-2", type:"story", user:"محمد", avatar:"م", time:"مثال", title:"موقف حصل في الفسحة", body:"واحد من صحابي كان بيجري ورا الكورة، دخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 💀", likes:89, comments:12, liked:false, anonymous:false},
+    {id:"demo-3", type:"question", user:"طالب مجهول", avatar:"🤔", time:"مثال", title:"حد فاهم الجزئية دي؟", body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭", likes:54, comments:27, liked:false, anonymous:true}
+  ];
 
-      {
-        id: 1,
-        type: "teacher",
-        user: "طالب مجهول",
-        avatar: "😂",
-        time: "منذ 12 دقيقة",
-        title: "لما المدرس يقول آخر سؤال بجد",
-        body:
-          "قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",
-        likes: 126,
-        comments: 18,
-        liked: false,
-        anonymous: true
-      },
+  let posts = [];
 
-      {
-        id: 2,
-        type: "story",
-        user: "محمد",
-        avatar: "م",
-        time: "منذ 28 دقيقة",
-        title: "موقف حصل في الفسحة",
-        body:
-          "واحد من صحابي كان بيجري ورا الكورة، دخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 💀",
-        likes: 89,
-        comments: 12,
-        liked: false,
-        anonymous: false
-      },
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  }
 
-      {
-        id: 3,
-        type: "question",
-        user: "طالب مجهول",
-        avatar: "🤔",
-        time: "منذ 41 دقيقة",
-        title: "حد فاهم الجزئية دي؟",
-        body:
-          "يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ أنا حاسس إني قريت الصفحة 20 مرة ومفيش فايدة 😭",
-        likes: 54,
-        comments: 27,
-        liked: false,
-        anonymous: true
-      },
+  function typeLabel(type) {
+    return ({
+      story:"😂 موقف", teacher:"👨‍🏫 موقف مع مدرس", question:"🤔 سؤال",
+      trend:"🔥 ترند", school:"🏫 المدرسة"
+    })[type] || "📝 بوست";
+  }
 
-      {
-        id: 4,
-        type: "trend",
-        user: "سيف",
-        avatar: "س",
-        time: "منذ ساعة",
-        title: "المدرس دخل وقال صباح الخير...",
-        body:
-          "إحنا كلنا عرفنا إن فيه امتحان 😂",
-        likes: 231,
-        comments: 43,
-        liked: false,
-        anonymous: false
-      }
+  function formatTime(value) {
+    if (!value) return "دلوقتي";
+    const d = new Date(value.replace(" ","T") + (value.includes("Z") ? "" : "Z"));
+    if (Number.isNaN(d.getTime())) return "دلوقتي";
+    const diff = Math.max(0, Date.now() - d.getTime());
+    const mins = Math.floor(diff/60000);
+    if (mins < 1) return "دلوقتي";
+    if (mins < 60) return `منذ ${mins} دقيقة`;
+    const hrs = Math.floor(mins/60);
+    if (hrs < 24) return `منذ ${hrs} ساعة`;
+    return `منذ ${Math.floor(hrs/24)} يوم`;
+  }
 
-    ];
-
-
-    let posts = JSON.parse(
-      localStorage.getItem("fasl_posts")
-    ) || initialPosts;
-
-
-    let activeFilter = "all";
-
-
-    /* =====================================================
-       TYPE LABEL
-    ===================================================== */
-
-    function typeLabel(type) {
-
-      const labels = {
-        story: "😂 موقف",
-        teacher: "👨‍🏫 موقف مع مدرس",
-        question: "🤔 سؤال",
-        trend: "🔥 ترند",
-        school: "🏫 المدرسة"
-      };
-
-      return labels[type] || "📝 بوست";
-
+  async function api(path, options = {}) {
+    const opts = {...options, headers: {...(options.headers || {})}};
+    if (opts.body && typeof opts.body !== "string") {
+      opts.headers["Content-Type"] = "application/json";
+      opts.body = JSON.stringify(opts.body);
     }
-
-
-    /* =====================================================
-       RENDER FEED
-    ===================================================== */
-
-    function renderFeed() {
-
-      const feed = document.getElementById("feed");
-
-      const query =
-        document.getElementById("searchInput").value
-        .trim()
-        .toLowerCase();
-
-
-      let visiblePosts = posts.filter(post => {
-
-        const matchesFilter =
-          activeFilter === "all" ||
-          post.type === activeFilter;
-
-        const searchable =
-          `${post.title || ""} ${post.body || ""} ${post.user || ""}`
-          .toLowerCase();
-
-        const matchesSearch =
-          !query ||
-          searchable.includes(query);
-
-        return matchesFilter && matchesSearch;
-
-      });
-
-
-      if (!visiblePosts.length) {
-
-        feed.innerHTML = `
-          <div class="empty">
-            <div class="empty-icon">👀</div>
-            <h3>مفيش حاجة هنا لسه</h3>
-            <p>كن أول واحد ينشر حاجة.</p>
-          </div>
-        `;
-
-        return;
-      }
-
-
-      feed.innerHTML = visiblePosts
-        .map(createPostHTML)
-        .join("");
-
+    const res = await fetch(API_BASE + path, opts);
+    let data = {};
+    try { data = await res.json(); } catch (_) {}
+    if (!res.ok || data.success === false) {
+      throw new Error(data.error || `HTTP ${res.status}`);
     }
+    return data;
+  }
 
-
-    /* =====================================================
-       POST HTML
-    ===================================================== */
-
-    function createPostHTML(post) {
-
-      return `
-        <article class="post">
-
-          <div class="post-head">
-
-            <div class="avatar">
-              ${post.anonymous ? "👤" : post.avatar}
-            </div>
-
-            <div class="post-user">
-
-              <strong>
-                ${escapeHTML(
-                  post.anonymous
-                    ? "طالب مجهول"
-                    : post.user
-                )}
-              </strong>
-
-              <span>
-                ${post.time || "دلوقتي"}
-              </span>
-
-            </div>
-
-            <button
-              class="post-menu"
-              onclick="reportPost(${post.id})"
-            >
-              ⋯
-            </button>
-
-          </div>
-
-
-          <span class="post-tag">
-            ${typeLabel(post.type)}
-          </span>
-
-
-          ${
-            post.title
-              ? `<h2>${escapeHTML(post.title)}</h2>`
-              : ""
-          }
-
-
-          <div class="post-text">
-            ${escapeHTML(post.body)}
-          </div>
-
-
-          <div class="post-stats">
-
-            <span>
-              ❤️ ${post.likes || 0} إعجاب
-            </span>
-
-            <span>
-              💬 ${post.comments || 0} تعليق
-            </span>
-
-          </div>
-
-
-          <div class="post-actions">
-
-            <button
-              class="post-action ${post.liked ? "liked" : ""}"
-              onclick="likePost(${post.id})"
-            >
-              ${post.liked ? "❤️" : "♡"} إعجاب
-            </button>
-
-            <button
-              class="post-action"
-              onclick="commentPost(${post.id})"
-            >
-              💬 تعليق
-            </button>
-
-            <button
-              class="post-action"
-              onclick="sharePost(${post.id})"
-            >
-              ↗ مشاركة
-            </button>
-
-          </div>
-
-        </article>
-      `;
-
+  async function loadMe() {
+    try {
+      const data = await api("/me");
+      currentUser = data.user || null;
+    } catch (_) {
+      currentUser = null;
     }
+    updateAccountUI();
+  }
 
-
-    /* =====================================================
-       LIKE
-    ===================================================== */
-
-    function likePost(id) {
-
-      const post = posts.find(p => p.id === id);
-
-      if (!post) return;
-
-      post.liked = !post.liked;
-
-      post.likes += post.liked ? 1 : -1;
-
-      savePosts();
-      renderFeed();
-
+  async function loadPosts() {
+    try {
+      const data = await api("/posts");
+      const serverPosts = Array.isArray(data.posts) ? data.posts : [];
+      posts = serverPosts.map(p => ({
+        id: p.id,
+        type: p.type || "story",
+        user: p.is_anonymous ? "طالب مجهول" : (p.username || "طالب"),
+        avatar: p.is_anonymous ? "👤" : (p.username || "ط").charAt(0).toUpperCase(),
+        time: formatTime(p.created_at),
+        title: p.title || "",
+        body: p.body || "",
+        likes: Number(p.likes || p.like_count || 0),
+        comments: Number(p.comments || p.comment_count || 0),
+        liked: Boolean(p.liked),
+        anonymous: Boolean(p.is_anonymous)
+      }));
+      if (!posts.length) posts = initialPosts;
+    } catch (error) {
+      posts = initialPosts;
+      showToast("تعذر تحميل البوستات من السيرفر");
     }
-
-
-    /* =====================================================
-       COMMENT
-    ===================================================== */
-
-    function commentPost(id) {
-
-      const post = posts.find(p => p.id === id);
-
-      if (!post) return;
-
-      const comment = prompt(
-        "اكتب تعليقك 👇"
-      );
-
-      if (!comment || !comment.trim()) return;
-
-      post.comments++;
-
-      savePosts();
-      renderFeed();
-
-      showToast("تم إضافة تعليقك 💬");
-
-    }
-
-
-    /* =====================================================
-       SHARE
-    ===================================================== */
-
-    async function sharePost(id) {
-
-      const post = posts.find(p => p.id === id);
-
-      if (!post) return;
-
-      const text =
-        `${post.title || "بوست من فَصْل"}\n${post.body}`;
-
-      try {
-
-        if (navigator.share) {
-
-          await navigator.share({
-            title: "فَصْل",
-            text
-          });
-
-        } else {
-
-          await navigator.clipboard.writeText(text);
-
-          showToast("اتنسخ البوست 📋");
-
-        }
-
-      } catch (error) {}
-
-    }
-
-
-    /* =====================================================
-       REPORT
-    ===================================================== */
-
-    function reportPost(id) {
-
-      const reason = prompt(
-        "ليه عايز تبلغ عن البوست؟\n\n" +
-        "اكتب السبب باختصار:"
-      );
-
-      if (!reason || !reason.trim()) return;
-
-      showToast(
-        "تم إرسال البلاغ للمراجعة 🚩"
-      );
-
-    }
-
-
-    /* =====================================================
-       COMPOSER
-    ===================================================== */
-
-    function openComposer(type = null) {
-
-      const modal =
-        document.getElementById("composerModal");
-
-      modal.classList.add("show");
-
-      if (type) {
-
-        document.getElementById("postType").value =
-          type;
-
-      }
-
-      setTimeout(() => {
-        document.getElementById("postTitle").focus();
-      }, 100);
-
-    }
-
-
-    function closeComposer() {
-
-      document
-        .getElementById("composerModal")
-        .classList.remove("show");
-
-    }
-
-
-    /* =====================================================
-       CREATE POST
-    ===================================================== */
-
-    function createPost() {
-
-      const type =
-        document.getElementById("postType").value;
-
-      const title =
-        document.getElementById("postTitle").value.trim();
-
-      const body =
-        document.getElementById("postBody").value.trim();
-
-      const anonymous =
-        document.getElementById("anonymousPost").checked;
-
-
-      if (!body) {
-
-        showToast("اكتب البوست الأول 😭");
-
-        return;
-
-      }
-
-
-      if (body.length < 5) {
-
-        showToast("اكتب شوية تفاصيل أكتر 👀");
-
-        return;
-
-      }
-
-
-      const newPost = {
-
-        id: Date.now(),
-
-        type,
-
-        user: anonymous
-          ? "طالب مجهول"
-          : "مستخدم جديد",
-
-        avatar: anonymous
-          ? "👤"
-          : "م",
-
-        time: "دلوقتي",
-
-        title,
-
-        body,
-
-        likes: 0,
-
-        comments: 0,
-
-        liked: false,
-
-        anonymous
-
-      };
-
-
-      posts.unshift(newPost);
-
-      savePosts();
-
-      renderFeed();
-
-      closeComposer();
-
-      clearComposer();
-
-      showToast("البوست نزل في فَصْل 🚀");
-
-    }
-
-
-    function clearComposer() {
-
-      document.getElementById("postTitle").value = "";
-
-      document.getElementById("postBody").value = "";
-
-      document.getElementById("anonymousPost").checked = false;
-
-    }
-
-
-    /* =====================================================
-       FILTERS
-    ===================================================== */
-
-    document
-      .querySelectorAll(".filter")
-      .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-          document
-            .querySelectorAll(".filter")
-            .forEach(b =>
-              b.classList.remove("active")
-            );
-
-          button.classList.add("active");
-
-          activeFilter =
-            button.dataset.filter;
-
-          renderFeed();
-
-        });
-
-      });
-
-
-    /* =====================================================
-       SEARCH
-    ===================================================== */
-
-    document
-      .getElementById("searchInput")
-      .addEventListener(
-        "input",
-        renderFeed
-      );
-
-
-    /* =====================================================
-       STORAGE
-    ===================================================== */
-
-    function savePosts() {
-
-      localStorage.setItem(
-        "fasl_posts",
-        JSON.stringify(posts)
-      );
-
-    }
-
-
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    let toastTimer;
-
-    function showToast(message) {
-
-      const toast =
-        document.getElementById("toast");
-
-      toast.textContent = message;
-
-      toast.classList.add("show");
-
-      clearTimeout(toastTimer);
-
-      toastTimer = setTimeout(() => {
-
-        toast.classList.remove("show");
-
-      }, 2500);
-
-    }
-
-
-    /* =====================================================
-       THEME
-    ===================================================== */
-
-    function toggleTheme() {
-
-      const light =
-        document.body.dataset.theme === "light";
-
-      if (!light) {
-
-        document.body.dataset.theme = "light";
-
-        document.documentElement.style.setProperty(
-          "--bg",
-          "#f3f1ec"
-        );
-
-        document.documentElement.style.setProperty(
-          "--text",
-          "#17181c"
-        );
-
-        document.documentElement.style.setProperty(
-          "--card",
-          "rgba(255,255,255,.92)"
-        );
-
-        document.documentElement.style.setProperty(
-          "--muted",
-          "#6c7079"
-        );
-
-        showToast("الوضع الفاتح ☀️");
-
-      } else {
-
-        document.body.dataset.theme = "dark";
-
-        document.documentElement.style.setProperty(
-          "--bg",
-          "#08090c"
-        );
-
-        document.documentElement.style.setProperty(
-          "--text",
-          "#f6f7fb"
-        );
-
-        document.documentElement.style.setProperty(
-          "--card",
-          "rgba(20,22,29,.88)"
-        );
-
-        document.documentElement.style.setProperty(
-          "--muted",
-          "#8d93a1"
-        );
-
-        showToast("الوضع الداكن 🌙");
-
-      }
-
-    }
-
-
-    /* =====================================================
-       SECURITY — BASIC HTML ESCAPING
-    ===================================================== */
-
-    function escapeHTML(value) {
-
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* =====================================================
-       CLOSE MODAL
-    ===================================================== */
-
-    document
-      .getElementById("composerModal")
-      .addEventListener("click", event => {
-
-        if (
-          event.target.id === "composerModal"
-        ) {
-
-          closeComposer();
-
-        }
-
-      });
-
-
-    /* =====================================================
-       START
-    ===================================================== */
-
     renderFeed();
+  }
 
-  </script>
+  function updateAccountUI() {
+    const mini = document.querySelector(".profile-mini");
+    if (!mini) return;
+    mini.textContent = currentUser
+      ? escapeHTML((currentUser.username || "ط").charAt(0).toUpperCase())
+      : "م";
+    mini.title = currentUser ? `حساب ${currentUser.username}` : "تسجيل الدخول";
+  }
+
+  function renderFeed() {
+    const feed = document.getElementById("feed");
+    const input = document.getElementById("searchInput");
+    const query = (input?.value || "").trim().toLowerCase();
+
+    const visible = posts.filter(post => {
+      const filterOK = activeFilter === "all" || post.type === activeFilter;
+      const haystack = `${post.title || ""} ${post.body || ""} ${post.user || ""}`.toLowerCase();
+      return filterOK && (!query || haystack.includes(query));
+    });
+
+    if (!visible.length) {
+      feed.innerHTML = `<div class="empty"><div class="empty-icon">👀</div><h3>مفيش حاجة هنا لسه</h3><p>كن أول واحد ينشر حاجة.</p></div>`;
+      return;
+    }
+    feed.innerHTML = visible.map(createPostHTML).join("");
+  }
+
+  function createPostHTML(post) {
+    return `
+      <article class="post">
+        <div class="post-head">
+          <div class="avatar">${post.anonymous ? "👤" : escapeHTML(post.avatar)}</div>
+          <div class="post-user">
+            <strong>${escapeHTML(post.anonymous ? "طالب مجهول" : post.user)}</strong>
+            <span>${escapeHTML(post.time || "دلوقتي")}</span>
+          </div>
+          <button class="post-menu" onclick="reportPost('${escapeHTML(post.id)}')">⋯</button>
+        </div>
+        <span class="post-tag">${typeLabel(post.type)}</span>
+        ${post.title ? `<h2>${escapeHTML(post.title)}</h2>` : ""}
+        <div class="post-text">${escapeHTML(post.body)}</div>
+        <div class="post-stats">
+          <span>❤️ ${post.likes || 0} إعجاب</span>
+          <span>💬 ${post.comments || 0} تعليق</span>
+        </div>
+        <div class="post-actions">
+          <button class="post-action ${post.liked ? "liked" : ""}" onclick="likePost('${escapeHTML(post.id)}')">
+            ${post.liked ? "❤️" : "♡"} إعجاب
+          </button>
+          <button class="post-action" onclick="commentPost('${escapeHTML(post.id)}')">💬 تعليق</button>
+          <button class="post-action" onclick="sharePost('${escapeHTML(post.id)}')">↗ مشاركة</button>
+        </div>
+      </article>`;
+  }
+
+  async function requireLogin() {
+    if (currentUser) return true;
+    showToast("سجل دخول الأول عشان تعمل الحركة دي 👋");
+    openAuth("login");
+    return false;
+  }
+
+  async function likePost(id) {
+    if (!(await requireLogin())) return;
+    try {
+      await api(`/posts/${encodeURIComponent(id)}/like`, {method:"POST"});
+      await loadPosts();
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  async function commentPost(id) {
+    if (!(await requireLogin())) return;
+    const comment = prompt("اكتب تعليقك 👇");
+    if (!comment || !comment.trim()) return;
+    try {
+      await api(`/posts/${encodeURIComponent(id)}/comments`, {
+        method:"POST",
+        body:{body:comment.trim()}
+      });
+      showToast("تم إضافة تعليقك 💬");
+      await loadPosts();
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  async function reportPost(id) {
+    if (!(await requireLogin())) return;
+    const reason = prompt("ليه عايز تبلغ عن البوست؟
+اكتب السبب باختصار:");
+    if (!reason || !reason.trim()) return;
+    try {
+      await api(`/posts/${encodeURIComponent(id)}/report`, {
+        method:"POST",
+        body:{reason:reason.trim()}
+      });
+      showToast("تم إرسال البلاغ للمراجعة 🚩");
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  async function sharePost(id) {
+    const post = posts.find(p => String(p.id) === String(id));
+    if (!post) return;
+    const text = `${post.title || "بوست من فَصْل"}
+${post.body}`;
+    try {
+      if (navigator.share) await navigator.share({title:"فَصْل", text});
+      else {
+        await navigator.clipboard.writeText(text);
+        showToast("اتنسخ البوست 📋");
+      }
+    } catch (_) {}
+  }
+
+  function openComposer(type = null) {
+    if (!currentUser) {
+      showToast("اعمل حساب أو سجل دخول الأول 👋");
+      openAuth("login");
+      return;
+    }
+    document.getElementById("composerModal").classList.add("show");
+    if (type) document.getElementById("postType").value = type;
+    setTimeout(() => document.getElementById("postTitle").focus(), 100);
+  }
+
+  function closeComposer() {
+    document.getElementById("composerModal").classList.remove("show");
+  }
+
+  async function createPost() {
+    if (!(await requireLogin())) return;
+    const type = document.getElementById("postType").value;
+    const title = document.getElementById("postTitle").value.trim();
+    const body = document.getElementById("postBody").value.trim();
+    const anonymous = document.getElementById("anonymousPost").checked;
+
+    if (body.length < 5) {
+      showToast("اكتب شوية تفاصيل أكتر 👀");
+      return;
+    }
+
+    try {
+      await api("/posts", {
+        method:"POST",
+        body:{type, title, body, anonymous}
+      });
+      closeComposer();
+      clearComposer();
+      showToast("البوست نزل في فَصْل 🚀");
+      await loadPosts();
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  function clearComposer() {
+    document.getElementById("postTitle").value = "";
+    document.getElementById("postBody").value = "";
+    document.getElementById("anonymousPost").checked = false;
+  }
+
+  function openAuth(mode = "login") {
+    authMode = mode;
+    document.getElementById("authModal").classList.add("show");
+    document.getElementById("authTitle").textContent = mode === "login" ? "تسجيل الدخول 👋" : "اعمل حساب جديد 🎉";
+    document.getElementById("usernameField").style.display = mode === "login" ? "none" : "block";
+    document.getElementById("authSubmit").textContent = mode === "login" ? "دخول 🚀" : "إنشاء الحساب 🚀";
+    document.getElementById("authSwitch").textContent = mode === "login"
+      ? "معندكش حساب؟ اعمل حساب"
+      : "عندك حساب؟ سجل دخول";
+  }
+
+  function closeAuth() {
+    document.getElementById("authModal").classList.remove("show");
+  }
+
+  function toggleAuthMode() {
+    openAuth(authMode === "login" ? "register" : "login");
+  }
+
+  async function submitAuth() {
+    const username = document.getElementById("authUsername").value.trim();
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+
+    if (!email || !password || (authMode === "register" && !username)) {
+      showToast("كمّل البيانات الأول 👀");
+      return;
+    }
+
+    try {
+      const endpoint = authMode === "login" ? "/login" : "/register";
+      const body = authMode === "login"
+        ? {email, password}
+        : {username, email, password};
+
+      const data = await api(endpoint, {method:"POST", body});
+      currentUser = data.user || null;
+      closeAuth();
+      document.getElementById("authPassword").value = "";
+      await loadMe();
+      await loadPosts();
+      showToast(authMode === "login" ? "نورت فَصْل 👋" : "أهلاً بيك في فَصْل 🎉");
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  async function accountAction() {
+    if (!currentUser) {
+      openAuth("login");
+      return;
+    }
+    const logout = confirm(`أنت داخل باسم ${currentUser.username}
+عايز تعمل تسجيل خروج؟`);
+    if (!logout) return;
+    try {
+      await api("/logout", {method:"POST"});
+      currentUser = null;
+      updateAccountUI();
+      showToast("تم تسجيل الخروج 👋");
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+  }
+
+  function toggleTheme() {
+    const light = document.body.dataset.theme === "light";
+    document.body.dataset.theme = light ? "dark" : "light";
+    document.documentElement.style.setProperty("--bg", light ? "#08090c" : "#f3f1ec");
+    document.documentElement.style.setProperty("--text", light ? "#f6f7fb" : "#17181c");
+    document.documentElement.style.setProperty("--card", light ? "rgba(20,22,29,.88)" : "rgba(255,255,255,.92)");
+    document.documentElement.style.setProperty("--muted", light ? "#8d93a1" : "#6c7079");
+    showToast(light ? "الوضع الداكن 🌙" : "الوضع الفاتح ☀️");
+  }
+
+  document.querySelectorAll(".filter").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+      activeFilter = button.dataset.filter;
+      renderFeed();
+    });
+  });
+
+  document.getElementById("searchInput").addEventListener("input", renderFeed);
+  document.querySelector(".profile-mini").addEventListener("click", accountAction);
+
+  document.getElementById("composerModal").addEventListener("click", e => {
+    if (e.target.id === "composerModal") closeComposer();
+  });
+  document.getElementById("authModal").addEventListener("click", e => {
+    if (e.target.id === "authModal") closeAuth();
+  });
+
+  (async function start() {
+    renderFeed();
+    await loadMe();
+    await loadPosts();
+  })();
+</script>
+
 
 </body>
 </html>
