@@ -1791,9 +1791,13 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
 
         <input
           id="authSchool"
+          list="schoolDirectory"
           maxlength="120"
-          placeholder="اكتب اسم المدرسة"
+          placeholder="اكتب اسم المدرسة وابحث في الدليل…"
+          autocomplete="organization"
         >
+        <datalist id="schoolDirectory"></datalist>
+        <div class="school-picker-hint">اختار مدرسة من الدليل أو اكتب اسم مدرسة جديدة — هيتعمل لها جروب تلقائياً.</div>
       </div>
 
       <div class="field">
@@ -2005,6 +2009,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+// Shared handles for the School Community v2 layer
+window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp, increment, onSnapshot };
+window.db = db;
+window.auth = auth;
+window.collection = collection;
+window.doc = doc;
+window.getDoc = getDoc;
+window.setDoc = setDoc;
+window.addDoc = addDoc;
+window.updateDoc = updateDoc;
+window.deleteDoc = deleteDoc;
+window.query = query;
+window.where = where;
+window.orderBy = orderBy;
+window.limit = limit;
+window.getDocs = getDocs;
+window.serverTimestamp = serverTimestamp;
 
 
 /* =========================================================
@@ -4063,6 +4085,188 @@ body.light .v2-panel{background:#fff;color:#171922}
     const el=document.getElementById(id);
     el.addEventListener("click",e=>{if(e.target===el)hide(id);});
   });
+})();
+</script>
+
+
+<!-- Fَصْل • Directory + Admin Upgrade -->
+<style id="fasl-directory-admin-style">
+.school-picker-hint{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:6px}
+.fasl-admin-btn{display:none!important}
+.fasl-admin-btn.show{display:flex!important}
+.directory-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(98,217,155,.08);border:1px solid rgba(98,217,155,.16);color:var(--green);font-size:9px;font-weight:900}
+.fasl-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.fasl-admin-stat{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--border);text-align:center}
+.fasl-admin-stat strong{display:block;font-size:22px;color:var(--gold)}
+.fasl-admin-stat span{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.fasl-admin-list{display:flex;flex-direction:column;gap:7px;margin-top:12px;max-height:380px;overflow:auto}
+.fasl-admin-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.035);border:1px solid var(--border)}
+.fasl-admin-row strong{font-size:11px}.fasl-admin-row span{font-size:9px;color:var(--muted)}
+.fasl-admin-search{margin-top:12px!important}
+@media(max-width:600px){.fasl-admin-grid{grid-template-columns:1fr}.fasl-admin-row{align-items:flex-start;flex-direction:column}}
+</style>
+
+<script>
+(function(){
+  const ADMIN_EMAIL = "mazenshahin639@gmail.com";
+
+  // A practical national starter directory. The important part is that FASL is not
+  // limited to this list: any school typed during signup is automatically normalized
+  // into its own Firestore school/group document.
+  const SCHOOL_DIRECTORY = [
+    ["القاهرة",["Cairo American College","American International School in Egypt","British International School in Cairo","New Cairo British International School","Deutsche Evangelische Oberschule","Collège-des-Frères","Collège du Sacré-Cœur","Ramses College","Saint Fatima School","Saint George's College","Manor House School","Malvern College Egypt","Modern Education Schools","Orouba Language School","El Zahrat Language School","Misr American College","Dar El Tarbiah School","Lycée Français du Caire","Lycée Al Horreya Heliopolis","Nefertari International School","Manaret El Mostaqbal American School","Nile Egyptian Schools - New Cairo","Nile Egyptian Schools - Jasmine","Nile Egyptian Schools - El Shorouk"]],
+    ["الجيزة",["Cairo Japanese School","British International School - Cairo","Green Land Pré Vert International School","Nile Egyptian Schools - Sheikh Zayed","Nile Egyptian Schools - 6 October","The British International School of Cairo - West Campus","Al Ahram Language School","Narmer American College","Orman Secondary School","Al Saeedia Secondary School","Gamal Abdel Nasser Official Language School"]],
+    ["الإسكندرية",["Schutz American School","International British School of Alexandria","Kaumeya Language School","Deutsche Schule der Borromäerinnen Alexandria","Collège Saint Marc","Victoria College","Egyptian English Language School","El Zahraa Language School","Innovation International School"]],
+    ["القليوبية",["Nile Egyptian Schools - Obour","Pioneer American School","El Obour Language School"]],
+    ["الدقهلية",["Nile Egyptian Schools - Mansoura","Mansoura College","Dakahlia STEM School"]],
+    ["الشرقية",["Nile Egyptian Schools - Zagazig","Zagazig Language School","Sharkia STEM School"]],
+    ["الغربية",["Tanta International School","Gharbia STEM School"]],
+    ["المنوفية",["Nile Egyptian Schools - Sadat City","Menoufia STEM School"]],
+    ["البحيرة",["Beheira STEM School","Damanhour Language School"]],
+    ["كفر الشيخ",["Kafr El Sheikh STEM School"]],
+    ["دمياط",["Nile Egyptian Schools - Damietta","Damietta STEM School"]],
+    ["بورسعيد",["Nile Egyptian Schools - Port Said","Port Said American School","Port Said International Schools"]],
+    ["الإسماعيلية",["Ismailia STEM School","Ismailia Language School"]],
+    ["السويس",["Suez STEM School"]],
+    ["شمال سيناء",["North Sinai STEM School"]],
+    ["جنوب سيناء",["South Sinai STEM School"]],
+    ["الفيوم",["Fayoum STEM School","Fayoum Language School"]],
+    ["بني سويف",["Beni Suef STEM School"]],
+    ["المنيا",["Nile Egyptian Schools - Minya","Minya STEM School"]],
+    ["أسيوط",["Nile Egyptian Schools - Assiut","Assiut STEM School"]],
+    ["سوهاج",["Sohag STEM School"]],
+    ["قنا",["Nile Egyptian Schools - Qena","Qena STEM School"]],
+    ["الأقصر",["Nile Egyptian Schools - Luxor","Luxor STEM School"]],
+    ["أسوان",["Nile Egyptian Schools - Aswan","Aswan STEM School"]],
+    ["البحر الأحمر",["Red Sea STEM School","Deutsche Schule Hurghada"]],
+    ["الوادي الجديد",["New Valley STEM School"]],
+    ["مطروح",["Matrouh STEM School"]]
+  ];
+
+  const directory = [];
+  SCHOOL_DIRECTORY.forEach(([gov,schools])=>schools.forEach(school=>directory.push({gov,school})));
+
+  function norm(v){
+    return String(v||"").trim().replace(/\s+/g," ");
+  }
+  function cid(gov,school){
+    return `${norm(gov)}__${norm(school)}`.trim().toLowerCase().replace(/\s+/g,"-");
+  }
+
+  function fillSchoolDirectory(){
+    const dl=document.getElementById("schoolDirectory");
+    if(!dl)return;
+    dl.innerHTML=directory.map(x=>`<option value="${esc(x.school)}" label="${esc(x.gov)}"></option>`).join("");
+  }
+  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+  fillSchoolDirectory();
+
+  // When a known school is selected, auto-fill its governorate.
+  const schoolInput=document.getElementById("authSchool");
+  if(schoolInput){
+    schoolInput.addEventListener("change",()=>{
+      const match=directory.find(x=>x.school.toLowerCase()===norm(schoolInput.value).toLowerCase());
+      if(match){
+        const gov=document.getElementById("authGovernorate");
+        if(gov)gov.value=match.gov;
+      }
+    });
+  }
+
+  window.FASL_SCHOOL_DIRECTORY=directory;
+  window.FASL_ADMIN_EMAIL=ADMIN_EMAIL;
+  window.faslIsAdmin=()=>String(window.currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
+
+  // Create/maintain one Firestore group record per school. This means every school
+  // entered by a student gets a real persistent community, even if it wasn't in the starter list.
+  window.ensureSchoolGroup=async function(profile){
+    if(!profile || !window.db || !window.setDoc || !window.doc)return;
+    const school=norm(profile.school), gov=norm(profile.governorate);
+    if(!school || !gov)return;
+    const id=cid(gov,school);
+    await window.setDoc(window.doc(window.db,"schools",id),{
+      school,governorate:gov,communityId:id,
+      displayName:`جروب ${school}`,
+      normalizedSchool:school.toLowerCase(),
+      createdAt:window.serverTimestamp(),
+      updatedAt:window.serverTimestamp()
+    },{merge:true});
+  };
+
+  // Patch auth submission once the original function exists.
+  const originalSubmit=window.submitAuth;
+  if(originalSubmit){
+    window.submitAuth=async function(){
+      await originalSubmit();
+      // onAuthStateChanged will populate the profile; this is intentionally a no-op here
+      // if the profile is not available yet.
+      setTimeout(()=>window.ensureSchoolGroup?.(window.currentProfile),350);
+    };
+  }
+
+  // Admin UI: secure-looking UX, but the real permission must still be enforced by Firestore Rules.
+  const adminModal=document.getElementById("v2AdminModal");
+  if(adminModal){
+    const content=adminModal.querySelector(".v2-content");
+    if(content){
+      content.insertAdjacentHTML("afterbegin",`<div id="faslAdminDashboard" class="v2-box" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+          <div><h3>👑 لوحة مدير فَصْل</h3><p>إدارة مجموعات المدارس والنشاط العام.</p></div>
+          <span class="directory-pill">● ADMIN</span>
+        </div>
+        <div class="fasl-admin-grid" id="faslAdminStats"></div>
+        <input id="faslAdminSearch" class="v2-input fasl-admin-search" placeholder="ابحث عن مدرسة أو محافظة…">
+        <div id="faslAdminSchools" class="fasl-admin-list"><div class="v2-empty">جاري تحميل المدارس…</div></div>
+      </div>`);
+    }
+  }
+
+  async function adminLoad(){
+    if(!window.faslIsAdmin?.()){
+      window.showToast?.("حساب الإدارة فقط يقدر يدخل لوحة المدير.");
+      return;
+    }
+    const stats=document.getElementById("faslAdminStats");
+    const list=document.getElementById("faslAdminSchools");
+    if(!stats||!list)return;
+    try{
+      const snap=await window.getDocs(window.query(window.collection(window.db,"schools"),window.limit(1000)));
+      let docs=snap.docs.map(d=>({id:d.id,...d.data()}));
+      const render=()=>{
+        const q=norm(document.getElementById("faslAdminSearch")?.value).toLowerCase();
+        const filtered=docs.filter(x=>`${x.school||""} ${x.governorate||""}`.toLowerCase().includes(q));
+        stats.innerHTML=`<div class="fasl-admin-stat"><strong>${docs.length}</strong><span>جروبات المدارس</span></div><div class="fasl-admin-stat"><strong>${new Set(docs.map(x=>x.governorate)).size}</strong><span>محافظات</span></div><div class="fasl-admin-stat"><strong>${directory.length}</strong><span>مدارس بالدليل الأولي</span></div>`;
+        list.innerHTML=filtered.slice(0,200).map(x=>`<div class="fasl-admin-row"><strong>🏫 ${esc(x.school||"مدرسة")}</strong><span>${esc(x.governorate||"—")} • ${esc(x.communityId||x.id)}</span></div>`).join("") || `<div class="v2-empty">مفيش نتائج.</div>`;
+      };
+      render();
+      document.getElementById("faslAdminSearch")?.addEventListener("input",render,{once:true});
+      // Re-bind search continuously without stacking handlers.
+      const search=document.getElementById("faslAdminSearch");
+      if(search){search.oninput=render;}
+    }catch(e){
+      console.error(e);
+      list.innerHTML='<div class="v2-empty">مش قادر أقرأ جروبات المدارس. راجع Firestore Rules.</div>';
+    }
+  }
+
+  const oldAdmin=window.v2OpenAdmin;
+  window.v2OpenAdmin=async function(){
+    if(!window.currentUser){window.openAuth?.("login");return;}
+    if(!window.faslIsAdmin?.()){
+      window.showToast?.("دخول الإدارة متاح لحساب المدير فقط.");
+      return;
+    }
+    document.getElementById("v2AdminModal")?.classList.add("show");
+    await adminLoad();
+  };
+
+  // Automatically create a school group whenever the profile becomes available.
+  const observer=setInterval(()=>{
+    if(window.currentProfile?.school && window.currentProfile?.governorate){
+      window.ensureSchoolGroup?.(window.currentProfile).catch(()=>{});
+      clearInterval(observer);
+    }
+  },500);
 })();
 </script>
 
