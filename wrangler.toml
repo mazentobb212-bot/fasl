@@ -9,4 +9,4 @@ run_worker_first = ["/api/*"]
 [[d1_databases]]
 binding = "DB"
 database_name = "fasl-db"
-database_id = "YOUR_DATABASE_ID"
+database_id = "356669e4-6f01-4740-b2e2-1f563a4ed67a"
