@@ -1,0 +1,89 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function me() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function sameCommunity() {
+      return signedIn()
+        && request.resource.data.communityId == me().communityId;
+    }
+
+    function existingSameCommunity() {
+      return signedIn()
+        && resource.data.communityId == me().communityId;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid);
+      function isOwner(x) { return signedIn() && request.auth.uid == x; }
+    }
+
+    match /schools/{schoolId} {
+      allow read: if signedIn();
+      allow create, update: if signedIn();
+    }
+
+    match /schoolGroups/{groupId}/members/{uid} {
+      allow read: if signedIn();
+      allow create, update, delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /posts/{postId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.authorId == request.auth.uid
+        && request.resource.data.communityId == me().communityId;
+      allow update: if signedIn() && (
+        resource.data.authorId == request.auth.uid ||
+        (me().moderator == true && resource.data.communityId == me().communityId)
+      );
+      allow delete: if signedIn() && (
+        resource.data.authorId == request.auth.uid ||
+        (me().moderator == true && resource.data.communityId == me().communityId)
+      );
+
+      match /likes/{uid} {
+        allow read: if signedIn();
+        allow create, delete: if signedIn() && request.auth.uid == uid;
+      }
+
+      match /comments/{commentId} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+          && request.resource.data.authorId == request.auth.uid;
+        allow update, delete: if signedIn() && resource.data.authorId == request.auth.uid;
+      }
+    }
+
+    match /events/{eventId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.communityId == me().communityId
+        && me().moderator == true;
+      allow update, delete: if signedIn()
+        && resource.data.communityId == me().communityId
+        && me().moderator == true;
+    }
+
+    match /reports/{reportId} {
+      allow create: if signedIn()
+        && request.resource.data.reporterId == request.auth.uid;
+      allow read, update: if signedIn() && me().moderator == true;
+    }
+
+    match /users/{uid}/notifications/{notificationId} {
+      allow read, update: if signedIn() && request.auth.uid == uid;
+      allow create: if signedIn();
+    }
+  }
+}
