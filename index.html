@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#06070a">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 
 <title>فَصْل — كل فصل عنده حكاية</title>
 <meta name="description" content="فَصْل — مجتمع الطلاب المصريين. مواقف، أسئلة، ترندات وحكايات المدرسة.">
@@ -14,857 +14,1133 @@
 
 <style>
 :root{
-  --bg:#06070a; --bg2:#0b0d12; --surface:#101219; --surface2:#161923; --surface3:#1d212c;
-  --text:#f8f9fc; --muted:#9aa0ae; --muted2:#6a7080;
-  --gold:#f5cb6a; --gold2:#e0a63a; --gold-soft:rgba(245,203,106,.12); --gold-glow:rgba(245,203,106,.35);
-  --green:#63e0a0; --red:#ff6b7e; --blue:#74a8ff; --purple:#ad91ff;
-  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.14);
-  --radius:22px; --max:1280px;
-  --shadow:0 25px 80px rgba(0,0,0,.45); --shadow-sm:0 10px 30px rgba(0,0,0,.25);
+  --ig-black:#000;
+  --ig-bg:#000;
+  --ig-surface:#0f0f0f;
+  --ig-surface-2:#1a1a1a;
+  --ig-border:#262626;
+  --ig-border-2:#363636;
+  --ig-text:#fff;
+  --ig-text-2:#a8a8a8;
+  --ig-text-3:#737373;
+  --ig-blue:#0095f6;
+  --ig-red:#ed4956;
+  --gold:#f5cb6a;
+  --gold2:#e0a63a;
+  --gold-soft:rgba(245,203,106,.12);
+  --green:#63e0a0;
+  --purple:#ad91ff;
+  --blue:#74a8ff;
+  --radius:16px;
+  --radius-lg:20px;
+  --max:600px;
   --ease:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
 }
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  font-family:"Cairo",system-ui,sans-serif;
-  background:
-    radial-gradient(circle at 8% -8%,rgba(245,203,106,.14),transparent 28%),
-    radial-gradient(circle at 100% 15%,rgba(120,90,255,.10),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(99,224,160,.05),transparent 35%),
-    var(--bg);
-  color:var(--text);min-height:100vh;overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-family:"Cairo",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  background:var(--ig-bg);
+  color:var(--ig-text);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
 }
 body.light{
-  --bg:#f5f2ec; --bg2:#ece8df; --surface:#fff; --surface2:#faf8f3; --surface3:#f0ede5;
-  --text:#141519; --muted:#5f6470; --muted2:#8b8f99;
-  --border:rgba(0,0,0,.07); --border2:rgba(0,0,0,.13);
-  --gold-soft:rgba(224,166,58,.14);
-  --shadow:0 20px 60px rgba(0,0,0,.08); --shadow-sm:0 8px 24px rgba(0,0,0,.06);
+  --ig-bg:#fff;
+  --ig-surface:#fff;
+  --ig-surface-2:#fafafa;
+  --ig-border:#dbdbdb;
+  --ig-border-2:#c7c7c7;
+  --ig-text:#000;
+  --ig-text-2:#737373;
+  --ig-text-3:#a8a8a8;
 }
-body.light .orb{opacity:.14}
 button,input,textarea,select{font:inherit;color:inherit}
 button{border:0;cursor:pointer;background:transparent}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--gold-soft);color:var(--text)}
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
-::-webkit-scrollbar-thumb:hover{background:rgba(245,203,106,.35);background-clip:padding-box;border:2px solid transparent}
+::selection{background:var(--gold-soft);color:var(--ig-text)}
+::-webkit-scrollbar{width:0;height:0}
 .hidden{display:none!important}
 
-/* ============ INTRO SPLASH ============ */
-#faslIntro{
+/* ============ SPLASH (Instagram-style) ============ */
+#faslSplash{
   position:fixed;inset:0;z-index:99999;
-  display:flex;align-items:center;justify-content:center;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(245,203,106,.18),transparent 40%),
-    radial-gradient(circle at 80% 80%,rgba(120,90,255,.16),transparent 40%),
-    linear-gradient(135deg,#06070a,#0c0e14 50%,#08090d);
-  padding:24px;overflow:hidden;
-  transition:opacity .7s var(--ease),visibility .7s var(--ease);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:#000;
+  transition:opacity .5s var(--ease),visibility .5s var(--ease);
 }
-#faslIntro.hide{opacity:0;visibility:hidden;pointer-events:none}
-.intro-bg-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.25}
-.intro-bg-orb.a{width:400px;height:400px;background:var(--gold);top:-100px;right:-100px;animation:float1 14s ease-in-out infinite}
-.intro-bg-orb.b{width:350px;height:350px;background:#765cff;bottom:-100px;left:-100px;animation:float2 18s ease-in-out infinite}
-@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
-@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px)}}
-
-.intro-card{
-  position:relative;z-index:2;
-  width:min(760px,100%);
-  padding:44px 36px;border-radius:32px;
-  background:rgba(16,18,25,.72);
-  border:1px solid rgba(245,203,106,.14);
-  backdrop-filter:blur(24px);
-  box-shadow:0 40px 120px rgba(0,0,0,.6);
-  text-align:center;
-  animation:introIn .9s var(--ease);
+#faslSplash.hide{opacity:0;visibility:hidden;pointer-events:none}
+.splash-logo-wrap{position:relative;display:grid;place-items:center}
+.splash-ring{
+  position:absolute;width:140px;height:140px;
+  border-radius:50%;border:2px solid transparent;
+  background:conic-gradient(from 0deg,var(--gold),#e0a63a,var(--gold),transparent,var(--gold)) border-box;
+  -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  animation:ringSpin 1.6s linear infinite;
+  opacity:0;
 }
-@keyframes introIn{
-  from{opacity:0;transform:translateY(30px) scale(.96)}
-  to{opacity:1;transform:none}
-}
-.intro-logo{
-  width:96px;height:96px;margin:0 auto 22px;
-  border-radius:28px;display:grid;place-items:center;
-  font-size:46px;font-weight:900;color:#1a1306;
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.splash-logo{
+  width:96px;height:96px;border-radius:26px;
+  display:grid;place-items:center;
+  font-size:52px;font-weight:900;color:#1a1306;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 20px 60px rgba(245,203,106,.4),inset 0 2px 0 rgba(255,255,255,.4);
-  animation:logoPulse 3s ease-in-out infinite;
+  box-shadow:0 20px 60px rgba(245,203,106,.4);
+  opacity:0;transform:scale(.5);
+  animation:logoPop .7s var(--ease-out) .1s forwards;
 }
-@keyframes logoPulse{
-  0%,100%{transform:scale(1);box-shadow:0 20px 60px rgba(245,203,106,.4),inset 0 2px 0 rgba(255,255,255,.4)}
-  50%{transform:scale(1.05);box-shadow:0 25px 70px rgba(245,203,106,.55),inset 0 2px 0 rgba(255,255,255,.4)}
+@keyframes logoPop{
+  0%{opacity:0;transform:scale(.5) rotate(-8deg)}
+  60%{opacity:1;transform:scale(1.08) rotate(2deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
 }
-.intro-title{
-  font-size:clamp(38px,7vw,64px);
-  font-weight:900;letter-spacing:-2px;line-height:1.05;
-  margin-bottom:8px;
+.splash-ring{animation-delay:.3s;animation-fill-mode:forwards}
+.splash-ring.on{opacity:1}
+.splash-name{
+  margin-top:22px;font-size:32px;font-weight:900;letter-spacing:-1px;
+  opacity:0;transform:translateY(10px);
+  animation:fadeUp .6s var(--ease-out) .5s forwards;
 }
-.intro-title span{
+.splash-name span{
   background:linear-gradient(135deg,var(--gold),var(--gold2));
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.intro-tagline{
-  font-size:clamp(15px,2.4vw,20px);
-  color:var(--gold);font-weight:800;
-  margin-bottom:22px;letter-spacing:-.3px;
-  min-height:30px;
-  transition:opacity .4s ease;
+.splash-tagline{
+  margin-top:6px;font-size:13px;color:#8e8e8e;
+  opacity:0;
+  animation:fadeUp .6s var(--ease-out) .7s forwards;
 }
-.intro-tagline.fade{opacity:0}
-.intro-desc{
-  color:#c4c8d2;font-size:14px;
-  line-height:2;max-width:560px;margin:0 auto 26px;
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.splash-loader{
+  position:absolute;bottom:60px;
+  width:32px;height:32px;
+  border:2px solid rgba(255,255,255,.15);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  opacity:0;
+  animation:fadeUp .4s ease .9s forwards,spin .8s linear infinite .9s;
 }
-.intro-desc b{color:var(--gold);font-weight:900}
-.intro-features{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:12px;margin:26px 0 30px;text-align:right;
-}
-.intro-feature{
-  padding:16px 14px;border-radius:16px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.07);
-  transition:.3s var(--ease);
-}
-.intro-feature:hover{transform:translateY(-4px);border-color:rgba(245,203,106,.28);background:rgba(245,203,106,.05)}
-.intro-feature .ico{font-size:22px;margin-bottom:8px;display:block}
-.intro-feature h4{font-size:12px;font-weight:900;margin-bottom:4px;color:var(--gold)}
-.intro-feature p{font-size:10px;color:#9aa0ae;line-height:1.7}
-.intro-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.intro-btn{
-  padding:14px 34px;border-radius:14px;
-  font-size:14px;font-weight:900;
-  transition:.25s var(--ease);
-  font-family:inherit;
-}
-.intro-btn.primary{
-  color:#181207;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 12px 34px rgba(245,203,106,.35);
-}
-.intro-btn.primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(245,203,106,.5)}
-.intro-btn.ghost{
-  color:#c4c8d2;background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.1);
-}
-.intro-btn.ghost:hover{background:rgba(255,255,255,.1);color:#fff;transform:translateY(-3px)}
-.intro-footer{
-  margin-top:24px;color:#6a7080;font-size:10px;
-  display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
-}
-.intro-footer span{display:inline-flex;align-items:center;gap:5px}
-.intro-countdown{
-  margin-top:18px;color:#6a7080;font-size:10px;
+@keyframes spin{to{transform:rotate(360deg)}}
+.splash-from{
+  position:absolute;bottom:calc(30px + var(--safe-bottom));
+  font-size:10px;color:#4a4a4a;letter-spacing:.5px;
+  opacity:0;animation:fadeUp .6s ease 1.1s forwards;
 }
 
 /* ============ APP SHELL ============ */
-#faslApp{opacity:0;transition:opacity .6s ease .2s}
+#faslApp{opacity:0;transition:opacity .4s ease}
 #faslApp.show{opacity:1}
 
-.background{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
-.orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.10}
-.orb.one{right:-180px;top:-220px;width:520px;height:520px;background:var(--gold);animation:float1 18s ease-in-out infinite}
-.orb.two{left:-200px;bottom:-240px;width:480px;height:480px;background:#765cff;animation:float2 22s ease-in-out infinite}
-
+/* ============ TOP BAR (IG-style) ============ */
 .topbar{
-  position:sticky;top:0;z-index:100;height:72px;
-  background:rgba(6,7,10,.72);
-  backdrop-filter:blur(24px) saturate(140%);
-  -webkit-backdrop-filter:blur(24px) saturate(140%);
-  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+  padding-top:var(--safe-top);
+  height:calc(56px + var(--safe-top));
+  background:rgba(0,0,0,.85);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--ig-border);
+  display:flex;align-items:center;
 }
-.light .topbar{background:rgba(245,242,236,.78)}
-.topbar-inner{max-width:var(--max);height:100%;margin:auto;padding:0 20px;display:flex;align-items:center;gap:20px}
-.brand{display:flex;align-items:center;gap:11px;min-width:max-content;transition:transform .2s var(--ease)}
-.brand:hover{transform:scale(1.02)}
-.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#191307;font-weight:900;font-size:21px;background:linear-gradient(145deg,var(--gold),var(--gold2));box-shadow:0 8px 28px rgba(245,203,106,.25),inset 0 1px 0 rgba(255,255,255,.4)}
-.brand-name{font-size:23px;font-weight:900;letter-spacing:-.5px}
-.brand-name span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.search{flex:1;max-width:480px;margin:auto;position:relative}
-.search input{width:100%;height:44px;border:1px solid var(--border);border-radius:14px;outline:none;padding:0 44px 0 15px;color:var(--text);background:rgba(255,255,255,.045);transition:.25s var(--ease);font-size:13px}
-.search input::placeholder{color:var(--muted2)}
-.search input:focus{border-color:rgba(245,203,106,.5);background:rgba(255,255,255,.07);box-shadow:0 0 0 4px var(--gold-soft)}
-.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
-.top-actions{display:flex;align-items:center;gap:8px}
-.icon-btn{position:relative;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid var(--border);color:var(--text);display:grid;place-items:center;transition:.22s var(--ease);font-size:17px}
-.icon-btn:hover{transform:translateY(-2px);border-color:var(--border2);background:rgba(255,255,255,.09);box-shadow:var(--shadow-sm)}
-.notification-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--red);top:8px;right:8px;box-shadow:0 0 12px rgba(255,107,126,.8);display:none;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
-.profile-mini{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--gold2));color:#181207;font-weight:900;cursor:pointer;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.22)}
-.profile-mini:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 28px rgba(245,203,106,.32)}
-
-.layout{width:min(var(--max),100%);margin:auto;padding:28px 20px 100px;display:grid;grid-template-columns:220px minmax(0,660px) 270px;justify-content:center;gap:24px}
-.sidebar{position:sticky;top:94px;height:max-content}
-.side-title{color:var(--muted2);font-size:11px;font-weight:900;margin:8px 12px 10px;letter-spacing:.5px;text-transform:uppercase}
-.nav-list{display:flex;flex-direction:column;gap:4px}
-.nav-item{position:relative;display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:14px;color:var(--muted);font-size:13px;font-weight:800;transition:.2s var(--ease)}
-.nav-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
-.nav-item.active{color:var(--gold);background:var(--gold-soft)}
-.nav-item.active::before{content:"";position:absolute;right:0;top:20%;bottom:20%;width:3px;border-radius:3px;background:var(--gold);box-shadow:0 0 12px var(--gold-glow)}
-.nav-icon{width:23px;text-align:center;font-size:17px;transition:transform .2s var(--ease)}
-.nav-item:hover .nav-icon{transform:scale(1.15)}
-.school-card{margin-top:22px;padding:16px;border-radius:19px;border:1px solid var(--border);background:linear-gradient(145deg,rgba(245,203,106,.10),rgba(255,255,255,.02));transition:.25s var(--ease)}
-.school-card:hover{border-color:rgba(245,203,106,.25)}
-.school-card small{color:var(--muted2);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
-.school-card h3{font-size:15px;margin-top:5px}
-.school-card p{color:var(--muted);font-size:10px;line-height:1.7;margin-top:5px}
-
-.hero{position:relative;overflow:hidden;min-height:240px;padding:32px;border-radius:28px;border:1px solid rgba(245,203,106,.16);background:radial-gradient(circle at 88% 18%,rgba(245,203,106,.20),transparent 30%),radial-gradient(circle at 15% 100%,rgba(120,90,255,.10),transparent 38%),linear-gradient(145deg,#191d27,#0e1016);box-shadow:var(--shadow);margin-bottom:18px}
-.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(245,203,106,.10);pointer-events:none}
-.hero::before{width:240px;height:240px;left:-110px;bottom:-150px;animation:float1 14s ease-in-out infinite}
-.hero::after{width:150px;height:150px;right:-50px;bottom:-85px;animation:float2 18s ease-in-out infinite}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:30px;color:var(--gold);background:var(--gold-soft);font-size:10px;font-weight:900;letter-spacing:.5px;border:1px solid rgba(245,203,106,.18)}
-.hero h1{position:relative;z-index:2;margin-top:16px;max-width:530px;font-size:clamp(28px,5vw,44px);line-height:1.12;letter-spacing:-1.8px;font-weight:900}
-.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);max-width:500px;margin-top:11px;font-size:12px;line-height:1.85}
-.community-badge{display:inline-flex;flex-direction:column;margin-top:18px;min-width:300px;padding:12px 15px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(10px);transition:.25s var(--ease)}
-.community-badge:hover{border-color:rgba(245,203,106,.28);background:rgba(255,255,255,.07)}
-.community-badge small{color:var(--muted2);font-size:9px;letter-spacing:.5px;text-transform:uppercase}
-.community-badge strong{margin-top:3px;font-size:12px}
-.community-badge span{color:var(--muted);font-size:9px;margin-top:2px}
-
-.composer{padding:18px;border:1px solid var(--border);border-radius:22px;background:var(--surface);margin-bottom:16px;box-shadow:var(--shadow-sm);transition:.25s var(--ease)}
-.composer:hover{border-color:var(--border2)}
-.composer-top{display:flex;gap:12px}
-.avatar{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:50%;color:white;font-weight:900;background:linear-gradient(145deg,#8e7cff,#5c4be5);box-shadow:0 8px 24px rgba(142,124,255,.28)}
-.composer-input{flex:1;min-height:50px;display:flex;align-items:center;padding:0 16px;color:var(--muted);background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:16px;cursor:text;transition:.22s var(--ease);font-size:13px}
-.composer-input:hover{border-color:var(--border2);background:rgba(255,255,255,.06)}
-.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid var(--border)}
-.composer-actions{display:flex;gap:3px}
-.compose-action{padding:9px 10px;border-radius:10px;background:transparent;color:var(--muted);font-size:11px;font-weight:800;transition:.2s var(--ease)}
-.compose-action:hover{background:rgba(255,255,255,.06);color:var(--text)}
-.post-btn{padding:10px 18px;border-radius:12px;color:#181207;background:linear-gradient(145deg,var(--gold),var(--gold2));font-size:11px;font-weight:900;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.20)}
-.post-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,203,106,.32)}
-
-.filters{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;padding-bottom:2px}
-.filters::-webkit-scrollbar{display:none}
-.filter{flex:0 0 auto;padding:9px 14px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--muted);font-size:11px;font-weight:900;transition:.22s var(--ease)}
-.filter.active,.filter:hover{color:var(--gold);background:var(--gold-soft);border-color:rgba(245,203,106,.28)}
-
-.post{padding:19px;margin-bottom:14px;border-radius:22px;background:var(--surface);border:1px solid var(--border);animation:postIn .4s var(--ease) both;transition:.25s var(--ease)}
-.post:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-@keyframes postIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.post-head{display:flex;align-items:center;gap:11px}
-.post-avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900;background:linear-gradient(145deg,#5d5b68,#302f38);flex:0 0 44px}
-.post-user{flex:1}
-.post-user strong{display:block;font-size:13px}
-.post-user span{display:block;color:var(--muted2);font-size:9px;margin-top:2px}
-.post-type{padding:6px 9px;border-radius:9px;background:var(--gold-soft);color:var(--gold);font-size:9px;font-weight:900;border:1px solid rgba(245,203,106,.15);white-space:nowrap}
-.post h2{font-size:17px;line-height:1.5;margin-top:14px;letter-spacing:-.3px}
-.post-text{color:var(--muted);font-size:12px;line-height:1.9;margin-top:6px;white-space:pre-wrap}
-.post-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:14px;padding-top:8px;border-top:1px solid var(--border)}
-.post-action{padding:10px 6px;border-radius:11px;color:var(--muted);background:transparent;font-size:11px;font-weight:800;transition:.2s var(--ease)}
-.post-action:hover{background:rgba(255,255,255,.05);color:var(--text)}
-.post-action.liked{color:var(--red)}
-
-.empty{padding:55px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:22px;background:rgba(255,255,255,.015)}
-.empty-icon{font-size:42px;margin-bottom:10px}
-.empty h3{color:var(--text);font-size:16px}
-.empty p{font-size:11px;margin-top:6px}
-
-.trend-card{padding:18px;border-radius:21px;background:var(--surface);border:1px solid var(--border);transition:.25s var(--ease)}
-.trend-card:hover{border-color:var(--border2)}
-.trend-title{display:flex;justify-content:space-between;align-items:center}
-.trend-title h3{font-size:14px}
-.trend-title span{color:var(--gold);font-size:10px;font-weight:900;padding:4px 8px;border-radius:8px;background:var(--gold-soft)}
-.trend{padding:13px 0;border-bottom:1px solid var(--border);transition:.2s var(--ease)}
-.trend:last-child{border-bottom:0}
-.trend:hover{padding-right:6px}
-.trend small{color:var(--muted2);font-size:9px;font-weight:800}
-.trend p{margin-top:4px;font-size:11px;font-weight:800;line-height:1.6}
-.online-card{margin-top:14px;padding:16px;border-radius:19px;background:rgba(99,224,160,.05);border:1px solid rgba(99,224,160,.13)}
-.online-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900}
-.online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}
-.online-card p{color:var(--muted);font-size:9px;line-height:1.7;margin-top:6px}
-
-/* ============ MODALS ============ */
-.modal-layer{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(14px)}
-.modal-layer.show{display:flex;animation:fadeIn .22s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{width:min(570px,100%);max-height:min(90vh,780px);overflow:auto;padding:22px;border-radius:24px;border:1px solid var(--border2);background:var(--surface);box-shadow:0 30px 100px rgba(0,0,0,.6);animation:modalIn .28s var(--ease)}
-@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.modal-head h2{font-size:19px;letter-spacing:-.5px}
-.close{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.055);color:var(--muted);font-size:16px;transition:.2s var(--ease)}
-.close:hover{background:rgba(255,255,255,.1);color:var(--text);transform:rotate(90deg)}
-
-.field{margin-bottom:13px}
-.field label{display:block;color:var(--muted);font-size:10px;font-weight:900;margin-bottom:7px;letter-spacing:.4px;text-transform:uppercase}
-.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:13px;outline:none;padding:12px 13px;color:var(--text);background:var(--bg2);font-size:13px;transition:.22s var(--ease)}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(245,203,106,.5);box-shadow:0 0 0 4px var(--gold-soft)}
-.field textarea{min-height:120px;resize:vertical}
-.modal-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
-.anonymous{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;cursor:pointer}
-.anonymous input{accent-color:var(--gold);width:16px;height:16px}
-.auth-note{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:8px}
-.school-picker-hint{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:7px}
-
-/* ============ NEW AUTH MODAL ============ */
-.auth-modal-v2{
-  width:min(920px,100%);
-  padding:0!important;overflow:hidden;
-  display:grid;grid-template-columns:1fr 1.1fr;
-  max-height:min(92vh,720px);
+.light .topbar{background:rgba(255,255,255,.85)}
+.topbar-inner{
+  width:100%;max-width:var(--max);margin:auto;
+  padding:0 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  height:56px;
 }
-.auth-visual{
-  padding:36px 30px;position:relative;
-  background:
-    radial-gradient(circle at 80% 20%,rgba(245,203,106,.25),transparent 40%),
-    radial-gradient(circle at 20% 90%,rgba(120,90,255,.20),transparent 45%),
-    linear-gradient(160deg,#131620,#0a0c11);
-  display:flex;flex-direction:column;justify-content:center;
-  border-left:1px solid var(--border);
-  overflow:hidden;
+.brand{
+  display:flex;align-items:center;gap:9px;
+  font-size:22px;font-weight:900;letter-spacing:-.5px;
 }
-.auth-visual::before{
-  content:"";position:absolute;width:260px;height:260px;
-  border-radius:50%;border:1px solid rgba(245,203,106,.12);
-  top:-100px;right:-100px;
-}
-.auth-visual::after{
-  content:"";position:absolute;width:160px;height:160px;
-  border-radius:50%;border:1px solid rgba(245,203,106,.10);
-  bottom:-60px;left:-60px;
-}
-.auth-visual-logo{
-  width:64px;height:64px;border-radius:18px;
+.brand-logo{
+  width:32px;height:32px;border-radius:10px;
   display:grid;place-items:center;
-  font-size:30px;font-weight:900;color:#1a1306;
+  font-size:18px;font-weight:900;color:#1a1306;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 16px 44px rgba(245,203,106,.35);
-  margin-bottom:22px;position:relative;z-index:2;
 }
-.auth-visual h3{
-  font-size:26px;font-weight:900;letter-spacing:-.8px;
-  line-height:1.3;margin-bottom:12px;position:relative;z-index:2;
-}
-.auth-visual h3 span{
+.brand-name span{
   background:linear-gradient(135deg,var(--gold),var(--gold2));
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.auth-visual p{
-  color:#a8adba;font-size:12px;line-height:1.9;
-  margin-bottom:24px;position:relative;z-index:2;
-}
-.auth-perks{display:flex;flex-direction:column;gap:12px;position:relative;z-index:2}
-.auth-perk{display:flex;align-items:center;gap:11px;font-size:12px;color:#c4c8d2}
-.auth-perk .ico{
-  width:34px;height:34px;border-radius:10px;
+.top-icons{display:flex;align-items:center;gap:4px}
+.icon-btn{
+  width:44px;height:44px;border-radius:12px;
   display:grid;place-items:center;
-  background:rgba(245,203,106,.10);
-  border:1px solid rgba(245,203,106,.18);
-  font-size:15px;flex:0 0 34px;
+  color:var(--ig-text);
+  position:relative;
+  transition:.2s var(--ease);
+}
+.icon-btn:hover{background:var(--ig-surface-2)}
+.icon-btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2}
+.icon-btn .badge-dot{
+  position:absolute;top:10px;right:10px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--ig-red);
+  border:2px solid var(--ig-bg);
+  display:none;
+}
+.icon-btn .badge-dot.on{display:block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ============ MAIN LAYOUT ============ */
+.layout{
+  max-width:var(--max);margin:auto;
+  padding-bottom:calc(72px + var(--safe-bottom));
 }
 
-.auth-form-side{padding:32px 30px;overflow-y:auto}
-
-.auth-tabs-v2{
-  display:flex;padding:4px;margin-bottom:24px;
-  border-radius:14px;background:rgba(255,255,255,.04);
+/* ============ STORY BAR ============ */
+.story-bar{
+  display:flex;gap:16px;
+  padding:14px 16px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  border-bottom:1px solid var(--ig-border);
+}
+.story-bar::-webkit-scrollbar{display:none}
+.story-item{
+  flex:0 0 auto;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;
+  transition:.2s var(--ease);
+}
+.story-item:active{transform:scale(.95)}
+.story-ring{
+  width:66px;height:66px;border-radius:50%;
+  padding:3px;
+  background:linear-gradient(45deg,var(--gold),var(--gold2),#ad91ff,var(--gold));
+  background-size:300% 300%;
+  animation:ringFlow 3s ease infinite;
   position:relative;
 }
-.auth-tabs-v2 .slider{
+@keyframes ringFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.story-item.seen .story-ring{background:var(--ig-border-2);animation:none}
+.story-avatar{
+  width:100%;height:100%;border-radius:50%;
+  background:var(--ig-surface-2);
+  border:3px solid var(--ig-bg);
+  display:grid;place-items:center;
+  font-size:22px;font-weight:900;color:var(--ig-text);
+  overflow:hidden;
+}
+.story-avatar.gold{
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  color:#1a1306;
+}
+.story-name{
+  font-size:11px;color:var(--ig-text-2);
+  max-width:66px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  text-align:center;
+}
+.story-item.add .story-ring{background:var(--ig-border-2);animation:none}
+.story-item.add .story-avatar{background:var(--ig-surface-2);color:var(--gold);font-size:26px}
+.story-item.add::after{
+  content:"+";position:absolute;
+  bottom:20px;right:4px;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--ig-blue);color:#fff;
+  display:grid;place-items:center;
+  font-size:14px;font-weight:900;
+  border:3px solid var(--ig-bg);
+}
+
+/* ============ FEED ============ */
+.feed{padding:0}
+.post{
+  background:var(--ig-bg);
+  border-bottom:1px solid var(--ig-border);
+  padding-bottom:8px;
+  animation:postIn .35s var(--ease-out) both;
+}
+@keyframes postIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.post-head{
+  display:flex;align-items:center;gap:11px;
+  padding:12px 16px;
+}
+.post-avatar{
+  width:38px;height:38px;border-radius:50%;
+  padding:2px;
+  background:linear-gradient(45deg,var(--gold),var(--gold2),#ad91ff,var(--gold));
+  background-size:300% 300%;
+  animation:ringFlow 3s ease infinite;
+  flex:0 0 38px;
+}
+.post-avatar.seen{background:var(--ig-border-2);animation:none}
+.post-avatar-inner{
+  width:100%;height:100%;border-radius:50%;
+  background:var(--ig-surface-2);
+  border:2px solid var(--ig-bg);
+  display:grid;place-items:center;
+  font-size:14px;font-weight:900;color:var(--ig-text);
+}
+.post-user{flex:1;min-width:0}
+.post-user strong{
+  display:block;font-size:13px;font-weight:700;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.post-user span{
+  display:block;color:var(--ig-text-3);font-size:11px;margin-top:1px;
+}
+.post-type-badge{
+  padding:4px 9px;border-radius:99px;
+  background:var(--gold-soft);color:var(--gold);
+  font-size:10px;font-weight:800;
+  border:1px solid rgba(245,203,106,.2);
+  white-space:nowrap;
+}
+.post-menu{
+  width:32px;height:32px;border-radius:8px;
+  display:grid;place-items:center;
+  color:var(--ig-text);
+  transition:.2s;
+}
+.post-menu:hover{background:var(--ig-surface-2)}
+
+.post-body{padding:0 16px 12px}
+.post h2{
+  font-size:15px;font-weight:800;line-height:1.5;
+  margin-bottom:6px;letter-spacing:-.2px;
+}
+.post-text{
+  color:var(--ig-text-2);font-size:13px;line-height:1.7;
+  white-space:pre-wrap;
+}
+
+.post-actions{
+  display:flex;align-items:center;gap:2px;
+  padding:6px 12px;
+  position:relative;
+}
+.act-btn{
+  width:42px;height:42px;border-radius:10px;
+  display:grid;place-items:center;
+  color:var(--ig-text);
+  transition:.15s var(--ease);
+  position:relative;
+  overflow:visible;
+}
+.act-btn:hover{background:var(--ig-surface-2)}
+.act-btn:active{transform:scale(.85)}
+.act-btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;transition:.2s}
+.act-btn.liked{color:var(--ig-red)}
+.act-btn.liked svg{fill:var(--ig-red);stroke:var(--ig-red);animation:likePop .4s var(--ease-out)}
+@keyframes likePop{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.3)}
+  70%{transform:scale(.95)}
+  100%{transform:scale(1)}
+}
+.act-btn.bookmarked{color:var(--ig-text)}
+.act-btn.bookmarked svg{fill:currentColor}
+.post-likes{
+  padding:2px 16px 4px;
+  font-size:13px;font-weight:700;
+}
+.post-likes .count{margin-inline-end:2px}
+.post-caption{
+  padding:0 16px 8px;
+  font-size:13px;line-height:1.5;
+}
+.post-caption b{font-weight:800;margin-inline-end:4px}
+.post-caption span{color:var(--ig-text-2)}
+.post-comments-link{
+  padding:0 16px 6px;
+  font-size:13px;color:var(--ig-text-3);
+  cursor:pointer;
+}
+.post-comments-link:hover{color:var(--ig-text-2)}
+
+/* Heart burst on double tap */
+.post-heart-burst{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:100px;height:100px;
+  pointer-events:none;
+  opacity:0;
+  z-index:10;
+}
+.post-heart-burst.pop{
+  animation:heartBurst .9s var(--ease-out);
+}
+@keyframes heartBurst{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+  15%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
+  30%{transform:translate(-50%,-50%) scale(1)}
+  70%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.4)}
+}
+.post-heart-burst svg{width:100%;height:100%;fill:var(--ig-red);filter:drop-shadow(0 4px 20px rgba(237,73,86,.5))}
+
+/* ============ SKELETON ============ */
+.skeleton{
+  background:linear-gradient(90deg,var(--ig-surface-2) 0%,var(--ig-border) 50%,var(--ig-surface-2) 100%);
+  background-size:200% 100%;
+  animation:shimmer 1.4s ease-in-out infinite;
+  border-radius:8px;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-post{padding:12px 16px;border-bottom:1px solid var(--ig-border)}
+.sk-row{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.sk-avatar{width:38px;height:38px;border-radius:50%}
+.sk-line{height:11px;border-radius:6px}
+.sk-line.w-30{width:30%}
+.sk-line.w-50{width:50%}
+.sk-line.w-80{width:80%}
+.sk-line.w-100{width:100%}
+.sk-gap{height:8px}
+
+/* ============ EMPTY ============ */
+.empty{
+  padding:60px 24px;text-align:center;
+  color:var(--ig-text-3);
+}
+.empty-icon{
+  font-size:52px;margin-bottom:14px;
+  filter:grayscale(.4);
+}
+.empty h3{color:var(--ig-text);font-size:16px;font-weight:800;margin-bottom:6px}
+.empty p{font-size:13px;line-height:1.6}
+
+/* ============ BOTTOM NAV (IG-style) ============ */
+.bottom-nav{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:200;
+  background:rgba(0,0,0,.92);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-top:1px solid var(--ig-border);
+  padding-bottom:var(--safe-bottom);
+  display:none;
+}
+.light .bottom-nav{background:rgba(255,255,255,.92)}
+.bottom-nav-inner{
+  max-width:var(--max);margin:auto;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-around;
+  padding:0 8px;
+}
+.nav-btn{
+  flex:1;
+  height:100%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ig-text-2);
+  transition:.15s var(--ease);
+  position:relative;
+}
+.nav-btn:active{transform:scale(.9)}
+.nav-btn.active{color:var(--ig-text)}
+.nav-btn svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8}
+.nav-btn.active svg{stroke-width:2.4}
+.nav-btn .nav-badge{
+  position:absolute;top:8px;right:calc(50% - 16px);
+  width:8px;height:8px;border-radius:50%;
+  background:var(--ig-red);
+  display:none;
+}
+.nav-btn .nav-badge.on{display:block}
+.nav-avatar{
+  width:26px;height:26px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  color:#1a1306;font-weight:900;font-size:13px;
+  border:2px solid transparent;
+}
+.nav-btn.active .nav-avatar{border-color:var(--ig-text)}
+
+/* ============ STORY VIEWER ============ */
+.story-viewer{
+  position:fixed;inset:0;z-index:5000;
+  background:#000;
+  display:none;
+  flex-direction:column;
+  padding-top:var(--safe-top);
+}
+.story-viewer.show{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.story-progress{
+  display:flex;gap:3px;padding:12px 12px 8px;
+}
+.story-progress-bar{
+  flex:1;height:2px;border-radius:2px;
+  background:rgba(255,255,255,.3);
+  overflow:hidden;
+}
+.story-progress-fill{
+  height:100%;width:0;background:#fff;
+  border-radius:2px;
+  transition:width .1s linear;
+}
+.story-progress-fill.done{width:100%}
+.story-progress-fill.active{animation:storyProgress 4s linear forwards}
+@keyframes storyProgress{from{width:0}to{width:100%}}
+.story-header{
+  display:flex;align-items:center;gap:11px;
+  padding:8px 16px 12px;
+}
+.story-header .post-avatar{width:34px;height:34px;flex:0 0 34px}
+.story-header .post-avatar-inner{font-size:13px}
+.story-header-info{flex:1}
+.story-header-info strong{font-size:13px;font-weight:700}
+.story-header-info span{font-size:11px;color:var(--ig-text-3);margin-inline-start:6px}
+.story-close{
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;
+  color:#fff;
+  transition:.2s;
+}
+.story-close:hover{background:rgba(255,255,255,.1)}
+.story-close svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.4}
+.story-content{
+  flex:1;
+  display:grid;place-items:center;
+  padding:16px;
+  color:#fff;
+  text-align:center;
+  font-size:20px;line-height:1.6;font-weight:600;
+  padding-inline:32px;
+}
+
+/* ============ MODALS (bottom sheet on mobile) ============ */
+.sheet-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0;
+}
+.sheet-overlay.show{display:flex;animation:fadeIn .2s ease}
+.sheet{
+  width:100%;max-width:var(--max);
+  max-height:92vh;
+  background:var(--ig-bg);
+  border-radius:20px 20px 0 0;
+  border:1px solid var(--ig-border);
+  border-bottom:0;
+  overflow:auto;
+  animation:sheetUp .35s var(--ease-out);
+  padding-bottom:calc(16px + var(--safe-bottom));
+  position:relative;
+}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-handle{
+  width:36px;height:4px;border-radius:2px;
+  background:var(--ig-border-2);
+  margin:10px auto 4px;
+}
+.sheet-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;
+  border-bottom:1px solid var(--ig-border);
+}
+.sheet-head h2{font-size:16px;font-weight:800}
+.sheet-close{
+  width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;
+  color:var(--ig-text);
+}
+.sheet-close svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.4}
+.sheet-body{padding:16px}
+
+/* ============ FORMS ============ */
+.field{margin-bottom:12px}
+.field label{
+  display:block;font-size:12px;font-weight:700;
+  color:var(--ig-text-2);margin-bottom:6px;
+}
+.field input,.field textarea,.field select{
+  width:100%;
+  background:var(--ig-surface-2);
+  border:1px solid var(--ig-border);
+  border-radius:12px;
+  padding:12px 14px;
+  font-size:14px;
+  color:var(--ig-text);
+  outline:none;
+  transition:.2s var(--ease);
+  font-family:inherit;
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--gold);
+  background:var(--ig-bg);
+}
+.field textarea{min-height:100px;resize:vertical;line-height:1.6}
+.field input::placeholder,.field textarea::placeholder{color:var(--ig-text-3)}
+.field-row{display:flex;gap:10px}
+.field-row .field{flex:1;margin-bottom:0}
+
+.btn{
+  width:100%;padding:13px;
+  border-radius:12px;
+  font-size:14px;font-weight:800;
+  transition:.2s var(--ease);
+  font-family:inherit;
+}
+.btn-primary{
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  color:#1a1306;
+  box-shadow:0 8px 24px rgba(245,203,106,.25);
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(245,203,106,.35)}
+.btn-primary:active{transform:translateY(0)}
+.btn-ghost{
+  background:var(--ig-surface-2);
+  color:var(--ig-text);
+  border:1px solid var(--ig-border);
+}
+.btn-ghost:hover{background:var(--ig-border)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* ============ AUTH SHEET ============ */
+.auth-sheet{
+  max-width:480px;
+}
+.auth-brand{
+  text-align:center;
+  padding:20px 16px 8px;
+}
+.auth-brand-logo{
+  width:64px;height:64px;border-radius:18px;
+  display:grid;place-items:center;
+  font-size:34px;font-weight:900;color:#1a1306;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  margin:0 auto 12px;
+  box-shadow:0 14px 40px rgba(245,203,106,.35);
+}
+.auth-brand h1{
+  font-size:26px;font-weight:900;letter-spacing:-.8px;
+  margin-bottom:4px;
+}
+.auth-brand h1 span{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.auth-brand p{font-size:13px;color:var(--ig-text-2);line-height:1.6;padding:0 12px}
+.auth-tabs{
+  display:flex;gap:4px;padding:4px;margin:16px;
+  background:var(--ig-surface-2);border-radius:12px;
+  position:relative;
+}
+.auth-tabs .slider{
   position:absolute;top:4px;bottom:4px;
-  width:calc(50% - 4px);border-radius:11px;
+  width:calc(50% - 4px);border-radius:9px;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  transition:transform .35s var(--ease);
-  box-shadow:0 6px 20px rgba(245,203,106,.28);
+  transition:transform .3s var(--ease);
+  box-shadow:0 4px 14px rgba(245,203,106,.3);
 }
-.auth-tabs-v2[data-mode="register"] .slider{transform:translateX(-100%)}
-.auth-tab-v2{
-  flex:1;padding:11px;border-radius:11px;
-  color:var(--muted);font-size:12px;font-weight:900;
-  position:relative;z-index:2;transition:.25s var(--ease);
-  font-family:inherit;
+.auth-tabs[data-mode="register"] .slider{transform:translateX(-100%)}
+.auth-tab{
+  flex:1;padding:10px;
+  font-size:13px;font-weight:800;
+  color:var(--ig-text-2);
+  border-radius:9px;
+  position:relative;z-index:2;
+  transition:.2s;
 }
-.auth-tab-v2.active{color:#181207}
+.auth-tab.active{color:#1a1306}
+.auth-form{padding:0 16px 8px}
+.auth-note{
+  font-size:11px;color:var(--ig-text-3);
+  text-align:center;line-height:1.6;
+  padding:12px 16px 4px;
+}
+.auth-terms{
+  font-size:10px;color:var(--ig-text-3);
+  text-align:center;line-height:1.5;
+  padding:8px 24px 16px;
+}
+.auth-terms a{color:var(--gold)}
 
-.input-wrap{position:relative;margin-bottom:13px}
-.input-wrap .field-ico{
-  position:absolute;right:14px;top:50%;transform:translateY(-50%);
-  font-size:15px;color:var(--muted2);pointer-events:none;
+/* ============ PROFILE SHEET ============ */
+.profile-head{
+  display:flex;align-items:center;gap:20px;
+  padding:16px;
 }
-.input-wrap input,.input-wrap select{
-  width:100%;border:1px solid var(--border);
-  border-radius:13px;outline:none;
-  padding:13px 42px 13px 13px;
-  color:var(--text);background:var(--bg2);
-  font-size:13px;transition:.22s var(--ease);
+.profile-avatar{
+  width:84px;height:84px;border-radius:50%;
+  padding:3px;
+  background:linear-gradient(45deg,var(--gold),var(--gold2),#ad91ff,var(--gold));
+  background-size:300% 300%;
+  animation:ringFlow 3s ease infinite;
+  flex:0 0 84px;
 }
-.input-wrap input:focus,.input-wrap select:focus{
-  border-color:rgba(245,203,106,.5);
-  box-shadow:0 0 0 4px var(--gold-soft);
-  background:rgba(245,203,106,.03);
-}
-.input-wrap select{appearance:none;cursor:pointer}
-.input-wrap.select-wrap::after{
-  content:"▾";position:absolute;left:16px;top:50%;
-  transform:translateY(-50%);color:var(--muted2);pointer-events:none;font-size:12px;
-}
-
-.pw-strength{
-  height:4px;border-radius:4px;margin-top:7px;
-  background:rgba(255,255,255,.06);overflow:hidden;
-}
-.pw-strength-fill{
-  height:100%;width:0;border-radius:4px;
-  transition:.3s var(--ease);
-}
-.pw-strength-text{
-  font-size:9px;color:var(--muted2);margin-top:5px;
-}
-
-.auth-submit-v2{
-  width:100%;padding:14px;border-radius:14px;
-  color:#181207;font-weight:900;font-size:14px;
+.profile-avatar-inner{
+  width:100%;height:100%;border-radius:50%;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 12px 34px rgba(245,203,106,.32);
-  transition:.25s var(--ease);margin-top:8px;
-  font-family:inherit;
+  border:3px solid var(--ig-bg);
+  display:grid;place-items:center;
+  font-size:36px;font-weight:900;color:#1a1306;
 }
-.auth-submit-v2:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(245,203,106,.45)}
-.auth-submit-v2:active{transform:translateY(0)}
-
-.auth-divider{
-  display:flex;align-items:center;gap:12px;
-  margin:20px 0;color:var(--muted2);font-size:10px;
+.profile-stats{
+  flex:1;
+  display:flex;justify-content:space-around;
 }
-.auth-divider::before,.auth-divider::after{
-  content:"";flex:1;height:1px;background:var(--border);
+.profile-stat{text-align:center}
+.profile-stat strong{display:block;font-size:17px;font-weight:800}
+.profile-stat span{display:block;font-size:12px;color:var(--ig-text-2);margin-top:2px}
+.profile-info{
+  padding:0 16px 16px;
 }
-
-.auth-trust{
-  display:flex;gap:14px;justify-content:center;
-  margin-top:18px;flex-wrap:wrap;
+.profile-info .name{font-size:14px;font-weight:800;margin-bottom:4px}
+.profile-info .bio{font-size:13px;color:var(--ig-text-2);line-height:1.6;margin-bottom:8px}
+.profile-info .meta{
+  font-size:12px;color:var(--ig-text-3);
+  display:flex;flex-wrap:wrap;gap:10px;
 }
-.auth-trust span{
+.profile-admin-badge{
   display:inline-flex;align-items:center;gap:5px;
-  color:var(--muted2);font-size:10px;
-}
-
-.admin-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:5px 10px;border-radius:999px;
+  padding:4px 10px;border-radius:99px;
   background:linear-gradient(135deg,rgba(245,203,106,.18),rgba(224,166,58,.18));
-  border:1px solid rgba(245,203,106,.35);
-  color:var(--gold);font-size:9px;font-weight:900;
-  letter-spacing:.5px;
+  border:1px solid rgba(245,203,106,.4);
+  color:var(--gold);font-size:11px;font-weight:800;
+  margin-top:6px;
 }
+.profile-actions{
+  display:flex;gap:8px;padding:0 16px 16px;
+}
+.profile-actions .btn{flex:1;padding:10px;font-size:13px}
 
-#registerFields{display:none}
-#registerFields.show{display:block}
+/* ============ NOTIFICATIONS ============ */
+.notif-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--ig-border);
+  transition:.15s;
+}
+.notif-item:hover{background:var(--ig-surface-2)}
+.notif-item.unread{background:rgba(245,203,106,.04)}
+.notif-icon{
+  width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--ig-surface-2);
+  font-size:20px;flex:0 0 44px;
+}
+.notif-body{flex:1;min-width:0}
+.notif-body strong{font-size:13px;font-weight:700;display:block}
+.notif-body p{font-size:12px;color:var(--ig-text-2);margin-top:2px;line-height:1.5}
+.notif-body small{font-size:11px;color:var(--ig-text-3);display:block;margin-top:3px}
 
-.notifications-list{display:flex;flex-direction:column;gap:8px}
-.notification{display:flex;gap:11px;padding:13px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--border);transition:.2s var(--ease)}
-.notification:hover{border-color:var(--border2)}
-.notification.unread{border-color:rgba(245,203,106,.22);background:rgba(245,203,106,.055)}
-.notification-icon{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;background:var(--gold-soft);font-size:17px}
-.notification-content{flex:1}
-.notification-content strong{font-size:12px;display:block}
-.notification-content p{color:var(--muted);font-size:10px;line-height:1.6;margin-top:3px}
-.notification-content small{color:var(--muted2);font-size:9px;display:block;margin-top:4px}
+/* ============ COMMENTS SHEET ============ */
+.comment-item{
+  display:flex;gap:11px;padding:11px 16px;
+}
+.comment-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  color:#1a1306;font-weight:900;font-size:14px;
+  display:grid;place-items:center;
+  flex:0 0 36px;
+}
+.comment-body{flex:1;min-width:0}
+.comment-body strong{font-size:12px;font-weight:800;margin-inline-end:4px}
+.comment-body span{font-size:13px;line-height:1.5;word-break:break-word}
+.comment-body small{font-size:11px;color:var(--ig-text-3);display:block;margin-top:3px}
+.comment-input-row{
+  display:flex;gap:8px;align-items:center;
+  padding:12px 16px;
+  border-top:1px solid var(--ig-border);
+  background:var(--ig-bg);
+  position:sticky;bottom:0;
+}
+.comment-input-row input{
+  flex:1;background:var(--ig-surface-2);
+  border:1px solid var(--ig-border);
+  border-radius:99px;
+  padding:11px 16px;
+  font-size:14px;color:var(--ig-text);
+  outline:none;
+}
+.comment-input-row input:focus{border-color:var(--gold)}
+.comment-input-row button{
+  padding:0 16px;height:40px;border-radius:99px;
+  background:transparent;color:var(--blue);
+  font-weight:800;font-size:13px;
+}
+.comment-input-row button:disabled{opacity:.4}
 
-.profile-box{text-align:center}
-.profile-large{width:80px;height:80px;margin:0 auto 12px;display:grid;place-items:center;border-radius:50%;color:#191307;font-size:30px;font-weight:900;background:linear-gradient(145deg,var(--gold),var(--gold2));box-shadow:0 12px 36px rgba(245,203,106,.28)}
-.profile-box h2{font-size:20px}
-.profile-box p{color:var(--muted);font-size:10px;margin-top:4px}
-.profile-info{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:20px}
-.profile-info div{padding:13px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025)}
-.profile-info small{display:block;color:var(--muted2);font-size:9px;text-transform:uppercase;letter-spacing:.4px}
-.profile-info strong{display:block;font-size:11px;margin-top:4px}
-
-.loading{display:flex;justify-content:center;padding:40px}
-.spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-.toast{position:fixed;left:50%;bottom:27px;z-index:900;transform:translate(-50%,20px);padding:12px 18px;border-radius:14px;color:#111;background:#f4f4f4;font-size:12px;font-weight:900;opacity:0;pointer-events:none;transition:.3s var(--ease);box-shadow:0 15px 50px rgba(0,0,0,.45);max-width:calc(100vw - 30px);text-align:center}
+/* ============ TOAST ============ */
+.toast{
+  position:fixed;
+  left:50%;bottom:calc(80px + var(--safe-bottom));
+  transform:translate(-50%,20px);
+  padding:12px 20px;
+  border-radius:12px;
+  background:rgba(255,255,255,.98);
+  color:#000;
+  font-size:13px;font-weight:700;
+  opacity:0;pointer-events:none;
+  transition:.3s var(--ease-out);
+  box-shadow:0 12px 40px rgba(0,0,0,.5);
+  max-width:calc(100vw - 32px);
+  text-align:center;
+  z-index:900;
+}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+.light .toast{background:#000;color:#fff}
 
-.mobile-nav{display:none}
-
-@media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,660px)}.right-sidebar{display:none}}
-@media(max-width:900px){.auth-modal-v2{grid-template-columns:1fr;max-height:92vh}.auth-visual{display:none}}
-@media(max-width:760px){
-  body{padding-bottom:65px}
-  .topbar{height:62px}
-  .topbar-inner{padding:0 12px;gap:8px}
-  .brand-name{font-size:19px}
-  .logo{width:40px;height:40px;border-radius:12px;font-size:19px}
-  .search{display:none}
-  .top-actions{margin-right:auto}
-  .top-actions .icon-btn.theme-btn{display:none}
-  .icon-btn,.profile-mini{width:40px;height:40px}
-  .layout{display:block;padding:12px 10px 25px}
-  .left-sidebar{display:none}
-  .hero{min-height:230px;padding:24px 20px;border-radius:22px}
-  .hero h1{font-size:30px;letter-spacing:-1.2px}
-  .hero p{font-size:11px}
-  .community-badge{min-width:0;width:100%}
-  .composer{padding:14px;border-radius:19px}
-  .composer-bottom{align-items:flex-start}
-  .composer-actions{max-width:72%;overflow-x:auto;scrollbar-width:none}
-  .composer-actions::-webkit-scrollbar{display:none}
-  .compose-action{white-space:nowrap}
-  .post{padding:15px;border-radius:18px}
-  .post h2{font-size:16px}
-  .post-text{font-size:11px}
-  .post-actions{grid-template-columns:repeat(3,1fr)}
-  .post-action{font-size:10px}
-  .mobile-nav{position:fixed;display:flex;left:0;right:0;bottom:0;height:65px;z-index:300;justify-content:space-around;align-items:center;background:rgba(8,9,12,.94);backdrop-filter:blur(22px);border-top:1px solid var(--border);padding-bottom:2px}
-  .light .mobile-nav{background:rgba(245,242,236,.95)}
-  .mobile-nav button{min-width:48px;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;font-weight:800;transition:.2s var(--ease)}
-  .mobile-nav button.active{color:var(--gold)}
-  .mobile-nav .add{width:44px;height:44px;min-width:44px;border-radius:14px;background:linear-gradient(145deg,var(--gold),var(--gold2));color:#171107;font-size:22px;box-shadow:0 8px 24px rgba(245,203,106,.28);transition:.22s var(--ease)}
-  .modal-layer{padding:10px;align-items:flex-end}
-  .modal{width:100%;max-height:90vh;border-radius:23px 23px 15px 15px;padding:18px}
-  .modal-footer{flex-wrap:wrap}
-  .intro-card{padding:28px 18px;border-radius:24px}
-  .intro-features{grid-template-columns:1fr;gap:8px}
-  .intro-feature{padding:12px}
-  .intro-logo{width:76px;height:76px;font-size:36px;border-radius:22px}
-  .auth-form-side{padding:24px 18px}
+/* ============ ADMIN FAB ============ */
+.admin-fab{
+  position:fixed;
+  right:16px;bottom:calc(80px + var(--safe-bottom));
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  color:#1a1306;
+  display:none;
+  place-items:center;
+  font-size:22px;
+  box-shadow:0 10px 30px rgba(245,203,106,.4);
+  z-index:150;
+  transition:.2s var(--ease);
 }
+.admin-fab.show{display:grid}
+.admin-fab:hover{transform:scale(1.08)}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:768px){
+  .bottom-nav{display:block}
+  .layout{padding-bottom:calc(80px + var(--safe-bottom))}
+}
+@media(min-width:769px){
+  .bottom-nav{display:none!important}
+  .layout{padding-top:8px}
+  .topbar{position:sticky}
+  .layout{max-width:640px}
+}
+
+/* ============ V2 OVERRIDES ============ */
+.v2-panel{
+  background:var(--ig-bg)!important;
+  color:var(--ig-text)!important;
+  border:1px solid var(--ig-border)!important;
+}
+.v2-head{border-bottom-color:var(--ig-border)!important}
+.v2-head p{color:var(--ig-text-2)!important}
+.v2-cover{background:linear-gradient(135deg,#1a1a1a,#000)!important}
+.v2-box{background:var(--ig-surface-2)!important;border-color:var(--ig-border)!important}
+.v2-box p{color:var(--ig-text-2)!important}
+.v2-tab{background:var(--ig-surface-2)!important;color:var(--ig-text-2)!important}
+.v2-tab.active{background:var(--gold-soft)!important;color:var(--gold)!important}
+.v2-btn.v2-primary{background:linear-gradient(145deg,var(--gold),var(--gold2))!important;color:#1a1306!important}
+.v2-btn.v2-soft{background:var(--ig-surface-2)!important;color:var(--ig-text)!important}
+.v2-input,.v2-textarea,.v2-select{
+  background:var(--ig-surface-2)!important;
+  color:var(--ig-text)!important;
+  border-color:var(--ig-border)!important;
+}
+.v2-feed-card{background:var(--ig-surface-2)!important;border-color:var(--ig-border)!important}
+.v2-mini{background:linear-gradient(145deg,var(--gold),var(--gold2))!important;color:#1a1306!important}
+.v2-row{background:var(--ig-surface-2)!important}
 
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    transition-duration:.001ms!important;
+  }
 }
 </style>
 
 <style id="fasl-v2-badge">
-.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:8px 11px;border:1px solid rgba(245,203,106,.22);border-radius:999px;background:rgba(18,20,28,.86);backdrop-filter:blur(12px);color:#f5cb6a;font:800 10px/1 system-ui;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
-body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
-@media(max-width:700px){.fasl-v2-badge{left:8px;bottom:8px;font-size:9px}}
+.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:6px 10px;border:1px solid rgba(245,203,106,.22);border-radius:99px;background:rgba(18,20,28,.86);backdrop-filter:blur(12px);color:#f5cb6a;font:800 10px/1 system-ui;pointer-events:none;opacity:.7}
+body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#b8860b}
+@media(max-width:700px){.fasl-v2-badge{left:8px;bottom:calc(70px + env(safe-area-inset-bottom,0px));font-size:9px}}
 </style>
 </head>
 
 <body>
 
-<!-- ============ CINEMATIC INTRO ============ -->
-<div id="faslIntro">
-  <div class="intro-bg-orb a"></div>
-  <div class="intro-bg-orb b"></div>
-  <div class="intro-card">
-    <div class="intro-logo">ف</div>
-    <div class="intro-title">فَ<span>ص</span>ل</div>
-    <div class="intro-tagline" id="introTagline">كل فصل عنده حكاية ✨</div>
-
-    <p class="intro-desc">
-      <b>فَصْل</b> هو مجتمع الطلاب المصريين الحقيقي. هنا بتلاقي <b>مواقف</b> بتضحك،
-      <b>أسئلة</b> بتتفهم، <b>ترندات</b> بتنتشر، و<b>حكايات</b> من كل مدرسة في مصر.
-      انضم لجروب مدرستك، شارك اللي حصل، واعرف إيه اللي بيحصل في الفصل اللي جانبك — كل ده في مكان واحد.
-    </p>
-
-    <div class="intro-features">
-      <div class="intro-feature">
-        <span class="ico">🏫</span>
-        <h4>جروب مدرستك</h4>
-        <p>مجتمع خاص بكل مدرسة، مع زملائك في نفس الصف.</p>
-      </div>
-      <div class="intro-feature">
-        <span class="ico">😂</span>
-        <h4>مواقف وترندات</h4>
-        <p>احكيلنا أغرب موقف حصل معاك النهارده في المدرسة.</p>
-      </div>
-      <div class="intro-feature">
-        <span class="ico">🔒</span>
-        <h4>آمن ومجهول</h4>
-        <p>انشر بشكل مجهول لو حبيت، وبياناتك محمية بالكامل.</p>
-      </div>
-    </div>
-
-    <div class="intro-actions">
-      <button class="intro-btn primary" onclick="enterFasl()">🚀 دخول فَصْل</button>
-      <button class="intro-btn ghost" onclick="enterAsGuest()">متابعة كزائر</button>
-    </div>
-
-    <div class="intro-footer">
-      <span>✅ مجاني للأبد</span>
-      <span>🇪🇬 مصنوع في مصر</span>
-      <span>👥 مجتمع الطلاب</span>
-    </div>
-    <div class="intro-countdown" id="introCountdown">هيبدأ تلقائياً خلال 8 ثواني…</div>
+<!-- ============ SPLASH ============ -->
+<div id="faslSplash">
+  <div class="splash-logo-wrap">
+    <div class="splash-ring on"></div>
+    <div class="splash-logo">ف</div>
   </div>
+  <div class="splash-name">فَ<span>ص</span>ل</div>
+  <div class="splash-tagline">كل فصل عنده حكاية</div>
+  <div class="splash-loader"></div>
+  <div class="splash-from">FROM FASL</div>
 </div>
 
-<!-- ============ MAIN APP ============ -->
+<!-- ============ APP ============ -->
 <div id="faslApp">
-
-<div class="background">
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-</div>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="#" onclick="goHome(event)">
-      <div class="logo">ف</div>
+    <a class="brand" href="#" onclick="goHome(event);return false">
+      <div class="brand-logo">ف</div>
       <div class="brand-name">فَ<span>ص</span>ل</div>
     </a>
-    <div class="search">
-      <span class="search-icon">⌕</span>
-      <input id="searchInput" type="search" placeholder="دور على موقف، سؤال، ترند..." autocomplete="off">
-    </div>
-    <div class="top-actions">
-      <button class="icon-btn" onclick="openNotifications()" aria-label="الإشعارات">
-        🔔
-        <span id="notificationDot" class="notification-dot"></span>
+    <div class="top-icons">
+      <button class="icon-btn" onclick="toggleTheme()" aria-label="Theme">
+        <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
-      <button class="icon-btn theme-btn" onclick="toggleTheme()" aria-label="تغيير الوضع">◐</button>
-      <div class="profile-mini" id="profileMini" onclick="openProfile()">م</div>
+      <button class="icon-btn" onclick="openNotifications()" aria-label="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge-dot" id="notificationDot"></span>
+      </button>
+      <button class="icon-btn" onclick="openSearchSheet()" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
 <main class="layout">
-  <aside class="sidebar left-sidebar">
-    <div class="side-title">اكتشف</div>
-    <nav class="nav-list">
-      <a href="#" class="nav-item active" onclick="goHome(event)"><span class="nav-icon">🏠</span>الرئيسية</a>
-      <a href="#trending" class="nav-item" onclick="scrollToTrending(event)"><span class="nav-icon">🔥</span>الترند</a>
-      <a href="#" class="nav-item" onclick="openMySchool(event)"><span class="nav-icon">🏫</span>مدرستي</a>
-      <a href="#" class="nav-item" onclick="activateFilter('question')"><span class="nav-icon">❓</span>الأسئلة</a>
-      <a href="#" class="nav-item" onclick="activateFilter('story')"><span class="nav-icon">😂</span>المواقف</a>
-    </nav>
-    <div class="school-card">
-      <small>مجتمعك</small>
-      <h3 id="sideSchoolName">لسه هنختار 👀</h3>
-      <p id="sideSchoolMeta">سجّل دخول واختار مدرستك.</p>
-    </div>
-  </aside>
 
-  <section>
-    <div class="hero">
-      <div class="hero-badge">🟡 مجتمع الطلاب المصريين</div>
-      <h1>إيه اللي حصل <span>في المدرسة</span> النهارده؟</h1>
-      <p>مواقف، أسئلة، ترندات وحكايات من قلب المدرسة. قول اللي عندك 👀</p>
-      <div class="community-badge" id="communityBadge">
-        <small>مجتمعك</small>
-        <strong id="communityName">سجّل دخول عشان تدخل جروب مدرستك 👥</strong>
-        <span id="communityMeta">المحافظة • المدرسة • الصف</span>
-      </div>
+  <!-- STORY BAR -->
+  <div class="story-bar" id="storyBar">
+    <div class="story-item add" onclick="openComposer()" style="position:relative">
+      <div class="story-ring"><div class="story-avatar">👤</div></div>
+      <div class="story-name">قصتك</div>
     </div>
+    <!-- filled by JS -->
+  </div>
 
-    <div class="composer">
-      <div class="composer-top">
-        <div class="avatar" id="composerAvatar">م</div>
-        <div class="composer-input" onclick="openComposer()">حصل معاك إيه النهارده؟ 😂</div>
-      </div>
-      <div class="composer-bottom">
-        <div class="composer-actions">
-          <button class="compose-action" onclick="openComposer('story')">😂 موقف</button>
-          <button class="compose-action" onclick="openComposer('question')">🤔 سؤال</button>
-          <button class="compose-action" onclick="openComposer('trend')">🔥 ترند</button>
-        </div>
-        <button class="post-btn" onclick="openComposer()">انشر</button>
-      </div>
-    </div>
+  <!-- FEED -->
+  <div id="feed" class="feed">
+    <div class="sk-post"><div class="sk-row"><div class="skeleton sk-avatar"></div><div style="flex:1"><div class="skeleton sk-line w-30"></div><div class="sk-gap"></div><div class="skeleton sk-line w-50"></div></div></div><div class="skeleton sk-line w-100" style="height:180px;margin-bottom:14px"></div><div class="skeleton sk-line w-80"></div></div>
+    <div class="sk-post"><div class="sk-row"><div class="skeleton sk-avatar"></div><div style="flex:1"><div class="skeleton sk-line w-30"></div><div class="sk-gap"></div><div class="skeleton sk-line w-50"></div></div></div><div class="skeleton sk-line w-100" style="height:180px;margin-bottom:14px"></div><div class="skeleton sk-line w-80"></div></div>
+  </div>
 
-    <div class="filters">
-      <button class="filter active" data-filter="all">الكل</button>
-      <button class="filter" data-filter="story">😂 مواقف</button>
-      <button class="filter" data-filter="teacher">👨‍🏫 مدرسين</button>
-      <button class="filter" data-filter="question">🤔 أسئلة</button>
-      <button class="filter" data-filter="trend">🔥 ترند</button>
-      <button class="filter" data-filter="school">🏫 المدرسة</button>
-    </div>
-
-    <div id="feed">
-      <div class="loading"><div class="spinner"></div></div>
-    </div>
-  </section>
-
-  <aside class="sidebar right-sidebar" id="trending">
-    <div class="trend-card">
-      <div class="trend-title"><h3>🔥 ترند دلوقتي</h3><span>FASL</span></div>
-      <div class="trend"><small>#مواقف_المدرسة</small><p>أغرب موقف حصل في الحصة 😂</p></div>
-      <div class="trend"><small>#المدرسة</small><p>المدرس اللي بيقول آخر سؤال وبعدين يجيب 7 أسئلة 😭</p></div>
-      <div class="trend"><small>#امتحانات</small><p>مين بدأ يذاكر ولا لسه؟ 👀</p></div>
-      <div class="trend"><small>#فصل</small><p>احكيلنا أغرب حاجة حصلت النهارده.</p></div>
-    </div>
-    <div class="online-card">
-      <div class="online-head"><span class="online-dot"></span>FASL LIVE</div>
-      <p>المجتمع بيتحدث لحظة بلحظة مع Firebase. احترم خصوصية زملائك ومتكتبش بيانات شخصية.</p>
-    </div>
-  </aside>
 </main>
 
-<nav class="mobile-nav">
-  <button class="active" onclick="goHome()"><span>🏠</span>الرئيسية</button>
-  <button onclick="scrollToTrending()"><span>🔥</span>الترند</button>
-  <button class="add" onclick="openComposer()">+</button>
-  <button onclick="openMySchool()"><span>🏫</span>مدرستي</button>
-  <button onclick="openProfile()"><span>👤</span>حسابي</button>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-btn active" onclick="goHome()" data-nav="home">
+      <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </button>
+    <button class="nav-btn" onclick="openSearchSheet()" data-nav="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+    <button class="nav-btn" onclick="openComposer()" data-nav="create">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="nav-btn" onclick="openNotifications()" data-nav="activity">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span class="nav-badge" id="navBadge"></span>
+    </button>
+    <button class="nav-btn" onclick="openProfile()" data-nav="profile">
+      <div class="nav-avatar" id="navAvatar">م</div>
+    </button>
+  </div>
 </nav>
 
 </div><!-- /#faslApp -->
 
-<!-- CREATE POST -->
-<div class="modal-layer" id="composerModal">
-  <div class="modal">
-    <div class="modal-head">
-      <h2>قول اللي عندك 👀</h2>
-      <button class="close" onclick="closeComposer()">✕</button>
+<!-- ============ STORY VIEWER ============ -->
+<div class="story-viewer" id="storyViewer">
+  <div class="story-progress" id="storyProgress"></div>
+  <div class="story-header">
+    <div class="post-avatar"><div class="post-avatar-inner" id="storyAvatar">ط</div></div>
+    <div class="story-header-info">
+      <strong id="storyUser">طالب</strong>
+      <span id="storyTime">دلوقتي</span>
     </div>
-    <div class="field">
-      <label>نوع البوست</label>
-      <select id="postType">
-        <option value="story">😂 موقف</option>
-        <option value="teacher">👨‍🏫 موقف مع مدرس</option>
-        <option value="question">🤔 سؤال</option>
-        <option value="trend">🔥 ترند</option>
-        <option value="school">🏫 حاجة حصلت في المدرسة</option>
-      </select>
+    <button class="story-close" onclick="closeStory()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="story-content" id="storyContent"></div>
+</div>
+
+<!-- ============ COMPOSER SHEET ============ -->
+<div class="sheet-overlay" id="composerModal">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2>منشور جديد</h2>
+      <button class="sheet-close" onclick="closeComposer()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
-    <div class="field">
-      <label>العنوان</label>
-      <input id="postTitle" maxlength="100" placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها 😂">
-    </div>
-    <div class="field">
-      <label>البوست</label>
-      <textarea id="postBody" maxlength="1000" placeholder="احكيلنا اللي حصل..."></textarea>
-    </div>
-    <div class="modal-footer">
-      <label class="anonymous"><input type="checkbox" id="anonymousPost">نشر بشكل مجهول 👤</label>
-      <button class="post-btn" onclick="createPost()">نشر البوست 🚀</button>
+    <div class="sheet-body">
+      <div class="field">
+        <label>نوع البوست</label>
+        <select id="postType">
+          <option value="story">😂 موقف</option>
+          <option value="teacher">👨‍🏫 موقف مع مدرس</option>
+          <option value="question">🤔 سؤال</option>
+          <option value="trend">🔥 ترند</option>
+          <option value="school">🏫 حاجة حصلت في المدرسة</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>العنوان</label>
+        <input id="postTitle" maxlength="100" placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها">
+      </div>
+      <div class="field">
+        <label>البوست</label>
+        <textarea id="postBody" maxlength="1000" placeholder="احكيلنا اللي حصل..."></textarea>
+      </div>
+      <label class="anonymous" style="display:flex;align-items:center;gap:8px;color:var(--ig-text-2);font-size:13px;margin:12px 0;cursor:pointer">
+        <input type="checkbox" id="anonymousPost" style="width:18px;height:18px;accent-color:var(--gold)">
+        نشر بشكل مجهول 👤
+      </label>
+      <button class="btn btn-primary" onclick="createPost()">نشر 🚀</button>
     </div>
   </div>
 </div>
 
-<!-- ============ NEW AUTH MODAL ============ -->
-<div class="modal-layer" id="authModal">
-  <div class="modal auth-modal-v2">
-    <div class="auth-visual">
-      <div class="auth-visual-logo">ف</div>
-      <h3>أهلاً بيك في <span>فَصْل</span><br>مجتمع الطلاب المصريين</h3>
-      <p>سجّل دخولك وادخل جروب مدرستك، شارك مواقفك، اسأل زملائك، واعرف كل اللي بيحصل في المدرسة.</p>
-      <div class="auth-perks">
-        <div class="auth-perk"><span class="ico">🏫</span>جروب خاص بمدرستك وصفك</div>
-        <div class="auth-perk"><span class="ico">🔒</span>بياناتك محمية ومشفرة</div>
-        <div class="auth-perk"><span class="ico">👤</span>انشر بشكل مجهول لو حبيت</div>
-        <div class="auth-perk"><span class="ico">🚀</span>مجاني بالكامل للأبد</div>
-      </div>
+<!-- ============ AUTH SHEET ============ -->
+<div class="sheet-overlay" id="authModal">
+  <div class="sheet auth-sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="auth-brand">
+      <div class="auth-brand-logo">ف</div>
+      <h1>فَ<span>ص</span>ل</h1>
+      <p id="authSubtitle">سجّل دخولك وادخل مجتمع مدرستك</p>
     </div>
-    <div class="auth-form-side">
-      <div class="modal-head" style="margin-bottom:18px">
-        <h2 id="authTitle">تسجيل الدخول</h2>
-        <button class="close" onclick="closeAuth()">✕</button>
+
+    <div class="auth-tabs" id="authTabs" data-mode="login">
+      <div class="slider"></div>
+      <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">دخول</button>
+      <button class="auth-tab" data-tab="register" onclick="switchAuthTab('register')">حساب جديد</button>
+    </div>
+
+    <div class="auth-form" id="loginForm">
+      <div class="field">
+        <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" autocomplete="email">
       </div>
-
-      <div class="auth-tabs-v2" id="authTabs" data-mode="login">
-        <div class="slider"></div>
-        <button class="auth-tab-v2 active" data-tab="login" onclick="switchAuthTab('login')">تسجيل الدخول</button>
-        <button class="auth-tab-v2" data-tab="register" onclick="switchAuthTab('register')">حساب جديد</button>
+      <div class="field">
+        <input id="loginPassword" type="password" placeholder="كلمة المرور" autocomplete="current-password">
       </div>
+      <button class="btn btn-primary" onclick="submitLogin()">دخول 🚀</button>
+    </div>
 
-      <!-- Login fields -->
-      <div id="loginFields">
-        <div class="input-wrap">
-          <span class="field-ico">✉️</span>
-          <input id="loginEmail" type="email" maxlength="120" placeholder="example@email.com" autocomplete="email">
-        </div>
-        <div class="input-wrap">
-          <span class="field-ico">🔒</span>
-          <input id="loginPassword" type="password" maxlength="128" placeholder="كلمة المرور" autocomplete="current-password">
-        </div>
-        <button class="auth-submit-v2" onclick="submitLogin()">دخول 🚀</button>
-        <div class="auth-trust">
-          <span>🔒 اتصال آمن</span>
-          <span>🇪🇬 مصنوع في مصر</span>
-        </div>
+    <div class="auth-form hidden" id="registerForm">
+      <div class="field">
+        <input id="regUsername" maxlength="30" placeholder="اسم المستخدم">
       </div>
-
-      <!-- Register fields -->
-      <div id="registerFields">
-        <div class="input-wrap">
-          <span class="field-ico">👤</span>
-          <input id="regUsername" maxlength="30" placeholder="اسم المستخدم (مثلاً: mazen123)">
-        </div>
-        <div class="input-wrap">
-          <span class="field-ico">✉️</span>
-          <input id="regEmail" type="email" maxlength="120" placeholder="example@email.com">
-        </div>
-        <div class="input-wrap">
-          <span class="field-ico">🔒</span>
-          <input id="regPassword" type="password" maxlength="128" placeholder="كلمة المرور (6+ حروف)" oninput="checkPwStrength()">
-        </div>
-        <div class="pw-strength"><div class="pw-strength-fill" id="pwFill"></div></div>
-        <div class="pw-strength-text" id="pwText">اكتب كلمة مرور قوية</div>
-
-        <div class="input-wrap select-wrap">
-          <span class="field-ico">📍</span>
-          <select id="regGovernorate"></select>
-        </div>
-        <div class="input-wrap">
-          <span class="field-ico">🏫</span>
-          <input id="regSchool" list="schoolDirectory" maxlength="120" placeholder="اسم المدرسة">
-          <datalist id="schoolDirectory"></datalist>
-        </div>
-        <div class="school-picker-hint">اختار مدرسة من الدليل أو اكتب اسم مدرسة جديدة — هيتعمل لها جروب تلقائياً.</div>
-        <div class="input-wrap select-wrap" style="margin-top:10px">
-          <span class="field-ico">🎓</span>
-          <select id="regGrade"></select>
-        </div>
-
-        <button class="auth-submit-v2" onclick="submitRegister()">إنشاء الحساب ✨</button>
-        <div class="auth-trust">
-          <span>🔒 بياناتك محمية</span>
-          <span>✅ مجاني للأبد</span>
+      <div class="field">
+        <input id="regEmail" type="email" placeholder="البريد الإلكتروني">
+      </div>
+      <div class="field">
+        <input id="regPassword" type="password" placeholder="كلمة المرور (6+ حروف)" oninput="checkPw()">
+        <div style="height:3px;border-radius:3px;background:var(--ig-surface-2);margin-top:6px;overflow:hidden">
+          <div id="pwFill" style="height:100%;width:0;background:var(--gold);transition:.3s"></div>
         </div>
       </div>
+      <div class="field">
+        <select id="regGovernorate"></select>
+      </div>
+      <div class="field">
+        <input id="regSchool" list="schoolDirectory" placeholder="اسم المدرسة">
+        <datalist id="schoolDirectory"></datalist>
+      </div>
+      <div class="field">
+        <select id="regGrade"></select>
+      </div>
+      <button class="btn btn-primary" onclick="submitRegister()">إنشاء الحساب ✨</button>
+    </div>
+
+    <p class="auth-terms">بالمتابعة، أنت توافق على شروط الاستخدام وسياسة الخصوصية.</p>
+  </div>
+</div>
+
+<!-- ============ NOTIFICATIONS SHEET ============ -->
+<div class="sheet-overlay" id="notificationsModal">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2>الإشعارات</h2>
+      <button class="sheet-close" onclick="closeNotifications()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="notificationsList">
+      <div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>
     </div>
   </div>
 </div>
 
-<!-- NOTIFICATIONS -->
-<div class="modal-layer" id="notificationsModal">
-  <div class="modal">
-    <div class="modal-head">
-      <h2>الإشعارات 🔔</h2>
-      <button class="close" onclick="closeNotifications()">✕</button>
-    </div>
-    <div id="notificationsList" class="notifications-list">
-      <div class="empty">
-        <div class="empty-icon">🔔</div>
-        <h3>مفيش إشعارات لسه</h3>
-        <p>لما يحصل نشاط مهم هتلاقيه هنا.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PROFILE -->
-<div class="modal-layer" id="profileModal">
-  <div class="modal">
-    <div class="modal-head">
-      <h2>حسابي 👤</h2>
-      <button class="close" onclick="closeProfile()">✕</button>
+<!-- ============ PROFILE SHEET ============ -->
+<div class="sheet-overlay" id="profileModal">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2>حسابي</h2>
+      <button class="sheet-close" onclick="closeProfile()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
     <div id="profileContent">
-      <div class="profile-box">
-        <div class="profile-large" id="profileLarge">م</div>
-        <h2 id="profileUsername">زائر</h2>
-        <p id="profileEmail">سجّل دخول عشان تدخل مجتمعك.</p>
-        <div id="profileAdminBadge" style="margin-top:10px;display:none">
-          <span class="admin-badge">👑 مدير فَصْل</span>
+      <div class="profile-head">
+        <div class="profile-avatar"><div class="profile-avatar-inner" id="profileLarge">م</div></div>
+        <div class="profile-stats">
+          <div class="profile-stat"><strong id="profilePostsCount">0</strong><span>بوستات</span></div>
+          <div class="profile-stat"><strong>—</strong><span>متابعين</span></div>
+          <div class="profile-stat"><strong>—</strong><span>يتابع</span></div>
         </div>
-        <div class="profile-info" id="profileInfo">
-          <div><small>المحافظة</small><strong>—</strong></div>
-          <div><small>المدرسة</small><strong>—</strong></div>
-          <div><small>الصف</small><strong>—</strong></div>
-          <div><small>المجتمع</small><strong>—</strong></div>
-        </div>
-        <button class="post-btn" style="margin-top:18px;width:100%;" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول 🚀</button>
+      </div>
+      <div class="profile-info">
+        <div class="name" id="profileUsername">زائر</div>
+        <div class="bio" id="profileBio">سجّل دخول عشان تدخل مجتمعك.</div>
+        <div class="meta" id="profileInfo"></div>
+        <div id="profileAdminBadge" style="display:none"><span class="profile-admin-badge">👑 مدير فَصْل</span></div>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-ghost" onclick="openMySchool()">🏫 مدرستي</button>
+        <button class="btn btn-primary" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ============ SEARCH SHEET ============ -->
+<div class="sheet-overlay" id="searchModal">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2>بحث</h2>
+      <button class="sheet-close" onclick="closeSearch()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body">
+      <div class="field">
+        <input id="searchInput" type="search" placeholder="دور على موقف، سؤال، ترند..." autocomplete="off">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ COMMENTS SHEET ============ -->
+<div class="sheet-overlay" id="commentsModal">
+  <div class="sheet" onclick="event.stopPropagation()" style="display:flex;flex-direction:column;max-height:85vh">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2>التعليقات</h2>
+      <button class="sheet-close" onclick="closeComments()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="commentsList" style="flex:1;overflow:auto"></div>
+    <div class="comment-input-row">
+      <input id="commentInput" placeholder="اكتب تعليق..." maxlength="500">
+      <button id="commentSubmit" onclick="submitComment()">نشر</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADMIN FAB ============ -->
+<button class="admin-fab" id="adminFab" onclick="openMySchool()">👑</button>
 
 <div class="toast" id="toast"></div>
 
+<!-- ============ FIREBASE + APP LOGIC ============ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
@@ -890,573 +1166,576 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ============ ADMIN EMAIL ============
 const ADMIN_EMAIL = "mazenshahin639@gmail.com";
 
 window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp, increment, onSnapshot };
-window.db = db; window.auth = auth;
-window.collection = collection; window.doc = doc; window.getDoc = getDoc;
-window.setDoc = setDoc; window.addDoc = addDoc; window.updateDoc = updateDoc;
-window.deleteDoc = deleteDoc; window.query = query; window.where = where;
-window.orderBy = orderBy; window.limit = limit; window.getDocs = getDocs;
-window.serverTimestamp = serverTimestamp;
-window.FASL_ADMIN_EMAIL = ADMIN_EMAIL;
-window.faslIsAdmin = () => String(auth.currentUser?.email || "").toLowerCase() === ADMIN_EMAIL;
+window.db=db; window.auth=auth;
+window.collection=collection; window.doc=doc; window.getDoc=getDoc;
+window.setDoc=setDoc; window.addDoc=addDoc; window.updateDoc=updateDoc;
+window.deleteDoc=deleteDoc; window.query=query; window.where=where;
+window.orderBy=orderBy; window.limit=limit; window.getDocs=getDocs;
+window.serverTimestamp=serverTimestamp;
+window.FASL_ADMIN_EMAIL=ADMIN_EMAIL;
+window.faslIsAdmin=()=>String(auth.currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
 
-let currentUser = null;
-let currentProfile = null;
-let activeFilter = "all";
-let allPosts = [];
-let unsubscribePosts = null;
-let unsubscribeNotifications = null;
+let currentUser=null, currentProfile=null;
+let activeFilter="all", allPosts=[];
+let unsubscribePosts=null, unsubscribeNotifications=null;
+let currentPostId=null;
 
-const demoPosts = [
-  { id:"demo-1", type:"teacher", username:"طالب مجهول", avatar:"😂", title:"لما المدرس يقول آخر سؤال بجد", body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂", likes:126, comments:18, liked:false, anonymous:true, demo:true },
-  { id:"demo-2", type:"story", username:"محمد", avatar:"م", title:"موقف حصل في الفسحة", body:"واحد من صحابي كان بيجري ورا الكورة ودخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂", likes:89, comments:12, liked:false, anonymous:false, demo:true },
-  { id:"demo-3", type:"question", username:"طالب مجهول", avatar:"🤔", title:"حد فاهم الجزئية دي؟", body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭", likes:54, comments:27, liked:false, anonymous:true, demo:true }
+const demoPosts=[
+  {id:"demo-1",type:"teacher",username:"طالب مجهول",avatar:"😂",title:"لما المدرس يقول آخر سؤال بجد",body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",likes:126,comments:18,liked:false,anonymous:true,demo:true},
+  {id:"demo-2",type:"story",username:"محمد",avatar:"م",title:"موقف حصل في الفسحة",body:"واحد من صحابي كان بيجري ورا الكورة ودخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂",likes:89,comments:12,liked:false,anonymous:false,demo:true},
+  {id:"demo-3",type:"question",username:"طالب مجهول",avatar:"🤔",title:"حد فاهم الجزئية دي؟",body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭",likes:54,comments:27,liked:false,anonymous:true,demo:true}
 ];
 
-const governorates = ["القاهرة","الجيزة","الإسكندرية","القليوبية","الدقهلية","الشرقية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","الفيوم","بني سويف","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر","الوادي الجديد","مطروح"];
-const grades = ["ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتدائي 4","ابتدائي 5","ابتدائي 6","إعدادي 1","إعدادي 2","إعدادي 3","ثانوي 1","ثانوي 2","ثانوي 3","فني 1","فني 2","فني 3","فني 4","فني 5"];
+const governorates=["القاهرة","الجيزة","الإسكندرية","القليوبية","الدقهلية","الشرقية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","الفيوم","بني سويف","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر","الوادي الجديد","مطروح"];
+const grades=["ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتدائي 4","ابتدائي 5","ابتدائي 6","إعدادي 1","إعدادي 2","إعدادي 3","ثانوي 1","ثانوي 2","ثانوي 3","فني 1","فني 2","فني 3","فني 4","فني 5"];
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
+function escapeHTML(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
+function communityId(g,s){return `${g}__${s}`.trim().toLowerCase().replace(/\s+/g,"-")}
+function typeLabel(t){return {story:"😂 موقف",teacher:"👨‍🏫 مدرس",question:"🤔 سؤال",trend:"🔥 ترند",school:"🏫 المدرسة"}[t]||"📝 بوست"}
+function timeText(ts){if(!ts||!ts.toDate)return"دلوقتي";const d=ts.toDate();const diff=Math.max(0,Date.now()-d.getTime())/1000;if(diff<60)return"منذ لحظات";if(diff<3600)return`منذ ${Math.floor(diff/60)} د`;if(diff<86400)return`منذ ${Math.floor(diff/3600)} س`;return d.toLocaleDateString("ar-EG",{day:"numeric",month:"short"})}
+function showToast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2500)}
+window.showToast=showToast;
 
-function escapeHTML(v){
-  return String(v ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
-}
-function communityId(g,s){ return `${g}__${s}`.trim().toLowerCase().replace(/\s+/g,"-"); }
-function typeLabel(t){ return {story:"😂 موقف",teacher:"👨‍🏫 مدرس",question:"🤔 سؤال",trend:"🔥 ترند",school:"🏫 المدرسة"}[t] || "📝 بوست"; }
-function timeText(ts){
-  if(!ts || !ts.toDate) return "دلوقتي";
-  const d = ts.toDate(); const diff = Math.max(0,Date.now() - d.getTime()) / 1000;
-  if(diff < 60) return "منذ لحظات";
-  if(diff < 3600) return `منذ ${Math.floor(diff/60)} د`;
-  if(diff < 86400) return `منذ ${Math.floor(diff/3600)} س`;
-  return d.toLocaleDateString("ar-EG",{day:"numeric",month:"short"});
-}
-function showToast(msg){
-  const t = $("toast"); t.textContent = msg; t.classList.add("show");
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2800);
-}
-window.showToast = showToast;
-
-// ============ INTRO LOGIC ============
-const taglines = [
-  "كل فصل عنده حكاية ✨",
-  "مواقف، أسئلة، وترندات 🔥",
-  "جروب مدرستك في مكان واحد 🏫",
-  "انضم لمجتمع الطلاب المصريين 🇪🇬",
-  "شارك، اسأل، واعرف كل حاجة 👀"
-];
-let tagIndex = 0;
-let introTimer = null;
-let countdownTimer = null;
-
-function rotateTagline(){
-  const el = $("introTagline");
-  if(!el) return;
-  el.classList.add("fade");
-  setTimeout(()=>{
-    tagIndex = (tagIndex + 1) % taglines.length;
-    el.textContent = taglines[tagIndex];
-    el.classList.remove("fade");
-  }, 400);
-}
-function startIntro(){
-  introTimer = setInterval(rotateTagline, 2600);
-  let count = 8;
-  countdownTimer = setInterval(()=>{
-    count--;
-    const c = $("introCountdown");
-    if(c) c.textContent = `هيبدأ تلقائياً خلال ${count} ثواني…`;
-    if(count <= 0){ clearInterval(countdownTimer); enterFasl(); }
-  }, 1000);
-}
-function enterFasl(){
-  clearInterval(introTimer); clearInterval(countdownTimer);
-  const intro = $("faslIntro");
-  const app = $("faslApp");
-  if(intro){ intro.classList.add("hide"); setTimeout(()=>{ intro.style.display="none"; }, 700); }
-  if(app){ app.classList.add("show"); }
-  // Show auth if not logged in
-  setTimeout(()=>{
-    if(!currentUser){ openAuth("login"); }
-  }, 400);
-}
-window.enterFasl = enterFasl;
-function enterAsGuest(){
-  clearInterval(introTimer); clearInterval(countdownTimer);
-  const intro = $("faslIntro");
-  const app = $("faslApp");
-  if(intro){ intro.classList.add("hide"); setTimeout(()=>{ intro.style.display="none"; }, 700); }
-  if(app){ app.classList.add("show"); }
-  showToast("أنت تتصفح كزائر 👀 سجّل دخول عشان تشارك");
-}
-window.enterAsGuest = enterAsGuest;
-startIntro();
+// ============ SPLASH ============
+setTimeout(()=>{
+  const splash=$("faslSplash"), app=$("faslApp");
+  if(splash) splash.classList.add("hide");
+  if(app) app.classList.add("show");
+  setTimeout(()=>{ if(splash) splash.style.display="none"; },600);
+  if(!currentUser){ setTimeout(()=>openAuth("login"),300); }
+},2200);
 
 // ============ FILL SELECTS ============
-function fillSelect(id, values, placeholder){
-  const el = $(id); if(!el) return;
-  el.innerHTML = `<option value="">${placeholder}</option>` +
-    values.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("");
-}
-fillSelect("regGovernorate", governorates, "اختار المحافظة");
-fillSelect("regGrade", grades, "اختار الصف");
+function fillSelect(id,arr,ph){const el=$(id);if(!el)return;el.innerHTML=`<option value="">${ph}</option>`+arr.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("")}
+fillSelect("regGovernorate",governorates,"اختار المحافظة");
+fillSelect("regGrade",grades,"اختار الصف");
 
-// ============ AUTH TAB SWITCHER ============
+// ============ AUTH ============
+function openAuth(mode="login"){$("authModal").classList.add("show");switchAuthTab(mode==="register"?"register":"login")}
+window.openAuth=openAuth;
+function closeAuth(){$("authModal").classList.remove("show")}
+window.closeAuth=closeAuth;
 function switchAuthTab(mode){
-  const tabs = $("authTabs");
-  const loginFields = $("loginFields");
-  const registerFields = $("registerFields");
-  const title = $("authTitle");
-  if(!tabs) return;
-  tabs.dataset.mode = mode;
-  document.querySelectorAll(".auth-tab-v2").forEach(b=>b.classList.toggle("active", b.dataset.tab===mode));
-  if(mode === "register"){
-    loginFields.style.display = "none";
-    registerFields.classList.add("show");
-    if(title) title.textContent = "حساب جديد";
-  } else {
-    loginFields.style.display = "block";
-    registerFields.classList.remove("show");
-    if(title) title.textContent = "تسجيل الدخول";
-  }
+  const tabs=$("authTabs");
+  tabs.dataset.mode=mode;
+  document.querySelectorAll(".auth-tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===mode));
+  $("loginForm").classList.toggle("hidden",mode==="register");
+  $("registerForm").classList.toggle("hidden",mode!=="register");
+  $("authSubtitle").textContent=mode==="register"?"انضم لمجتمع الطلاب المصريين":"سجّل دخولك وادخل مجتمع مدرستك";
 }
-window.switchAuthTab = switchAuthTab;
-
-function checkPwStrength(){
-  const pw = $("regPassword")?.value || "";
-  const fill = $("pwFill");
-  const text = $("pwText");
-  if(!fill || !text) return;
-  let score = 0;
-  if(pw.length >= 6) score++;
-  if(pw.length >= 10) score++;
-  if(/[A-Z]/.test(pw)) score++;
-  if(/[0-9]/.test(pw)) score++;
-  if(/[^A-Za-z0-9]/.test(pw)) score++;
-  const pct = (score/5)*100;
-  fill.style.width = pct + "%";
-  const colors = ["#ff6b7e","#ff6b7e","#f5cb6a","#63e0a0","#63e0a0"];
-  const labels = ["ضعيفة جداً","ضعيفة","متوسطة","قوية","قوية جداً 🔥"];
-  fill.style.background = colors[Math.max(0,score-1)] || "#ff6b7e";
-  text.textContent = pw ? labels[Math.max(0,score-1)] : "اكتب كلمة مرور قوية";
-  text.style.color = pw ? colors[Math.max(0,score-1)] : "var(--muted2)";
+window.switchAuthTab=switchAuthTab;
+function checkPw(){
+  const pw=$("regPassword").value;const fill=$("pwFill");
+  let score=0;
+  if(pw.length>=6)score++;if(pw.length>=10)score++;
+  if(/[A-Z]/.test(pw))score++;if(/[0-9]/.test(pw))score++;if(/[^A-Za-z0-9]/.test(pw))score++;
+  const pct=(score/5)*100;
+  fill.style.width=pct+"%";
+  fill.style.background=["#ed4956","#ed4956","#f5cb6a","#63e0a0","#63e0a0"][Math.max(0,score-1)]||"#ed4956";
 }
-window.checkPwStrength = checkPwStrength;
+window.checkPw=checkPw;
 
-// ============ AUTH MODAL OPEN/CLOSE ============
-function openAuth(mode="login"){
-  $("authModal").classList.add("show");
-  switchAuthTab(mode === "register" ? "register" : "login");
-}
-window.openAuth = openAuth;
-function closeAuth(){ $("authModal").classList.remove("show"); }
-window.closeAuth = closeAuth;
-
-// ============ LOGIN ============
 async function submitLogin(){
-  const email = $("loginEmail").value.trim();
-  const password = $("loginPassword").value;
-  if(!email) return showToast("اكتب الإيميل الأول.");
-  if(password.length < 6) return showToast("كلمة المرور قصيرة.");
+  const email=$("loginEmail").value.trim();
+  const password=$("loginPassword").value;
+  if(!email)return showToast("اكتب الإيميل.");
+  if(password.length<6)return showToast("كلمة المرور قصيرة.");
   try{
-    const cred = await signInWithEmailAndPassword(auth, email, password);
-    // Auto-admin promotion
-    if(email.toLowerCase() === ADMIN_EMAIL){
-      try{
-        await setDoc(doc(db,"users",cred.user.uid), {
-          moderator:true, admin:true, adminEmail:email,
-          promotedAt: serverTimestamp()
-        }, {merge:true});
-      }catch(e){ console.warn("Admin promote failed:", e); }
+    const cred=await signInWithEmailAndPassword(auth,email,password);
+    if(email.toLowerCase()===ADMIN_EMAIL){
+      try{await setDoc(doc(db,"users",cred.user.uid),{moderator:true,admin:true,adminEmail:email,promotedAt:serverTimestamp()},{merge:true})}catch(e){console.warn(e)}
     }
     closeAuth();
-    showToast("أهلاً بيك تاني في فَصْل 👋");
-  }catch(error){
-    console.error(error);
-    const msgs = {
-      "auth/invalid-credential":"الإيميل أو كلمة المرور غلط.",
-      "auth/invalid-email":"الإيميل مش صحيح.",
-      "auth/network-request-failed":"مشكلة في الإنترنت. جرّب تاني."
-    };
-    showToast(msgs[error.code] || "حصل خطأ. جرّب تاني.");
+    showToast("أهلاً بيك 👋");
+  }catch(err){
+    const m={"auth/invalid-credential":"الإيميل أو كلمة المرور غلط","auth/invalid-email":"الإيميل مش صحيح","auth/network-request-failed":"مشكلة في الإنترنت"};
+    showToast(m[err.code]||"حصل خطأ. جرّب تاني.");
   }
 }
-window.submitLogin = submitLogin;
+window.submitLogin=submitLogin;
 
-// ============ REGISTER ============
 async function submitRegister(){
-  const username = $("regUsername").value.trim();
-  const email = $("regEmail").value.trim();
-  const password = $("regPassword").value;
-  const governorate = $("regGovernorate").value;
-  const school = $("regSchool").value.trim();
-  const grade = $("regGrade").value;
-
-  if(!username || username.length < 3) return showToast("اسم المستخدم قصير.");
-  if(!email) return showToast("اكتب الإيميل.");
-  if(password.length < 6) return showToast("كلمة المرور لازم 6+ حروف.");
-  if(!governorate || !school || !grade) return showToast("كمّل المحافظة والمدرسة والصف.");
-
+  const username=$("regUsername").value.trim();
+  const email=$("regEmail").value.trim();
+  const password=$("regPassword").value;
+  const governorate=$("regGovernorate").value;
+  const school=$("regSchool").value.trim();
+  const grade=$("regGrade").value;
+  if(!username||username.length<3)return showToast("اسم المستخدم قصير.");
+  if(!email)return showToast("اكتب الإيميل.");
+  if(password.length<6)return showToast("كلمة المرور 6+ حروف.");
+  if(!governorate||!school||!grade)return showToast("كمّل المحافظة والمدرسة والصف.");
   try{
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const isAdmin = email.toLowerCase() === ADMIN_EMAIL;
-    await setDoc(doc(db,"users",cred.user.uid), {
-      username, governorate, school, grade,
-      communityId: communityId(governorate, school),
-      moderator: isAdmin, admin: isAdmin,
-      createdAt: serverTimestamp()
+    const cred=await createUserWithEmailAndPassword(auth,email,password);
+    const isAdmin=email.toLowerCase()===ADMIN_EMAIL;
+    await setDoc(doc(db,"users",cred.user.uid),{
+      username,governorate,school,grade,
+      communityId:communityId(governorate,school),
+      moderator:isAdmin,admin:isAdmin,
+      createdAt:serverTimestamp()
     });
     closeAuth();
-    showToast(isAdmin ? "أهلاً يا مدير فَصْل 👑" : "الحساب اتعمل! 🎉");
-  }catch(error){
-    console.error(error);
-    const msgs = {
-      "auth/email-already-in-use":"الإيميل ده مستخدم بالفعل.",
-      "auth/invalid-email":"الإيميل مش صحيح.",
-      "auth/weak-password":"كلمة المرور ضعيفة."
-    };
-    showToast(msgs[error.code] || "حصل خطأ. جرّب تاني.");
+    showToast(isAdmin?"أهلاً يا مدير 👑":"الحساب اتعمل! 🎉");
+  }catch(err){
+    const m={"auth/email-already-in-use":"الإيميل ده مستخدم","auth/invalid-email":"الإيميل مش صحيح","auth/weak-password":"كلمة المرور ضعيفة"};
+    showToast(m[err.code]||"حصل خطأ.");
   }
 }
-window.submitRegister = submitRegister;
+window.submitRegister=submitRegister;
 
 // ============ PROFILE ============
 async function loadProfile(user){
-  if(!user) return null;
-  const snap = await getDoc(doc(db,"users",user.uid));
-  if(!snap.exists()) return null;
-  return { id:snap.id, ...snap.data() };
+  if(!user)return null;
+  const snap=await getDoc(doc(db,"users",user.uid));
+  if(!snap.exists())return null;
+  return{id:snap.id,...snap.data()};
 }
 
 function updateUI(){
-  const username = currentProfile?.username || "م";
-  const initial = username.trim().charAt(0) || "م";
-  $("profileMini").textContent = initial;
-  $("composerAvatar").textContent = initial;
-  $("profileLarge").textContent = initial;
+  const username=currentProfile?.username||"م";
+  const initial=username.trim().charAt(0)||"م";
+  const navAvatar=$("navAvatar");
+  if(navAvatar)navAvatar.textContent=initial;
+  $("profileLarge").textContent=initial;
 
-  const isAdmin = String(currentUser?.email || "").toLowerCase() === ADMIN_EMAIL;
-  const badge = $("profileAdminBadge");
-  if(badge) badge.style.display = isAdmin ? "block" : "none";
+  const isAdmin=String(currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
+  const badge=$("profileAdminBadge");
+  if(badge)badge.style.display=isAdmin?"block":"none";
+  const fab=$("adminFab");
+  if(fab)fab.classList.toggle("show",isAdmin);
 
   if(currentProfile){
-    $("sideSchoolName").textContent = currentProfile.school;
-    $("sideSchoolMeta").textContent = `${currentProfile.governorate} • ${currentProfile.grade}`;
-    $("communityName").textContent = `جروب ${currentProfile.school} — ${currentProfile.grade} 👥`;
-    $("communityMeta").textContent = `${currentProfile.governorate} • مجتمع مدرستك`;
-    $("profileUsername").textContent = currentProfile.username;
-    $("profileEmail").textContent = currentUser?.email || "";
-    $("profileInfo").innerHTML = `
-      <div><small>المحافظة</small><strong>${escapeHTML(currentProfile.governorate)}</strong></div>
-      <div><small>المدرسة</small><strong>${escapeHTML(currentProfile.school)}</strong></div>
-      <div><small>الصف</small><strong>${escapeHTML(currentProfile.grade)}</strong></div>
-      <div><small>المجتمع</small><strong>${isAdmin ? "👑 مدير" : "طالب"}</strong></div>
-    `;
-    $("profileMainButton").textContent = "تسجيل الخروج 👋";
+    $("profileUsername").textContent=currentProfile.username;
+    $("profileBio").textContent=`${currentProfile.school} — ${currentProfile.grade}`;
+    $("profileInfo").innerHTML=`<span>📍 ${escapeHTML(currentProfile.governorate)}</span><span>🏫 ${escapeHTML(currentProfile.school)}</span>`;
+    $("profileMainButton").textContent="تسجيل الخروج";
   }else{
-    $("sideSchoolName").textContent = "لسه هنختار 👀";
-    $("sideSchoolMeta").textContent = "سجّل دخول واختار مدرستك.";
-    $("communityName").textContent = "سجّل دخول عشان تدخل جروب مدرستك 👥";
-    $("communityMeta").textContent = "المحافظة • المدرسة • الصف";
-    $("profileUsername").textContent = "زائر";
-    $("profileEmail").textContent = "سجّل دخول عشان تدخل مجتمعك.";
-    $("profileMainButton").textContent = "تسجيل الدخول 🚀";
+    $("profileUsername").textContent="زائر";
+    $("profileBio").textContent="سجّل دخول عشان تدخل مجتمعك.";
+    $("profileInfo").innerHTML="";
+    $("profileMainButton").textContent="تسجيل الدخول";
   }
+  renderStoryBar();
 }
 
-function openProfile(){ $("profileModal").classList.add("show"); }
-window.openProfile = openProfile;
-function closeProfile(){ $("profileModal").classList.remove("show"); }
-window.closeProfile = closeProfile;
+function openProfile(){$("profileModal").classList.add("show")}
+window.openProfile=openProfile;
+function closeProfile(){$("profileModal").classList.remove("show")}
+window.closeProfile=closeProfile;
 
 async function profileMainAction(){
-  if(!currentUser){ closeProfile(); openAuth("login"); return; }
-  try{
-    await signOut(auth);
-    closeProfile();
-    showToast("تم تسجيل الخروج 👋");
-  }catch(e){ console.error(e); showToast("تعذر تسجيل الخروج."); }
+  if(!currentUser){closeProfile();openAuth("login");return}
+  try{await signOut(auth);closeProfile();showToast("تم تسجيل الخروج 👋")}
+  catch(e){console.error(e);showToast("تعذر تسجيل الخروج.")}
 }
-window.profileMainAction = profileMainAction;
+window.profileMainAction=profileMainAction;
+
+// ============ STORY BAR ============
+function renderStoryBar(){
+  const bar=$("storyBar");
+  if(!bar)return;
+  const base=`<div class="story-item add" onclick="openComposer()" style="position:relative"><div class="story-ring"><div class="story-avatar">👤</div></div><div class="story-name">قصتك</div></div>`;
+  if(!allPosts.length||!currentProfile){bar.innerHTML=base;return}
+  const users=new Map();
+  allPosts.forEach(p=>{
+    if(!p.anonymous&&p.username&&!users.has(p.username)){
+      users.set(p.username,{username:p.username,post:p});
+    }
+  });
+  const items=Array.from(users.values()).slice(0,12).map(u=>`
+    <div class="story-item" onclick="openStoryFromUser('${escapeHTML(u.username)}')">
+      <div class="story-ring"><div class="story-avatar">${escapeHTML(u.username.charAt(0).toUpperCase())}</div></div>
+      <div class="story-name">${escapeHTML(u.username)}</div>
+    </div>`).join("");
+  bar.innerHTML=base+items;
+}
+window.renderStoryBar=renderStoryBar;
+
+let storyTimer=null;
+let storyIndex=0;
+let storyList=[];
+
+function openStoryFromUser(username){
+  storyList=allPosts.filter(p=>p.username===username&&!p.anonymous).slice(0,10);
+  if(!storyList.length)return;
+  storyIndex=0;
+  $("storyViewer").classList.add("show");
+  renderStory();
+}
+window.openStoryFromUser=openStoryFromUser;
+
+function renderStory(){
+  const post=storyList[storyIndex];
+  if(!post){closeStory();return}
+  $("storyAvatar").textContent=post.username?post.username.charAt(0).toUpperCase():"ط";
+  $("storyUser").textContent=post.username||"طالب";
+  $("storyTime").textContent=timeText(post.createdAt);
+  $("storyContent").innerHTML=`${post.title?`<div style="font-size:22px;font-weight:900;margin-bottom:14px">${escapeHTML(post.title)}</div>`:""}<div>${escapeHTML(post.body)}</div>`;
+  const progress=$("storyProgress");
+  progress.innerHTML=storyList.map((_,i)=>`<div class="story-progress-bar"><div class="story-progress-fill ${i<storyIndex?"done":""} ${i===storyIndex?"active":""}"></div></div>`).join("");
+  clearTimeout(storyTimer);
+  storyTimer=setTimeout(()=>{
+    if(storyIndex<storyList.length-1){storyIndex++;renderStory()}
+    else closeStory();
+  },4000);
+}
+function closeStory(){
+  clearTimeout(storyTimer);
+  $("storyViewer").classList.remove("show");
+}
+window.closeStory=closeStory;
 
 // ============ POSTS ============
 async function loadPosts(){
-  if(unsubscribePosts){ unsubscribePosts(); unsubscribePosts = null; }
-  if(!currentProfile){ allPosts = demoPosts; renderFeed(); return; }
-  $("feed").innerHTML = `<div class="loading"><div class="spinner"></div></div>`;
+  if(unsubscribePosts){unsubscribePosts();unsubscribePosts=null}
+  if(!currentProfile){allPosts=demoPosts;renderFeed();renderStoryBar();return}
+  $("feed").innerHTML=`<div class="sk-post"><div class="sk-row"><div class="skeleton sk-avatar"></div><div style="flex:1"><div class="skeleton sk-line w-30"></div></div></div><div class="skeleton sk-line w-100" style="height:180px"></div></div>`;
   try{
-    const q = query(collection(db,"posts"), where("communityId","==",currentProfile.communityId), limit(100));
-    unsubscribePosts = onSnapshot(q, async snap => {
-      allPosts = snap.docs.map(item => ({ id:item.id, ...item.data() }));
-      allPosts.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    const q=query(collection(db,"posts"),where("communityId","==",currentProfile.communityId),limit(100));
+    unsubscribePosts=onSnapshot(q,async snap=>{
+      allPosts=snap.docs.map(i=>({id:i.id,...i.data()}));
+      allPosts.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
       await loadLikeStates();
       renderFeed();
-    }, error => {
-      console.error(error); allPosts = []; renderFeed();
-      showToast("تعذر تحميل البوستات حالياً.");
-    });
-  }catch(e){ console.error(e); allPosts = []; renderFeed(); }
+      renderStoryBar();
+    },err=>{console.error(err);allPosts=[];renderFeed()});
+  }catch(e){console.error(e);allPosts=[];renderFeed()}
 }
 
 async function loadLikeStates(){
-  if(!currentUser) return;
-  const results = await Promise.all(allPosts.map(async post => {
-    try{
-      const snap = await getDoc(doc(db,"posts",post.id,"likes",currentUser.uid));
-      return [post.id, snap.exists()];
-    }catch{ return [post.id, false]; }
+  if(!currentUser)return;
+  const results=await Promise.all(allPosts.map(async p=>{
+    try{const s=await getDoc(doc(db,"posts",p.id,"likes",currentUser.uid));return[p.id,s.exists()]}
+    catch{return[p.id,false]}
   }));
-  const liked = new Set(results.filter(i=>i[1]).map(i=>i[0]));
-  allPosts = allPosts.map(p => ({ ...p, liked: liked.has(p.id) }));
+  const liked=new Set(results.filter(i=>i[1]).map(i=>i[0]));
+  allPosts=allPosts.map(p=>({...p,liked:liked.has(p.id)}));
 }
 
 function renderFeed(){
-  const search = $("searchInput").value.trim().toLowerCase();
-  const posts = allPosts.filter(post => {
-    const filterOk = activeFilter === "all" || post.type === activeFilter;
-    const text = `${post.title || ""} ${post.body || ""}`.toLowerCase();
-    return filterOk && (!search || text.includes(search));
+  const search=($("searchInput")?.value||"").trim().toLowerCase();
+  const posts=allPosts.filter(p=>{
+    const ok=activeFilter==="all"||p.type===activeFilter;
+    const text=`${p.title||""} ${p.body||""}`.toLowerCase();
+    return ok&&(!search||text.includes(search));
   });
   if(!posts.length){
-    $("feed").innerHTML = `<div class="empty"><div class="empty-icon">👀</div><h3>مفيش بوستات هنا لسه</h3><p>كن أول واحد يحكي حاجة في مجتمعك.</p></div>`;
+    $("feed").innerHTML=`<div class="empty"><div class="empty-icon">👀</div><h3>مفيش بوستات هنا لسه</h3><p>كن أول واحد يحكي حاجة في مجتمعك.</p></div>`;
     return;
   }
-  $("feed").innerHTML = posts.map(renderPost).join("");
+  $("feed").innerHTML=posts.map(renderPost).join("");
 }
 
 function renderPost(post){
-  if(post.demo){
-    return `
-      <article class="post">
-        <div class="post-head">
-          <div class="post-avatar">${post.avatar}</div>
-          <div class="post-user"><strong>${escapeHTML(post.username)}</strong><span>مثال من فَصْل</span></div>
-          <span class="post-type">${typeLabel(post.type)}</span>
-        </div>
-        <h2>${escapeHTML(post.title)}</h2>
-        <p class="post-text">${escapeHTML(post.body)}</p>
-        <div class="post-actions">
-          <button class="post-action" onclick="openAuth('login')">🤍 ${post.likes}</button>
-          <button class="post-action" onclick="openAuth('login')">💬 ${post.comments}</button>
-          <button class="post-action" onclick="openAuth('login')">🚀 شارك</button>
-        </div>
-      </article>`;
-  }
-  const name = post.anonymous ? "طالب مجهول" : escapeHTML(post.user || post.username || "طالب");
-  const av = post.anonymous ? "👤" : escapeHTML((post.user || post.username || "ط").charAt(0));
+  const name=post.anonymous?"طالب مجهول":escapeHTML(post.username||"طالب");
+  const av=post.anonymous?"👤":escapeHTML((post.username||"ط").charAt(0).toUpperCase());
+  const likeCount=Number(post.likes||0);
+  const commentCount=Number(post.comments||0);
+
   return `
-    <article class="post" data-id="${escapeHTML(post.id)}">
+    <article class="post" data-id="${escapeHTML(post.id)}" ondblclick="doubleTapLike('${escapeHTML(post.id)}', event)">
       <div class="post-head">
-        <div class="post-avatar">${av}</div>
-        <div class="post-user"><strong>${name}</strong><span>${escapeHTML(timeText(post.createdAt))}</span></div>
-        <span class="post-type">${typeLabel(post.type)}</span>
+        <div class="post-avatar"><div class="post-avatar-inner">${av}</div></div>
+        <div class="post-user">
+          <strong>${name}</strong>
+          <span>${escapeHTML(timeText(post.createdAt))}</span>
+        </div>
+        <span class="post-type-badge">${typeLabel(post.type)}</span>
+        <button class="post-menu" onclick="reportPost('${escapeHTML(post.id)}')" aria-label="Report">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </button>
       </div>
-      ${post.title ? `<h2>${escapeHTML(post.title)}</h2>` : ""}
-      <p class="post-text">${escapeHTML(post.body)}</p>
+      <div class="post-body" style="position:relative">
+        ${post.title?`<h2>${escapeHTML(post.title)}</h2>`:""}
+        <div class="post-text">${escapeHTML(post.body)}</div>
+        <div class="post-heart-burst" id="burst-${escapeHTML(post.id)}">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+      </div>
       <div class="post-actions">
-        <button class="post-action ${post.liked ? "liked" : ""}" onclick="likePost('${escapeHTML(post.id)}')">${post.liked ? "❤️" : "🤍"} ${Number(post.likes||0)}</button>
-        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments||0)}</button>
-        <button class="post-action" onclick="reportPost('${escapeHTML(post.id)}')">🚩 إبلاغ</button>
+        <button class="act-btn ${post.liked?"liked":""}" onclick="likePost('${escapeHTML(post.id)}')" aria-label="Like">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="act-btn" onclick="openComments('${escapeHTML(post.id)}')" aria-label="Comment">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </button>
+        <button class="act-btn" onclick="sharePost('${escapeHTML(post.id)}')" aria-label="Share">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <div style="flex:1"></div>
+        <button class="act-btn bookmarked" onclick="bookmarkPost('${escapeHTML(post.id)}')" aria-label="Save">
+          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
       </div>
+      <div class="post-likes"><span class="count">${likeCount.toLocaleString("ar-EG")}</span> إعجاب</div>
+      ${post.title?`<div class="post-caption"><b>${name}</b><span>${escapeHTML(post.title)}</span></div>`:""}
+      ${commentCount>0?`<div class="post-comments-link" onclick="openComments('${escapeHTML(post.id)}')">عرض كل ${commentCount} تعليق</div>`:""}
     </article>`;
 }
 
-function openComposer(type="story"){
-  if(!currentUser){ openAuth("login"); showToast("سجّل دخول الأول عشان تنشر."); return; }
-  $("composerModal").classList.add("show");
-  $("postType").value = type;
+let lastTap=0;
+function doubleTapLike(postId,event){
+  const now=Date.now();
+  if(now-lastTap<300){
+    const post=allPosts.find(p=>p.id===postId);
+    if(post&&!post.liked)likePost(postId);
+    const burst=$(`burst-${postId}`);
+    if(burst){burst.classList.add("pop");setTimeout(()=>burst.classList.remove("pop"),900)}
+  }
+  lastTap=now;
 }
-window.openComposer = openComposer;
-function closeComposer(){ $("composerModal").classList.remove("show"); }
-window.closeComposer = closeComposer;
+window.doubleTapLike=doubleTapLike;
+
+function openComposer(type="story"){
+  if(!currentUser){openAuth("login");showToast("سجّل دخول الأول");return}
+  $("composerModal").classList.add("show");
+  $("postType").value=type;
+}
+window.openComposer=openComposer;
+function closeComposer(){$("composerModal").classList.remove("show")}
+window.closeComposer=closeComposer;
 
 async function createPost(){
-  if(!currentUser || !currentProfile){ closeComposer(); openAuth("login"); return; }
-  const type = $("postType").value;
-  const title = $("postTitle").value.trim();
-  const body = $("postBody").value.trim();
-  const anonymous = $("anonymousPost").checked;
-  if(!body || body.length < 3) return showToast("اكتب البوست الأول ✍️");
+  if(!currentUser||!currentProfile){closeComposer();openAuth("login");return}
+  const type=$("postType").value;
+  const title=$("postTitle").value.trim();
+  const body=$("postBody").value.trim();
+  const anonymous=$("anonymousPost").checked;
+  if(!body||body.length<3)return showToast("اكتب البوست ✍️");
   try{
-    await addDoc(collection(db,"posts"), {
-      type, title, body, anonymous,
-      authorId: currentUser.uid,
-      username: currentProfile.username,
-      communityId: currentProfile.communityId,
-      governorate: currentProfile.governorate,
-      school: currentProfile.school,
-      grade: currentProfile.grade,
-      likes:0, comments:0, createdAt: serverTimestamp()
+    await addDoc(collection(db,"posts"),{
+      type,title,body,anonymous,
+      authorId:currentUser.uid,
+      username:currentProfile.username,
+      communityId:currentProfile.communityId,
+      governorate:currentProfile.governorate,
+      school:currentProfile.school,
+      grade:currentProfile.grade,
+      likes:0,comments:0,createdAt:serverTimestamp()
     });
-    $("postTitle").value = ""; $("postBody").value = ""; $("anonymousPost").checked = false;
+    $("postTitle").value="";$("postBody").value="";$("anonymousPost").checked=false;
     closeComposer();
     showToast("البوست اتنشر 🚀");
-  }catch(e){ console.error(e); showToast("مش قادر أنشر. راجع Firestore Rules."); }
+  }catch(e){console.error(e);showToast("مش قادر أنشر.")}
 }
-window.createPost = createPost;
+window.createPost=createPost;
 
 async function likePost(postId){
-  if(!currentUser){ openAuth("login"); return; }
-  if(String(postId).startsWith("demo-")){ openAuth("login"); return; }
-  const likeRef = doc(db,"posts",postId,"likes",currentUser.uid);
-  const postRef = doc(db,"posts",postId);
+  if(!currentUser){openAuth("login");return}
+  if(String(postId).startsWith("demo-")){openAuth("login");return}
+  const likeRef=doc(db,"posts",postId,"likes",currentUser.uid);
+  const postRef=doc(db,"posts",postId);
   try{
-    const snap = await getDoc(likeRef);
+    const snap=await getDoc(likeRef);
     if(snap.exists()){
       await deleteDoc(likeRef);
-      await updateDoc(postRef, { likes: increment(-1) });
+      await updateDoc(postRef,{likes:increment(-1)});
     }else{
-      await setDoc(likeRef, { userId: currentUser.uid, createdAt: serverTimestamp() });
-      await updateDoc(postRef, { likes: increment(1) });
+      await setDoc(likeRef,{userId:currentUser.uid,createdAt:serverTimestamp()});
+      await updateDoc(postRef,{likes:increment(1)});
     }
-  }catch(e){ console.error(e); showToast("التفاعل مش متاح حالياً."); }
+  }catch(e){console.error(e);showToast("التفاعل مش متاح.")}
 }
-window.likePost = likePost;
+window.likePost=likePost;
 
+function bookmarkPost(postId){
+  const post=allPosts.find(p=>p.id===postId);
+  if(!post)return;
+  showToast("تم الحفظ 🔖");
+}
+window.bookmarkPost=bookmarkPost;
+
+function sharePost(postId){
+  const url=window.location.origin+window.location.pathname+"#post-"+postId;
+  if(navigator.share){
+    navigator.share({title:"فَصْل",text:"شوف البوست ده على فَصْل",url}).catch(()=>{});
+  }else{
+    navigator.clipboard?.writeText(url);
+    showToast("تم نسخ الرابط 🔗");
+  }
+}
+window.sharePost=sharePost;
+
+// ============ COMMENTS ============
 async function openComments(postId){
-  if(!currentUser){ openAuth("login"); return; }
-  if(String(postId).startsWith("demo-")){ showToast("التعليقات تظهر بعد تسجيل الدخول."); return; }
+  if(!currentUser){openAuth("login");return}
+  if(String(postId).startsWith("demo-")){showToast("التعليقات تظهر بعد تسجيل الدخول.");return}
+  currentPostId=postId;
+  $("commentsModal").classList.add("show");
+  $("commentsList").innerHTML=`<div class="empty"><div class="empty-icon">💬</div><p>جاري التحميل...</p></div>`;
   try{
-    const q = query(collection(db,"posts",postId,"comments"), orderBy("createdAt","desc"), limit(30));
-    const snap = await getDocs(q);
-    const comments = snap.docs.map(i => ({ id:i.id, ...i.data() }));
-    const formatted = comments.length ? comments.map(c => `${c.anonymous ? "طالب مجهول" : c.username || "طالب"}: ${c.body}`).join("\n\n") : "مفيش تعليقات لسه.";
-    const body = prompt(`تعليقات البوست:\n\n${formatted}\n\nاكتب تعليق جديد:`);
-    if(!body?.trim()) return;
-    await addDoc(collection(db,"posts",postId,"comments"), {
-      authorId: currentUser.uid,
-      username: currentProfile.username,
-      body: body.trim().slice(0,500),
-      anonymous:false, createdAt: serverTimestamp()
-    });
-    await updateDoc(doc(db,"posts",postId), { comments: increment(1) });
-    showToast("تم إضافة التعليق 💬");
-  }catch(e){ console.error(e); showToast("مش قادر أضيف التعليق حالياً."); }
+    const q=query(collection(db,"posts",postId,"comments"),orderBy("createdAt","desc"),limit(50));
+    const snap=await getDocs(q);
+    const comments=snap.docs.map(i=>({id:i.id,...i.data()}));
+    if(!comments.length){
+      $("commentsList").innerHTML=`<div class="empty"><div class="empty-icon">💬</div><h3>مفيش تعليقات لسه</h3><p>كن أول واحد يعلّق.</p></div>`;
+      return;
+    }
+    $("commentsList").innerHTML=comments.map(c=>`
+      <div class="comment-item">
+        <div class="comment-avatar">${escapeHTML((c.username||"ط").charAt(0).toUpperCase())}</div>
+        <div class="comment-body">
+          <strong>${escapeHTML(c.username||"طالب")}</strong>
+          <span>${escapeHTML(c.body)}</span>
+          <small>${escapeHTML(timeText(c.createdAt))}</small>
+        </div>
+      </div>`).join("");
+  }catch(e){console.error(e);$("commentsList").innerHTML=`<div class="empty"><p>تعذر تحميل التعليقات.</p></div>`}
 }
-window.openComments = openComments;
+window.openComments=openComments;
+function closeComments(){$("commentsModal").classList.remove("show");currentPostId=null}
+window.closeComments=closeComments;
 
-async function reportPost(postId){
-  if(!currentUser){ openAuth("login"); return; }
-  const reason = prompt("ليه عايز تبلغ عن البوست؟");
-  if(!reason?.trim()) return;
+async function submitComment(){
+  if(!currentPostId||!currentUser)return;
+  const input=$("commentInput");
+  const body=input.value.trim();
+  if(!body||body.length<1)return;
   try{
-    await addDoc(collection(db,"reports"), {
-      postId, reporterId: currentUser.uid,
-      reason: reason.trim().slice(0,300),
-      createdAt: serverTimestamp()
+    await addDoc(collection(db,"posts",currentPostId,"comments"),{
+      authorId:currentUser.uid,
+      username:currentProfile.username,
+      body:body.slice(0,500),
+      anonymous:false,
+      createdAt:serverTimestamp()
     });
-    showToast("وصل البلاغ لفريق المراجعة 🚩");
-  }catch(e){ console.error(e); showToast("تعذر إرسال البلاغ."); }
+    await updateDoc(doc(db,"posts",currentPostId),{comments:increment(1)});
+    input.value="";
+    showToast("تم إضافة التعليق 💬");
+    openComments(currentPostId);
+  }catch(e){console.error(e);showToast("تعذر إضافة التعليق.")}
 }
-window.reportPost = reportPost;
+window.submitComment=submitComment;
+
+// ============ REPORT ============
+async function reportPost(postId){
+  if(!currentUser){openAuth("login");return}
+  const reason=prompt("ليه عايز تبلغ؟");
+  if(!reason?.trim())return;
+  try{
+    await addDoc(collection(db,"reports"),{
+      postId,reporterId:currentUser.uid,
+      reason:reason.trim().slice(0,300),
+      createdAt:serverTimestamp()
+    });
+    showToast("وصل البلاغ 🚩");
+  }catch(e){console.error(e);showToast("تعذر إرسال البلاغ.")}
+}
+window.reportPost=reportPost;
 
 // ============ NOTIFICATIONS ============
 function openNotifications(){
-  if(!currentUser){ openAuth("login"); showToast("سجّل دخول عشان تشوف إشعاراتك."); return; }
+  if(!currentUser){openAuth("login");return}
   $("notificationsModal").classList.add("show");
 }
-window.openNotifications = openNotifications;
-function closeNotifications(){ $("notificationsModal").classList.remove("show"); }
-window.closeNotifications = closeNotifications;
+window.openNotifications=openNotifications;
+function closeNotifications(){$("notificationsModal").classList.remove("show")}
+window.closeNotifications=closeNotifications;
 
 function listenToNotifications(){
-  if(unsubscribeNotifications){ unsubscribeNotifications(); unsubscribeNotifications = null; }
-  if(!currentUser){ $("notificationDot").style.display = "none"; return; }
+  if(unsubscribeNotifications){unsubscribeNotifications();unsubscribeNotifications=null}
+  if(!currentUser){$("notificationDot").classList.remove("on");return}
   try{
-    const q = query(collection(db,"users",currentUser.uid,"notifications"), orderBy("createdAt","desc"), limit(30));
-    unsubscribeNotifications = onSnapshot(q, snap => {
-      const notifs = snap.docs.map(i => ({ id:i.id, ...i.data() }));
+    const q=query(collection(db,"users",currentUser.uid,"notifications"),orderBy("createdAt","desc"),limit(30));
+    unsubscribeNotifications=onSnapshot(q,snap=>{
+      const notifs=snap.docs.map(i=>({id:i.id,...i.data()}));
       renderNotifications(notifs);
-      const unread = notifs.some(i => i.read === false);
-      $("notificationDot").style.display = unread ? "block" : "none";
-    }, err => { console.error(err); renderNotifications([]); });
-  }catch(e){ console.error(e); }
+      const unread=notifs.some(i=>i.read===false);
+      $("notificationDot").classList.toggle("on",unread);
+      $("navBadge")?.classList.toggle("on",unread);
+    },err=>{console.error(err);renderNotifications([])});
+  }catch(e){console.error(e)}
 }
 
 function renderNotifications(notifs){
-  const c = $("notificationsList");
+  const c=$("notificationsList");
   if(!notifs.length){
-    c.innerHTML = `<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>`;
+    c.innerHTML=`<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>`;
     return;
   }
-  c.innerHTML = notifs.map(n => {
-    const icon = n.type === "like" ? "❤️" : n.type === "comment" ? "💬" : "🔔";
-    return `<div class="notification ${n.read === false ? "unread" : ""}">
-      <div class="notification-icon">${icon}</div>
-      <div class="notification-content">
-        <strong>${escapeHTML(n.title || "إشعار جديد")}</strong>
-        <p>${escapeHTML(n.body || "")}</p>
+  c.innerHTML=notifs.map(n=>{
+    const icon=n.type==="like"?"❤️":n.type==="comment"?"💬":"🔔";
+    return `<div class="notif-item ${n.read===false?"unread":""}">
+      <div class="notif-icon">${icon}</div>
+      <div class="notif-body">
+        <strong>${escapeHTML(n.title||"إشعار جديد")}</strong>
+        <p>${escapeHTML(n.body||"")}</p>
         <small>${escapeHTML(timeText(n.createdAt))}</small>
       </div>
     </div>`;
   }).join("");
 }
 
-// ============ NAV ============
-function goHome(e){ if(e) e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); }
-window.goHome = goHome;
-function scrollToTrending(e){ if(e) e.preventDefault(); $("trending")?.scrollIntoView({behavior:"smooth"}); }
-window.scrollToTrending = scrollToTrending;
-function openMySchool(e){
-  if(e) e.preventDefault();
-  if(!currentUser){ openAuth("login"); return; }
-  if(window.openV2SchoolHub) window.openV2SchoolHub(currentProfile?.school, currentProfile?.governorate);
-  else showToast(`جروب ${currentProfile?.school || "مدرستك"} 👥`);
-}
-window.openMySchool = openMySchool;
+// ============ SEARCH ============
+function openSearchSheet(){$("searchModal").classList.add("show");setTimeout(()=>$("searchInput")?.focus(),200)}
+window.openSearchSheet=openSearchSheet;
+function closeSearch(){$("searchModal").classList.remove("show")}
+window.closeSearch=closeSearch;
 
-function activateFilter(filter){
-  activeFilter = filter;
-  document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.filter === filter));
-  renderFeed();
-  window.scrollTo({top:0,behavior:"smooth"});
+// ============ NAV ============
+function goHome(e){if(e)e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});closeSearch()}
+window.goHome=goHome;
+function scrollToTrending(e){if(e)e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})}
+window.scrollToTrending=scrollToTrending;
+
+function openMySchool(e){
+  if(e)e.preventDefault();
+  if(!currentUser){openAuth("login");return}
+  if(window.openV2SchoolHub)window.openV2SchoolHub(currentProfile?.school,currentProfile?.governorate);
+  else showToast(`جروب ${currentProfile?.school||"مدرستك"} 👥`);
 }
-window.activateFilter = activateFilter;
-document.querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => activateFilter(b.dataset.filter)));
-$("searchInput").addEventListener("input", renderFeed);
+window.openMySchool=openMySchool;
+
+function activateFilter(f){
+  activeFilter=f;
+  document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===f));
+  renderFeed();
+}
+window.activateFilter=activateFilter;
 
 // ============ THEME ============
 function toggleTheme(){
   document.body.classList.toggle("light");
-  const light = document.body.classList.contains("light");
-  localStorage.setItem("fasl-theme", light ? "light" : "dark");
-  showToast(light ? "الوضع الفاتح ☀️" : "الوضع الداكن 🌙");
+  const light=document.body.classList.contains("light");
+  localStorage.setItem("fasl-theme",light?"light":"dark");
 }
-window.toggleTheme = toggleTheme;
-if(localStorage.getItem("fasl-theme") === "light") document.body.classList.add("light");
+window.toggleTheme=toggleTheme;
+if(localStorage.getItem("fasl-theme")==="light")document.body.classList.add("light");
 
-// ============ MODAL CLICK OUTSIDE ============
-$("composerModal").addEventListener("click", e => { if(e.target.id === "composerModal") closeComposer(); });
-$("authModal").addEventListener("click", e => { if(e.target.id === "authModal") closeAuth(); });
-$("notificationsModal").addEventListener("click", e => { if(e.target.id === "notificationsModal") closeNotifications(); });
-$("profileModal").addEventListener("click", e => { if(e.target.id === "profileModal") closeProfile(); });
-document.addEventListener("keydown", e => {
-  if(e.key !== "Escape") return;
-  closeComposer(); closeAuth(); closeNotifications(); closeProfile();
+// ============ OVERLAY CLICKS ============
+["composerModal","authModal","notificationsModal","profileModal","searchModal","commentsModal"].forEach(id=>{
+  const el=$(id);
+  if(el)el.addEventListener("click",e=>{if(e.target.id===id){
+    if(id==="composerModal")closeComposer();
+    else if(id==="authModal")closeAuth();
+    else if(id==="notificationsModal")closeNotifications();
+    else if(id==="profileModal")closeProfile();
+    else if(id==="searchModal")closeSearch();
+    else if(id==="commentsModal")closeComments();
+  }});
+});
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Escape")return;
+  closeComposer();closeAuth();closeNotifications();closeProfile();closeSearch();closeComments();closeStory();
 });
 
 // ============ AUTH STATE ============
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
+onAuthStateChanged(auth,async user=>{
+  currentUser=user;
   if(user){
-    try{ currentProfile = await loadProfile(user); }
-    catch(e){ console.error(e); currentProfile = null; }
-    // Auto-promote admin on any session
-    if(String(user.email).toLowerCase() === ADMIN_EMAIL){
+    try{currentProfile=await loadProfile(user)}catch(e){console.error(e);currentProfile=null}
+    if(String(user.email).toLowerCase()===ADMIN_EMAIL){
       try{
-        await setDoc(doc(db,"users",user.uid), {
-          moderator:true, admin:true, adminEmail:user.email,
-          promotedAt: serverTimestamp()
-        }, {merge:true});
-        if(!currentProfile) currentProfile = await loadProfile(user);
-      }catch(e){ console.warn("Admin promote:", e); }
+        await setDoc(doc(db,"users",user.uid),{moderator:true,admin:true,adminEmail:user.email,promotedAt:serverTimestamp()},{merge:true});
+        if(!currentProfile)currentProfile=await loadProfile(user);
+      }catch(e){console.warn(e)}
     }
   }else{
-    currentProfile = null;
+    currentProfile=null;
   }
   updateUI();
   listenToNotifications();
@@ -1466,63 +1745,63 @@ onAuthStateChanged(auth, async user => {
 updateUI();
 </script>
 
-<div class="fasl-v2-badge">فَصْل • School Community v2</div>
-
+<!-- ============ V2 SCHOOL HUB LAYER ============ -->
 <style id="fasl-v2-style">
-:root{--v2-gold:#f5cb6a;--v2-purple:#7966ff;--v2-green:#5ee0a0;--v2-red:#ff6b7a;--v2-card:rgba(255,255,255,.045)}
-.v2-overlay{position:fixed;inset:0;background:rgba(4,6,10,.75);backdrop-filter:blur(14px);z-index:10000;display:none;align-items:center;justify-content:center;padding:18px}
+:root{--v2-gold:#f5cb6a;--v2-card:rgba(255,255,255,.045)}
+.v2-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);z-index:10000;display:none;align-items:flex-end;justify-content:center;padding:0}
 .v2-overlay.show{display:flex}
-.v2-panel{width:min(1100px,100%);max-height:min(92vh,900px);overflow:auto;background:#11141c;border:1px solid rgba(245,203,106,.18);border-radius:28px;box-shadow:0 30px 100px rgba(0,0,0,.6);color:#fff;animation:modalIn .3s cubic-bezier(.4,0,.2,1)}
-@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-body.light .v2-panel{background:#fff;color:#171922}
-.v2-head{position:sticky;top:0;z-index:3;padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08);background:inherit;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.v2-head h2{margin:0;font-size:20px}.v2-head p{margin:5px 0 0;color:#9da3b3;font-size:11px}
-.v2-close{width:38px;height:38px;border:0;border-radius:12px;background:rgba(255,255,255,.07);color:inherit;cursor:pointer;font-size:20px;transition:.2s}
-.v2-close:hover{background:rgba(255,255,255,.12);transform:rotate(90deg)}
-.v2-content{padding:22px}
-.v2-school-hero{border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,#191d2b,#10121a)}
-.v2-cover{height:150px;background:radial-gradient(circle at 75% 25%,rgba(245,203,106,.38),transparent 25%),linear-gradient(135deg,#2c2557,#11131b);position:relative}
+.v2-panel{width:100%;max-width:600px;max-height:92vh;overflow:auto;background:#0f0f0f;border:1px solid #262626;border-bottom:0;border-radius:20px 20px 0 0;color:#fff;animation:sheetUp .35s cubic-bezier(.16,1,.3,1);padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.v2-head{position:sticky;top:0;z-index:3;padding:16px 20px;border-bottom:1px solid #262626;background:#0f0f0f;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.v2-head h2{margin:0;font-size:17px;font-weight:800}.v2-head p{margin:4px 0 0;color:#a8a8a8;font-size:11px}
+.v2-close{width:36px;height:36px;border:0;border-radius:50%;background:#1a1a1a;color:inherit;cursor:pointer;font-size:20px;transition:.2s}
+.v2-close:hover{background:#262626;transform:rotate(90deg)}
+.v2-content{padding:20px}
+.v2-school-hero{border-radius:18px;overflow:hidden;border:1px solid #262626;background:#0a0a0a}
+.v2-cover{height:130px;background:radial-gradient(circle at 75% 25%,rgba(245,203,106,.35),transparent 25%),linear-gradient(135deg,#2c2557,#11131b);position:relative}
 .v2-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.7))}
-.v2-school-meta{padding:0 22px 22px;display:flex;gap:16px;align-items:end;margin-top:-36px;position:relative;z-index:2}
-.v2-avatar{width:78px;height:78px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#16110a;font-weight:1000;font-size:30px;border:4px solid #11141c;flex:0 0 auto;box-shadow:0 12px 36px rgba(245,203,106,.28)}
-.v2-school-meta h1{font-size:25px;margin:0}.v2-school-meta p{margin:5px 0 0;color:#a8adba;font-size:12px}
-.v2-tabs{display:flex;gap:7px;overflow:auto;padding:14px 0 0}
-.v2-tab{border:0;background:rgba(255,255,255,.06);color:#b9bdc8;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit}
-.v2-tab:hover{background:rgba(255,255,255,.1)}
+.v2-school-meta{padding:0 20px 20px;display:flex;gap:14px;align-items:end;margin-top:-32px;position:relative;z-index:2}
+.v2-avatar{width:68px;height:68px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#16110a;font-weight:900;font-size:28px;border:3px solid #0f0f0f;flex:0 0 auto;box-shadow:0 12px 30px rgba(245,203,106,.25)}
+.v2-school-meta h1{font-size:22px;margin:0;font-weight:900}.v2-school-meta p{margin:4px 0 0;color:#a8a8a8;font-size:12px}
+.v2-tabs{display:flex;gap:6px;overflow:auto;padding:14px 0 0}
+.v2-tab{border:0;background:#1a1a1a;color:#a8a8a8;border-radius:10px;padding:9px 14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit;font-size:12px}
+.v2-tab:hover{background:#262626}
 .v2-tab.active{background:rgba(245,203,106,.15);color:var(--v2-gold)}
-.v2-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.8fr);gap:16px;margin-top:16px}
-.v2-box{padding:17px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:var(--v2-card)}
-.v2-box h3{margin:0 0 12px;font-size:15px}.v2-box p{color:#aeb3c0;font-size:11px;line-height:1.8}
-.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.v2-stat{padding:13px;border-radius:14px;background:rgba(255,255,255,.045);text-align:center}
-.v2-stat strong{display:block;font-size:19px}.v2-stat span{color:#8e94a3;font-size:9px}
+.v2-grid{display:grid;gap:14px;margin-top:14px}
+.v2-box{padding:16px;border:1px solid #262626;border-radius:16px;background:#1a1a1a}
+.v2-box h3{margin:0 0 10px;font-size:14px;font-weight:800}.v2-box p{color:#a8a8a8;font-size:12px;line-height:1.7}
+.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.v2-stat{padding:12px;border-radius:12px;background:#0f0f0f;text-align:center}
+.v2-stat strong{display:block;font-size:18px;font-weight:900;color:var(--v2-gold)}.v2-stat span{color:#737373;font-size:10px}
 .v2-actions{display:flex;gap:8px;flex-wrap:wrap}
-.v2-btn{border:0;border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:900;font-family:inherit;transition:.2s}
-.v2-btn:hover{transform:translateY(-2px)}
-.v2-primary{background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;box-shadow:0 8px 24px rgba(245,203,106,.25)}
-.v2-soft{background:rgba(255,255,255,.07);color:inherit}
-.v2-feed-card{border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:15px;margin-bottom:10px;background:rgba(255,255,255,.035);transition:.2s}
-.v2-feed-card:hover{border-color:rgba(245,203,106,.22);transform:translateY(-2px)}
+.v2-btn{border:0;border-radius:11px;padding:10px 14px;cursor:pointer;font-weight:800;font-family:inherit;transition:.2s;font-size:13px}
+.v2-btn:hover{transform:translateY(-1px)}
+.v2-primary{background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;box-shadow:0 6px 20px rgba(245,203,106,.25)}
+.v2-soft{background:#1a1a1a;color:#fff;border:1px solid #262626}
+.v2-feed-card{border:1px solid #262626;border-radius:16px;padding:14px;margin-bottom:10px;background:#1a1a1a;transition:.2s}
+.v2-feed-card:hover{border-color:rgba(245,203,106,.25);transform:translateY(-2px)}
 .v2-feed-top{display:flex;align-items:center;gap:10px}
-.v2-mini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;font-weight:1000}
-.v2-feed-card h4{margin:0;font-size:12px}.v2-feed-card small{color:#818796}
-.v2-feed-card .body{margin-top:11px;font-size:12px;line-height:1.8}
-.v2-pills{display:flex;gap:7px;flex-wrap:wrap}
-.v2-pill{font-size:10px;padding:7px 10px;border-radius:999px;background:rgba(121,102,255,.12);color:#b9afff}
-.v2-list{display:flex;flex-direction:column;gap:8px}
-.v2-row{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.04)}
-.v2-row strong{font-size:11px}.v2-row span{font-size:10px;color:#8e94a3}
-.v2-empty{padding:25px;text-align:center;color:#8e94a3;font-size:12px}
+.v2-mini{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;font-weight:900;font-size:14px}
+.v2-feed-card h4{margin:0;font-size:12px;font-weight:800}.v2-feed-card small{color:#737373;font-size:11px}
+.v2-feed-card .body{margin-top:10px;font-size:13px;line-height:1.7}
+.v2-pills{display:flex;gap:6px;flex-wrap:wrap}
+.v2-pill{font-size:10px;padding:6px 10px;border-radius:99px;background:rgba(245,203,106,.1);color:var(--v2-gold)}
+.v2-list{display:flex;flex-direction:column;gap:7px}
+.v2-row{display:flex;justify-content:space-between;gap:12px;padding:11px;border-radius:12px;background:#0f0f0f}
+.v2-row strong{font-size:12px;font-weight:700}.v2-row span{font-size:11px;color:#737373}
+.v2-empty{padding:24px;text-align:center;color:#737373;font-size:12px}
 .v2-admin{border:1px solid rgba(255,107,122,.22);background:rgba(255,107,122,.06)}
-.v2-form{display:grid;gap:9px}
-.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:11px;background:rgba(255,255,255,.05);color:inherit;outline:0;font-family:inherit;font-size:13px}
-.v2-input:focus,.v2-textarea:focus,.v2-select:focus{border-color:rgba(245,203,106,.5)}
+.v2-form{display:grid;gap:10px}
+.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid #262626;border-radius:11px;padding:11px 13px;background:#1a1a1a;color:#fff;outline:0;font-family:inherit;font-size:13px}
+.v2-input:focus,.v2-textarea:focus,.v2-select:focus{border-color:var(--v2-gold)}
 .v2-textarea{min-height:90px;resize:vertical}
-@media(max-width:800px){.v2-grid{grid-template-columns:1fr}.v2-school-meta{align-items:center}.v2-cover{height:115px}.v2-content{padding:14px}.v2-panel{border-radius:20px}.v2-statgrid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:520px){.v2-school-meta h1{font-size:18px}.v2-avatar{width:62px;height:62px;border-radius:17px;font-size:23px}.v2-stat strong{font-size:16px}.v2-head{padding:15px}.v2-head h2{font-size:17px}}
+body.light .v2-panel{background:#fff;color:#000}
+body.light .v2-head{background:#fff;border-bottom-color:#dbdbdb}
+body.light .v2-box{background:#fafafa;border-color:#dbdbdb}
+body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#fafafa;color:#000;border-color:#dbdbdb}
 </style>
 
-<div id="v2SchoolHub" class="v2-overlay" aria-hidden="true">
+<div id="v2SchoolHub" class="v2-overlay">
   <div class="v2-panel">
     <div class="v2-head">
       <div><h2 id="v2HubTitle">جروب المدرسة</h2><p>مجتمع طلابي خاص بالمدرسة</p></div>
@@ -1535,10 +1814,10 @@ body.light .v2-panel{background:#fff;color:#171922}
           <div id="v2HubAvatar" class="v2-avatar">🏫</div>
           <div><h1 id="v2HubSchool">مدرستك</h1><p id="v2HubGov">مصر</p></div>
         </div>
-        <div style="padding:0 22px 20px">
+        <div style="padding:0 20px 20px">
           <div class="v2-actions">
             <button class="v2-btn v2-primary" onclick="v2OpenPost()">✍️ اكتب بوست</button>
-            <button class="v2-btn v2-soft" onclick="v2JoinCurrent()">🚀 دخول الجروب</button>
+            <button class="v2-btn v2-soft" onclick="v2JoinCurrent()">🚀 دخول</button>
             <button class="v2-btn v2-soft" onclick="v2OpenAdmin()">🛡️ الإدارة</button>
           </div>
           <div class="v2-tabs">
@@ -1554,9 +1833,9 @@ body.light .v2-panel{background:#fff;color:#171922}
   </div>
 </div>
 
-<div id="v2PostModal" class="v2-overlay" aria-hidden="true">
-  <div class="v2-panel" style="max-width:650px">
-    <div class="v2-head"><div><h2>منشور جديد</h2><p>شارك حاجة مفيدة مع مجتمع مدرستك</p></div><button class="v2-close" onclick="closeV2('v2PostModal')">×</button></div>
+<div id="v2PostModal" class="v2-overlay">
+  <div class="v2-panel" style="max-width:600px">
+    <div class="v2-head"><div><h2>منشور جديد</h2></div><button class="v2-close" onclick="closeV2('v2PostModal')">×</button></div>
     <div class="v2-content">
       <div class="v2-form">
         <input id="v2PostTitle" class="v2-input" placeholder="عنوان اختياري">
@@ -1568,70 +1847,65 @@ body.light .v2-panel{background:#fff;color:#171922}
   </div>
 </div>
 
-<div id="v2AdminModal" class="v2-overlay" aria-hidden="true">
-  <div class="v2-panel" style="max-width:720px">
-    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات آمنة لإدارة المنشورات والبلاغات</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
+<div id="v2AdminModal" class="v2-overlay">
+  <div class="v2-panel" style="max-width:600px">
+    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات المالك</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
     <div class="v2-content">
       <div class="v2-box v2-admin">
         <h3>🛡️ الإشراف</h3>
-        <p>هذه الواجهة تظهر أدوات الإدارة فقط لمالك الموقع. قواعد Firestore هي طبقة الأمان الأساسية.</p>
+        <p>هذه الواجهة تظهر فقط لمالك الموقع. قواعد Firestore هي طبقة الأمان الأساسية.</p>
       </div>
-      <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات المتاحة لحساب الإدارة.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()">تحديث</button></div>
+      <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()" style="margin-top:8px">تحديث</button></div>
     </div>
   </div>
 </div>
 
 <script>
 (function(){
-  const V2 = { school: null, gov: null, tab: "posts" };
-  window.__FASL_V2 = V2;
-  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
-  function show(id){const e=document.getElementById(id); if(e)e.classList.add("show");}
-  function hide(id){const e=document.getElementById(id); if(e)e.classList.remove("show");}
+  const V2={school:null,gov:null,tab:"posts"};
+  window.__FASL_V2=V2;
+  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
+  function show(id){const e=document.getElementById(id);if(e)e.classList.add("show")}
+  function hide(id){const e=document.getElementById(id);if(e)e.classList.remove("show")}
   window.closeV2=hide;
-  function currentSchool(){ return window.currentProfile?.school || ""; }
-  function currentGov(){ return window.currentProfile?.governorate || ""; }
 
-  window.openV2SchoolHub = async function(school, gov){
-    if(!window.currentUser){ if(typeof window.openAuth==="function") window.openAuth("login"); return; }
-    V2.school = school || currentSchool();
-    V2.gov = gov || currentGov();
-    document.getElementById("v2HubSchool").textContent = V2.school || "مدرستك";
-    document.getElementById("v2HubGov").textContent = V2.gov || "مصر";
-    document.getElementById("v2HubTitle").textContent = `جروب ${V2.school || "المدرسة"}`;
-    document.getElementById("v2HubAvatar").textContent = (V2.school||"م").trim().charAt(0).toUpperCase();
+  window.openV2SchoolHub=async function(school,gov){
+    if(!window.currentUser){window.openAuth?.("login");return}
+    V2.school=school||(window.currentProfile?.school||"");
+    V2.gov=gov||(window.currentProfile?.governorate||"");
+    document.getElementById("v2HubSchool").textContent=V2.school||"مدرستك";
+    document.getElementById("v2HubGov").textContent=V2.gov||"مصر";
+    document.getElementById("v2HubTitle").textContent=`جروب ${V2.school||"المدرسة"}`;
+    document.getElementById("v2HubAvatar").textContent=(V2.school||"م").trim().charAt(0).toUpperCase();
     show("v2SchoolHub");
     await v2Tab("posts");
   };
 
-  window.v2Tab = async function(tab){
-    V2.tab = tab;
+  window.v2Tab=async function(tab){
+    V2.tab=tab;
     document.querySelectorAll(".v2-tab").forEach(b=>b.classList.toggle("active",b.dataset.v2tab===tab));
     const body=document.getElementById("v2HubBody");
     body.innerHTML='<div class="v2-empty">جاري التحميل…</div>';
-    if(tab==="students") return v2Students(body);
-    if(tab==="events") return v2Events(body);
-    if(tab==="announcements") return v2Posts(body,"announcement");
+    if(tab==="students")return v2Students(body);
+    if(tab==="events")return v2Events(body);
+    if(tab==="announcements")return v2Posts(body,"announcement");
     return v2Posts(body,null);
   };
 
   async function v2Posts(body,type){
     try{
-      const q=window.query(window.collection(window.db,"posts"), window.where("communityId","==",window.communityId(V2.gov,V2.school)), window.orderBy("createdAt","desc"), window.limit(40));
+      const q=window.query(window.collection(window.db,"posts"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.orderBy("createdAt","desc"),window.limit(40));
       const snap=await window.getDocs(q);
-      const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>!type || p.type===type || (type==="announcement" && p.postType==="announcement"));
-      if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات هنا. كن أول واحد يشارك حاجة مفيدة ✨</div>';return;}
-      body.innerHTML='<div class="v2-grid"><main>'+docs.map(p=>`
+      const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>!type||p.type===type||(type==="announcement"&&p.postType==="announcement"));
+      if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات هنا.</div>';return}
+      body.innerHTML='<div class="v2-list">'+docs.map(p=>`
         <article class="v2-feed-card">
           <div class="v2-feed-top"><div class="v2-mini">${esc((p.anonymous?"ط":(p.username||"ط")).charAt(0))}</div><div><h4>${p.anonymous?"طالب مجهول":esc(p.username||"طالب")}</h4><small>${esc(p.type||"post")}</small></div></div>
-          ${p.title?`<h3 style="margin:12px 0 0;font-size:14px">${esc(p.title)}</h3>`:""}
+          ${p.title?`<h3 style="margin:10px 0 0;font-size:14px;font-weight:800">${esc(p.title)}</h3>`:""}
           <div class="body">${esc(p.body||"")}</div>
-          <div class="v2-pills" style="margin-top:11px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
-        </article>`).join("")+'</main><aside><div class="v2-box"><h3>📌 مجتمع المدرسة</h3><p>احترم زملاءك، ومتشاركش بيانات شخصية زي رقم التليفون أو العنوان.</p></div><div class="v2-box" style="margin-top:10px"><h3>✨ اختصارات</h3><div class="v2-actions"><button class="v2-btn v2-soft" onclick="v2OpenPost()">منشور</button><button class="v2-btn v2-soft" onclick="v2Tab(\'events\')">فعالية</button></div></div></aside></div>';
-    }catch(e){
-      console.error(e);
-      body.innerHTML='<div class="v2-box v2-empty">مش قادر أحمّل المنشورات. راجع Firestore Rules.</div>';
-    }
+          <div class="v2-pills" style="margin-top:10px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
+        </article>`).join("")+'</div>';
+    }catch(e){console.error(e);body.innerHTML='<div class="v2-box v2-empty">مش قادر أحمّل. راجع Firestore Rules.</div>'}
   }
 
   async function v2Students(body){
@@ -1639,10 +1913,8 @@ body.light .v2-panel{background:#fff;color:#171922}
       const q=window.query(window.collection(window.db,"users"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.limit(60));
       const snap=await window.getDocs(q);
       const docs=snap.docs.map(d=>d.data());
-      body.innerHTML=`<div class="v2-box"><h3>👥 طلاب ${esc(V2.school)}</h3><div class="v2-statgrid"><div class="v2-stat"><strong>${docs.length}</strong><span>طلاب ظاهرون</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("ثانوي")).length}</strong><span>ثانوي</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("إعدادي")).length}</strong><span>إعدادي</span></div></div><div class="v2-list" style="margin-top:12px">${docs.map(x=>`<div class="v2-row"><strong>${esc(x.username||"طالب")}</strong><span>${esc(x.grade||"طالب")}</span></div>`).join("") || '<div class="v2-empty">مفيش طلاب ظاهرين لسه.</div>'}</div></div>`;
-    }catch(e){
-      body.innerHTML='<div class="v2-box v2-empty">مش قادر أحمّل الطلاب.</div>';
-    }
+      body.innerHTML=`<div class="v2-box"><h3>👥 طلاب ${esc(V2.school)}</h3><div class="v2-statgrid"><div class="v2-stat"><strong>${docs.length}</strong><span>طلاب</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("ثانوي")).length}</strong><span>ثانوي</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("إعدادي")).length}</strong><span>إعدادي</span></div></div><div class="v2-list" style="margin-top:12px">${docs.map(x=>`<div class="v2-row"><strong>${esc(x.username||"طالب")}</strong><span>${esc(x.grade||"")}</span></div>`).join("")||'<div class="v2-empty">مفيش طلاب.</div>'}</div></div>`;
+    }catch(e){body.innerHTML='<div class="v2-box v2-empty">مش قادر.</div>'}
   }
 
   async function v2Events(body){
@@ -1652,18 +1924,18 @@ body.light .v2-panel{background:#fff;color:#171922}
       const snap=await window.getDocs(q);
       docs=snap.docs.map(d=>({id:d.id,...d.data()}));
     }catch(e){}
-    body.innerHTML=`<div class="v2-box"><h3>📅 فعاليات المدرسة</h3>${docs.map(x=>`<div class="v2-row"><strong>${esc(x.title||"فعالية")}</strong><span>${esc(x.dateLabel||x.startAt||"موعد لاحق")}</span></div>`).join("")||'<div class="v2-empty">مفيش فعاليات مضافة لسه.</div>'}</div>`;
+    body.innerHTML=`<div class="v2-box"><h3>📅 فعاليات المدرسة</h3>${docs.map(x=>`<div class="v2-row"><strong>${esc(x.title||"فعالية")}</strong><span>${esc(x.dateLabel||"موعد لاحق")}</span></div>`).join("")||'<div class="v2-empty">مفيش فعاليات.</div>'}</div>`;
   }
 
-  window.v2OpenPost=function(){ if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;} show("v2PostModal"); };
+  window.v2OpenPost=function(){if(!window.currentUser){window.openAuth?.("login");return}show("v2PostModal")};
   window.v2CreatePost=async function(){
     const body=document.getElementById("v2PostBody").value.trim();
-    if(!body){alert("اكتب المنشور الأول.");return;}
+    if(!body){alert("اكتب المنشور.");return}
     const title=document.getElementById("v2PostTitle").value.trim();
     const type=document.getElementById("v2PostType").value;
     try{
       await window.addDoc(window.collection(window.db,"posts"),{
-        title,body,type, postType:type,
+        title,body,type,postType:type,
         authorId:window.currentUser.uid,
         username:window.currentProfile?.username||"طالب",
         communityId:window.communityId(V2.gov,V2.school),
@@ -1673,16 +1945,16 @@ body.light .v2-panel{background:#fff;color:#171922}
       document.getElementById("v2PostBody").value="";
       document.getElementById("v2PostTitle").value="";
       hide("v2PostModal");
-      if(window.showToast)window.showToast("اتنشر في جروب المدرسة 🚀");
+      window.showToast?.("اتنشر 🚀");
       await v2Tab(V2.tab);
-    }catch(e){console.error(e);alert("النشر فشل. راجع Firestore Rules.");}
+    }catch(e){console.error(e);alert("النشر فشل.")}
   };
 
-  window.v2JoinCurrent=function(){ if(window.showToast)window.showToast("أنت داخل مجتمع المدرسة الحالي."); };
+  window.v2JoinCurrent=function(){window.showToast?.("أنت داخل مجتمع المدرسة.")};
 
   window.v2OpenAdmin=function(){
-    if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;}
-    if(!window.faslIsAdmin?.()){ if(window.showToast)window.showToast("👑 الإدارة متاحة لمالك الموقع فقط."); return; }
+    if(!window.currentUser){window.openAuth?.("login");return}
+    if(!window.faslIsAdmin?.()){window.showToast?.("👑 الإدارة للمالك فقط.");return}
     show("v2AdminModal");
   };
 
@@ -1691,19 +1963,19 @@ body.light .v2-panel{background:#fff;color:#171922}
     try{
       const snap=await window.getDocs(window.query(window.collection(window.db,"reports"),window.orderBy("createdAt","desc"),window.limit(30)));
       const docs=snap.docs.map(d=>({id:d.id,...d.data()}));
-      box.innerHTML='<h3>🚩 البلاغات</h3>'+ (docs.map(r=>`<div class="v2-row"><strong>${esc(r.reason||"بلاغ")}</strong><span>${esc(r.postId||"")}</span></div>`).join("")||'<div class="v2-empty">مفيش بلاغات.</div>');
-    }catch(e){box.innerHTML='<h3>🚩 البلاغات</h3><div class="v2-empty">حسابك مش عنده صلاحية عرض البلاغات.</div>'; }
+      box.innerHTML='<h3>🚩 البلاغات</h3>'+(docs.map(r=>`<div class="v2-row"><strong>${esc(r.reason||"بلاغ")}</strong><span>${esc(r.postId||"")}</span></div>`).join("")||'<div class="v2-empty">مفيش بلاغات.</div>');
+    }catch(e){box.innerHTML='<h3>🚩 البلاغات</h3><div class="v2-empty">مش قادر أقرأ.</div>'}
   };
 
   window.openMySchool=function(event){
     if(event)event.preventDefault();
-    if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;}
-    window.openV2SchoolHub(currentSchool(),currentGov());
+    if(!window.currentUser){window.openAuth?.("login");return}
+    window.openV2SchoolHub(window.currentProfile?.school,window.currentProfile?.governorate);
   };
 
   ["v2SchoolHub","v2PostModal","v2AdminModal"].forEach(id=>{
     const el=document.getElementById(id);
-    if(el) el.addEventListener("click",e=>{if(e.target===el)hide(id);});
+    if(el)el.addEventListener("click",e=>{if(e.target===el)hide(id)});
   });
 })();
 </script>
