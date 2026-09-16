@@ -13,53 +13,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* Fix for select elements — readable options */
 .field select,
 .field select option,
-#regGovernorate,
-#regGrade,
-#regGovernorate option,
-#regGrade option {
-  color: var(--text);
-  background-color: var(--panel-solid);
+#regGovernorate, #regGrade,
+#regGovernorate option, #regGrade option{
+  color:var(--text); background-color:var(--panel-solid);
 }
 .field select option,
-#regGovernorate option,
-#regGrade option {
-  color: #f6f7fb;
-  background-color: #141822;
-  padding: 8px;
+#regGovernorate option, #regGrade option{
+  color:#f6f7fb; background-color:#141822; padding:8px;
 }
 body.light .field select option,
 body.light #regGovernorate option,
-body.light #regGrade option {
-  color: #171922;
-  background-color: #ffffff;
+body.light #regGrade option{color:#171922;background-color:#fff}
+.field select{
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--text-3) 50%),
+                   linear-gradient(135deg,var(--text-3) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size:6px 6px, 6px 6px;
+  background-repeat:no-repeat;
+  padding-left:40px;padding-right:16px;cursor:pointer;
 }
-/* Force the closed select to show the current value clearly */
-.field select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%),
-                    linear-gradient(135deg, var(--text-3) 50%, transparent 50%);
-  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
-  background-size: 6px 6px, 6px 6px;
-  background-repeat: no-repeat;
-  padding-left: 40px;
-  padding-right: 16px;
-  cursor: pointer;
+.field select:focus{outline:none}
+.toast{
+  background:#141822 !important; color:#f6f7fb !important;
+  border:1px solid rgba(255,255,255,.16) !important;
 }
-.field select:focus { outline: none; }
-.toast {
-  background: #141822 !important;
-  color: #f6f7fb !important;
-  border: 1px solid rgba(255,255,255,.16) !important;
-}
-body.light .toast {
-  background: #ffffff !important;
-  color: #171922 !important;
-}
+body.light .toast{background:#fff !important;color:#171922 !important}
 
 :root{
   --bg:#05060a; --bg-2:#0a0c13; --bg-3:#10131c;
@@ -114,21 +95,43 @@ a{color:inherit;text-decoration:none}
 .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 body.light .grain{opacity:.02}
 
-#igIntro{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .45s ease}
+/* ===== INTRO (dual CTA) ===== */
+#igIntro{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:opacity .55s ease}
 #igIntro.hide{opacity:0;pointer-events:none}
-.ig-logo{width:110px;height:110px;display:grid;place-items:center;position:relative;opacity:0;transform:scale(.7);animation:igPop .65s cubic-bezier(.2,.9,.3,1.3) .05s forwards}
-@keyframes igPop{0%{opacity:0;transform:scale(.7)}60%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
-.ig-logo-core{width:96px;height:96px;border-radius:26px;display:grid;place-items:center;font-size:52px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 1px rgba(245,203,106,.4),0 20px 60px rgba(245,203,106,.35),inset 0 2px 0 rgba(255,255,255,.35);position:relative}
-.ig-logo-core::after{content:"";position:absolute;inset:-14px;border-radius:36px;border:2px solid var(--gold);opacity:0;animation:igRing 1.4s ease-out .35s infinite}
-@keyframes igRing{0%{transform:scale(.8);opacity:0}20%{opacity:.7}100%{transform:scale(1.25);opacity:0}}
-.ig-name{margin-top:20px;font-family:"Amiri","Cairo",serif;font-size:42px;font-weight:700;letter-spacing:-1px;line-height:1;color:#fff;opacity:0;transform:translateY(6px);animation:igFade .5s ease .35s forwards}
+.ig-logo{width:120px;height:120px;display:grid;place-items:center;position:relative;opacity:0;transform:scale(.6);animation:igPop .8s cubic-bezier(.2,.9,.3,1.35) .05s forwards}
+@keyframes igPop{0%{opacity:0;transform:scale(.6)}55%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+.ig-logo-core{width:100px;height:100px;border-radius:28px;display:grid;place-items:center;font-size:56px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 1px rgba(245,203,106,.4),0 22px 70px rgba(245,203,106,.4),inset 0 2px 0 rgba(255,255,255,.35);position:relative}
+.ig-logo-core::after{content:"";position:absolute;inset:-16px;border-radius:40px;border:2px solid var(--gold);opacity:0;animation:igRing 1.6s ease-out .4s infinite}
+@keyframes igRing{0%{transform:scale(.8);opacity:0}20%{opacity:.75}100%{transform:scale(1.3);opacity:0}}
+.ig-name{margin-top:22px;font-family:"Amiri","Cairo",serif;font-size:46px;font-weight:700;letter-spacing:-1px;line-height:1;color:#fff;opacity:0;transform:translateY(8px);animation:igFade .6s ease .45s forwards}
 .ig-name span{background:linear-gradient(135deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.ig-tag{margin-top:8px;font-size:13px;color:#7a7a7a;opacity:0;animation:igFade .5s ease .55s forwards}
+.ig-tag{margin-top:10px;font-size:13px;color:#7a7a7a;letter-spacing:.3px;opacity:0;animation:igFade .6s ease .7s forwards;text-align:center}
 @keyframes igFade{to{opacity:1;transform:translateY(0)}}
-.ig-from{position:absolute;bottom:calc(28px + var(--safe-bottom));font-size:10px;color:#3a3a3a;letter-spacing:2px;font-weight:800;opacity:0;animation:igFade .5s ease .9s forwards}
+.ig-cta{margin-top:32px;display:flex;gap:12px;flex-direction:column;width:min(340px,100%);opacity:0;animation:igFade .6s ease .95s forwards}
+.ig-btn{
+  padding:14px 22px;border-radius:14px;font-size:14px;font-weight:900;
+  transition:.25s var(--ease);font-family:inherit;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.ig-btn-primary{
+  color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));
+  box-shadow:0 12px 34px rgba(245,203,106,.35);
+}
+.ig-btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(245,203,106,.5)}
+.ig-btn-ghost{
+  color:#c4c8d2;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+}
+.ig-btn-ghost:hover{background:rgba(255,255,255,.11);color:#fff;transform:translateY(-2px)}
+.ig-from{position:absolute;bottom:calc(30px + var(--safe-bottom));font-size:10px;color:#3a3a3a;letter-spacing:3px;font-weight:800;opacity:0;animation:igFade .6s ease 1.15s forwards}
 .ig-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.06);overflow:hidden}
-.ig-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0;animation:igLoad 1.8s cubic-bezier(.5,0,.2,1) .2s forwards}
+.ig-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0;animation:igLoad 2.1s cubic-bezier(.5,0,.2,1) .2s forwards}
 @keyframes igLoad{to{width:100%}}
+@media(max-width:520px){
+  .ig-name{font-size:38px}
+  .ig-logo-core{width:88px;height:88px;font-size:48px;border-radius:24px}
+  .ig-logo{width:100px;height:100px}
+}
 
 #faslApp{opacity:0;transition:opacity .5s var(--ease)}
 #faslApp.show{opacity:1}
@@ -158,7 +161,7 @@ body.light .grain{opacity:.02}
 .sidebar{position:sticky;top:96px;height:max-content}
 .side-title{font-size:11px;font-weight:900;color:var(--text-3);letter-spacing:.5px;margin:6px 14px 12px;text-transform:uppercase}
 .nav-list{display:flex;flex-direction:column;gap:5px}
-.nav-item{position:relative;display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:16px;font-size:13px;font-weight:800;color:var(--text-2);transition:.22s var(--ease)}
+.nav-item{position:relative;display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:16px;font-size:13px;font-weight:800;color:var(--text-2);transition:.22s var(--ease);cursor:pointer}
 .nav-item:hover{color:var(--text);background:var(--glass)}
 .nav-item.active{color:var(--gold);background:var(--gold-soft);box-shadow:inset 0 0 0 1px rgba(245,203,106,.18),0 4px 20px rgba(245,203,106,.08)}
 .nav-item.active::before{content:"";position:absolute;right:-6px;top:22%;bottom:22%;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold),var(--gold-2));box-shadow:0 0 12px var(--gold-glow)}
@@ -183,7 +186,7 @@ body.light .grain{opacity:.02}
 .hero h1{position:relative;z-index:2;margin-top:18px;max-width:540px;font-family:"Amiri","Cairo",serif;font-size:clamp(30px,5.5vw,48px);font-weight:700;line-height:1.15;letter-spacing:-1px}
 .hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{position:relative;z-index:2;margin-top:12px;max-width:520px;color:var(--text-2);font-size:13px;line-height:1.9}
-.community-badge{position:relative;z-index:2;display:inline-flex;flex-direction:column;margin-top:22px;min-width:300px;padding:14px 18px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(12px);transition:.25s var(--ease)}
+.community-badge{position:relative;z-index:2;display:inline-flex;flex-direction:column;margin-top:22px;min-width:300px;padding:14px 18px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(12px);transition:.25s var(--ease);cursor:pointer}
 .community-badge:hover{border-color:rgba(245,203,106,.3);background:var(--glass-2);transform:translateY(-2px)}
 .community-badge small{color:var(--text-3);font-size:9px;letter-spacing:.5px;text-transform:uppercase;font-weight:900}
 .community-badge strong{margin-top:4px;font-size:13px;font-weight:800}
@@ -230,6 +233,7 @@ body.light .grain{opacity:.02}
 .empty-icon{font-size:44px;margin-bottom:12px}
 .empty h3{font-size:16px;font-weight:800;color:var(--text)}
 .empty p{font-size:12px;margin-top:6px;color:var(--text-2)}
+.empty .post-btn{margin-top:16px;display:inline-block}
 .loading{display:flex;justify-content:center;padding:40px}
 .spinner{width:32px;height:32px;border:3px solid var(--glass-border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -289,7 +293,7 @@ body.light .grain{opacity:.02}
 .auth-tab.active{color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 1px rgba(245,203,106,.18)}
 
 .notifications-list{display:flex;flex-direction:column;gap:8px}
-.notification{display:flex;gap:12px;padding:14px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-border);transition:.22s var(--ease)}
+.notification{display:flex;gap:12px;padding:14px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-border);transition:.22s var(--ease);cursor:pointer}
 .notification:hover{background:var(--glass-2);border-color:var(--glass-border-2)}
 .notification.unread{border-color:rgba(245,203,106,.22);background:var(--gold-soft)}
 .notification-icon{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;font-size:17px;background:var(--gold-soft)}
@@ -366,11 +370,15 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 <div class="aurora"></div>
 <div class="grain"></div>
 
-<!-- INTRO -->
+<!-- INTRO with dual CTA -->
 <div id="igIntro">
   <div class="ig-logo"><div class="ig-logo-core">ف</div></div>
   <div class="ig-name">فَ<span>ص</span>ل</div>
   <div class="ig-tag">كل فصل عنده حكاية</div>
+  <div class="ig-cta">
+    <button class="ig-btn ig-btn-primary" onclick="enterExplore()">استكشف فَصْل 🚀</button>
+    <button class="ig-btn ig-btn-ghost" onclick="enterLogin()">عندي حساب • تسجيل الدخول</button>
+  </div>
   <div class="ig-from">FASL · EGYPT</div>
   <div class="ig-progress"><div class="ig-progress-fill"></div></div>
 </div>
@@ -420,9 +428,9 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
     <div class="hero">
       <div class="hero-rings"><span></span><span></span><span></span></div>
       <div class="hero-badge">🟡 مجتمع الطلاب المصريين</div>
-      <h1>إيه اللي حصل <span>في المدرسة</span> النهارده؟</h1>
-      <p>مواقف، أسئلة، ترندات وحكايات من قلب المدرسة. قول اللي عندك 👀</p>
-      <div class="community-badge" id="communityBadge">
+      <h1>شوف آخر موقف <span>حصل في مدرستك</span></h1>
+      <p>انضم لجروب مدرستك، شارك مواقفك، اسأل زملائك، واعرف كل اللي بيحصل في الفصل اللي جانبك.</p>
+      <div class="community-badge" id="communityBadge" onclick="openAuth('register')">
         <small>مجتمعك</small>
         <strong id="communityName">سجّل دخول عشان تدخل جروب مدرستك 👥</strong>
         <span id="communityMeta">المحافظة • المدرسة • الصف</span>
@@ -574,7 +582,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
       <button class="close" onclick="closeNotifications()">✕</button>
     </div>
     <div id="notificationsList" class="notifications-list">
-      <div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>
+      <div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما حد يتفاعل مع بوستاتك، هتلاقيها هنا.</p></div>
     </div>
   </div>
 </div>
@@ -647,14 +655,7 @@ window.faslIsAdmin=()=>String(auth.currentUser?.email||"").toLowerCase()===ADMIN
 let currentUser=null, currentProfile=null;
 let activeFilter="all", allPosts=[];
 let unsubscribePosts=null, unsubscribeNotifications=null;
-
 let selectedSchool = null;
-
-const demoPosts=[
-  {id:"demo-1",type:"teacher",username:"طالب مجهول",avatar:"😂",title:"لما المدرس يقول آخر سؤال بجد",body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",likes:126,comments:18,liked:false,anonymous:true,demo:true},
-  {id:"demo-2",type:"story",username:"محمد",avatar:"م",title:"موقف حصل في الفسحة",body:"واحد من صحابي كان بيجري ورا الكورة ودخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂",likes:89,comments:12,liked:false,anonymous:false,demo:true},
-  {id:"demo-3",type:"question",username:"طالب مجهول",avatar:"🤔",title:"حد فاهم الجزئية دي؟",body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭",likes:54,comments:27,liked:false,anonymous:true,demo:true}
-];
 
 const governorates=["القاهرة","الجيزة","الإسكندرية","القليوبية","الدقهلية","الشرقية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","الفيوم","بني سويف","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر","الوادي الجديد","مطروح"];
 const grades=["ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتدائي 4","ابتدائي 5","ابتدائي 6","إعدادي 1","إعدادي 2","إعدادي 3","ثانوي 1","ثانوي 2","ثانوي 3","فني 1","فني 2","فني 3","فني 4","فني 5"];
@@ -667,7 +668,7 @@ function timeText(ts){if(!ts||!ts.toDate)return"دلوقتي";const d=ts.toDate(
 function showToast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2500)}
 window.showToast=showToast;
 
-// ================= SCHOOL SEARCH (OpenStreetMap Nominatim) =================
+// ================= SCHOOL SEARCH =================
 const NOMINATIM_UA = "Fasl-App/1.0 (contact: mazenshahin639@gmail.com)";
 let schoolDebounceTimer = null;
 let schoolAbortController = null;
@@ -789,14 +790,38 @@ document.addEventListener("click", e => {
   if(wrap && !wrap.contains(e.target)){ $("schoolSuggestions").innerHTML = ""; }
 });
 
-// ================= SPLASH =================
-setTimeout(()=>{
+// ================= INTRO ACTIONS (dual CTA) =================
+function hideIntro(){
   const splash=$("igIntro"), app=$("faslApp");
   if(splash) splash.classList.add("hide");
   if(app) app.classList.add("show");
-  setTimeout(()=>{ if(splash) splash.style.display="none"; },500);
-  if(!currentUser){ setTimeout(()=>openAuth("login"),400); }
-},2200);
+  setTimeout(()=>{ if(splash) splash.style.display="none"; },600);
+}
+window.hideIntro = hideIntro;
+
+// "Explore" — no auth required, just show the app
+function enterExplore(){
+  hideIntro();
+  // If already logged in, no need to show anything else
+  if(!currentUser){
+    showToast("استكشف براحتك 👀 سجّل دخول لما تحب تشارك");
+  }
+}
+window.enterExplore = enterExplore;
+
+// "Login" — open auth modal right away
+function enterLogin(){
+  hideIntro();
+  setTimeout(()=>openAuth("login"), 300);
+}
+window.enterLogin = enterLogin;
+
+// Auto-hide intro after 8 seconds if user does nothing (fall back to explore)
+setTimeout(()=>{
+  if(!$("igIntro").classList.contains("hide")){
+    enterExplore();
+  }
+}, 8000);
 
 // ================= SELECTS =================
 function fillSelect(id,arr,ph){const el=$(id);if(!el)return;el.innerHTML=`<option value="">${ph}</option>`+arr.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("")}
@@ -966,7 +991,11 @@ window.profileMainAction=profileMainAction;
 // ================= POSTS =================
 async function loadPosts(){
   if(unsubscribePosts){unsubscribePosts();unsubscribePosts=null}
-  if(!currentProfile){allPosts=demoPosts;renderFeed();return}
+  if(!currentProfile){
+    allPosts=[];
+    renderFeed();
+    return;
+  }
   $("feed").innerHTML=`<div class="loading"><div class="spinner"></div></div>`;
   try{
     const q=query(collection(db,"posts"),where("communityId","==",currentProfile.communityId),limit(100));
@@ -997,30 +1026,29 @@ function renderFeed(){
     return ok&&(!search||text.includes(search));
   });
   if(!posts.length){
-    $("feed").innerHTML=`<div class="empty"><div class="empty-icon">👀</div><h3>مفيش بوستات هنا لسه</h3><p>كن أول واحد يحكي حاجة في مجتمعك.</p></div>`;
+    if(!currentProfile){
+      $("feed").innerHTML=`<div class="empty">
+        <div class="empty-icon">👋</div>
+        <h3>أهلاً بيك في فَصْل</h3>
+        <p>سجّل دخول عشان تنضم لجروب مدرستك وتشوف اللي بيحصل فيها.</p>
+        <button class="post-btn" onclick="openAuth('register')">إنشاء حساب 🚀</button>
+      </div>`;
+    } else if(activeFilter!=="all"){
+      $("feed").innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><h3>مفيش بوستات بالفلتر ده</h3><p>جرّب تختار "الكل" أو تنشر أول بوست.</p></div>`;
+    } else {
+      $("feed").innerHTML=`<div class="empty">
+        <div class="empty-icon">✨</div>
+        <h3>مفيش بوستات في ${escapeHTML(currentProfile.school)}</h3>
+        <p>كن أول واحد يحكي حاجة — موقف، سؤال، أو ترند.</p>
+        <button class="post-btn" onclick="openComposer()">انشر أول بوست 🚀</button>
+      </div>`;
+    }
     return;
   }
   $("feed").innerHTML=posts.map(renderPost).join("");
 }
 
 function renderPost(post){
-  if(post.demo){
-    return `
-      <article class="post">
-        <div class="post-head">
-          <div class="post-avatar">${post.avatar}</div>
-          <div class="post-user"><strong>${escapeHTML(post.username)}</strong><span>مثال من فَصْل</span></div>
-          <span class="post-type">${typeLabel(post.type)}</span>
-        </div>
-        <h2>${escapeHTML(post.title)}</h2>
-        <p class="post-text">${escapeHTML(post.body)}</p>
-        <div class="post-actions">
-          <button class="post-action" onclick="openAuth('login')">🤍 ${post.likes}</button>
-          <button class="post-action" onclick="openAuth('login')">💬 ${post.comments}</button>
-          <button class="post-action" onclick="openAuth('login')">🚀 شارك</button>
-        </div>
-      </article>`;
-  }
   const name=post.anonymous?"طالب مجهول":escapeHTML(post.user||post.username||"طالب");
   const av=post.anonymous?"👤":escapeHTML((post.user||post.username||"ط").charAt(0));
   return `
@@ -1041,7 +1069,7 @@ function renderPost(post){
 }
 
 function openComposer(type="story"){
-  if(!currentUser){openAuth("login");showToast("سجّل دخول الأول.");return}
+  if(!currentUser){openAuth("register");showToast("سجّل دخول الأول عشان تنشر.");return}
   $("composerModal").classList.add("show");
   $("postType").value=type;
 }
@@ -1050,7 +1078,7 @@ function closeComposer(){$("composerModal").classList.remove("show")}
 window.closeComposer=closeComposer;
 
 async function createPost(){
-  if(!currentUser||!currentProfile){closeComposer();openAuth("login");return}
+  if(!currentUser||!currentProfile){closeComposer();openAuth("register");return}
   const type=$("postType").value;
   const title=$("postTitle").value.trim();
   const body=$("postBody").value.trim();
@@ -1073,9 +1101,21 @@ async function createPost(){
 }
 window.createPost=createPost;
 
+async function notifyAuthor({ authorId, type, title, body, postId }){
+  if(!authorId || authorId === currentUser?.uid) return;
+  try{
+    await addDoc(collection(db,"users",authorId,"notifications"),{
+      type, title, body, postId,
+      fromUserId: currentUser.uid,
+      fromUsername: currentProfile?.username || "طالب",
+      read:false,
+      createdAt: serverTimestamp()
+    });
+  }catch(e){ console.warn("notify failed:", e); }
+}
+
 async function likePost(postId){
   if(!currentUser){openAuth("login");return}
-  if(String(postId).startsWith("demo-")){openAuth("login");return}
   const likeRef=doc(db,"posts",postId,"likes",currentUser.uid);
   const postRef=doc(db,"posts",postId);
   try{
@@ -1086,6 +1126,17 @@ async function likePost(postId){
     }else{
       await setDoc(likeRef,{userId:currentUser.uid,createdAt:serverTimestamp()});
       await updateDoc(postRef,{likes:increment(1)});
+      const postSnap = await getDoc(postRef);
+      if(postSnap.exists()){
+        const p = postSnap.data();
+        await notifyAuthor({
+          authorId: p.authorId,
+          type: "like",
+          title: "إعجاب جديد ❤️",
+          body: `${currentProfile?.username || "حد"} أعجب ببوستك`,
+          postId
+        });
+      }
     }
   }catch(e){console.error(e);showToast("التفاعل مش متاح.")}
 }
@@ -1093,7 +1144,6 @@ window.likePost=likePost;
 
 async function openComments(postId){
   if(!currentUser){openAuth("login");return}
-  if(String(postId).startsWith("demo-")){showToast("التعليقات تظهر بعد تسجيل الدخول.");return}
   try{
     const q=query(collection(db,"posts",postId,"comments"),orderBy("createdAt","desc"),limit(30));
     const snap=await getDocs(q);
@@ -1108,6 +1158,19 @@ async function openComments(postId){
       anonymous:false,createdAt:serverTimestamp()
     });
     await updateDoc(doc(db,"posts",postId),{comments:increment(1)});
+    try{
+      const postSnap = await getDoc(doc(db,"posts",postId));
+      if(postSnap.exists()){
+        const p = postSnap.data();
+        await notifyAuthor({
+          authorId: p.authorId,
+          type: "comment",
+          title: "تعليق جديد 💬",
+          body: `${currentProfile?.username || "حد"} علّق على بوستك`,
+          postId
+        });
+      }
+    }catch(e){}
     showToast("تم إضافة التعليق 💬");
   }catch(e){console.error(e);showToast("مش قادر أضيف التعليق.")}
 }
@@ -1132,10 +1195,26 @@ window.reportPost=reportPost;
 function openNotifications(){
   if(!currentUser){openAuth("login");showToast("سجّل دخول.");return}
   $("notificationsModal").classList.add("show");
+  markNotificationsRead();
 }
 window.openNotifications=openNotifications;
 function closeNotifications(){$("notificationsModal").classList.remove("show")}
 window.closeNotifications=closeNotifications;
+
+async function markNotificationsRead(){
+  if(!currentUser) return;
+  try{
+    const q = query(
+      collection(db,"users",currentUser.uid,"notifications"),
+      where("read","==",false),
+      limit(50)
+    );
+    const snap = await getDocs(q);
+    await Promise.all(snap.docs.map(d =>
+      updateDoc(doc(db,"users",currentUser.uid,"notifications",d.id),{ read:true })
+    ));
+  }catch(e){ console.warn("mark read failed:", e); }
+}
 
 function listenToNotifications(){
   if(unsubscribeNotifications){unsubscribeNotifications();unsubscribeNotifications=null}
@@ -1154,7 +1233,7 @@ function listenToNotifications(){
 function renderNotifications(notifs){
   const c=$("notificationsList");
   if(!notifs.length){
-    c.innerHTML=`<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>`;
+    c.innerHTML=`<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما حد يتفاعل مع بوستاتك، هتلاقيها هنا.</p></div>`;
     return;
   }
   c.innerHTML=notifs.map(n=>{
@@ -1474,7 +1553,7 @@ updateUI();
 
   ["v2SchoolHub","v2PostModal","v2AdminModal"].forEach(id=>{
     const el=document.getElementById(id);
-    if(el)el.addEventListener("click",e=>{if(e.target===el)hide(id)});
+    if(el)el.addEventListener("click",e=>{if(e.target===id)hide(id)});
   });
 })();
 </script>
