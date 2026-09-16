@@ -14,41 +14,17 @@
 
 <style>
 :root{
-  --bg:#06070a;
-  --bg2:#0b0d12;
-  --surface:#101219;
-  --surface2:#161923;
-  --surface3:#1d212c;
-  --text:#f8f9fc;
-  --muted:#9aa0ae;
-  --muted2:#6a7080;
-  --gold:#f5cb6a;
-  --gold2:#e0a63a;
-  --gold-soft:rgba(245,203,106,.12);
-  --gold-glow:rgba(245,203,106,.35);
-  --green:#63e0a0;
-  --red:#ff6b7e;
-  --blue:#74a8ff;
-  --purple:#ad91ff;
-  --border:rgba(255,255,255,.07);
-  --border2:rgba(255,255,255,.14);
-  --radius:22px;
-  --radius-sm:14px;
-  --max:1280px;
-  --shadow:0 25px 80px rgba(0,0,0,.45);
-  --shadow-sm:0 10px 30px rgba(0,0,0,.25);
+  --bg:#06070a; --bg2:#0b0d12; --surface:#101219; --surface2:#161923; --surface3:#1d212c;
+  --text:#f8f9fc; --muted:#9aa0ae; --muted2:#6a7080;
+  --gold:#f5cb6a; --gold2:#e0a63a; --gold-soft:rgba(245,203,106,.12); --gold-glow:rgba(245,203,106,.35);
+  --green:#63e0a0; --red:#ff6b7e; --blue:#74a8ff; --purple:#ad91ff;
+  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.14);
+  --radius:22px; --max:1280px;
+  --shadow:0 25px 80px rgba(0,0,0,.45); --shadow-sm:0 10px 30px rgba(0,0,0,.25);
   --ease:cubic-bezier(.4,0,.2,1);
 }
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-
 body{
   font-family:"Cairo",system-ui,sans-serif;
   background:
@@ -56,49 +32,143 @@ body{
     radial-gradient(circle at 100% 15%,rgba(120,90,255,.10),transparent 30%),
     radial-gradient(circle at 50% 100%,rgba(99,224,160,.05),transparent 35%),
     var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
+  color:var(--text);min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
-
 body.light{
-  --bg:#f5f2ec;
-  --bg2:#ece8df;
-  --surface:#ffffff;
-  --surface2:#faf8f3;
-  --surface3:#f0ede5;
-  --text:#141519;
-  --muted:#5f6470;
-  --muted2:#8b8f99;
-  --border:rgba(0,0,0,.07);
-  --border2:rgba(0,0,0,.13);
+  --bg:#f5f2ec; --bg2:#ece8df; --surface:#fff; --surface2:#faf8f3; --surface3:#f0ede5;
+  --text:#141519; --muted:#5f6470; --muted2:#8b8f99;
+  --border:rgba(0,0,0,.07); --border2:rgba(0,0,0,.13);
   --gold-soft:rgba(224,166,58,.14);
-  --shadow:0 20px 60px rgba(0,0,0,.08);
-  --shadow-sm:0 8px 24px rgba(0,0,0,.06);
+  --shadow:0 20px 60px rgba(0,0,0,.08); --shadow-sm:0 8px 24px rgba(0,0,0,.06);
 }
-
 body.light .orb{opacity:.14}
-
 button,input,textarea,select{font:inherit;color:inherit}
 button{border:0;cursor:pointer;background:transparent}
 a{color:inherit;text-decoration:none}
-
 ::selection{background:var(--gold-soft);color:var(--text)}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
 ::-webkit-scrollbar-thumb:hover{background:rgba(245,203,106,.35);background-clip:padding-box;border:2px solid transparent}
-
 .hidden{display:none!important}
+
+/* ============ INTRO SPLASH ============ */
+#faslIntro{
+  position:fixed;inset:0;z-index:99999;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(245,203,106,.18),transparent 40%),
+    radial-gradient(circle at 80% 80%,rgba(120,90,255,.16),transparent 40%),
+    linear-gradient(135deg,#06070a,#0c0e14 50%,#08090d);
+  padding:24px;overflow:hidden;
+  transition:opacity .7s var(--ease),visibility .7s var(--ease);
+}
+#faslIntro.hide{opacity:0;visibility:hidden;pointer-events:none}
+.intro-bg-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.25}
+.intro-bg-orb.a{width:400px;height:400px;background:var(--gold);top:-100px;right:-100px;animation:float1 14s ease-in-out infinite}
+.intro-bg-orb.b{width:350px;height:350px;background:#765cff;bottom:-100px;left:-100px;animation:float2 18s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px)}}
+
+.intro-card{
+  position:relative;z-index:2;
+  width:min(760px,100%);
+  padding:44px 36px;border-radius:32px;
+  background:rgba(16,18,25,.72);
+  border:1px solid rgba(245,203,106,.14);
+  backdrop-filter:blur(24px);
+  box-shadow:0 40px 120px rgba(0,0,0,.6);
+  text-align:center;
+  animation:introIn .9s var(--ease);
+}
+@keyframes introIn{
+  from{opacity:0;transform:translateY(30px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+.intro-logo{
+  width:96px;height:96px;margin:0 auto 22px;
+  border-radius:28px;display:grid;place-items:center;
+  font-size:46px;font-weight:900;color:#1a1306;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  box-shadow:0 20px 60px rgba(245,203,106,.4),inset 0 2px 0 rgba(255,255,255,.4);
+  animation:logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse{
+  0%,100%{transform:scale(1);box-shadow:0 20px 60px rgba(245,203,106,.4),inset 0 2px 0 rgba(255,255,255,.4)}
+  50%{transform:scale(1.05);box-shadow:0 25px 70px rgba(245,203,106,.55),inset 0 2px 0 rgba(255,255,255,.4)}
+}
+.intro-title{
+  font-size:clamp(38px,7vw,64px);
+  font-weight:900;letter-spacing:-2px;line-height:1.05;
+  margin-bottom:8px;
+}
+.intro-title span{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.intro-tagline{
+  font-size:clamp(15px,2.4vw,20px);
+  color:var(--gold);font-weight:800;
+  margin-bottom:22px;letter-spacing:-.3px;
+  min-height:30px;
+  transition:opacity .4s ease;
+}
+.intro-tagline.fade{opacity:0}
+.intro-desc{
+  color:#c4c8d2;font-size:14px;
+  line-height:2;max-width:560px;margin:0 auto 26px;
+}
+.intro-desc b{color:var(--gold);font-weight:900}
+.intro-features{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin:26px 0 30px;text-align:right;
+}
+.intro-feature{
+  padding:16px 14px;border-radius:16px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.07);
+  transition:.3s var(--ease);
+}
+.intro-feature:hover{transform:translateY(-4px);border-color:rgba(245,203,106,.28);background:rgba(245,203,106,.05)}
+.intro-feature .ico{font-size:22px;margin-bottom:8px;display:block}
+.intro-feature h4{font-size:12px;font-weight:900;margin-bottom:4px;color:var(--gold)}
+.intro-feature p{font-size:10px;color:#9aa0ae;line-height:1.7}
+.intro-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.intro-btn{
+  padding:14px 34px;border-radius:14px;
+  font-size:14px;font-weight:900;
+  transition:.25s var(--ease);
+  font-family:inherit;
+}
+.intro-btn.primary{
+  color:#181207;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  box-shadow:0 12px 34px rgba(245,203,106,.35);
+}
+.intro-btn.primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(245,203,106,.5)}
+.intro-btn.ghost{
+  color:#c4c8d2;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+}
+.intro-btn.ghost:hover{background:rgba(255,255,255,.1);color:#fff;transform:translateY(-3px)}
+.intro-footer{
+  margin-top:24px;color:#6a7080;font-size:10px;
+  display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
+}
+.intro-footer span{display:inline-flex;align-items:center;gap:5px}
+.intro-countdown{
+  margin-top:18px;color:#6a7080;font-size:10px;
+}
+
+/* ============ APP SHELL ============ */
+#faslApp{opacity:0;transition:opacity .6s ease .2s}
+#faslApp.show{opacity:1}
 
 .background{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
 .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.10}
 .orb.one{right:-180px;top:-220px;width:520px;height:520px;background:var(--gold);animation:float1 18s ease-in-out infinite}
 .orb.two{left:-200px;bottom:-240px;width:480px;height:480px;background:#765cff;animation:float2 22s ease-in-out infinite}
-@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
-@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px)}}
 
 .topbar{
   position:sticky;top:0;z-index:100;height:72px;
@@ -108,495 +178,316 @@ a{color:inherit;text-decoration:none}
   border-bottom:1px solid var(--border);
 }
 .light .topbar{background:rgba(245,242,236,.78)}
-
-.topbar-inner{
-  max-width:var(--max);height:100%;margin:auto;padding:0 20px;
-  display:flex;align-items:center;gap:20px;
-}
-
+.topbar-inner{max-width:var(--max);height:100%;margin:auto;padding:0 20px;display:flex;align-items:center;gap:20px}
 .brand{display:flex;align-items:center;gap:11px;min-width:max-content;transition:transform .2s var(--ease)}
 .brand:hover{transform:scale(1.02)}
-
-.logo{
-  width:44px;height:44px;border-radius:14px;
-  display:grid;place-items:center;
-  color:#191307;font-weight:900;font-size:21px;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 8px 28px rgba(245,203,106,.25),inset 0 1px 0 rgba(255,255,255,.4);
-}
+.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#191307;font-weight:900;font-size:21px;background:linear-gradient(145deg,var(--gold),var(--gold2));box-shadow:0 8px 28px rgba(245,203,106,.25),inset 0 1px 0 rgba(255,255,255,.4)}
 .brand-name{font-size:23px;font-weight:900;letter-spacing:-.5px}
-.brand-name span{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-
+.brand-name span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .search{flex:1;max-width:480px;margin:auto;position:relative}
-.search input{
-  width:100%;height:44px;
-  border:1px solid var(--border);border-radius:14px;outline:none;
-  padding:0 44px 0 15px;
-  color:var(--text);
-  background:rgba(255,255,255,.045);
-  transition:.25s var(--ease);
-  font-size:13px;
-}
+.search input{width:100%;height:44px;border:1px solid var(--border);border-radius:14px;outline:none;padding:0 44px 0 15px;color:var(--text);background:rgba(255,255,255,.045);transition:.25s var(--ease);font-size:13px}
 .search input::placeholder{color:var(--muted2)}
-.search input:focus{
-  border-color:rgba(245,203,106,.5);
-  background:rgba(255,255,255,.07);
-  box-shadow:0 0 0 4px var(--gold-soft);
-}
+.search input:focus{border-color:rgba(245,203,106,.5);background:rgba(255,255,255,.07);box-shadow:0 0 0 4px var(--gold-soft)}
 .search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
-
 .top-actions{display:flex;align-items:center;gap:8px}
-
-.icon-btn{
-  position:relative;width:44px;height:44px;border-radius:14px;
-  background:rgba(255,255,255,.045);border:1px solid var(--border);
-  color:var(--text);display:grid;place-items:center;
-  transition:.22s var(--ease);font-size:17px;
-}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid var(--border);color:var(--text);display:grid;place-items:center;transition:.22s var(--ease);font-size:17px}
 .icon-btn:hover{transform:translateY(-2px);border-color:var(--border2);background:rgba(255,255,255,.09);box-shadow:var(--shadow-sm)}
-.icon-btn:active{transform:translateY(0)}
-
-.notification-dot{
-  position:absolute;width:9px;height:9px;border-radius:50%;
-  background:var(--red);top:8px;right:8px;
-  box-shadow:0 0 12px rgba(255,107,126,.8);
-  display:none;
-  animation:pulse 2s infinite;
-}
+.notification-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--red);top:8px;right:8px;box-shadow:0 0 12px rgba(255,107,126,.8);display:none;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
-
-.profile-mini{
-  width:44px;height:44px;border-radius:50%;
-  display:grid;place-items:center;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#181207;font-weight:900;cursor:pointer;
-  transition:.22s var(--ease);
-  box-shadow:0 6px 20px rgba(245,203,106,.22);
-}
+.profile-mini{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--gold2));color:#181207;font-weight:900;cursor:pointer;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.22)}
 .profile-mini:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 28px rgba(245,203,106,.32)}
 
-.layout{
-  width:min(var(--max),100%);margin:auto;
-  padding:28px 20px 100px;
-  display:grid;
-  grid-template-columns:220px minmax(0,660px) 270px;
-  justify-content:center;gap:24px;
-}
-
+.layout{width:min(var(--max),100%);margin:auto;padding:28px 20px 100px;display:grid;grid-template-columns:220px minmax(0,660px) 270px;justify-content:center;gap:24px}
 .sidebar{position:sticky;top:94px;height:max-content}
-.side-title{
-  color:var(--muted2);font-size:11px;font-weight:900;
-  margin:8px 12px 10px;letter-spacing:.5px;text-transform:uppercase;
-}
-
+.side-title{color:var(--muted2);font-size:11px;font-weight:900;margin:8px 12px 10px;letter-spacing:.5px;text-transform:uppercase}
 .nav-list{display:flex;flex-direction:column;gap:4px}
-
-.nav-item{
-  position:relative;
-  display:flex;align-items:center;gap:12px;
-  padding:12px 13px;border-radius:14px;
-  color:var(--muted);font-size:13px;font-weight:800;
-  transition:.2s var(--ease);
-}
+.nav-item{position:relative;display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:14px;color:var(--muted);font-size:13px;font-weight:800;transition:.2s var(--ease)}
 .nav-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .nav-item.active{color:var(--gold);background:var(--gold-soft)}
-.nav-item.active::before{
-  content:"";position:absolute;right:0;top:20%;bottom:20%;
-  width:3px;border-radius:3px;background:var(--gold);
-  box-shadow:0 0 12px var(--gold-glow);
-}
+.nav-item.active::before{content:"";position:absolute;right:0;top:20%;bottom:20%;width:3px;border-radius:3px;background:var(--gold);box-shadow:0 0 12px var(--gold-glow)}
 .nav-icon{width:23px;text-align:center;font-size:17px;transition:transform .2s var(--ease)}
 .nav-item:hover .nav-icon{transform:scale(1.15)}
-
-.school-card{
-  margin-top:22px;padding:16px;border-radius:19px;
-  border:1px solid var(--border);
-  background:linear-gradient(145deg,rgba(245,203,106,.10),rgba(255,255,255,.02));
-  transition:.25s var(--ease);
-}
+.school-card{margin-top:22px;padding:16px;border-radius:19px;border:1px solid var(--border);background:linear-gradient(145deg,rgba(245,203,106,.10),rgba(255,255,255,.02));transition:.25s var(--ease)}
 .school-card:hover{border-color:rgba(245,203,106,.25)}
 .school-card small{color:var(--muted2);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
 .school-card h3{font-size:15px;margin-top:5px}
 .school-card p{color:var(--muted);font-size:10px;line-height:1.7;margin-top:5px}
 
-.hero{
-  position:relative;overflow:hidden;min-height:240px;
-  padding:32px;border-radius:28px;
-  border:1px solid rgba(245,203,106,.16);
-  background:
-    radial-gradient(circle at 88% 18%,rgba(245,203,106,.20),transparent 30%),
-    radial-gradient(circle at 15% 100%,rgba(120,90,255,.10),transparent 38%),
-    linear-gradient(145deg,#191d27,#0e1016);
-  box-shadow:var(--shadow);
-  margin-bottom:18px;
-}
-.hero::before,.hero::after{
-  content:"";position:absolute;border-radius:50%;
-  border:1px solid rgba(245,203,106,.10);pointer-events:none;
-}
+.hero{position:relative;overflow:hidden;min-height:240px;padding:32px;border-radius:28px;border:1px solid rgba(245,203,106,.16);background:radial-gradient(circle at 88% 18%,rgba(245,203,106,.20),transparent 30%),radial-gradient(circle at 15% 100%,rgba(120,90,255,.10),transparent 38%),linear-gradient(145deg,#191d27,#0e1016);box-shadow:var(--shadow);margin-bottom:18px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(245,203,106,.10);pointer-events:none}
 .hero::before{width:240px;height:240px;left:-110px;bottom:-150px;animation:float1 14s ease-in-out infinite}
 .hero::after{width:150px;height:150px;right:-50px;bottom:-85px;animation:float2 18s ease-in-out infinite}
-
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:7px 13px;border-radius:30px;
-  color:var(--gold);background:var(--gold-soft);
-  font-size:10px;font-weight:900;letter-spacing:.5px;
-  border:1px solid rgba(245,203,106,.18);
-}
-.hero h1{
-  position:relative;z-index:2;margin-top:16px;
-  max-width:530px;
-  font-size:clamp(28px,5vw,44px);
-  line-height:1.12;letter-spacing:-1.8px;font-weight:900;
-}
-.hero h1 span{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero p{
-  color:var(--muted);max-width:500px;
-  margin-top:11px;font-size:12px;line-height:1.85;
-}
-
-.community-badge{
-  display:inline-flex;flex-direction:column;
-  margin-top:18px;min-width:300px;
-  padding:12px 15px;border-radius:16px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
-  backdrop-filter:blur(10px);
-  transition:.25s var(--ease);
-}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:30px;color:var(--gold);background:var(--gold-soft);font-size:10px;font-weight:900;letter-spacing:.5px;border:1px solid rgba(245,203,106,.18)}
+.hero h1{position:relative;z-index:2;margin-top:16px;max-width:530px;font-size:clamp(28px,5vw,44px);line-height:1.12;letter-spacing:-1.8px;font-weight:900}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:500px;margin-top:11px;font-size:12px;line-height:1.85}
+.community-badge{display:inline-flex;flex-direction:column;margin-top:18px;min-width:300px;padding:12px 15px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--border);backdrop-filter:blur(10px);transition:.25s var(--ease)}
 .community-badge:hover{border-color:rgba(245,203,106,.28);background:rgba(255,255,255,.07)}
 .community-badge small{color:var(--muted2);font-size:9px;letter-spacing:.5px;text-transform:uppercase}
 .community-badge strong{margin-top:3px;font-size:12px}
 .community-badge span{color:var(--muted);font-size:9px;margin-top:2px}
 
-.composer{
-  padding:18px;border:1px solid var(--border);border-radius:22px;
-  background:var(--surface);margin-bottom:16px;
-  box-shadow:var(--shadow-sm);
-  transition:.25s var(--ease);
-}
+.composer{padding:18px;border:1px solid var(--border);border-radius:22px;background:var(--surface);margin-bottom:16px;box-shadow:var(--shadow-sm);transition:.25s var(--ease)}
 .composer:hover{border-color:var(--border2)}
-
 .composer-top{display:flex;gap:12px}
-
-.avatar{
-  width:46px;height:46px;flex:0 0 46px;
-  display:grid;place-items:center;border-radius:50%;
-  color:white;font-weight:900;
-  background:linear-gradient(145deg,#8e7cff,#5c4be5);
-  box-shadow:0 8px 24px rgba(142,124,255,.28);
-}
-
-.composer-input{
-  flex:1;min-height:50px;
-  display:flex;align-items:center;padding:0 16px;
-  color:var(--muted);
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--border);
-  border-radius:16px;cursor:text;
-  transition:.22s var(--ease);font-size:13px;
-}
+.avatar{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:50%;color:white;font-weight:900;background:linear-gradient(145deg,#8e7cff,#5c4be5);box-shadow:0 8px 24px rgba(142,124,255,.28)}
+.composer-input{flex:1;min-height:50px;display:flex;align-items:center;padding:0 16px;color:var(--muted);background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:16px;cursor:text;transition:.22s var(--ease);font-size:13px}
 .composer-input:hover{border-color:var(--border2);background:rgba(255,255,255,.06)}
-
-.composer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin-top:14px;padding-top:13px;
-  border-top:1px solid var(--border);
-}
-
+.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid var(--border)}
 .composer-actions{display:flex;gap:3px}
-
-.compose-action{
-  padding:9px 10px;border-radius:10px;
-  background:transparent;color:var(--muted);
-  font-size:11px;font-weight:800;
-  transition:.2s var(--ease);
-}
+.compose-action{padding:9px 10px;border-radius:10px;background:transparent;color:var(--muted);font-size:11px;font-weight:800;transition:.2s var(--ease)}
 .compose-action:hover{background:rgba(255,255,255,.06);color:var(--text)}
-
-.post-btn{
-  padding:10px 18px;border-radius:12px;
-  color:#181207;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  font-size:11px;font-weight:900;
-  transition:.22s var(--ease);
-  box-shadow:0 6px 20px rgba(245,203,106,.20);
-}
+.post-btn{padding:10px 18px;border-radius:12px;color:#181207;background:linear-gradient(145deg,var(--gold),var(--gold2));font-size:11px;font-weight:900;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.20)}
 .post-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,203,106,.32)}
-.post-btn:active{transform:translateY(0)}
 
-.filters{
-  display:flex;gap:7px;overflow-x:auto;
-  scrollbar-width:none;margin-bottom:14px;padding-bottom:2px;
-}
+.filters{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;padding-bottom:2px}
 .filters::-webkit-scrollbar{display:none}
+.filter{flex:0 0 auto;padding:9px 14px;border-radius:30px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--muted);font-size:11px;font-weight:900;transition:.22s var(--ease)}
+.filter.active,.filter:hover{color:var(--gold);background:var(--gold-soft);border-color:rgba(245,203,106,.28)}
 
-.filter{
-  flex:0 0 auto;padding:9px 14px;border-radius:30px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  color:var(--muted);font-size:11px;font-weight:900;
-  transition:.22s var(--ease);
-}
-.filter.active,.filter:hover{
-  color:var(--gold);
-  background:var(--gold-soft);
-  border-color:rgba(245,203,106,.28);
-}
-
-.post{
-  padding:19px;margin-bottom:14px;border-radius:22px;
-  background:var(--surface);border:1px solid var(--border);
-  animation:postIn .4s var(--ease) both;
-  transition:.25s var(--ease);
-}
-.post:hover{
-  border-color:var(--border2);
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-sm);
-}
-@keyframes postIn{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:none}
-}
-
+.post{padding:19px;margin-bottom:14px;border-radius:22px;background:var(--surface);border:1px solid var(--border);animation:postIn .4s var(--ease) both;transition:.25s var(--ease)}
+.post:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+@keyframes postIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .post-head{display:flex;align-items:center;gap:11px}
-
-.post-avatar{
-  width:44px;height:44px;border-radius:50%;
-  display:grid;place-items:center;color:white;font-weight:900;
-  background:linear-gradient(145deg,#5d5b68,#302f38);
-  flex:0 0 44px;
-}
-
+.post-avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900;background:linear-gradient(145deg,#5d5b68,#302f38);flex:0 0 44px}
 .post-user{flex:1}
 .post-user strong{display:block;font-size:13px}
 .post-user span{display:block;color:var(--muted2);font-size:9px;margin-top:2px}
-
-.post-type{
-  padding:6px 9px;border-radius:9px;
-  background:var(--gold-soft);color:var(--gold);
-  font-size:9px;font-weight:900;
-  border:1px solid rgba(245,203,106,.15);
-  white-space:nowrap;
-}
-
+.post-type{padding:6px 9px;border-radius:9px;background:var(--gold-soft);color:var(--gold);font-size:9px;font-weight:900;border:1px solid rgba(245,203,106,.15);white-space:nowrap}
 .post h2{font-size:17px;line-height:1.5;margin-top:14px;letter-spacing:-.3px}
-
-.post-text{
-  color:var(--muted);font-size:12px;line-height:1.9;
-  margin-top:6px;white-space:pre-wrap;
-}
-
-.post-actions{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:4px;margin-top:14px;padding-top:8px;
-  border-top:1px solid var(--border);
-}
-
-.post-action{
-  padding:10px 6px;border-radius:11px;
-  color:var(--muted);background:transparent;
-  font-size:11px;font-weight:800;
-  transition:.2s var(--ease);
-}
+.post-text{color:var(--muted);font-size:12px;line-height:1.9;margin-top:6px;white-space:pre-wrap}
+.post-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:14px;padding-top:8px;border-top:1px solid var(--border)}
+.post-action{padding:10px 6px;border-radius:11px;color:var(--muted);background:transparent;font-size:11px;font-weight:800;transition:.2s var(--ease)}
 .post-action:hover{background:rgba(255,255,255,.05);color:var(--text)}
 .post-action.liked{color:var(--red)}
 
-.empty{
-  padding:55px 20px;text-align:center;color:var(--muted);
-  border:1px dashed var(--border);border-radius:22px;
-  background:rgba(255,255,255,.015);
-}
+.empty{padding:55px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:22px;background:rgba(255,255,255,.015)}
 .empty-icon{font-size:42px;margin-bottom:10px}
 .empty h3{color:var(--text);font-size:16px}
 .empty p{font-size:11px;margin-top:6px}
 
-.trend-card{
-  padding:18px;border-radius:21px;
-  background:var(--surface);border:1px solid var(--border);
-  transition:.25s var(--ease);
-}
+.trend-card{padding:18px;border-radius:21px;background:var(--surface);border:1px solid var(--border);transition:.25s var(--ease)}
 .trend-card:hover{border-color:var(--border2)}
-
 .trend-title{display:flex;justify-content:space-between;align-items:center}
 .trend-title h3{font-size:14px}
-.trend-title span{
-  color:var(--gold);font-size:10px;font-weight:900;
-  padding:4px 8px;border-radius:8px;background:var(--gold-soft);
-}
-
+.trend-title span{color:var(--gold);font-size:10px;font-weight:900;padding:4px 8px;border-radius:8px;background:var(--gold-soft)}
 .trend{padding:13px 0;border-bottom:1px solid var(--border);transition:.2s var(--ease)}
 .trend:last-child{border-bottom:0}
 .trend:hover{padding-right:6px}
 .trend small{color:var(--muted2);font-size:9px;font-weight:800}
 .trend p{margin-top:4px;font-size:11px;font-weight:800;line-height:1.6}
-
-.online-card{
-  margin-top:14px;padding:16px;border-radius:19px;
-  background:rgba(99,224,160,.05);
-  border:1px solid rgba(99,224,160,.13);
-}
+.online-card{margin-top:14px;padding:16px;border-radius:19px;background:rgba(99,224,160,.05);border:1px solid rgba(99,224,160,.13)}
 .online-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900}
-.online-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--green);box-shadow:0 0 14px var(--green);
-  animation:pulse 2s infinite;
-}
+.online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}
 .online-card p{color:var(--muted);font-size:9px;line-height:1.7;margin-top:6px}
 
-.modal-layer{
-  position:fixed;inset:0;z-index:500;
-  display:none;align-items:center;justify-content:center;
-  padding:18px;background:rgba(0,0,0,.75);
-  backdrop-filter:blur(14px);
-}
+/* ============ MODALS ============ */
+.modal-layer{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(14px)}
 .modal-layer.show{display:flex;animation:fadeIn .22s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-.modal{
-  width:min(570px,100%);max-height:min(90vh,780px);
-  overflow:auto;padding:22px;border-radius:24px;
-  border:1px solid var(--border2);background:var(--surface);
-  box-shadow:0 30px 100px rgba(0,0,0,.6);
-  animation:modalIn .28s var(--ease);
-}
-@keyframes modalIn{
-  from{opacity:0;transform:translateY(20px) scale(.97)}
-  to{opacity:1;transform:none}
-}
-
-.modal-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:18px;
-}
+.modal{width:min(570px,100%);max-height:min(90vh,780px);overflow:auto;padding:22px;border-radius:24px;border:1px solid var(--border2);background:var(--surface);box-shadow:0 30px 100px rgba(0,0,0,.6);animation:modalIn .28s var(--ease)}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .modal-head h2{font-size:19px;letter-spacing:-.5px}
-
-.close{
-  width:36px;height:36px;border-radius:11px;
-  background:rgba(255,255,255,.055);color:var(--muted);
-  font-size:16px;transition:.2s var(--ease);
-}
+.close{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.055);color:var(--muted);font-size:16px;transition:.2s var(--ease)}
 .close:hover{background:rgba(255,255,255,.1);color:var(--text);transform:rotate(90deg)}
 
 .field{margin-bottom:13px}
-.field label{
-  display:block;color:var(--muted);font-size:10px;font-weight:900;
-  margin-bottom:7px;letter-spacing:.4px;text-transform:uppercase;
-}
-.field input,.field textarea,.field select{
-  width:100%;border:1px solid var(--border);border-radius:13px;
-  outline:none;padding:12px 13px;color:var(--text);
-  background:var(--bg2);font-size:13px;
-  transition:.22s var(--ease);
-}
-.field input:focus,.field textarea:focus,.field select:focus{
-  border-color:rgba(245,203,106,.5);
-  box-shadow:0 0 0 4px var(--gold-soft);
-}
+.field label{display:block;color:var(--muted);font-size:10px;font-weight:900;margin-bottom:7px;letter-spacing:.4px;text-transform:uppercase}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:13px;outline:none;padding:12px 13px;color:var(--text);background:var(--bg2);font-size:13px;transition:.22s var(--ease)}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(245,203,106,.5);box-shadow:0 0 0 4px var(--gold-soft)}
 .field textarea{min-height:120px;resize:vertical}
-
-.modal-footer{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:10px;margin-top:16px;
-}
-
+.modal-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
 .anonymous{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;cursor:pointer}
 .anonymous input{accent-color:var(--gold);width:16px;height:16px}
-
 .auth-note{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:8px}
 .school-picker-hint{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:7px}
 
-.auth-tabs{
-  display:flex;padding:4px;margin-bottom:18px;
-  border-radius:14px;background:rgba(255,255,255,.035);
+/* ============ NEW AUTH MODAL ============ */
+.auth-modal-v2{
+  width:min(920px,100%);
+  padding:0!important;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1.1fr;
+  max-height:min(92vh,720px);
 }
-.auth-tab{
-  flex:1;padding:10px;border-radius:11px;
-  color:var(--muted);font-size:11px;font-weight:900;
-  transition:.22s var(--ease);
+.auth-visual{
+  padding:36px 30px;position:relative;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(245,203,106,.25),transparent 40%),
+    radial-gradient(circle at 20% 90%,rgba(120,90,255,.20),transparent 45%),
+    linear-gradient(160deg,#131620,#0a0c11);
+  display:flex;flex-direction:column;justify-content:center;
+  border-left:1px solid var(--border);
+  overflow:hidden;
 }
-.auth-tab.active{color:var(--gold);background:var(--gold-soft)}
+.auth-visual::before{
+  content:"";position:absolute;width:260px;height:260px;
+  border-radius:50%;border:1px solid rgba(245,203,106,.12);
+  top:-100px;right:-100px;
+}
+.auth-visual::after{
+  content:"";position:absolute;width:160px;height:160px;
+  border-radius:50%;border:1px solid rgba(245,203,106,.10);
+  bottom:-60px;left:-60px;
+}
+.auth-visual-logo{
+  width:64px;height:64px;border-radius:18px;
+  display:grid;place-items:center;
+  font-size:30px;font-weight:900;color:#1a1306;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  box-shadow:0 16px 44px rgba(245,203,106,.35);
+  margin-bottom:22px;position:relative;z-index:2;
+}
+.auth-visual h3{
+  font-size:26px;font-weight:900;letter-spacing:-.8px;
+  line-height:1.3;margin-bottom:12px;position:relative;z-index:2;
+}
+.auth-visual h3 span{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.auth-visual p{
+  color:#a8adba;font-size:12px;line-height:1.9;
+  margin-bottom:24px;position:relative;z-index:2;
+}
+.auth-perks{display:flex;flex-direction:column;gap:12px;position:relative;z-index:2}
+.auth-perk{display:flex;align-items:center;gap:11px;font-size:12px;color:#c4c8d2}
+.auth-perk .ico{
+  width:34px;height:34px;border-radius:10px;
+  display:grid;place-items:center;
+  background:rgba(245,203,106,.10);
+  border:1px solid rgba(245,203,106,.18);
+  font-size:15px;flex:0 0 34px;
+}
+
+.auth-form-side{padding:32px 30px;overflow-y:auto}
+
+.auth-tabs-v2{
+  display:flex;padding:4px;margin-bottom:24px;
+  border-radius:14px;background:rgba(255,255,255,.04);
+  position:relative;
+}
+.auth-tabs-v2 .slider{
+  position:absolute;top:4px;bottom:4px;
+  width:calc(50% - 4px);border-radius:11px;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  transition:transform .35s var(--ease);
+  box-shadow:0 6px 20px rgba(245,203,106,.28);
+}
+.auth-tabs-v2[data-mode="register"] .slider{transform:translateX(-100%)}
+.auth-tab-v2{
+  flex:1;padding:11px;border-radius:11px;
+  color:var(--muted);font-size:12px;font-weight:900;
+  position:relative;z-index:2;transition:.25s var(--ease);
+  font-family:inherit;
+}
+.auth-tab-v2.active{color:#181207}
+
+.input-wrap{position:relative;margin-bottom:13px}
+.input-wrap .field-ico{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  font-size:15px;color:var(--muted2);pointer-events:none;
+}
+.input-wrap input,.input-wrap select{
+  width:100%;border:1px solid var(--border);
+  border-radius:13px;outline:none;
+  padding:13px 42px 13px 13px;
+  color:var(--text);background:var(--bg2);
+  font-size:13px;transition:.22s var(--ease);
+}
+.input-wrap input:focus,.input-wrap select:focus{
+  border-color:rgba(245,203,106,.5);
+  box-shadow:0 0 0 4px var(--gold-soft);
+  background:rgba(245,203,106,.03);
+}
+.input-wrap select{appearance:none;cursor:pointer}
+.input-wrap.select-wrap::after{
+  content:"▾";position:absolute;left:16px;top:50%;
+  transform:translateY(-50%);color:var(--muted2);pointer-events:none;font-size:12px;
+}
+
+.pw-strength{
+  height:4px;border-radius:4px;margin-top:7px;
+  background:rgba(255,255,255,.06);overflow:hidden;
+}
+.pw-strength-fill{
+  height:100%;width:0;border-radius:4px;
+  transition:.3s var(--ease);
+}
+.pw-strength-text{
+  font-size:9px;color:var(--muted2);margin-top:5px;
+}
+
+.auth-submit-v2{
+  width:100%;padding:14px;border-radius:14px;
+  color:#181207;font-weight:900;font-size:14px;
+  background:linear-gradient(145deg,var(--gold),var(--gold2));
+  box-shadow:0 12px 34px rgba(245,203,106,.32);
+  transition:.25s var(--ease);margin-top:8px;
+  font-family:inherit;
+}
+.auth-submit-v2:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(245,203,106,.45)}
+.auth-submit-v2:active{transform:translateY(0)}
+
+.auth-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:20px 0;color:var(--muted2);font-size:10px;
+}
+.auth-divider::before,.auth-divider::after{
+  content:"";flex:1;height:1px;background:var(--border);
+}
+
+.auth-trust{
+  display:flex;gap:14px;justify-content:center;
+  margin-top:18px;flex-wrap:wrap;
+}
+.auth-trust span{
+  display:inline-flex;align-items:center;gap:5px;
+  color:var(--muted2);font-size:10px;
+}
+
+.admin-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;border-radius:999px;
+  background:linear-gradient(135deg,rgba(245,203,106,.18),rgba(224,166,58,.18));
+  border:1px solid rgba(245,203,106,.35);
+  color:var(--gold);font-size:9px;font-weight:900;
+  letter-spacing:.5px;
+}
+
+#registerFields{display:none}
+#registerFields.show{display:block}
 
 .notifications-list{display:flex;flex-direction:column;gap:8px}
-.notification{
-  display:flex;gap:11px;padding:13px;border-radius:14px;
-  background:rgba(255,255,255,.035);border:1px solid var(--border);
-  transition:.2s var(--ease);
-}
+.notification{display:flex;gap:11px;padding:13px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--border);transition:.2s var(--ease)}
 .notification:hover{border-color:var(--border2)}
-.notification.unread{
-  border-color:rgba(245,203,106,.22);
-  background:rgba(245,203,106,.055);
-}
-.notification-icon{
-  width:40px;height:40px;flex:0 0 40px;
-  border-radius:12px;display:grid;place-items:center;
-  background:var(--gold-soft);font-size:17px;
-}
+.notification.unread{border-color:rgba(245,203,106,.22);background:rgba(245,203,106,.055)}
+.notification-icon{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;background:var(--gold-soft);font-size:17px}
 .notification-content{flex:1}
 .notification-content strong{font-size:12px;display:block}
 .notification-content p{color:var(--muted);font-size:10px;line-height:1.6;margin-top:3px}
 .notification-content small{color:var(--muted2);font-size:9px;display:block;margin-top:4px}
 
 .profile-box{text-align:center}
-.profile-large{
-  width:80px;height:80px;margin:0 auto 12px;
-  display:grid;place-items:center;border-radius:50%;
-  color:#191307;font-size:30px;font-weight:900;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 12px 36px rgba(245,203,106,.28);
-}
+.profile-large{width:80px;height:80px;margin:0 auto 12px;display:grid;place-items:center;border-radius:50%;color:#191307;font-size:30px;font-weight:900;background:linear-gradient(145deg,var(--gold),var(--gold2));box-shadow:0 12px 36px rgba(245,203,106,.28)}
 .profile-box h2{font-size:20px}
 .profile-box p{color:var(--muted);font-size:10px;margin-top:4px}
-
-.profile-info{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:9px;margin-top:20px;
-}
-.profile-info div{
-  padding:13px;border:1px solid var(--border);
-  border-radius:14px;background:rgba(255,255,255,.025);
-}
+.profile-info{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:20px}
+.profile-info div{padding:13px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025)}
 .profile-info small{display:block;color:var(--muted2);font-size:9px;text-transform:uppercase;letter-spacing:.4px}
 .profile-info strong{display:block;font-size:11px;margin-top:4px}
 
 .loading{display:flex;justify-content:center;padding:40px}
-.spinner{
-  width:32px;height:32px;
-  border:3px solid rgba(255,255,255,.1);
-  border-top-color:var(--gold);border-radius:50%;
-  animation:spin .8s linear infinite;
-}
+.spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.toast{
-  position:fixed;left:50%;bottom:27px;z-index:900;
-  transform:translate(-50%,20px);
-  padding:12px 18px;border-radius:14px;
-  color:#111;background:#f4f4f4;
-  font-size:12px;font-weight:900;
-  opacity:0;pointer-events:none;
-  transition:.3s var(--ease);
-  box-shadow:0 15px 50px rgba(0,0,0,.45);
-  max-width:calc(100vw - 30px);text-align:center;
-}
+.toast{position:fixed;left:50%;bottom:27px;z-index:900;transform:translate(-50%,20px);padding:12px 18px;border-radius:14px;color:#111;background:#f4f4f4;font-size:12px;font-weight:900;opacity:0;pointer-events:none;transition:.3s var(--ease);box-shadow:0 15px 50px rgba(0,0,0,.45);max-width:calc(100vw - 30px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 .mobile-nav{display:none}
 
-@media(max-width:1050px){
-  .layout{grid-template-columns:200px minmax(0,660px)}
-  .right-sidebar{display:none}
-}
-
+@media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,660px)}.right-sidebar{display:none}}
+@media(max-width:900px){.auth-modal-v2{grid-template-columns:1fr;max-height:92vh}.auth-visual{display:none}}
 @media(max-width:760px){
   body{padding-bottom:65px}
   .topbar{height:62px}
@@ -623,40 +514,23 @@ a{color:inherit;text-decoration:none}
   .post-text{font-size:11px}
   .post-actions{grid-template-columns:repeat(3,1fr)}
   .post-action{font-size:10px}
-  .mobile-nav{
-    position:fixed;display:flex;left:0;right:0;bottom:0;
-    height:65px;z-index:300;justify-content:space-around;align-items:center;
-    background:rgba(8,9,12,.94);
-    backdrop-filter:blur(22px);
-    border-top:1px solid var(--border);padding-bottom:2px;
-  }
+  .mobile-nav{position:fixed;display:flex;left:0;right:0;bottom:0;height:65px;z-index:300;justify-content:space-around;align-items:center;background:rgba(8,9,12,.94);backdrop-filter:blur(22px);border-top:1px solid var(--border);padding-bottom:2px}
   .light .mobile-nav{background:rgba(245,242,236,.95)}
-  .mobile-nav button{
-    min-width:48px;background:transparent;color:var(--muted);
-    display:flex;flex-direction:column;align-items:center;
-    gap:2px;font-size:9px;font-weight:800;
-    transition:.2s var(--ease);
-  }
+  .mobile-nav button{min-width:48px;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;font-weight:800;transition:.2s var(--ease)}
   .mobile-nav button.active{color:var(--gold)}
-  .mobile-nav .add{
-    width:44px;height:44px;min-width:44px;border-radius:14px;
-    background:linear-gradient(145deg,var(--gold),var(--gold2));
-    color:#171107;font-size:22px;
-    box-shadow:0 8px 24px rgba(245,203,106,.28);
-    transition:.22s var(--ease);
-  }
-  .mobile-nav .add:hover{transform:scale(1.08)}
+  .mobile-nav .add{width:44px;height:44px;min-width:44px;border-radius:14px;background:linear-gradient(145deg,var(--gold),var(--gold2));color:#171107;font-size:22px;box-shadow:0 8px 24px rgba(245,203,106,.28);transition:.22s var(--ease)}
   .modal-layer{padding:10px;align-items:flex-end}
   .modal{width:100%;max-height:90vh;border-radius:23px 23px 15px 15px;padding:18px}
   .modal-footer{flex-wrap:wrap}
+  .intro-card{padding:28px 18px;border-radius:24px}
+  .intro-features{grid-template-columns:1fr;gap:8px}
+  .intro-feature{padding:12px}
+  .intro-logo{width:76px;height:76px;font-size:36px;border-radius:22px}
+  .auth-form-side{padding:24px 18px}
 }
 
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation-duration:.001ms!important;
-    transition-duration:.001ms!important;
-    scroll-behavior:auto!important;
-  }
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 }
 </style>
 
@@ -668,6 +542,56 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
 </head>
 
 <body>
+
+<!-- ============ CINEMATIC INTRO ============ -->
+<div id="faslIntro">
+  <div class="intro-bg-orb a"></div>
+  <div class="intro-bg-orb b"></div>
+  <div class="intro-card">
+    <div class="intro-logo">ف</div>
+    <div class="intro-title">فَ<span>ص</span>ل</div>
+    <div class="intro-tagline" id="introTagline">كل فصل عنده حكاية ✨</div>
+
+    <p class="intro-desc">
+      <b>فَصْل</b> هو مجتمع الطلاب المصريين الحقيقي. هنا بتلاقي <b>مواقف</b> بتضحك،
+      <b>أسئلة</b> بتتفهم، <b>ترندات</b> بتنتشر، و<b>حكايات</b> من كل مدرسة في مصر.
+      انضم لجروب مدرستك، شارك اللي حصل، واعرف إيه اللي بيحصل في الفصل اللي جانبك — كل ده في مكان واحد.
+    </p>
+
+    <div class="intro-features">
+      <div class="intro-feature">
+        <span class="ico">🏫</span>
+        <h4>جروب مدرستك</h4>
+        <p>مجتمع خاص بكل مدرسة، مع زملائك في نفس الصف.</p>
+      </div>
+      <div class="intro-feature">
+        <span class="ico">😂</span>
+        <h4>مواقف وترندات</h4>
+        <p>احكيلنا أغرب موقف حصل معاك النهارده في المدرسة.</p>
+      </div>
+      <div class="intro-feature">
+        <span class="ico">🔒</span>
+        <h4>آمن ومجهول</h4>
+        <p>انشر بشكل مجهول لو حبيت، وبياناتك محمية بالكامل.</p>
+      </div>
+    </div>
+
+    <div class="intro-actions">
+      <button class="intro-btn primary" onclick="enterFasl()">🚀 دخول فَصْل</button>
+      <button class="intro-btn ghost" onclick="enterAsGuest()">متابعة كزائر</button>
+    </div>
+
+    <div class="intro-footer">
+      <span>✅ مجاني للأبد</span>
+      <span>🇪🇬 مصنوع في مصر</span>
+      <span>👥 مجتمع الطلاب</span>
+    </div>
+    <div class="intro-countdown" id="introCountdown">هيبدأ تلقائياً خلال 8 ثواني…</div>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="faslApp">
 
 <div class="background">
   <div class="orb one"></div>
@@ -776,6 +700,9 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
   <button onclick="openProfile()"><span>👤</span>حسابي</button>
 </nav>
 
+</div><!-- /#faslApp -->
+
+<!-- CREATE POST -->
 <div class="modal-layer" id="composerModal">
   <div class="modal">
     <div class="modal-head">
@@ -801,61 +728,98 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
       <textarea id="postBody" maxlength="1000" placeholder="احكيلنا اللي حصل..."></textarea>
     </div>
     <div class="modal-footer">
-      <label class="anonymous">
-        <input type="checkbox" id="anonymousPost">
-        نشر بشكل مجهول 👤
-      </label>
+      <label class="anonymous"><input type="checkbox" id="anonymousPost">نشر بشكل مجهول 👤</label>
       <button class="post-btn" onclick="createPost()">نشر البوست 🚀</button>
     </div>
   </div>
 </div>
 
+<!-- ============ NEW AUTH MODAL ============ -->
 <div class="modal-layer" id="authModal">
-  <div class="modal">
-    <div class="modal-head">
-      <h2>أهلاً بيك في فَصْل 👋</h2>
-      <button class="close" onclick="closeAuth()">✕</button>
-    </div>
-    <div class="auth-tabs">
-      <button id="loginTab" class="auth-tab active" onclick="openAuth('login')">تسجيل الدخول</button>
-      <button id="registerTab" class="auth-tab" onclick="openAuth('register')">إنشاء حساب</button>
-    </div>
-    <div class="field" id="usernameField">
-      <label>اسم المستخدم</label>
-      <input id="authUsername" maxlength="30" placeholder="مثلاً: mazen123">
-    </div>
-    <div class="field">
-      <label>البريد الإلكتروني</label>
-      <input id="authEmail" type="email" maxlength="120" placeholder="example@email.com">
-    </div>
-    <div class="field">
-      <label>كلمة المرور</label>
-      <input id="authPassword" type="password" maxlength="128" placeholder="6 حروف أو أكثر">
-    </div>
-    <div id="schoolFields">
-      <div class="field">
-        <label>المحافظة</label>
-        <select id="authGovernorate"></select>
+  <div class="modal auth-modal-v2">
+    <div class="auth-visual">
+      <div class="auth-visual-logo">ف</div>
+      <h3>أهلاً بيك في <span>فَصْل</span><br>مجتمع الطلاب المصريين</h3>
+      <p>سجّل دخولك وادخل جروب مدرستك، شارك مواقفك، اسأل زملائك، واعرف كل اللي بيحصل في المدرسة.</p>
+      <div class="auth-perks">
+        <div class="auth-perk"><span class="ico">🏫</span>جروب خاص بمدرستك وصفك</div>
+        <div class="auth-perk"><span class="ico">🔒</span>بياناتك محمية ومشفرة</div>
+        <div class="auth-perk"><span class="ico">👤</span>انشر بشكل مجهول لو حبيت</div>
+        <div class="auth-perk"><span class="ico">🚀</span>مجاني بالكامل للأبد</div>
       </div>
-      <div class="field">
-        <label>اسم المدرسة</label>
-        <input id="authSchool" list="schoolDirectory" maxlength="120" placeholder="اكتب اسم المدرسة وابحث في الدليل…" autocomplete="organization">
-        <datalist id="schoolDirectory"></datalist>
+    </div>
+    <div class="auth-form-side">
+      <div class="modal-head" style="margin-bottom:18px">
+        <h2 id="authTitle">تسجيل الدخول</h2>
+        <button class="close" onclick="closeAuth()">✕</button>
+      </div>
+
+      <div class="auth-tabs-v2" id="authTabs" data-mode="login">
+        <div class="slider"></div>
+        <button class="auth-tab-v2 active" data-tab="login" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+        <button class="auth-tab-v2" data-tab="register" onclick="switchAuthTab('register')">حساب جديد</button>
+      </div>
+
+      <!-- Login fields -->
+      <div id="loginFields">
+        <div class="input-wrap">
+          <span class="field-ico">✉️</span>
+          <input id="loginEmail" type="email" maxlength="120" placeholder="example@email.com" autocomplete="email">
+        </div>
+        <div class="input-wrap">
+          <span class="field-ico">🔒</span>
+          <input id="loginPassword" type="password" maxlength="128" placeholder="كلمة المرور" autocomplete="current-password">
+        </div>
+        <button class="auth-submit-v2" onclick="submitLogin()">دخول 🚀</button>
+        <div class="auth-trust">
+          <span>🔒 اتصال آمن</span>
+          <span>🇪🇬 مصنوع في مصر</span>
+        </div>
+      </div>
+
+      <!-- Register fields -->
+      <div id="registerFields">
+        <div class="input-wrap">
+          <span class="field-ico">👤</span>
+          <input id="regUsername" maxlength="30" placeholder="اسم المستخدم (مثلاً: mazen123)">
+        </div>
+        <div class="input-wrap">
+          <span class="field-ico">✉️</span>
+          <input id="regEmail" type="email" maxlength="120" placeholder="example@email.com">
+        </div>
+        <div class="input-wrap">
+          <span class="field-ico">🔒</span>
+          <input id="regPassword" type="password" maxlength="128" placeholder="كلمة المرور (6+ حروف)" oninput="checkPwStrength()">
+        </div>
+        <div class="pw-strength"><div class="pw-strength-fill" id="pwFill"></div></div>
+        <div class="pw-strength-text" id="pwText">اكتب كلمة مرور قوية</div>
+
+        <div class="input-wrap select-wrap">
+          <span class="field-ico">📍</span>
+          <select id="regGovernorate"></select>
+        </div>
+        <div class="input-wrap">
+          <span class="field-ico">🏫</span>
+          <input id="regSchool" list="schoolDirectory" maxlength="120" placeholder="اسم المدرسة">
+          <datalist id="schoolDirectory"></datalist>
+        </div>
         <div class="school-picker-hint">اختار مدرسة من الدليل أو اكتب اسم مدرسة جديدة — هيتعمل لها جروب تلقائياً.</div>
+        <div class="input-wrap select-wrap" style="margin-top:10px">
+          <span class="field-ico">🎓</span>
+          <select id="regGrade"></select>
+        </div>
+
+        <button class="auth-submit-v2" onclick="submitRegister()">إنشاء الحساب ✨</button>
+        <div class="auth-trust">
+          <span>🔒 بياناتك محمية</span>
+          <span>✅ مجاني للأبد</span>
+        </div>
       </div>
-      <div class="field">
-        <label>الصف</label>
-        <select id="authGrade"></select>
-      </div>
-      <div class="auth-note">استخدم اسم المدرسة فقط. متكتبش عنوان بيتك أو رقم تليفونك أو أي بيانات شخصية.</div>
-    </div>
-    <div class="modal-footer">
-      <span></span>
-      <button class="post-btn" id="authSubmit" onclick="submitAuth()">إنشاء الحساب ✨</button>
     </div>
   </div>
 </div>
 
+<!-- NOTIFICATIONS -->
 <div class="modal-layer" id="notificationsModal">
   <div class="modal">
     <div class="modal-head">
@@ -872,6 +836,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
   </div>
 </div>
 
+<!-- PROFILE -->
 <div class="modal-layer" id="profileModal">
   <div class="modal">
     <div class="modal-head">
@@ -883,6 +848,9 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
         <div class="profile-large" id="profileLarge">م</div>
         <h2 id="profileUsername">زائر</h2>
         <p id="profileEmail">سجّل دخول عشان تدخل مجتمعك.</p>
+        <div id="profileAdminBadge" style="margin-top:10px;display:none">
+          <span class="admin-badge">👑 مدير فَصْل</span>
+        </div>
         <div class="profile-info" id="profileInfo">
           <div><small>المحافظة</small><strong>—</strong></div>
           <div><small>المدرسة</small><strong>—</strong></div>
@@ -922,158 +890,246 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// ============ ADMIN EMAIL ============
+const ADMIN_EMAIL = "mazenshahin639@gmail.com";
+
 window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp, increment, onSnapshot };
-window.db = db;
-window.auth = auth;
-window.collection = collection;
-window.doc = doc;
-window.getDoc = getDoc;
-window.setDoc = setDoc;
-window.addDoc = addDoc;
-window.updateDoc = updateDoc;
-window.deleteDoc = deleteDoc;
-window.query = query;
-window.where = where;
-window.orderBy = orderBy;
-window.limit = limit;
-window.getDocs = getDocs;
+window.db = db; window.auth = auth;
+window.collection = collection; window.doc = doc; window.getDoc = getDoc;
+window.setDoc = setDoc; window.addDoc = addDoc; window.updateDoc = updateDoc;
+window.deleteDoc = deleteDoc; window.query = query; window.where = where;
+window.orderBy = orderBy; window.limit = limit; window.getDocs = getDocs;
 window.serverTimestamp = serverTimestamp;
+window.FASL_ADMIN_EMAIL = ADMIN_EMAIL;
+window.faslIsAdmin = () => String(auth.currentUser?.email || "").toLowerCase() === ADMIN_EMAIL;
 
 let currentUser = null;
 let currentProfile = null;
-let authMode = "login";
 let activeFilter = "all";
 let allPosts = [];
 let unsubscribePosts = null;
 let unsubscribeNotifications = null;
 
 const demoPosts = [
-  { id:"demo-1", type:"teacher", username:"طالب مجهول", avatar:"😂",
-    title:"لما المدرس يقول آخر سؤال بجد",
-    body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",
-    likes:126, comments:18, liked:false, anonymous:true, demo:true },
-  { id:"demo-2", type:"story", username:"محمد", avatar:"م",
-    title:"موقف حصل في الفسحة",
-    body:"واحد من صحابي كان بيجري ورا الكورة ودخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂",
-    likes:89, comments:12, liked:false, anonymous:false, demo:true },
-  { id:"demo-3", type:"question", username:"طالب مجهول", avatar:"🤔",
-    title:"حد فاهم الجزئية دي؟",
-    body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭",
-    likes:54, comments:27, liked:false, anonymous:true, demo:true }
+  { id:"demo-1", type:"teacher", username:"طالب مجهول", avatar:"😂", title:"لما المدرس يقول آخر سؤال بجد", body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂", likes:126, comments:18, liked:false, anonymous:true, demo:true },
+  { id:"demo-2", type:"story", username:"محمد", avatar:"م", title:"موقف حصل في الفسحة", body:"واحد من صحابي كان بيجري ورا الكورة ودخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂", likes:89, comments:12, liked:false, anonymous:false, demo:true },
+  { id:"demo-3", type:"question", username:"طالب مجهول", avatar:"🤔", title:"حد فاهم الجزئية دي؟", body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭", likes:54, comments:27, liked:false, anonymous:true, demo:true }
 ];
 
 const governorates = ["القاهرة","الجيزة","الإسكندرية","القليوبية","الدقهلية","الشرقية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","الفيوم","بني سويف","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر","الوادي الجديد","مطروح"];
-
 const grades = ["ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتدائي 4","ابتدائي 5","ابتدائي 6","إعدادي 1","إعدادي 2","إعدادي 3","ثانوي 1","ثانوي 2","ثانوي 3","فني 1","فني 2","فني 3","فني 4","فني 5"];
 
 const $ = id => document.getElementById(id);
 
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>'"]/g, char => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"
-  }[char]));
+function escapeHTML(v){
+  return String(v ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
 }
-
-function communityId(governorate, school){
-  return `${governorate}__${school}`.trim().toLowerCase().replace(/\s+/g,"-");
-}
-
-function typeLabel(type){
-  return {
-    story:"😂 موقف", teacher:"👨‍🏫 مدرس", question:"🤔 سؤال",
-    trend:"🔥 ترند", school:"🏫 المدرسة"
-  }[type] || "📝 بوست";
-}
-
-function timeText(timestamp){
-  if(!timestamp || !timestamp.toDate) return "دلوقتي";
-  const date = timestamp.toDate();
-  const diff = Math.max(0,Date.now() - date.getTime()) / 1000;
+function communityId(g,s){ return `${g}__${s}`.trim().toLowerCase().replace(/\s+/g,"-"); }
+function typeLabel(t){ return {story:"😂 موقف",teacher:"👨‍🏫 مدرس",question:"🤔 سؤال",trend:"🔥 ترند",school:"🏫 المدرسة"}[t] || "📝 بوست"; }
+function timeText(ts){
+  if(!ts || !ts.toDate) return "دلوقتي";
+  const d = ts.toDate(); const diff = Math.max(0,Date.now() - d.getTime()) / 1000;
   if(diff < 60) return "منذ لحظات";
-  if(diff < 3600) return `منذ ${Math.floor(diff / 60)} د`;
-  if(diff < 86400) return `منذ ${Math.floor(diff / 3600)} س`;
-  return date.toLocaleDateString("ar-EG",{day:"numeric",month:"short"});
+  if(diff < 3600) return `منذ ${Math.floor(diff/60)} د`;
+  if(diff < 86400) return `منذ ${Math.floor(diff/3600)} س`;
+  return d.toLocaleDateString("ar-EG",{day:"numeric",month:"short"});
 }
-
-function showToast(message){
-  const toast = $("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
+function showToast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
   clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 2800);
 }
 window.showToast = showToast;
 
-function fillSelect(id,values,placeholder){
-  const element = $(id);
-  element.innerHTML = `<option value="">${placeholder}</option>` +
-    values.map(value => `<option value="${escapeHTML(value)}">${escapeHTML(value)}</option>`).join("");
-}
-fillSelect("authGovernorate", governorates, "اختار المحافظة");
-fillSelect("authGrade", grades, "اختار الصف");
+// ============ INTRO LOGIC ============
+const taglines = [
+  "كل فصل عنده حكاية ✨",
+  "مواقف، أسئلة، وترندات 🔥",
+  "جروب مدرستك في مكان واحد 🏫",
+  "انضم لمجتمع الطلاب المصريين 🇪🇬",
+  "شارك، اسأل، واعرف كل حاجة 👀"
+];
+let tagIndex = 0;
+let introTimer = null;
+let countdownTimer = null;
 
+function rotateTagline(){
+  const el = $("introTagline");
+  if(!el) return;
+  el.classList.add("fade");
+  setTimeout(()=>{
+    tagIndex = (tagIndex + 1) % taglines.length;
+    el.textContent = taglines[tagIndex];
+    el.classList.remove("fade");
+  }, 400);
+}
+function startIntro(){
+  introTimer = setInterval(rotateTagline, 2600);
+  let count = 8;
+  countdownTimer = setInterval(()=>{
+    count--;
+    const c = $("introCountdown");
+    if(c) c.textContent = `هيبدأ تلقائياً خلال ${count} ثواني…`;
+    if(count <= 0){ clearInterval(countdownTimer); enterFasl(); }
+  }, 1000);
+}
+function enterFasl(){
+  clearInterval(introTimer); clearInterval(countdownTimer);
+  const intro = $("faslIntro");
+  const app = $("faslApp");
+  if(intro){ intro.classList.add("hide"); setTimeout(()=>{ intro.style.display="none"; }, 700); }
+  if(app){ app.classList.add("show"); }
+  // Show auth if not logged in
+  setTimeout(()=>{
+    if(!currentUser){ openAuth("login"); }
+  }, 400);
+}
+window.enterFasl = enterFasl;
+function enterAsGuest(){
+  clearInterval(introTimer); clearInterval(countdownTimer);
+  const intro = $("faslIntro");
+  const app = $("faslApp");
+  if(intro){ intro.classList.add("hide"); setTimeout(()=>{ intro.style.display="none"; }, 700); }
+  if(app){ app.classList.add("show"); }
+  showToast("أنت تتصفح كزائر 👀 سجّل دخول عشان تشارك");
+}
+window.enterAsGuest = enterAsGuest;
+startIntro();
+
+// ============ FILL SELECTS ============
+function fillSelect(id, values, placeholder){
+  const el = $(id); if(!el) return;
+  el.innerHTML = `<option value="">${placeholder}</option>` +
+    values.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("");
+}
+fillSelect("regGovernorate", governorates, "اختار المحافظة");
+fillSelect("regGrade", grades, "اختار الصف");
+
+// ============ AUTH TAB SWITCHER ============
+function switchAuthTab(mode){
+  const tabs = $("authTabs");
+  const loginFields = $("loginFields");
+  const registerFields = $("registerFields");
+  const title = $("authTitle");
+  if(!tabs) return;
+  tabs.dataset.mode = mode;
+  document.querySelectorAll(".auth-tab-v2").forEach(b=>b.classList.toggle("active", b.dataset.tab===mode));
+  if(mode === "register"){
+    loginFields.style.display = "none";
+    registerFields.classList.add("show");
+    if(title) title.textContent = "حساب جديد";
+  } else {
+    loginFields.style.display = "block";
+    registerFields.classList.remove("show");
+    if(title) title.textContent = "تسجيل الدخول";
+  }
+}
+window.switchAuthTab = switchAuthTab;
+
+function checkPwStrength(){
+  const pw = $("regPassword")?.value || "";
+  const fill = $("pwFill");
+  const text = $("pwText");
+  if(!fill || !text) return;
+  let score = 0;
+  if(pw.length >= 6) score++;
+  if(pw.length >= 10) score++;
+  if(/[A-Z]/.test(pw)) score++;
+  if(/[0-9]/.test(pw)) score++;
+  if(/[^A-Za-z0-9]/.test(pw)) score++;
+  const pct = (score/5)*100;
+  fill.style.width = pct + "%";
+  const colors = ["#ff6b7e","#ff6b7e","#f5cb6a","#63e0a0","#63e0a0"];
+  const labels = ["ضعيفة جداً","ضعيفة","متوسطة","قوية","قوية جداً 🔥"];
+  fill.style.background = colors[Math.max(0,score-1)] || "#ff6b7e";
+  text.textContent = pw ? labels[Math.max(0,score-1)] : "اكتب كلمة مرور قوية";
+  text.style.color = pw ? colors[Math.max(0,score-1)] : "var(--muted2)";
+}
+window.checkPwStrength = checkPwStrength;
+
+// ============ AUTH MODAL OPEN/CLOSE ============
 function openAuth(mode="login"){
-  authMode = mode;
   $("authModal").classList.add("show");
-  const register = mode === "register";
-  $("usernameField").style.display = register ? "block" : "none";
-  $("schoolFields").style.display = register ? "block" : "none";
-  $("authSubmit").textContent = register ? "إنشاء الحساب ✨" : "دخول 🚀";
-  $("loginTab").classList.toggle("active", !register);
-  $("registerTab").classList.toggle("active", register);
+  switchAuthTab(mode === "register" ? "register" : "login");
 }
 window.openAuth = openAuth;
-
 function closeAuth(){ $("authModal").classList.remove("show"); }
 window.closeAuth = closeAuth;
 
-async function submitAuth(){
-  const email = $("authEmail").value.trim();
-  const password = $("authPassword").value;
+// ============ LOGIN ============
+async function submitLogin(){
+  const email = $("loginEmail").value.trim();
+  const password = $("loginPassword").value;
   if(!email) return showToast("اكتب الإيميل الأول.");
-  if(password.length < 6) return showToast("كلمة المرور لازم تكون 6 حروف أو أكثر.");
+  if(password.length < 6) return showToast("كلمة المرور قصيرة.");
   try{
-    if(authMode === "login"){
-      await signInWithEmailAndPassword(auth, email, password);
-      closeAuth();
-      showToast("أهلاً بيك تاني في فَصْل 👋");
-    }else{
-      const username = $("authUsername").value.trim();
-      const governorate = $("authGovernorate").value;
-      const school = $("authSchool").value.trim();
-      const grade = $("authGrade").value;
-      if(!username) return showToast("اكتب اسم مستخدم.");
-      if(username.length < 3) return showToast("اسم المستخدم قصير جداً.");
-      if(!governorate || !school || !grade) return showToast("كمّل المحافظة والمدرسة والصف.");
-      const credential = await createUserWithEmailAndPassword(auth, email, password);
-      await setDoc(doc(db,"users",credential.user.uid), {
-        username, governorate, school, grade,
-        communityId: communityId(governorate, school, grade),
-        createdAt: serverTimestamp()
-      });
-      closeAuth();
-      showToast("الحساب اتعمل! 🎉 أهلاً بيك في مجتمعك.");
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    // Auto-admin promotion
+    if(email.toLowerCase() === ADMIN_EMAIL){
+      try{
+        await setDoc(doc(db,"users",cred.user.uid), {
+          moderator:true, admin:true, adminEmail:email,
+          promotedAt: serverTimestamp()
+        }, {merge:true});
+      }catch(e){ console.warn("Admin promote failed:", e); }
     }
+    closeAuth();
+    showToast("أهلاً بيك تاني في فَصْل 👋");
   }catch(error){
     console.error(error);
-    const messages = {
-      "auth/email-already-in-use":"الإيميل ده مستخدم بالفعل.",
-      "auth/invalid-email":"الإيميل مش صحيح.",
-      "auth/weak-password":"كلمة المرور ضعيفة.",
+    const msgs = {
       "auth/invalid-credential":"الإيميل أو كلمة المرور غلط.",
-      "auth/operation-not-allowed":"فعّل Email/Password من Firebase.",
+      "auth/invalid-email":"الإيميل مش صحيح.",
       "auth/network-request-failed":"مشكلة في الإنترنت. جرّب تاني."
     };
-    showToast(messages[error.code] || "حصل خطأ. جرّب تاني.");
+    showToast(msgs[error.code] || "حصل خطأ. جرّب تاني.");
   }
 }
-window.submitAuth = submitAuth;
+window.submitLogin = submitLogin;
 
+// ============ REGISTER ============
+async function submitRegister(){
+  const username = $("regUsername").value.trim();
+  const email = $("regEmail").value.trim();
+  const password = $("regPassword").value;
+  const governorate = $("regGovernorate").value;
+  const school = $("regSchool").value.trim();
+  const grade = $("regGrade").value;
+
+  if(!username || username.length < 3) return showToast("اسم المستخدم قصير.");
+  if(!email) return showToast("اكتب الإيميل.");
+  if(password.length < 6) return showToast("كلمة المرور لازم 6+ حروف.");
+  if(!governorate || !school || !grade) return showToast("كمّل المحافظة والمدرسة والصف.");
+
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const isAdmin = email.toLowerCase() === ADMIN_EMAIL;
+    await setDoc(doc(db,"users",cred.user.uid), {
+      username, governorate, school, grade,
+      communityId: communityId(governorate, school),
+      moderator: isAdmin, admin: isAdmin,
+      createdAt: serverTimestamp()
+    });
+    closeAuth();
+    showToast(isAdmin ? "أهلاً يا مدير فَصْل 👑" : "الحساب اتعمل! 🎉");
+  }catch(error){
+    console.error(error);
+    const msgs = {
+      "auth/email-already-in-use":"الإيميل ده مستخدم بالفعل.",
+      "auth/invalid-email":"الإيميل مش صحيح.",
+      "auth/weak-password":"كلمة المرور ضعيفة."
+    };
+    showToast(msgs[error.code] || "حصل خطأ. جرّب تاني.");
+  }
+}
+window.submitRegister = submitRegister;
+
+// ============ PROFILE ============
 async function loadProfile(user){
   if(!user) return null;
-  const snapshot = await getDoc(doc(db,"users",user.uid));
-  if(!snapshot.exists()) return null;
-  return { id:snapshot.id, ...snapshot.data() };
+  const snap = await getDoc(doc(db,"users",user.uid));
+  if(!snap.exists()) return null;
+  return { id:snap.id, ...snap.data() };
 }
 
 function updateUI(){
@@ -1082,6 +1138,10 @@ function updateUI(){
   $("profileMini").textContent = initial;
   $("composerAvatar").textContent = initial;
   $("profileLarge").textContent = initial;
+
+  const isAdmin = String(currentUser?.email || "").toLowerCase() === ADMIN_EMAIL;
+  const badge = $("profileAdminBadge");
+  if(badge) badge.style.display = isAdmin ? "block" : "none";
 
   if(currentProfile){
     $("sideSchoolName").textContent = currentProfile.school;
@@ -1094,7 +1154,7 @@ function updateUI(){
       <div><small>المحافظة</small><strong>${escapeHTML(currentProfile.governorate)}</strong></div>
       <div><small>المدرسة</small><strong>${escapeHTML(currentProfile.school)}</strong></div>
       <div><small>الصف</small><strong>${escapeHTML(currentProfile.grade)}</strong></div>
-      <div><small>المجتمع</small><strong>جروب المدرسة</strong></div>
+      <div><small>المجتمع</small><strong>${isAdmin ? "👑 مدير" : "طالب"}</strong></div>
     `;
     $("profileMainButton").textContent = "تسجيل الخروج 👋";
   }else{
@@ -1108,83 +1168,58 @@ function updateUI(){
   }
 }
 
-function openProfile(){
-  $("profileModal").classList.add("show");
-  if(!currentUser) $("profileMainButton").textContent = "تسجيل الدخول 🚀";
-}
+function openProfile(){ $("profileModal").classList.add("show"); }
 window.openProfile = openProfile;
-
 function closeProfile(){ $("profileModal").classList.remove("show"); }
 window.closeProfile = closeProfile;
 
 async function profileMainAction(){
-  if(!currentUser){
-    closeProfile();
-    openAuth("login");
-    return;
-  }
+  if(!currentUser){ closeProfile(); openAuth("login"); return; }
   try{
     await signOut(auth);
     closeProfile();
     showToast("تم تسجيل الخروج 👋");
-  }catch(error){
-    console.error(error);
-    showToast("تعذر تسجيل الخروج.");
-  }
+  }catch(e){ console.error(e); showToast("تعذر تسجيل الخروج."); }
 }
 window.profileMainAction = profileMainAction;
 
+// ============ POSTS ============
 async function loadPosts(){
   if(unsubscribePosts){ unsubscribePosts(); unsubscribePosts = null; }
-  if(!currentProfile){
-    allPosts = demoPosts;
-    renderFeed();
-    return;
-  }
+  if(!currentProfile){ allPosts = demoPosts; renderFeed(); return; }
   $("feed").innerHTML = `<div class="loading"><div class="spinner"></div></div>`;
   try{
-    const postsQuery = query(
-      collection(db,"posts"),
-      where("communityId","==",currentProfile.communityId),
-      limit(100)
-    );
-    unsubscribePosts = onSnapshot(postsQuery, async snapshot => {
-      allPosts = snapshot.docs.map(item => ({ id:item.id, ...item.data() }));
+    const q = query(collection(db,"posts"), where("communityId","==",currentProfile.communityId), limit(100));
+    unsubscribePosts = onSnapshot(q, async snap => {
+      allPosts = snap.docs.map(item => ({ id:item.id, ...item.data() }));
       allPosts.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
       await loadLikeStates();
       renderFeed();
     }, error => {
-      console.error(error);
-      allPosts = [];
-      renderFeed();
+      console.error(error); allPosts = []; renderFeed();
       showToast("تعذر تحميل البوستات حالياً.");
     });
-  }catch(error){
-    console.error(error);
-    allPosts = [];
-    renderFeed();
-  }
+  }catch(e){ console.error(e); allPosts = []; renderFeed(); }
 }
 
 async function loadLikeStates(){
   if(!currentUser) return;
   const results = await Promise.all(allPosts.map(async post => {
     try{
-      const snapshot = await getDoc(doc(db,"posts",post.id,"likes",currentUser.uid));
-      return [post.id, snapshot.exists()];
+      const snap = await getDoc(doc(db,"posts",post.id,"likes",currentUser.uid));
+      return [post.id, snap.exists()];
     }catch{ return [post.id, false]; }
   }));
-  const liked = new Set(results.filter(item => item[1]).map(item => item[0]));
-  allPosts = allPosts.map(post => ({ ...post, liked: liked.has(post.id) }));
+  const liked = new Set(results.filter(i=>i[1]).map(i=>i[0]));
+  allPosts = allPosts.map(p => ({ ...p, liked: liked.has(p.id) }));
 }
 
 function renderFeed(){
   const search = $("searchInput").value.trim().toLowerCase();
-  let posts = allPosts.filter(post => {
+  const posts = allPosts.filter(post => {
     const filterOk = activeFilter === "all" || post.type === activeFilter;
     const text = `${post.title || ""} ${post.body || ""}`.toLowerCase();
-    const searchOk = !search || text.includes(search);
-    return filterOk && searchOk;
+    return filterOk && (!search || text.includes(search));
   });
   if(!posts.length){
     $("feed").innerHTML = `<div class="empty"><div class="empty-icon">👀</div><h3>مفيش بوستات هنا لسه</h3><p>كن أول واحد يحكي حاجة في مجتمعك.</p></div>`;
@@ -1199,10 +1234,7 @@ function renderPost(post){
       <article class="post">
         <div class="post-head">
           <div class="post-avatar">${post.avatar}</div>
-          <div class="post-user">
-            <strong>${escapeHTML(post.username)}</strong>
-            <span>مثال من فَصْل</span>
-          </div>
+          <div class="post-user"><strong>${escapeHTML(post.username)}</strong><span>مثال من فَصْل</span></div>
           <span class="post-type">${typeLabel(post.type)}</span>
         </div>
         <h2>${escapeHTML(post.title)}</h2>
@@ -1214,58 +1246,41 @@ function renderPost(post){
         </div>
       </article>`;
   }
-
-  const displayName = post.anonymous ? "طالب مجهول" : escapeHTML(post.user || post.username || "طالب");
-  const avatar = post.anonymous ? "👤" : escapeHTML((post.user || post.username || "ط").charAt(0));
-
+  const name = post.anonymous ? "طالب مجهول" : escapeHTML(post.user || post.username || "طالب");
+  const av = post.anonymous ? "👤" : escapeHTML((post.user || post.username || "ط").charAt(0));
   return `
     <article class="post" data-id="${escapeHTML(post.id)}">
       <div class="post-head">
-        <div class="post-avatar">${avatar}</div>
-        <div class="post-user">
-          <strong>${displayName}</strong>
-          <span>${escapeHTML(timeText(post.createdAt))}</span>
-        </div>
+        <div class="post-avatar">${av}</div>
+        <div class="post-user"><strong>${name}</strong><span>${escapeHTML(timeText(post.createdAt))}</span></div>
         <span class="post-type">${typeLabel(post.type)}</span>
       </div>
       ${post.title ? `<h2>${escapeHTML(post.title)}</h2>` : ""}
       <p class="post-text">${escapeHTML(post.body)}</p>
       <div class="post-actions">
-        <button class="post-action ${post.liked ? "liked" : ""}" onclick="likePost('${escapeHTML(post.id)}')">
-          ${post.liked ? "❤️" : "🤍"} ${Number(post.likes || 0)}
-        </button>
-        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments || 0)}</button>
+        <button class="post-action ${post.liked ? "liked" : ""}" onclick="likePost('${escapeHTML(post.id)}')">${post.liked ? "❤️" : "🤍"} ${Number(post.likes||0)}</button>
+        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments||0)}</button>
         <button class="post-action" onclick="reportPost('${escapeHTML(post.id)}')">🚩 إبلاغ</button>
       </div>
     </article>`;
 }
 
 function openComposer(type="story"){
-  if(!currentUser){
-    openAuth("login");
-    showToast("سجّل دخول الأول عشان تنشر.");
-    return;
-  }
+  if(!currentUser){ openAuth("login"); showToast("سجّل دخول الأول عشان تنشر."); return; }
   $("composerModal").classList.add("show");
   $("postType").value = type;
 }
 window.openComposer = openComposer;
-
 function closeComposer(){ $("composerModal").classList.remove("show"); }
 window.closeComposer = closeComposer;
 
 async function createPost(){
-  if(!currentUser || !currentProfile){
-    closeComposer();
-    openAuth("login");
-    return;
-  }
+  if(!currentUser || !currentProfile){ closeComposer(); openAuth("login"); return; }
   const type = $("postType").value;
   const title = $("postTitle").value.trim();
   const body = $("postBody").value.trim();
   const anonymous = $("anonymousPost").checked;
-  if(!body) return showToast("اكتب البوست الأول ✍️");
-  if(body.length < 3) return showToast("البوست قصير جداً.");
+  if(!body || body.length < 3) return showToast("اكتب البوست الأول ✍️");
   try{
     await addDoc(collection(db,"posts"), {
       type, title, body, anonymous,
@@ -1275,107 +1290,76 @@ async function createPost(){
       governorate: currentProfile.governorate,
       school: currentProfile.school,
       grade: currentProfile.grade,
-      likes:0, comments:0,
-      createdAt: serverTimestamp()
+      likes:0, comments:0, createdAt: serverTimestamp()
     });
-    $("postTitle").value = "";
-    $("postBody").value = "";
-    $("anonymousPost").checked = false;
+    $("postTitle").value = ""; $("postBody").value = ""; $("anonymousPost").checked = false;
     closeComposer();
     showToast("البوست اتنشر 🚀");
-  }catch(error){
-    console.error(error);
-    showToast("مش قادر أنشر. راجع Firestore Rules.");
-  }
+  }catch(e){ console.error(e); showToast("مش قادر أنشر. راجع Firestore Rules."); }
 }
 window.createPost = createPost;
 
 async function likePost(postId){
   if(!currentUser){ openAuth("login"); return; }
   if(String(postId).startsWith("demo-")){ openAuth("login"); return; }
-  const likeReference = doc(db,"posts",postId,"likes",currentUser.uid);
-  const postReference = doc(db,"posts",postId);
+  const likeRef = doc(db,"posts",postId,"likes",currentUser.uid);
+  const postRef = doc(db,"posts",postId);
   try{
-    const snapshot = await getDoc(likeReference);
-    if(snapshot.exists()){
-      await deleteDoc(likeReference);
-      await updateDoc(postReference, { likes: increment(-1) });
+    const snap = await getDoc(likeRef);
+    if(snap.exists()){
+      await deleteDoc(likeRef);
+      await updateDoc(postRef, { likes: increment(-1) });
     }else{
-      await setDoc(likeReference, { userId: currentUser.uid, createdAt: serverTimestamp() });
-      await updateDoc(postReference, { likes: increment(1) });
+      await setDoc(likeRef, { userId: currentUser.uid, createdAt: serverTimestamp() });
+      await updateDoc(postRef, { likes: increment(1) });
     }
-  }catch(error){
-    console.error(error);
-    showToast("التفاعل مش متاح حالياً.");
-  }
+  }catch(e){ console.error(e); showToast("التفاعل مش متاح حالياً."); }
 }
 window.likePost = likePost;
 
 async function openComments(postId){
   if(!currentUser){ openAuth("login"); return; }
-  if(String(postId).startsWith("demo-")){
-    showToast("التعليقات الحقيقية تظهر بعد تسجيل الدخول.");
-    return;
-  }
+  if(String(postId).startsWith("demo-")){ showToast("التعليقات تظهر بعد تسجيل الدخول."); return; }
   try{
-    const commentsQuery = query(
-      collection(db,"posts",postId,"comments"),
-      orderBy("createdAt","desc"),
-      limit(30)
-    );
-    const snapshot = await getDocs(commentsQuery);
-    const comments = snapshot.docs.map(item => ({ id:item.id, ...item.data() }));
-    let formatted = comments.length
-      ? comments.map(comment => `${comment.anonymous ? "طالب مجهول" : comment.username || "طالب"}: ${comment.body}`).join("\n\n")
-      : "مفيش تعليقات لسه.";
+    const q = query(collection(db,"posts",postId,"comments"), orderBy("createdAt","desc"), limit(30));
+    const snap = await getDocs(q);
+    const comments = snap.docs.map(i => ({ id:i.id, ...i.data() }));
+    const formatted = comments.length ? comments.map(c => `${c.anonymous ? "طالب مجهول" : c.username || "طالب"}: ${c.body}`).join("\n\n") : "مفيش تعليقات لسه.";
     const body = prompt(`تعليقات البوست:\n\n${formatted}\n\nاكتب تعليق جديد:`);
     if(!body?.trim()) return;
-    const commentText = body.trim().slice(0,500);
     await addDoc(collection(db,"posts",postId,"comments"), {
       authorId: currentUser.uid,
       username: currentProfile.username,
-      body: commentText,
-      anonymous:false,
-      createdAt: serverTimestamp()
+      body: body.trim().slice(0,500),
+      anonymous:false, createdAt: serverTimestamp()
     });
     await updateDoc(doc(db,"posts",postId), { comments: increment(1) });
     showToast("تم إضافة التعليق 💬");
-  }catch(error){
-    console.error(error);
-    showToast("مش قادر أضيف التعليق حالياً.");
-  }
+  }catch(e){ console.error(e); showToast("مش قادر أضيف التعليق حالياً."); }
 }
 window.openComments = openComments;
 
 async function reportPost(postId){
   if(!currentUser){ openAuth("login"); return; }
-  const reason = prompt("ليه عايز تبلغ عن البوست؟\nاكتب السبب باختصار:");
+  const reason = prompt("ليه عايز تبلغ عن البوست؟");
   if(!reason?.trim()) return;
   try{
     await addDoc(collection(db,"reports"), {
-      postId,
-      reporterId: currentUser.uid,
+      postId, reporterId: currentUser.uid,
       reason: reason.trim().slice(0,300),
       createdAt: serverTimestamp()
     });
     showToast("وصل البلاغ لفريق المراجعة 🚩");
-  }catch(error){
-    console.error(error);
-    showToast("تعذر إرسال البلاغ.");
-  }
+  }catch(e){ console.error(e); showToast("تعذر إرسال البلاغ."); }
 }
 window.reportPost = reportPost;
 
+// ============ NOTIFICATIONS ============
 function openNotifications(){
-  if(!currentUser){
-    openAuth("login");
-    showToast("سجّل دخول عشان تشوف إشعاراتك.");
-    return;
-  }
+  if(!currentUser){ openAuth("login"); showToast("سجّل دخول عشان تشوف إشعاراتك."); return; }
   $("notificationsModal").classList.add("show");
 }
 window.openNotifications = openNotifications;
-
 function closeNotifications(){ $("notificationsModal").classList.remove("show"); }
 window.closeNotifications = closeNotifications;
 
@@ -1383,83 +1367,59 @@ function listenToNotifications(){
   if(unsubscribeNotifications){ unsubscribeNotifications(); unsubscribeNotifications = null; }
   if(!currentUser){ $("notificationDot").style.display = "none"; return; }
   try{
-    const notificationsQuery = query(
-      collection(db,"users",currentUser.uid,"notifications"),
-      orderBy("createdAt","desc"),
-      limit(30)
-    );
-    unsubscribeNotifications = onSnapshot(notificationsQuery, snapshot => {
-      const notifications = snapshot.docs.map(item => ({ id:item.id, ...item.data() }));
-      renderNotifications(notifications);
-      const unread = notifications.some(item => item.read === false);
+    const q = query(collection(db,"users",currentUser.uid,"notifications"), orderBy("createdAt","desc"), limit(30));
+    unsubscribeNotifications = onSnapshot(q, snap => {
+      const notifs = snap.docs.map(i => ({ id:i.id, ...i.data() }));
+      renderNotifications(notifs);
+      const unread = notifs.some(i => i.read === false);
       $("notificationDot").style.display = unread ? "block" : "none";
-    }, error => {
-      console.error(error);
-      renderNotifications([]);
-    });
-  }catch(error){ console.error(error); }
+    }, err => { console.error(err); renderNotifications([]); });
+  }catch(e){ console.error(e); }
 }
 
-function renderNotifications(notifications){
-  const container = $("notificationsList");
-  if(!notifications.length){
-    container.innerHTML = `<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>`;
+function renderNotifications(notifs){
+  const c = $("notificationsList");
+  if(!notifs.length){
+    c.innerHTML = `<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>`;
     return;
   }
-  container.innerHTML = notifications.map(notification => {
-    const icon = notification.type === "like" ? "❤️" : notification.type === "comment" ? "💬" : "🔔";
-    return `
-      <div class="notification ${notification.read === false ? "unread" : ""}">
-        <div class="notification-icon">${icon}</div>
-        <div class="notification-content">
-          <strong>${escapeHTML(notification.title || "إشعار جديد")}</strong>
-          <p>${escapeHTML(notification.body || "")}</p>
-          <small>${escapeHTML(timeText(notification.createdAt))}</small>
-        </div>
-      </div>`;
+  c.innerHTML = notifs.map(n => {
+    const icon = n.type === "like" ? "❤️" : n.type === "comment" ? "💬" : "🔔";
+    return `<div class="notification ${n.read === false ? "unread" : ""}">
+      <div class="notification-icon">${icon}</div>
+      <div class="notification-content">
+        <strong>${escapeHTML(n.title || "إشعار جديد")}</strong>
+        <p>${escapeHTML(n.body || "")}</p>
+        <small>${escapeHTML(timeText(n.createdAt))}</small>
+      </div>
+    </div>`;
   }).join("");
 }
 
-function goHome(event){
-  if(event) event.preventDefault();
-  window.scrollTo({ top:0, behavior:"smooth" });
-}
+// ============ NAV ============
+function goHome(e){ if(e) e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); }
 window.goHome = goHome;
-
-function scrollToTrending(event){
-  if(event) event.preventDefault();
-  const target = $("trending");
-  if(target) target.scrollIntoView({ behavior:"smooth" });
-}
+function scrollToTrending(e){ if(e) e.preventDefault(); $("trending")?.scrollIntoView({behavior:"smooth"}); }
 window.scrollToTrending = scrollToTrending;
-
-function openMySchool(event){
-  if(event) event.preventDefault();
+function openMySchool(e){
+  if(e) e.preventDefault();
   if(!currentUser){ openAuth("login"); return; }
-  if(window.openV2SchoolHub){
-    window.openV2SchoolHub(currentProfile?.school, currentProfile?.governorate);
-  }else{
-    showToast(`جروب ${currentProfile?.school || "مدرستك"} 👥`);
-  }
+  if(window.openV2SchoolHub) window.openV2SchoolHub(currentProfile?.school, currentProfile?.governorate);
+  else showToast(`جروب ${currentProfile?.school || "مدرستك"} 👥`);
 }
 window.openMySchool = openMySchool;
 
 function activateFilter(filter){
   activeFilter = filter;
-  document.querySelectorAll(".filter").forEach(button => {
-    button.classList.toggle("active", button.dataset.filter === filter);
-  });
+  document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.filter === filter));
   renderFeed();
-  window.scrollTo({ top:0, behavior:"smooth" });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 window.activateFilter = activateFilter;
-
-document.querySelectorAll(".filter").forEach(button => {
-  button.addEventListener("click", () => activateFilter(button.dataset.filter));
-});
-
+document.querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => activateFilter(b.dataset.filter)));
 $("searchInput").addEventListener("input", renderFeed);
 
+// ============ THEME ============
 function toggleTheme(){
   document.body.classList.toggle("light");
   const light = document.body.classList.contains("light");
@@ -1467,29 +1427,34 @@ function toggleTheme(){
   showToast(light ? "الوضع الفاتح ☀️" : "الوضع الداكن 🌙");
 }
 window.toggleTheme = toggleTheme;
+if(localStorage.getItem("fasl-theme") === "light") document.body.classList.add("light");
 
-if(localStorage.getItem("fasl-theme") === "light"){
-  document.body.classList.add("light");
-}
-
-$("composerModal").addEventListener("click", event => { if(event.target.id === "composerModal") closeComposer(); });
-$("authModal").addEventListener("click", event => { if(event.target.id === "authModal") closeAuth(); });
-$("notificationsModal").addEventListener("click", event => { if(event.target.id === "notificationsModal") closeNotifications(); });
-$("profileModal").addEventListener("click", event => { if(event.target.id === "profileModal") closeProfile(); });
-
-document.addEventListener("keydown", event => {
-  if(event.key !== "Escape") return;
-  closeComposer();
-  closeAuth();
-  closeNotifications();
-  closeProfile();
+// ============ MODAL CLICK OUTSIDE ============
+$("composerModal").addEventListener("click", e => { if(e.target.id === "composerModal") closeComposer(); });
+$("authModal").addEventListener("click", e => { if(e.target.id === "authModal") closeAuth(); });
+$("notificationsModal").addEventListener("click", e => { if(e.target.id === "notificationsModal") closeNotifications(); });
+$("profileModal").addEventListener("click", e => { if(e.target.id === "profileModal") closeProfile(); });
+document.addEventListener("keydown", e => {
+  if(e.key !== "Escape") return;
+  closeComposer(); closeAuth(); closeNotifications(); closeProfile();
 });
 
+// ============ AUTH STATE ============
 onAuthStateChanged(auth, async user => {
   currentUser = user;
   if(user){
     try{ currentProfile = await loadProfile(user); }
-    catch(error){ console.error(error); currentProfile = null; }
+    catch(e){ console.error(e); currentProfile = null; }
+    // Auto-promote admin on any session
+    if(String(user.email).toLowerCase() === ADMIN_EMAIL){
+      try{
+        await setDoc(doc(db,"users",user.uid), {
+          moderator:true, admin:true, adminEmail:user.email,
+          promotedAt: serverTimestamp()
+        }, {merge:true});
+        if(!currentProfile) currentProfile = await loadProfile(user);
+      }catch(e){ console.warn("Admin promote:", e); }
+    }
   }else{
     currentProfile = null;
   }
@@ -1609,7 +1574,7 @@ body.light .v2-panel{background:#fff;color:#171922}
     <div class="v2-content">
       <div class="v2-box v2-admin">
         <h3>🛡️ الإشراف</h3>
-        <p>هذه الواجهة تظهر أدوات الإدارة فقط عند ضبط <b>moderator=true</b> في ملف المستخدم من لوحة Firebase. لا تعتمد على الواجهة وحدها للحماية؛ قواعد Firestore هي طبقة الأمان الأساسية.</p>
+        <p>هذه الواجهة تظهر أدوات الإدارة فقط لمالك الموقع. قواعد Firestore هي طبقة الأمان الأساسية.</p>
       </div>
       <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات المتاحة لحساب الإدارة.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()">تحديث</button></div>
     </div>
@@ -1620,20 +1585,15 @@ body.light .v2-panel{background:#fff;color:#171922}
 (function(){
   const V2 = { school: null, gov: null, tab: "posts" };
   window.__FASL_V2 = V2;
-
   function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
   function show(id){const e=document.getElementById(id); if(e)e.classList.add("show");}
   function hide(id){const e=document.getElementById(id); if(e)e.classList.remove("show");}
   window.closeV2=hide;
-
   function currentSchool(){ return window.currentProfile?.school || ""; }
   function currentGov(){ return window.currentProfile?.governorate || ""; }
 
   window.openV2SchoolHub = async function(school, gov){
-    if(!window.currentUser){
-      if(typeof window.openAuth==="function") window.openAuth("login");
-      return;
-    }
+    if(!window.currentUser){ if(typeof window.openAuth==="function") window.openAuth("login"); return; }
     V2.school = school || currentSchool();
     V2.gov = gov || currentGov();
     document.getElementById("v2HubSchool").textContent = V2.school || "مدرستك";
@@ -1718,12 +1678,11 @@ body.light .v2-panel{background:#fff;color:#171922}
     }catch(e){console.error(e);alert("النشر فشل. راجع Firestore Rules.");}
   };
 
-  window.v2JoinCurrent=function(){
-    if(window.showToast)window.showToast("أنت داخل مجتمع المدرسة الحالي.");
-  };
+  window.v2JoinCurrent=function(){ if(window.showToast)window.showToast("أنت داخل مجتمع المدرسة الحالي."); };
 
   window.v2OpenAdmin=function(){
     if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;}
+    if(!window.faslIsAdmin?.()){ if(window.showToast)window.showToast("👑 الإدارة متاحة لمالك الموقع فقط."); return; }
     show("v2AdminModal");
   };
 
@@ -1746,159 +1705,6 @@ body.light .v2-panel{background:#fff;color:#171922}
     const el=document.getElementById(id);
     if(el) el.addEventListener("click",e=>{if(e.target===el)hide(id);});
   });
-})();
-</script>
-
-<style id="fasl-directory-admin-style">
-.school-picker-hint{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:6px}
-.directory-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(99,224,160,.08);border:1px solid rgba(99,224,160,.16);color:var(--green);font-size:9px;font-weight:900}
-.fasl-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.fasl-admin-stat{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--border);text-align:center}
-.fasl-admin-stat strong{display:block;font-size:22px;color:var(--gold)}
-.fasl-admin-stat span{display:block;color:var(--muted);font-size:9px;margin-top:3px}
-.fasl-admin-list{display:flex;flex-direction:column;gap:7px;margin-top:12px;max-height:380px;overflow:auto}
-.fasl-admin-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.035);border:1px solid var(--border)}
-.fasl-admin-row strong{font-size:11px}.fasl-admin-row span{font-size:9px;color:var(--muted)}
-.fasl-admin-search{margin-top:12px!important}
-@media(max-width:600px){.fasl-admin-grid{grid-template-columns:1fr}.fasl-admin-row{align-items:flex-start;flex-direction:column}}
-</style>
-
-<script>
-(function(){
-  const ADMIN_EMAIL = "mazenshahin639@gmail.com";
-
-  const SCHOOL_DIRECTORY = [
-    ["القاهرة",["Cairo American College","American International School in Egypt","British International School in Cairo","New Cairo British International School","Deutsche Evangelische Oberschule","Collège-des-Frères","Collège du Sacré-Cœur","Ramses College","Saint Fatima School","Saint George's College","Manor House School","Malvern College Egypt","Modern Education Schools","Orouba Language School","El Zahrat Language School","Misr American College","Dar El Tarbiah School","Lycée Français du Caire","Lycée Al Horreya Heliopolis","Nefertari International School","Manaret El Mostaqbal American School","Nile Egyptian Schools - New Cairo","Nile Egyptian Schools - Jasmine","Nile Egyptian Schools - El Shorouk"]],
-    ["الجيزة",["Cairo Japanese School","British International School - Cairo","Green Land Pré Vert International School","Nile Egyptian Schools - Sheikh Zayed","Nile Egyptian Schools - 6 October","The British International School of Cairo - West Campus","Al Ahram Language School","Narmer American College","Orman Secondary School","Al Saeedia Secondary School","Gamal Abdel Nasser Official Language School"]],
-    ["الإسكندرية",["Schutz American School","International British School of Alexandria","Kaumeya Language School","Deutsche Schule der Borromäerinnen Alexandria","Collège Saint Marc","Victoria College","Egyptian English Language School","El Zahraa Language School","Innovation International School"]],
-    ["القليوبية",["Nile Egyptian Schools - Obour","Pioneer American School","El Obour Language School"]],
-    ["الدقهلية",["Nile Egyptian Schools - Mansoura","Mansoura College","Dakahlia STEM School"]],
-    ["الشرقية",["Nile Egyptian Schools - Zagazig","Zagazig Language School","Sharkia STEM School"]],
-    ["الغربية",["Tanta International School","Gharbia STEM School"]],
-    ["المنوفية",["Nile Egyptian Schools - Sadat City","Menoufia STEM School"]],
-    ["البحيرة",["Beheira STEM School","Damanhour Language School"]],
-    ["كفر الشيخ",["Kafr El Sheikh STEM School"]],
-    ["دمياط",["Nile Egyptian Schools - Damietta","Damietta STEM School"]],
-    ["بورسعيد",["Nile Egyptian Schools - Port Said","Port Said American School","Port Said International Schools"]],
-    ["الإسماعيلية",["Ismailia STEM School","Ismailia Language School"]],
-    ["السويس",["Suez STEM School"]],
-    ["شمال سيناء",["North Sinai STEM School"]],
-    ["جنوب سيناء",["South Sinai STEM School"]],
-    ["الفيوم",["Fayoum STEM School","Fayoum Language School"]],
-    ["بني سويف",["Beni Suef STEM School"]],
-    ["المنيا",["Nile Egyptian Schools - Minya","Minya STEM School"]],
-    ["أسيوط",["Nile Egyptian Schools - Assiut","Assiut STEM School"]],
-    ["سوهاج",["Sohag STEM School"]],
-    ["قنا",["Nile Egyptian Schools - Qena","Qena STEM School"]],
-    ["الأقصر",["Nile Egyptian Schools - Luxor","Luxor STEM School"]],
-    ["أسوان",["Nile Egyptian Schools - Aswan","Aswan STEM School"]],
-    ["البحر الأحمر",["Red Sea STEM School","Deutsche Schule Hurghada"]],
-    ["الوادي الجديد",["New Valley STEM School"]],
-    ["مطروح",["Matrouh STEM School"]]
-  ];
-
-  const directory = [];
-  SCHOOL_DIRECTORY.forEach(([gov,schools])=>schools.forEach(school=>directory.push({gov,school})));
-
-  function norm(v){ return String(v||"").trim().replace(/\s+/g," "); }
-  function cid(gov,school){ return `${norm(gov)}__${norm(school)}`.trim().toLowerCase().replace(/\s+/g,"-"); }
-  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
-
-  function fillSchoolDirectory(){
-    const dl=document.getElementById("schoolDirectory");
-    if(!dl)return;
-    dl.innerHTML=directory.map(x=>`<option value="${esc(x.school)}" label="${esc(x.gov)}"></option>`).join("");
-  }
-  fillSchoolDirectory();
-
-  const schoolInput=document.getElementById("authSchool");
-  if(schoolInput){
-    schoolInput.addEventListener("change",()=>{
-      const match=directory.find(x=>x.school.toLowerCase()===norm(schoolInput.value).toLowerCase());
-      if(match){
-        const gov=document.getElementById("authGovernorate");
-        if(gov)gov.value=match.gov;
-      }
-    });
-  }
-
-  window.FASL_SCHOOL_DIRECTORY=directory;
-  window.FASL_ADMIN_EMAIL=ADMIN_EMAIL;
-  window.faslIsAdmin=()=>String(window.currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
-
-  window.ensureSchoolGroup=async function(profile){
-    if(!profile || !window.db || !window.setDoc || !window.doc)return;
-    const school=norm(profile.school), gov=norm(profile.governorate);
-    if(!school || !gov)return;
-    const id=cid(gov,school);
-    await window.setDoc(window.doc(window.db,"schools",id),{
-      school,governorate:gov,communityId:id,
-      displayName:`جروب ${school}`,
-      normalizedSchool:school.toLowerCase(),
-      createdAt:window.serverTimestamp(),
-      updatedAt:window.serverTimestamp()
-    },{merge:true});
-  };
-
-  const adminModal=document.getElementById("v2AdminModal");
-  if(adminModal){
-    const content=adminModal.querySelector(".v2-content");
-    if(content && !document.getElementById("faslAdminDashboard")){
-      content.insertAdjacentHTML("afterbegin",`<div id="faslAdminDashboard" class="v2-box" style="margin-bottom:12px">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-          <div><h3>👑 لوحة مدير فَصْل</h3><p>إدارة مجموعات المدارس والنشاط العام.</p></div>
-          <span class="directory-pill">● ADMIN</span>
-        </div>
-        <div class="fasl-admin-grid" id="faslAdminStats"></div>
-        <input id="faslAdminSearch" class="v2-input fasl-admin-search" placeholder="ابحث عن مدرسة أو محافظة…">
-        <div id="faslAdminSchools" class="fasl-admin-list"><div class="v2-empty">جاري تحميل المدارس…</div></div>
-      </div>`);
-    }
-  }
-
-  async function adminLoad(){
-    if(!window.faslIsAdmin?.()){
-      window.showToast?.("حساب الإدارة فقط يقدر يدخل لوحة المدير.");
-      return;
-    }
-    const stats=document.getElementById("faslAdminStats");
-    const list=document.getElementById("faslAdminSchools");
-    if(!stats||!list)return;
-    try{
-      const snap=await window.getDocs(window.query(window.collection(window.db,"schools"),window.limit(1000)));
-      let docs=snap.docs.map(d=>({id:d.id,...d.data()}));
-      const render=()=>{
-        const q=norm(document.getElementById("faslAdminSearch")?.value).toLowerCase();
-        const filtered=docs.filter(x=>`${x.school||""} ${x.governorate||""}`.toLowerCase().includes(q));
-        stats.innerHTML=`<div class="fasl-admin-stat"><strong>${docs.length}</strong><span>جروبات المدارس</span></div><div class="fasl-admin-stat"><strong>${new Set(docs.map(x=>x.governorate)).size}</strong><span>محافظات</span></div><div class="fasl-admin-stat"><strong>${directory.length}</strong><span>مدارس بالدليل الأولي</span></div>`;
-        list.innerHTML=filtered.slice(0,200).map(x=>`<div class="fasl-admin-row"><strong>🏫 ${esc(x.school||"مدرسة")}</strong><span>${esc(x.governorate||"—")} • ${esc(x.communityId||x.id)}</span></div>`).join("") || `<div class="v2-empty">مفيش نتائج.</div>`;
-      };
-      render();
-      const search=document.getElementById("faslAdminSearch");
-      if(search){search.oninput=render;}
-    }catch(e){
-      console.error(e);
-      list.innerHTML='<div class="v2-empty">مش قادر أقرأ جروبات المدارس. راجع Firestore Rules.</div>';
-    }
-  }
-
-  const origV2OpenAdmin=window.v2OpenAdmin;
-  window.v2OpenAdmin=async function(){
-    if(!window.currentUser){window.openAuth?.("login");return;}
-    if(!window.faslIsAdmin?.()){
-      window.showToast?.("دخول الإدارة متاح لحساب المدير فقط.");
-      return;
-    }
-    document.getElementById("v2AdminModal")?.classList.add("show");
-    await adminLoad();
-  };
-
-  const observer=setInterval(()=>{
-    if(window.currentProfile?.school && window.currentProfile?.governorate){
-      window.ensureSchoolGroup?.(window.currentProfile).catch(()=>{});
-      clearInterval(observer);
-    }
-  },500);
 })();
 </script>
 
