@@ -3,877 +3,331 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#05060a">
 
 <title>فَصْل — كل فصل عنده حكاية</title>
 <meta name="description" content="فَصْل — مجتمع الطلاب المصريين. مواقف، أسئلة، ترندات وحكايات المدرسة.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --ig-black:#000;
-  --ig-bg:#000;
-  --ig-surface:#0f0f0f;
-  --ig-surface-2:#1a1a1a;
-  --ig-border:#262626;
-  --ig-border-2:#363636;
-  --ig-text:#fff;
-  --ig-text-2:#a8a8a8;
-  --ig-text-3:#737373;
-  --ig-blue:#0095f6;
-  --ig-red:#ed4956;
-  --gold:#f5cb6a;
-  --gold2:#e0a63a;
-  --gold-soft:rgba(245,203,106,.12);
-  --green:#63e0a0;
-  --purple:#ad91ff;
-  --blue:#74a8ff;
-  --radius:16px;
-  --radius-lg:20px;
-  --max:600px;
-  --ease:cubic-bezier(.4,0,.2,1);
-  --ease-out:cubic-bezier(.16,1,.3,1);
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#05060a; --bg-2:#0a0c13; --bg-3:#10131c;
+  --panel:rgba(22,26,38,.55); --panel-2:rgba(30,34,48,.72); --panel-solid:#141822;
+  --glass:rgba(255,255,255,.04); --glass-2:rgba(255,255,255,.07);
+  --glass-border:rgba(255,255,255,.09); --glass-border-2:rgba(255,255,255,.16);
+  --text:#f6f7fb; --text-2:#b6bcc9; --text-3:#7a8090;
+  --gold:#f5cb6a; --gold-2:#e0a63a; --gold-soft:rgba(245,203,106,.14); --gold-glow:rgba(245,203,106,.42);
+  --violet:#8b6bff; --violet-soft:rgba(139,107,255,.14); --violet-glow:rgba(139,107,255,.42);
+  --green:#63e0a0; --red:#ff6b7e; --blue:#74a8ff;
+  --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.14);
+  --radius:22px; --radius-lg:28px; --radius-sm:14px; --max:1180px;
+  --shadow-sm:0 8px 24px rgba(0,0,0,.32); --shadow:0 20px 60px rgba(0,0,0,.45); --shadow-lg:0 30px 90px rgba(0,0,0,.55);
+  --ease:cubic-bezier(.4,0,.2,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
 }
-
+body.light{
+  --bg:#f3f1ec; --bg-2:#eae7e0; --bg-3:#e0ddd5;
+  --panel:rgba(255,255,255,.72); --panel-2:rgba(255,255,255,.86); --panel-solid:#fff;
+  --glass:rgba(0,0,0,.02); --glass-2:rgba(0,0,0,.04);
+  --glass-border:rgba(0,0,0,.07); --glass-border-2:rgba(0,0,0,.14);
+  --text:#171922; --text-2:#5a5f6e; --text-3:#8b8f9a;
+  --gold-soft:rgba(224,166,58,.16); --violet-soft:rgba(139,107,255,.10);
+  --border:rgba(0,0,0,.08); --border-2:rgba(0,0,0,.14);
+  --shadow-sm:0 6px 20px rgba(0,0,0,.06); --shadow:0 16px 44px rgba(0,0,0,.10); --shadow-lg:0 24px 70px rgba(0,0,0,.14);
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  font-family:"Cairo",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-  background:var(--ig-bg);
-  color:var(--ig-text);
-  min-height:100vh;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-  overscroll-behavior-y:none;
+  font-family:"Cairo",-apple-system,system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100vh; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  transition:background .4s var(--ease), color .4s var(--ease);
 }
-body.light{
-  --ig-bg:#fff;
-  --ig-surface:#fff;
-  --ig-surface-2:#fafafa;
-  --ig-border:#dbdbdb;
-  --ig-border-2:#c7c7c7;
-  --ig-text:#000;
-  --ig-text-2:#737373;
-  --ig-text-3:#a8a8a8;
-}
-button,input,textarea,select{font:inherit;color:inherit}
+button,input,textarea,select{font:inherit;color:inherit;font-family:inherit}
 button{border:0;cursor:pointer;background:transparent}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--gold-soft);color:var(--ig-text)}
-::-webkit-scrollbar{width:0;height:0}
+::selection{background:var(--gold-soft);color:var(--text)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-glow);background-clip:padding-box;border:2px solid transparent}
 .hidden{display:none!important}
 
-/* ============ SPLASH (Instagram-style) ============ */
-#faslSplash{
-  position:fixed;inset:0;z-index:99999;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  background:#000;
-  transition:opacity .5s var(--ease),visibility .5s var(--ease);
-}
-#faslSplash.hide{opacity:0;visibility:hidden;pointer-events:none}
-.splash-logo-wrap{position:relative;display:grid;place-items:center}
-.splash-ring{
-  position:absolute;width:140px;height:140px;
-  border-radius:50%;border:2px solid transparent;
-  background:conic-gradient(from 0deg,var(--gold),#e0a63a,var(--gold),transparent,var(--gold)) border-box;
-  -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  animation:ringSpin 1.6s linear infinite;
-  opacity:0;
-}
-@keyframes ringSpin{to{transform:rotate(360deg)}}
-.splash-logo{
-  width:96px;height:96px;border-radius:26px;
-  display:grid;place-items:center;
-  font-size:52px;font-weight:900;color:#1a1306;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 20px 60px rgba(245,203,106,.4);
-  opacity:0;transform:scale(.5);
-  animation:logoPop .7s var(--ease-out) .1s forwards;
-}
-@keyframes logoPop{
-  0%{opacity:0;transform:scale(.5) rotate(-8deg)}
-  60%{opacity:1;transform:scale(1.08) rotate(2deg)}
-  100%{opacity:1;transform:scale(1) rotate(0)}
-}
-.splash-ring{animation-delay:.3s;animation-fill-mode:forwards}
-.splash-ring.on{opacity:1}
-.splash-name{
-  margin-top:22px;font-size:32px;font-weight:900;letter-spacing:-1px;
-  opacity:0;transform:translateY(10px);
-  animation:fadeUp .6s var(--ease-out) .5s forwards;
-}
-.splash-name span{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.splash-tagline{
-  margin-top:6px;font-size:13px;color:#8e8e8e;
-  opacity:0;
-  animation:fadeUp .6s var(--ease-out) .7s forwards;
-}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-.splash-loader{
-  position:absolute;bottom:60px;
-  width:32px;height:32px;
-  border:2px solid rgba(255,255,255,.15);
-  border-top-color:var(--gold);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  opacity:0;
-  animation:fadeUp .4s ease .9s forwards,spin .8s linear infinite .9s;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.splash-from{
-  position:absolute;bottom:calc(30px + var(--safe-bottom));
-  font-size:10px;color:#4a4a4a;letter-spacing:.5px;
-  opacity:0;animation:fadeUp .6s ease 1.1s forwards;
-}
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.aurora::before,.aurora::after{content:"";position:absolute;border-radius:50%;filter:blur(120px)}
+.aurora::before{width:560px;height:560px;background:radial-gradient(circle,var(--gold-glow),transparent 70%);top:-200px;right:-160px;opacity:.28;animation:aurora1 24s ease-in-out infinite}
+.aurora::after{width:600px;height:600px;background:radial-gradient(circle,var(--violet-glow),transparent 70%);bottom:-240px;left:-200px;opacity:.24;animation:aurora2 28s ease-in-out infinite}
+@keyframes aurora1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,40px) scale(1.1)}}
+@keyframes aurora2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,-50px) scale(1.12)}}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body.light .grain{opacity:.02}
 
-/* ============ APP SHELL ============ */
-#faslApp{opacity:0;transition:opacity .4s ease}
+#igIntro{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .45s ease}
+#igIntro.hide{opacity:0;pointer-events:none}
+.ig-logo{width:110px;height:110px;display:grid;place-items:center;position:relative;opacity:0;transform:scale(.7);animation:igPop .65s cubic-bezier(.2,.9,.3,1.3) .05s forwards}
+@keyframes igPop{0%{opacity:0;transform:scale(.7)}60%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+.ig-logo-core{width:96px;height:96px;border-radius:26px;display:grid;place-items:center;font-size:52px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 1px rgba(245,203,106,.4),0 20px 60px rgba(245,203,106,.35),inset 0 2px 0 rgba(255,255,255,.35);position:relative}
+.ig-logo-core::after{content:"";position:absolute;inset:-14px;border-radius:36px;border:2px solid var(--gold);opacity:0;animation:igRing 1.4s ease-out .35s infinite}
+@keyframes igRing{0%{transform:scale(.8);opacity:0}20%{opacity:.7}100%{transform:scale(1.25);opacity:0}}
+.ig-name{margin-top:20px;font-family:"Amiri","Cairo",serif;font-size:42px;font-weight:700;letter-spacing:-1px;line-height:1;color:#fff;opacity:0;transform:translateY(6px);animation:igFade .5s ease .35s forwards}
+.ig-name span{background:linear-gradient(135deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ig-tag{margin-top:8px;font-size:13px;color:#7a7a7a;opacity:0;animation:igFade .5s ease .55s forwards}
+@keyframes igFade{to{opacity:1;transform:translateY(0)}}
+.ig-from{position:absolute;bottom:calc(28px + var(--safe-bottom));font-size:10px;color:#3a3a3a;letter-spacing:2px;font-weight:800;opacity:0;animation:igFade .5s ease .9s forwards}
+.ig-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.06);overflow:hidden}
+.ig-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0;animation:igLoad 1.8s cubic-bezier(.5,0,.2,1) .2s forwards}
+@keyframes igLoad{to{width:100%}}
+
+#faslApp{opacity:0;transition:opacity .5s var(--ease)}
 #faslApp.show{opacity:1}
 
-/* ============ TOP BAR (IG-style) ============ */
-.topbar{
-  position:sticky;top:0;z-index:100;
-  padding-top:var(--safe-top);
-  height:calc(56px + var(--safe-top));
-  background:rgba(0,0,0,.85);
-  backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid var(--ig-border);
-  display:flex;align-items:center;
-}
-.light .topbar{background:rgba(255,255,255,.85)}
-.topbar-inner{
-  width:100%;max-width:var(--max);margin:auto;
-  padding:0 16px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  height:56px;
-}
-.brand{
-  display:flex;align-items:center;gap:9px;
-  font-size:22px;font-weight:900;letter-spacing:-.5px;
-}
-.brand-logo{
-  width:32px;height:32px;border-radius:10px;
-  display:grid;place-items:center;
-  font-size:18px;font-weight:900;color:#1a1306;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-}
-.brand-name span{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.top-icons{display:flex;align-items:center;gap:4px}
-.icon-btn{
-  width:44px;height:44px;border-radius:12px;
-  display:grid;place-items:center;
-  color:var(--ig-text);
-  position:relative;
-  transition:.2s var(--ease);
-}
-.icon-btn:hover{background:var(--ig-surface-2)}
-.icon-btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2}
-.icon-btn .badge-dot{
-  position:absolute;top:10px;right:10px;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--ig-red);
-  border:2px solid var(--ig-bg);
-  display:none;
-}
-.icon-btn .badge-dot.on{display:block;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.topbar{position:sticky;top:0;z-index:100;padding-top:var(--safe-top);background:linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 82%,transparent) 70%,transparent 100%);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%)}
+.topbar-inner{max-width:var(--max);margin:auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;min-width:max-content;transition:transform .25s var(--ease)}
+.brand:hover{transform:translateY(-1px)}
+.brand-logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-size:19px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 6px 20px rgba(245,203,106,.28),inset 0 1px 0 rgba(255,255,255,.35)}
+.brand-name{font-family:"Amiri","Cairo",serif;font-size:24px;font-weight:700;letter-spacing:-.5px}
+.brand-name span{background:linear-gradient(135deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.search-wrap{flex:1;max-width:440px;margin:auto;position:relative}
+.search-wrap input{width:100%;height:44px;border:1px solid var(--glass-border);border-radius:14px;padding:0 44px 0 16px;font-size:13px;color:var(--text);background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);outline:none;transition:.25s var(--ease)}
+.search-wrap input::placeholder{color:var(--text-3)}
+.search-wrap input:focus{border-color:rgba(245,203,106,.5);background:var(--panel-2);box-shadow:0 0 0 4px var(--gold-soft)}
+.search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:16px;pointer-events:none}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;width:42px;height:42px;border-radius:13px;background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);display:grid;place-items:center;font-size:16px;transition:.22s var(--ease)}
+.icon-btn:hover{transform:translateY(-2px);border-color:rgba(245,203,106,.32);background:var(--panel-2);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.icon-btn .notif-dot{position:absolute;width:9px;height:9px;border-radius:50%;top:8px;right:8px;background:var(--red);box-shadow:0 0 12px rgba(255,107,126,.7);display:none}
+.icon-btn .notif-dot.on{display:block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
+.profile-chip{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font-weight:900;font-size:15px;display:grid;place-items:center;cursor:pointer;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.28);border:2px solid transparent}
+.profile-chip:hover{transform:translateY(-2px) scale(1.05);border-color:rgba(245,203,106,.5)}
 
-/* ============ MAIN LAYOUT ============ */
-.layout{
-  max-width:var(--max);margin:auto;
-  padding-bottom:calc(72px + var(--safe-bottom));
-}
+.layout{width:min(var(--max),100%);margin:auto;padding:24px 20px 120px;display:grid;grid-template-columns:220px minmax(0,680px) 260px;justify-content:center;gap:24px}
+.sidebar{position:sticky;top:96px;height:max-content}
+.side-title{font-size:11px;font-weight:900;color:var(--text-3);letter-spacing:.5px;margin:6px 14px 12px;text-transform:uppercase}
+.nav-list{display:flex;flex-direction:column;gap:5px}
+.nav-item{position:relative;display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:16px;font-size:13px;font-weight:800;color:var(--text-2);transition:.22s var(--ease)}
+.nav-item:hover{color:var(--text);background:var(--glass)}
+.nav-item.active{color:var(--gold);background:var(--gold-soft);box-shadow:inset 0 0 0 1px rgba(245,203,106,.18),0 4px 20px rgba(245,203,106,.08)}
+.nav-item.active::before{content:"";position:absolute;right:-6px;top:22%;bottom:22%;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold),var(--gold-2));box-shadow:0 0 12px var(--gold-glow)}
+.nav-icon{width:22px;text-align:center;font-size:16px;transition:transform .22s var(--ease)}
+.nav-item:hover .nav-icon{transform:scale(1.15)}
+.school-card{margin-top:22px;padding:18px;border-radius:20px;background:linear-gradient(145deg,var(--gold-soft),transparent 60%),var(--panel);border:1px solid rgba(245,203,106,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:.28s var(--ease)}
+.school-card:hover{border-color:rgba(245,203,106,.32);transform:translateY(-2px)}
+.school-card small{font-size:10px;color:var(--gold);font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.school-card h3{font-size:14px;font-weight:800;margin-top:6px;line-height:1.4}
+.school-card p{font-size:11px;color:var(--text-2);line-height:1.7;margin-top:5px}
 
-/* ============ STORY BAR ============ */
-.story-bar{
-  display:flex;gap:16px;
-  padding:14px 16px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  border-bottom:1px solid var(--ig-border);
-}
-.story-bar::-webkit-scrollbar{display:none}
-.story-item{
-  flex:0 0 auto;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  cursor:pointer;
-  transition:.2s var(--ease);
-}
-.story-item:active{transform:scale(.95)}
-.story-ring{
-  width:66px;height:66px;border-radius:50%;
-  padding:3px;
-  background:linear-gradient(45deg,var(--gold),var(--gold2),#ad91ff,var(--gold));
-  background-size:300% 300%;
-  animation:ringFlow 3s ease infinite;
-  position:relative;
-}
-@keyframes ringFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.story-item.seen .story-ring{background:var(--ig-border-2);animation:none}
-.story-avatar{
-  width:100%;height:100%;border-radius:50%;
-  background:var(--ig-surface-2);
-  border:3px solid var(--ig-bg);
-  display:grid;place-items:center;
-  font-size:22px;font-weight:900;color:var(--ig-text);
-  overflow:hidden;
-}
-.story-avatar.gold{
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#1a1306;
-}
-.story-name{
-  font-size:11px;color:var(--ig-text-2);
-  max-width:66px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  text-align:center;
-}
-.story-item.add .story-ring{background:var(--ig-border-2);animation:none}
-.story-item.add .story-avatar{background:var(--ig-surface-2);color:var(--gold);font-size:26px}
-.story-item.add::after{
-  content:"+";position:absolute;
-  bottom:20px;right:4px;
-  width:22px;height:22px;border-radius:50%;
-  background:var(--ig-blue);color:#fff;
-  display:grid;place-items:center;
-  font-size:14px;font-weight:900;
-  border:3px solid var(--ig-bg);
-}
+.hero{position:relative;overflow:hidden;min-height:250px;padding:36px;border-radius:var(--radius-lg);background:radial-gradient(circle at 88% 18%,var(--gold-glow),transparent 32%),radial-gradient(circle at 12% 100%,var(--violet-glow),transparent 40%),var(--panel-2);border:1px solid var(--glass-border-2);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow);margin-bottom:20px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(245,203,106,.05) 100%);pointer-events:none}
+.hero-rings{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-rings span{position:absolute;border-radius:50%;border:1px solid rgba(245,203,106,.10)}
+.hero-rings span:nth-child(1){width:260px;height:260px;left:-120px;bottom:-160px;animation:float1 16s ease-in-out infinite}
+.hero-rings span:nth-child(2){width:160px;height:160px;right:-50px;bottom:-100px;animation:float2 20s ease-in-out infinite}
+.hero-rings span:nth-child(3){width:100px;height:100px;right:60px;top:-40px;animation:float1 12s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,20px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
+.hero-badge{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:30px;background:var(--gold-soft);border:1px solid rgba(245,203,106,.28);color:var(--gold);font-size:10px;font-weight:900;letter-spacing:.3px;backdrop-filter:blur(10px)}
+.hero h1{position:relative;z-index:2;margin-top:18px;max-width:540px;font-family:"Amiri","Cairo",serif;font-size:clamp(30px,5.5vw,48px);font-weight:700;line-height:1.15;letter-spacing:-1px}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{position:relative;z-index:2;margin-top:12px;max-width:520px;color:var(--text-2);font-size:13px;line-height:1.9}
+.community-badge{position:relative;z-index:2;display:inline-flex;flex-direction:column;margin-top:22px;min-width:300px;padding:14px 18px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(12px);transition:.25s var(--ease)}
+.community-badge:hover{border-color:rgba(245,203,106,.3);background:var(--glass-2);transform:translateY(-2px)}
+.community-badge small{color:var(--text-3);font-size:9px;letter-spacing:.5px;text-transform:uppercase;font-weight:900}
+.community-badge strong{margin-top:4px;font-size:13px;font-weight:800}
+.community-badge span{color:var(--text-2);font-size:10px;margin-top:3px}
 
-/* ============ FEED ============ */
-.feed{padding:0}
-.post{
-  background:var(--ig-bg);
-  border-bottom:1px solid var(--ig-border);
-  padding-bottom:8px;
-  animation:postIn .35s var(--ease-out) both;
-}
-@keyframes postIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.post-head{
-  display:flex;align-items:center;gap:11px;
-  padding:12px 16px;
-}
-.post-avatar{
-  width:38px;height:38px;border-radius:50%;
-  padding:2px;
-  background:linear-gradient(45deg,var(--gold),var(--gold2),#ad91ff,var(--gold));
-  background-size:300% 300%;
-  animation:ringFlow 3s ease infinite;
-  flex:0 0 38px;
-}
-.post-avatar.seen{background:var(--ig-border-2);animation:none}
-.post-avatar-inner{
-  width:100%;height:100%;border-radius:50%;
-  background:var(--ig-surface-2);
-  border:2px solid var(--ig-bg);
-  display:grid;place-items:center;
-  font-size:14px;font-weight:900;color:var(--ig-text);
-}
+.composer{padding:20px;border-radius:var(--radius-lg);background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow-sm);margin-bottom:16px;transition:.25s var(--ease)}
+.composer:hover{border-color:var(--glass-border-2)}
+.composer-top{display:flex;gap:12px;align-items:center}
+.avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:15px;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 6px 20px rgba(245,203,106,.28)}
+.composer-input{flex:1;min-height:48px;display:flex;align-items:center;padding:0 18px;font-size:13px;color:var(--text-3);background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;cursor:text;transition:.22s var(--ease)}
+.composer-input:hover{border-color:var(--glass-border-2);color:var(--text-2);background:var(--glass-2)}
+.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--glass-border)}
+.composer-actions{display:flex;gap:4px}
+.compose-action{padding:9px 12px;border-radius:11px;font-size:11px;font-weight:800;color:var(--text-2);transition:.22s var(--ease)}
+.compose-action:hover{color:var(--gold);background:var(--gold-soft)}
+.post-btn{padding:11px 22px;border-radius:12px;font-size:12px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 8px 24px rgba(245,203,106,.28);transition:.22s var(--ease)}
+.post-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,203,106,.4)}
+
+.filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px;padding-bottom:2px}
+.filters::-webkit-scrollbar{display:none}
+.filter{flex:0 0 auto;padding:9px 16px;border-radius:30px;font-size:11px;font-weight:900;color:var(--text-2);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(10px);transition:.22s var(--ease)}
+.filter:hover{color:var(--text);border-color:var(--glass-border-2);background:var(--glass-2)}
+.filter.active{color:var(--gold);background:var(--gold-soft);border-color:rgba(245,203,106,.32);box-shadow:0 0 0 3px var(--gold-soft)}
+
+.post{position:relative;padding:22px;margin-bottom:16px;border-radius:var(--radius-lg);background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow-sm);animation:postIn .45s var(--ease-out) both;transition:.28s var(--ease);overflow:hidden}
+.post::before{content:"";position:absolute;right:0;top:20%;bottom:20%;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold),transparent);opacity:0;transition:opacity .3s var(--ease)}
+.post:hover::before{opacity:1}
+.post:hover{border-color:var(--glass-border-2);transform:translateY(-3px);box-shadow:var(--shadow)}
+@keyframes postIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.post-head{display:flex;align-items:center;gap:12px}
+.post-avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:14px;color:var(--text);background:linear-gradient(145deg,#2c3040,#1a1e28);border:1px solid var(--glass-border-2)}
 .post-user{flex:1;min-width:0}
-.post-user strong{
-  display:block;font-size:13px;font-weight:700;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
-.post-user span{
-  display:block;color:var(--ig-text-3);font-size:11px;margin-top:1px;
-}
-.post-type-badge{
-  padding:4px 9px;border-radius:99px;
-  background:var(--gold-soft);color:var(--gold);
-  font-size:10px;font-weight:800;
-  border:1px solid rgba(245,203,106,.2);
-  white-space:nowrap;
-}
-.post-menu{
-  width:32px;height:32px;border-radius:8px;
-  display:grid;place-items:center;
-  color:var(--ig-text);
-  transition:.2s;
-}
-.post-menu:hover{background:var(--ig-surface-2)}
+.post-user strong{display:block;font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post-user span{display:block;font-size:10px;color:var(--text-3);margin-top:2px}
+.post-type{padding:6px 11px;border-radius:10px;font-size:10px;font-weight:900;color:var(--gold);background:var(--gold-soft);border:1px solid rgba(245,203,106,.18);white-space:nowrap}
+.post h2{margin-top:16px;font-family:"Amiri","Cairo",serif;font-size:20px;font-weight:700;line-height:1.4;letter-spacing:-.3px}
+.post-text{margin-top:8px;font-size:13px;line-height:1.95;color:var(--text-2);white-space:pre-wrap}
+.post-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:16px;padding-top:12px;border-top:1px solid var(--glass-border)}
+.post-action{padding:10px 6px;border-radius:11px;font-size:11px;font-weight:800;color:var(--text-2);transition:.22s var(--ease)}
+.post-action:hover{color:var(--text);background:var(--glass)}
+.post-action.liked{color:var(--red)}
 
-.post-body{padding:0 16px 12px}
-.post h2{
-  font-size:15px;font-weight:800;line-height:1.5;
-  margin-bottom:6px;letter-spacing:-.2px;
-}
-.post-text{
-  color:var(--ig-text-2);font-size:13px;line-height:1.7;
-  white-space:pre-wrap;
-}
+.empty{padding:60px 24px;text-align:center;color:var(--text-2);border:1px dashed var(--glass-border-2);border-radius:var(--radius-lg);background:var(--glass);backdrop-filter:blur(12px)}
+.empty-icon{font-size:44px;margin-bottom:12px}
+.empty h3{font-size:16px;font-weight:800;color:var(--text)}
+.empty p{font-size:12px;margin-top:6px;color:var(--text-2)}
+.loading{display:flex;justify-content:center;padding:40px}
+.spinner{width:32px;height:32px;border:3px solid var(--glass-border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-.post-actions{
-  display:flex;align-items:center;gap:2px;
-  padding:6px 12px;
-  position:relative;
-}
-.act-btn{
-  width:42px;height:42px;border-radius:10px;
-  display:grid;place-items:center;
-  color:var(--ig-text);
-  transition:.15s var(--ease);
-  position:relative;
-  overflow:visible;
-}
-.act-btn:hover{background:var(--ig-surface-2)}
-.act-btn:active{transform:scale(.85)}
-.act-btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;transition:.2s}
-.act-btn.liked{color:var(--ig-red)}
-.act-btn.liked svg{fill:var(--ig-red);stroke:var(--ig-red);animation:likePop .4s var(--ease-out)}
-@keyframes likePop{
-  0%{transform:scale(1)}
-  40%{transform:scale(1.3)}
-  70%{transform:scale(.95)}
-  100%{transform:scale(1)}
-}
-.act-btn.bookmarked{color:var(--ig-text)}
-.act-btn.bookmarked svg{fill:currentColor}
-.post-likes{
-  padding:2px 16px 4px;
-  font-size:13px;font-weight:700;
-}
-.post-likes .count{margin-inline-end:2px}
-.post-caption{
-  padding:0 16px 8px;
-  font-size:13px;line-height:1.5;
-}
-.post-caption b{font-weight:800;margin-inline-end:4px}
-.post-caption span{color:var(--ig-text-2)}
-.post-comments-link{
-  padding:0 16px 6px;
-  font-size:13px;color:var(--ig-text-3);
-  cursor:pointer;
-}
-.post-comments-link:hover{color:var(--ig-text-2)}
+.trend-card{padding:20px;border-radius:var(--radius-lg);background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow-sm);transition:.25s var(--ease)}
+.trend-card:hover{border-color:var(--glass-border-2)}
+.trend-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.trend-title h3{font-family:"Amiri","Cairo",serif;font-size:17px;font-weight:700}
+.trend-title span{font-size:10px;font-weight:900;color:var(--gold);padding:5px 10px;border-radius:8px;background:var(--gold-soft);letter-spacing:.5px}
+.trend{padding:14px 0;border-bottom:1px solid var(--glass-border);transition:.22s var(--ease)}
+.trend:last-child{border-bottom:0}
+.trend:hover{padding-right:8px}
+.trend small{font-size:10px;font-weight:800;color:var(--gold)}
+.trend p{margin-top:5px;font-size:12px;font-weight:700;line-height:1.6;color:var(--text-2)}
+.online-card{margin-top:16px;padding:18px;border-radius:var(--radius);background:rgba(99,224,160,.05);border:1px solid rgba(99,224,160,.15);backdrop-filter:blur(12px)}
+.online-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900;color:var(--green)}
+.online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}
+.online-card p{font-size:11px;line-height:1.7;color:var(--text-2);margin-top:8px}
 
-/* Heart burst on double tap */
-.post-heart-burst{
-  position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:100px;height:100px;
-  pointer-events:none;
-  opacity:0;
-  z-index:10;
-}
-.post-heart-burst.pop{
-  animation:heartBurst .9s var(--ease-out);
-}
-@keyframes heartBurst{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
-  15%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
-  30%{transform:translate(-50%,-50%) scale(1)}
-  70%{opacity:1}
-  100%{opacity:0;transform:translate(-50%,-50%) scale(1.4)}
-}
-.post-heart-burst svg{width:100%;height:100%;fill:var(--ig-red);filter:drop-shadow(0 4px 20px rgba(237,73,86,.5))}
-
-/* ============ SKELETON ============ */
-.skeleton{
-  background:linear-gradient(90deg,var(--ig-surface-2) 0%,var(--ig-border) 50%,var(--ig-surface-2) 100%);
-  background-size:200% 100%;
-  animation:shimmer 1.4s ease-in-out infinite;
-  border-radius:8px;
-}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.sk-post{padding:12px 16px;border-bottom:1px solid var(--ig-border)}
-.sk-row{display:flex;align-items:center;gap:11px;margin-bottom:14px}
-.sk-avatar{width:38px;height:38px;border-radius:50%}
-.sk-line{height:11px;border-radius:6px}
-.sk-line.w-30{width:30%}
-.sk-line.w-50{width:50%}
-.sk-line.w-80{width:80%}
-.sk-line.w-100{width:100%}
-.sk-gap{height:8px}
-
-/* ============ EMPTY ============ */
-.empty{
-  padding:60px 24px;text-align:center;
-  color:var(--ig-text-3);
-}
-.empty-icon{
-  font-size:52px;margin-bottom:14px;
-  filter:grayscale(.4);
-}
-.empty h3{color:var(--ig-text);font-size:16px;font-weight:800;margin-bottom:6px}
-.empty p{font-size:13px;line-height:1.6}
-
-/* ============ BOTTOM NAV (IG-style) ============ */
-.bottom-nav{
-  position:fixed;
-  left:0;right:0;bottom:0;
-  z-index:200;
-  background:rgba(0,0,0,.92);
-  backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border-top:1px solid var(--ig-border);
-  padding-bottom:var(--safe-bottom);
-  display:none;
-}
-.light .bottom-nav{background:rgba(255,255,255,.92)}
-.bottom-nav-inner{
-  max-width:var(--max);margin:auto;
-  height:56px;
-  display:flex;align-items:center;justify-content:space-around;
-  padding:0 8px;
-}
-.nav-btn{
-  flex:1;
-  height:100%;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--ig-text-2);
-  transition:.15s var(--ease);
-  position:relative;
-}
-.nav-btn:active{transform:scale(.9)}
-.nav-btn.active{color:var(--ig-text)}
-.nav-btn svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8}
-.nav-btn.active svg{stroke-width:2.4}
-.nav-btn .nav-badge{
-  position:absolute;top:8px;right:calc(50% - 16px);
-  width:8px;height:8px;border-radius:50%;
-  background:var(--ig-red);
-  display:none;
-}
-.nav-btn .nav-badge.on{display:block}
-.nav-avatar{
-  width:26px;height:26px;border-radius:50%;
-  display:grid;place-items:center;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#1a1306;font-weight:900;font-size:13px;
-  border:2px solid transparent;
-}
-.nav-btn.active .nav-avatar{border-color:var(--ig-text)}
-
-/* ============ STORY VIEWER ============ */
-.story-viewer{
-  position:fixed;inset:0;z-index:5000;
-  background:#000;
-  display:none;
-  flex-direction:column;
-  padding-top:var(--safe-top);
-}
-.story-viewer.show{display:flex;animation:fadeIn .2s ease}
+.modal-layer{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,4,8,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.modal-layer.show{display:flex;animation:fadeIn .25s var(--ease)}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.story-progress{
-  display:flex;gap:3px;padding:12px 12px 8px;
-}
-.story-progress-bar{
-  flex:1;height:2px;border-radius:2px;
-  background:rgba(255,255,255,.3);
-  overflow:hidden;
-}
-.story-progress-fill{
-  height:100%;width:0;background:#fff;
-  border-radius:2px;
-  transition:width .1s linear;
-}
-.story-progress-fill.done{width:100%}
-.story-progress-fill.active{animation:storyProgress 4s linear forwards}
-@keyframes storyProgress{from{width:0}to{width:100%}}
-.story-header{
-  display:flex;align-items:center;gap:11px;
-  padding:8px 16px 12px;
-}
-.story-header .post-avatar{width:34px;height:34px;flex:0 0 34px}
-.story-header .post-avatar-inner{font-size:13px}
-.story-header-info{flex:1}
-.story-header-info strong{font-size:13px;font-weight:700}
-.story-header-info span{font-size:11px;color:var(--ig-text-3);margin-inline-start:6px}
-.story-close{
-  width:36px;height:36px;border-radius:50%;
-  display:grid;place-items:center;
-  color:#fff;
-  transition:.2s;
-}
-.story-close:hover{background:rgba(255,255,255,.1)}
-.story-close svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.4}
-.story-content{
-  flex:1;
-  display:grid;place-items:center;
-  padding:16px;
-  color:#fff;
-  text-align:center;
-  font-size:20px;line-height:1.6;font-weight:600;
-  padding-inline:32px;
-}
+.modal{width:min(560px,100%);max-height:min(88vh,760px);overflow:auto;padding:26px;border-radius:var(--radius-lg);background:var(--panel-solid);border:1px solid var(--glass-border-2);box-shadow:var(--shadow-lg);animation:modalIn .35s var(--ease-out)}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-head h2{font-family:"Amiri","Cairo",serif;font-size:22px;font-weight:700}
+.close{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--text-2);background:var(--glass);border:1px solid var(--glass-border);transition:.22s var(--ease);font-size:15px}
+.close:hover{color:var(--text);background:var(--glass-2);transform:rotate(90deg)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;font-weight:900;color:var(--text-3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.field input,.field textarea,.field select{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text);font-size:13px;outline:none;transition:.22s var(--ease)}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(245,203,106,.5);background:var(--glass-2);box-shadow:0 0 0 4px var(--gold-soft)}
+.field textarea{min-height:130px;resize:vertical;font-family:inherit;line-height:1.7}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-3)}
+.modal-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:20px}
+.anonymous{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-2);cursor:pointer}
+.anonymous input{accent-color:var(--gold);width:16px;height:16px}
+.auth-note,.school-picker-hint{font-size:10px;line-height:1.7;color:var(--text-3);margin-top:8px}
 
-/* ============ MODALS (bottom sheet on mobile) ============ */
-.sheet-overlay{
-  position:fixed;inset:0;z-index:500;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  padding:0;
-}
-.sheet-overlay.show{display:flex;animation:fadeIn .2s ease}
-.sheet{
-  width:100%;max-width:var(--max);
-  max-height:92vh;
-  background:var(--ig-bg);
-  border-radius:20px 20px 0 0;
-  border:1px solid var(--ig-border);
-  border-bottom:0;
-  overflow:auto;
-  animation:sheetUp .35s var(--ease-out);
-  padding-bottom:calc(16px + var(--safe-bottom));
-  position:relative;
-}
-@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.sheet-handle{
-  width:36px;height:4px;border-radius:2px;
-  background:var(--ig-border-2);
-  margin:10px auto 4px;
-}
-.sheet-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;
-  border-bottom:1px solid var(--ig-border);
-}
-.sheet-head h2{font-size:16px;font-weight:800}
-.sheet-close{
-  width:32px;height:32px;border-radius:50%;
-  display:grid;place-items:center;
-  color:var(--ig-text);
-}
-.sheet-close svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.4}
-.sheet-body{padding:16px}
+.school-search-wrap{position:relative}
+.school-input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text);font-size:13px;outline:none;transition:.22s var(--ease)}
+.school-input:focus{border-color:rgba(245,203,106,.5);background:var(--glass-2);box-shadow:0 0 0 4px var(--gold-soft)}
+.school-input.locked{border-color:rgba(99,224,160,.5);background:rgba(99,224,160,.06)}
+.school-suggestions{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--panel-solid);border:1px solid var(--glass-border-2);border-radius:16px;box-shadow:var(--shadow-lg);max-height:260px;overflow-y:auto;z-index:50;padding:6px;animation:modalIn .18s var(--ease-out)}
+.school-suggestions:empty{display:none}
+.school-option{padding:11px 14px;border-radius:11px;cursor:pointer;font-size:12px;line-height:1.5;color:var(--text-2);transition:.15s var(--ease)}
+.school-option:hover{background:var(--gold-soft);color:var(--text)}
+.school-option small{display:block;font-size:10px;color:var(--text-3);margin-top:3px}
+.school-loading{padding:11px 14px;font-size:11px;color:var(--text-3);text-align:center}
+.school-nomatch{padding:14px;font-size:11px;color:var(--text-3);text-align:center;line-height:1.6}
+.school-selected{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:10px 12px;border-radius:12px;background:rgba(99,224,160,.08);border:1px solid rgba(99,224,160,.22);font-size:11px;color:var(--green)}
+.school-selected button{font-size:10px;font-weight:800;color:var(--red);padding:4px 10px;border-radius:8px;background:rgba(255,107,126,.1);border:1px solid rgba(255,107,126,.2)}
+.school-selected button:hover{background:rgba(255,107,126,.18)}
 
-/* ============ FORMS ============ */
-.field{margin-bottom:12px}
-.field label{
-  display:block;font-size:12px;font-weight:700;
-  color:var(--ig-text-2);margin-bottom:6px;
-}
-.field input,.field textarea,.field select{
-  width:100%;
-  background:var(--ig-surface-2);
-  border:1px solid var(--ig-border);
-  border-radius:12px;
-  padding:12px 14px;
-  font-size:14px;
-  color:var(--ig-text);
-  outline:none;
-  transition:.2s var(--ease);
-  font-family:inherit;
-}
-.field input:focus,.field textarea:focus,.field select:focus{
-  border-color:var(--gold);
-  background:var(--ig-bg);
-}
-.field textarea{min-height:100px;resize:vertical;line-height:1.6}
-.field input::placeholder,.field textarea::placeholder{color:var(--ig-text-3)}
-.field-row{display:flex;gap:10px}
-.field-row .field{flex:1;margin-bottom:0}
+.auth-tabs{display:flex;padding:4px;margin-bottom:20px;border-radius:14px;background:var(--glass);border:1px solid var(--glass-border);position:relative}
+.auth-tab{flex:1;padding:11px;border-radius:11px;font-size:12px;font-weight:900;color:var(--text-2);transition:.22s var(--ease)}
+.auth-tab.active{color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 1px rgba(245,203,106,.18)}
 
-.btn{
-  width:100%;padding:13px;
-  border-radius:12px;
-  font-size:14px;font-weight:800;
-  transition:.2s var(--ease);
-  font-family:inherit;
-}
-.btn-primary{
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#1a1306;
-  box-shadow:0 8px 24px rgba(245,203,106,.25);
-}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(245,203,106,.35)}
-.btn-primary:active{transform:translateY(0)}
-.btn-ghost{
-  background:var(--ig-surface-2);
-  color:var(--ig-text);
-  border:1px solid var(--ig-border);
-}
-.btn-ghost:hover{background:var(--ig-border)}
-.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.notifications-list{display:flex;flex-direction:column;gap:8px}
+.notification{display:flex;gap:12px;padding:14px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-border);transition:.22s var(--ease)}
+.notification:hover{background:var(--glass-2);border-color:var(--glass-border-2)}
+.notification.unread{border-color:rgba(245,203,106,.22);background:var(--gold-soft)}
+.notification-icon{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;font-size:17px;background:var(--gold-soft)}
+.notification-content{flex:1;min-width:0}
+.notification-content strong{display:block;font-size:12px;font-weight:800}
+.notification-content p{font-size:11px;line-height:1.6;color:var(--text-2);margin-top:3px}
+.notification-content small{display:block;font-size:9px;color:var(--text-3);margin-top:4px}
 
-/* ============ AUTH SHEET ============ */
-.auth-sheet{
-  max-width:480px;
-}
-.auth-brand{
-  text-align:center;
-  padding:20px 16px 8px;
-}
-.auth-brand-logo{
-  width:64px;height:64px;border-radius:18px;
-  display:grid;place-items:center;
-  font-size:34px;font-weight:900;color:#1a1306;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  margin:0 auto 12px;
-  box-shadow:0 14px 40px rgba(245,203,106,.35);
-}
-.auth-brand h1{
-  font-size:26px;font-weight:900;letter-spacing:-.8px;
-  margin-bottom:4px;
-}
-.auth-brand h1 span{
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.auth-brand p{font-size:13px;color:var(--ig-text-2);line-height:1.6;padding:0 12px}
-.auth-tabs{
-  display:flex;gap:4px;padding:4px;margin:16px;
-  background:var(--ig-surface-2);border-radius:12px;
-  position:relative;
-}
-.auth-tabs .slider{
-  position:absolute;top:4px;bottom:4px;
-  width:calc(50% - 4px);border-radius:9px;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  transition:transform .3s var(--ease);
-  box-shadow:0 4px 14px rgba(245,203,106,.3);
-}
-.auth-tabs[data-mode="register"] .slider{transform:translateX(-100%)}
-.auth-tab{
-  flex:1;padding:10px;
-  font-size:13px;font-weight:800;
-  color:var(--ig-text-2);
-  border-radius:9px;
-  position:relative;z-index:2;
-  transition:.2s;
-}
-.auth-tab.active{color:#1a1306}
-.auth-form{padding:0 16px 8px}
-.auth-note{
-  font-size:11px;color:var(--ig-text-3);
-  text-align:center;line-height:1.6;
-  padding:12px 16px 4px;
-}
-.auth-terms{
-  font-size:10px;color:var(--ig-text-3);
-  text-align:center;line-height:1.5;
-  padding:8px 24px 16px;
-}
-.auth-terms a{color:var(--gold)}
+.profile-box{text-align:center}
+.profile-large{width:88px;height:88px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-family:"Amiri","Cairo",serif;font-size:36px;font-weight:700;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 4px var(--bg),0 0 0 6px rgba(245,203,106,.3),0 20px 50px rgba(245,203,106,.32)}
+.profile-box h2{font-family:"Amiri","Cairo",serif;font-size:24px;font-weight:700}
+.profile-box p{font-size:12px;color:var(--text-2);margin-top:5px}
+.profile-info{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.profile-info > div{padding:14px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-border);transition:.22s var(--ease)}
+.profile-info > div:hover{border-color:var(--glass-border-2);background:var(--glass-2)}
+.profile-info small{display:block;font-size:9px;font-weight:900;color:var(--text-3);letter-spacing:.4px;text-transform:uppercase}
+.profile-info strong{display:block;font-size:12px;font-weight:800;margin-top:5px}
+.admin-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;background:linear-gradient(135deg,rgba(245,203,106,.2),rgba(224,166,58,.15));border:1px solid rgba(245,203,106,.4);color:var(--gold);font-size:10px;font-weight:900;letter-spacing:.5px}
 
-/* ============ PROFILE SHEET ============ */
-.profile-head{
-  display:flex;align-items:center;gap:20px;
-  padding:16px;
-}
-.profile-avatar{
-  width:84px;height:84px;border-radius:50%;
-  padding:3px;
-  background:linear-gradient(45deg,var(--gold),var(--gold2),#ad91ff,var(--gold));
-  background-size:300% 300%;
-  animation:ringFlow 3s ease infinite;
-  flex:0 0 84px;
-}
-.profile-avatar-inner{
-  width:100%;height:100%;border-radius:50%;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  border:3px solid var(--ig-bg);
-  display:grid;place-items:center;
-  font-size:36px;font-weight:900;color:#1a1306;
-}
-.profile-stats{
-  flex:1;
-  display:flex;justify-content:space-around;
-}
-.profile-stat{text-align:center}
-.profile-stat strong{display:block;font-size:17px;font-weight:800}
-.profile-stat span{display:block;font-size:12px;color:var(--ig-text-2);margin-top:2px}
-.profile-info{
-  padding:0 16px 16px;
-}
-.profile-info .name{font-size:14px;font-weight:800;margin-bottom:4px}
-.profile-info .bio{font-size:13px;color:var(--ig-text-2);line-height:1.6;margin-bottom:8px}
-.profile-info .meta{
-  font-size:12px;color:var(--ig-text-3);
-  display:flex;flex-wrap:wrap;gap:10px;
-}
-.profile-admin-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:4px 10px;border-radius:99px;
-  background:linear-gradient(135deg,rgba(245,203,106,.18),rgba(224,166,58,.18));
-  border:1px solid rgba(245,203,106,.4);
-  color:var(--gold);font-size:11px;font-weight:800;
-  margin-top:6px;
-}
-.profile-actions{
-  display:flex;gap:8px;padding:0 16px 16px;
-}
-.profile-actions .btn{flex:1;padding:10px;font-size:13px}
-
-/* ============ NOTIFICATIONS ============ */
-.notif-item{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 16px;
-  border-bottom:1px solid var(--ig-border);
-  transition:.15s;
-}
-.notif-item:hover{background:var(--ig-surface-2)}
-.notif-item.unread{background:rgba(245,203,106,.04)}
-.notif-icon{
-  width:44px;height:44px;border-radius:50%;
-  display:grid;place-items:center;
-  background:var(--ig-surface-2);
-  font-size:20px;flex:0 0 44px;
-}
-.notif-body{flex:1;min-width:0}
-.notif-body strong{font-size:13px;font-weight:700;display:block}
-.notif-body p{font-size:12px;color:var(--ig-text-2);margin-top:2px;line-height:1.5}
-.notif-body small{font-size:11px;color:var(--ig-text-3);display:block;margin-top:3px}
-
-/* ============ COMMENTS SHEET ============ */
-.comment-item{
-  display:flex;gap:11px;padding:11px 16px;
-}
-.comment-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#1a1306;font-weight:900;font-size:14px;
-  display:grid;place-items:center;
-  flex:0 0 36px;
-}
-.comment-body{flex:1;min-width:0}
-.comment-body strong{font-size:12px;font-weight:800;margin-inline-end:4px}
-.comment-body span{font-size:13px;line-height:1.5;word-break:break-word}
-.comment-body small{font-size:11px;color:var(--ig-text-3);display:block;margin-top:3px}
-.comment-input-row{
-  display:flex;gap:8px;align-items:center;
-  padding:12px 16px;
-  border-top:1px solid var(--ig-border);
-  background:var(--ig-bg);
-  position:sticky;bottom:0;
-}
-.comment-input-row input{
-  flex:1;background:var(--ig-surface-2);
-  border:1px solid var(--ig-border);
-  border-radius:99px;
-  padding:11px 16px;
-  font-size:14px;color:var(--ig-text);
-  outline:none;
-}
-.comment-input-row input:focus{border-color:var(--gold)}
-.comment-input-row button{
-  padding:0 16px;height:40px;border-radius:99px;
-  background:transparent;color:var(--blue);
-  font-weight:800;font-size:13px;
-}
-.comment-input-row button:disabled{opacity:.4}
-
-/* ============ TOAST ============ */
-.toast{
-  position:fixed;
-  left:50%;bottom:calc(80px + var(--safe-bottom));
-  transform:translate(-50%,20px);
-  padding:12px 20px;
-  border-radius:12px;
-  background:rgba(255,255,255,.98);
-  color:#000;
-  font-size:13px;font-weight:700;
-  opacity:0;pointer-events:none;
-  transition:.3s var(--ease-out);
-  box-shadow:0 12px 40px rgba(0,0,0,.5);
-  max-width:calc(100vw - 32px);
-  text-align:center;
-  z-index:900;
-}
+.toast{position:fixed;left:50%;bottom:calc(30px + var(--safe-bottom));transform:translate(-50%,20px);padding:13px 22px;border-radius:14px;background:var(--panel-solid);border:1px solid var(--glass-border-2);color:var(--text);font-size:12px;font-weight:900;opacity:0;pointer-events:none;transition:.3s var(--ease-out);box-shadow:var(--shadow);max-width:calc(100vw - 40px);text-align:center;z-index:900;backdrop-filter:blur(12px)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.light .toast{background:#000;color:#fff}
 
-/* ============ ADMIN FAB ============ */
-.admin-fab{
-  position:fixed;
-  right:16px;bottom:calc(80px + var(--safe-bottom));
-  width:52px;height:52px;border-radius:50%;
-  background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#1a1306;
-  display:none;
-  place-items:center;
-  font-size:22px;
-  box-shadow:0 10px 30px rgba(245,203,106,.4);
-  z-index:150;
-  transition:.2s var(--ease);
-}
-.admin-fab.show{display:grid}
-.admin-fab:hover{transform:scale(1.08)}
+.mobile-nav{display:none}
 
-/* ============ RESPONSIVE ============ */
-@media(max-width:768px){
-  .bottom-nav{display:block}
-  .layout{padding-bottom:calc(80px + var(--safe-bottom))}
+@media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,660px)}.right-sidebar{display:none}}
+@media(max-width:760px){
+  body{padding-bottom:calc(72px + var(--safe-bottom))}
+  .topbar-inner{padding:12px 14px;gap:10px}
+  .brand-name{font-size:22px}
+  .brand-logo{width:36px;height:36px;border-radius:11px;font-size:17px}
+  .search-wrap{display:none}
+  .top-actions{margin-right:auto}
+  .icon-btn.theme-btn{display:none}
+  .icon-btn,.profile-chip{width:40px;height:40px}
+  .layout{display:block;padding:14px 12px 30px}
+  .left-sidebar{display:none}
+  .hero{min-height:auto;padding:26px 22px;border-radius:24px}
+  .hero h1{font-size:30px}
+  .hero p{font-size:12px}
+  .community-badge{min-width:0;width:100%}
+  .composer{padding:16px;border-radius:22px}
+  .composer-bottom{flex-wrap:wrap}
+  .composer-actions{max-width:100%;overflow-x:auto;scrollbar-width:none}
+  .composer-actions::-webkit-scrollbar{display:none}
+  .compose-action{white-space:nowrap}
+  .post{padding:18px;border-radius:22px}
+  .post h2{font-size:18px}
+  .post-text{font-size:12px}
+  .post-action{font-size:10px}
+  .mobile-nav{position:fixed;left:0;right:0;bottom:0;height:calc(64px + var(--safe-bottom));padding-bottom:var(--safe-bottom);background:var(--panel-2);border-top:1px solid var(--glass-border);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;align-items:center;justify-content:space-around;z-index:300}
+  .mobile-nav button{flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:800;color:var(--text-3);transition:.22s var(--ease)}
+  .mobile-nav button.active{color:var(--gold)}
+  .mobile-nav button span:first-child{font-size:19px}
+  .mobile-nav .add-btn{flex:0 0 52px;height:52px;margin:0 4px;border-radius:16px;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font-size:24px;font-weight:900;box-shadow:0 8px 22px rgba(245,203,106,.32)}
+  .mobile-nav .add-btn span:first-child{font-size:24px}
+  .modal-layer{padding:12px;align-items:flex-end}
+  .modal{width:100%;max-height:90vh;border-radius:24px 24px 16px 16px;padding:22px}
+  .modal-footer{flex-wrap:wrap}
+  .school-suggestions{max-height:220px}
 }
-@media(min-width:769px){
-  .bottom-nav{display:none!important}
-  .layout{padding-top:8px}
-  .topbar{position:sticky}
-  .layout{max-width:640px}
-}
-
-/* ============ V2 OVERRIDES ============ */
-.v2-panel{
-  background:var(--ig-bg)!important;
-  color:var(--ig-text)!important;
-  border:1px solid var(--ig-border)!important;
-}
-.v2-head{border-bottom-color:var(--ig-border)!important}
-.v2-head p{color:var(--ig-text-2)!important}
-.v2-cover{background:linear-gradient(135deg,#1a1a1a,#000)!important}
-.v2-box{background:var(--ig-surface-2)!important;border-color:var(--ig-border)!important}
-.v2-box p{color:var(--ig-text-2)!important}
-.v2-tab{background:var(--ig-surface-2)!important;color:var(--ig-text-2)!important}
-.v2-tab.active{background:var(--gold-soft)!important;color:var(--gold)!important}
-.v2-btn.v2-primary{background:linear-gradient(145deg,var(--gold),var(--gold2))!important;color:#1a1306!important}
-.v2-btn.v2-soft{background:var(--ig-surface-2)!important;color:var(--ig-text)!important}
-.v2-input,.v2-textarea,.v2-select{
-  background:var(--ig-surface-2)!important;
-  color:var(--ig-text)!important;
-  border-color:var(--ig-border)!important;
-}
-.v2-feed-card{background:var(--ig-surface-2)!important;border-color:var(--ig-border)!important}
-.v2-mini{background:linear-gradient(145deg,var(--gold),var(--gold2))!important;color:#1a1306!important}
-.v2-row{background:var(--ig-surface-2)!important}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation-duration:.001ms!important;
-    transition-duration:.001ms!important;
-  }
-}
+@media(max-width:420px){.hero h1{font-size:26px;letter-spacing:-.6px}.brand-name{font-size:20px}.post h2{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
 
 <style id="fasl-v2-badge">
-.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:6px 10px;border:1px solid rgba(245,203,106,.22);border-radius:99px;background:rgba(18,20,28,.86);backdrop-filter:blur(12px);color:#f5cb6a;font:800 10px/1 system-ui;pointer-events:none;opacity:.7}
-body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#b8860b}
-@media(max-width:700px){.fasl-v2-badge{left:8px;bottom:calc(70px + env(safe-area-inset-bottom,0px));font-size:9px}}
+.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:7px 12px;border:1px solid rgba(245,203,106,.24);border-radius:99px;background:rgba(15,18,26,.88);backdrop-filter:blur(12px);color:#f5cb6a;font:800 10px/1 system-ui;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
+body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
+@media(max-width:700px){.fasl-v2-badge{left:8px;bottom:calc(78px + env(safe-area-inset-bottom,0px));font-size:9px}}
 </style>
 </head>
 
 <body>
 
-<!-- ============ SPLASH ============ -->
-<div id="faslSplash">
-  <div class="splash-logo-wrap">
-    <div class="splash-ring on"></div>
-    <div class="splash-logo">ف</div>
-  </div>
-  <div class="splash-name">فَ<span>ص</span>ل</div>
-  <div class="splash-tagline">كل فصل عنده حكاية</div>
-  <div class="splash-loader"></div>
-  <div class="splash-from">FROM FASL</div>
+<div class="aurora"></div>
+<div class="grain"></div>
+
+<!-- INTRO -->
+<div id="igIntro">
+  <div class="ig-logo"><div class="ig-logo-core">ف</div></div>
+  <div class="ig-name">فَ<span>ص</span>ل</div>
+  <div class="ig-tag">كل فصل عنده حكاية</div>
+  <div class="ig-from">FASL · EGYPT</div>
+  <div class="ig-progress"><div class="ig-progress-fill"></div></div>
 </div>
 
-<!-- ============ APP ============ -->
+<!-- APP -->
 <div id="faslApp">
 
 <header class="topbar">
@@ -882,265 +336,229 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#b8860b}
       <div class="brand-logo">ف</div>
       <div class="brand-name">فَ<span>ص</span>ل</div>
     </a>
-    <div class="top-icons">
-      <button class="icon-btn" onclick="toggleTheme()" aria-label="Theme">
-        <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input id="searchInput" type="search" placeholder="ابحث في مجتمعك..." autocomplete="off">
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" onclick="openNotifications()" aria-label="الإشعارات">
+        🔔
+        <span class="notif-dot" id="notificationDot"></span>
       </button>
-      <button class="icon-btn" onclick="openNotifications()" aria-label="Notifications">
-        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="badge-dot" id="notificationDot"></span>
-      </button>
-      <button class="icon-btn" onclick="openSearchSheet()" aria-label="Search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </button>
+      <button class="icon-btn theme-btn" onclick="toggleTheme()" aria-label="Theme">◐</button>
+      <div class="profile-chip" id="profileMini" onclick="openProfile()">م</div>
     </div>
   </div>
 </header>
 
 <main class="layout">
-
-  <!-- STORY BAR -->
-  <div class="story-bar" id="storyBar">
-    <div class="story-item add" onclick="openComposer()" style="position:relative">
-      <div class="story-ring"><div class="story-avatar">👤</div></div>
-      <div class="story-name">قصتك</div>
+  <aside class="sidebar left-sidebar">
+    <div class="side-title">اكتشف</div>
+    <nav class="nav-list">
+      <a href="#" class="nav-item active" onclick="goHome(event)"><span class="nav-icon">🏠</span>الرئيسية</a>
+      <a href="#" class="nav-item" onclick="scrollToTrending(event)"><span class="nav-icon">🔥</span>الترند</a>
+      <a href="#" class="nav-item" onclick="openMySchool(event)"><span class="nav-icon">🏫</span>مدرستي</a>
+      <a href="#" class="nav-item" onclick="activateFilter('question')"><span class="nav-icon">❓</span>الأسئلة</a>
+      <a href="#" class="nav-item" onclick="activateFilter('story')"><span class="nav-icon">😂</span>المواقف</a>
+    </nav>
+    <div class="school-card">
+      <small>مجتمعك</small>
+      <h3 id="sideSchoolName">لسه هنختار 👀</h3>
+      <p id="sideSchoolMeta">سجّل دخول واختار مدرستك.</p>
     </div>
-    <!-- filled by JS -->
-  </div>
+  </aside>
 
-  <!-- FEED -->
-  <div id="feed" class="feed">
-    <div class="sk-post"><div class="sk-row"><div class="skeleton sk-avatar"></div><div style="flex:1"><div class="skeleton sk-line w-30"></div><div class="sk-gap"></div><div class="skeleton sk-line w-50"></div></div></div><div class="skeleton sk-line w-100" style="height:180px;margin-bottom:14px"></div><div class="skeleton sk-line w-80"></div></div>
-    <div class="sk-post"><div class="sk-row"><div class="skeleton sk-avatar"></div><div style="flex:1"><div class="skeleton sk-line w-30"></div><div class="sk-gap"></div><div class="skeleton sk-line w-50"></div></div></div><div class="skeleton sk-line w-100" style="height:180px;margin-bottom:14px"></div><div class="skeleton sk-line w-80"></div></div>
-  </div>
+  <section>
+    <div class="hero">
+      <div class="hero-rings"><span></span><span></span><span></span></div>
+      <div class="hero-badge">🟡 مجتمع الطلاب المصريين</div>
+      <h1>إيه اللي حصل <span>في المدرسة</span> النهارده؟</h1>
+      <p>مواقف، أسئلة، ترندات وحكايات من قلب المدرسة. قول اللي عندك 👀</p>
+      <div class="community-badge" id="communityBadge">
+        <small>مجتمعك</small>
+        <strong id="communityName">سجّل دخول عشان تدخل جروب مدرستك 👥</strong>
+        <span id="communityMeta">المحافظة • المدرسة • الصف</span>
+      </div>
+    </div>
 
+    <div class="composer">
+      <div class="composer-top">
+        <div class="avatar" id="composerAvatar">م</div>
+        <div class="composer-input" onclick="openComposer()">حصل معاك إيه النهارده؟ 😂</div>
+      </div>
+      <div class="composer-bottom">
+        <div class="composer-actions">
+          <button class="compose-action" onclick="openComposer('story')">😂 موقف</button>
+          <button class="compose-action" onclick="openComposer('question')">🤔 سؤال</button>
+          <button class="compose-action" onclick="openComposer('trend')">🔥 ترند</button>
+        </div>
+        <button class="post-btn" onclick="openComposer()">انشر</button>
+      </div>
+    </div>
+
+    <div class="filters">
+      <button class="filter active" data-filter="all">الكل</button>
+      <button class="filter" data-filter="story">😂 مواقف</button>
+      <button class="filter" data-filter="teacher">👨‍🏫 مدرسين</button>
+      <button class="filter" data-filter="question">🤔 أسئلة</button>
+      <button class="filter" data-filter="trend">🔥 ترند</button>
+      <button class="filter" data-filter="school">🏫 المدرسة</button>
+    </div>
+
+    <div id="feed">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <aside class="sidebar right-sidebar" id="trending">
+    <div class="trend-card">
+      <div class="trend-title"><h3>🔥 ترند دلوقتي</h3><span>FASL</span></div>
+      <div class="trend"><small>#مواقف_المدرسة</small><p>أغرب موقف حصل في الحصة 😂</p></div>
+      <div class="trend"><small>#المدرسة</small><p>المدرس اللي بيقول آخر سؤال وبعدين يجيب 7 أسئلة 😭</p></div>
+      <div class="trend"><small>#امتحانات</small><p>مين بدأ يذاكر ولا لسه؟ 👀</p></div>
+      <div class="trend"><small>#فصل</small><p>احكيلنا أغرب حاجة حصلت النهارده.</p></div>
+    </div>
+    <div class="online-card">
+      <div class="online-head"><span class="online-dot"></span>FASL LIVE</div>
+      <p>المجتمع بيتحدث لحظة بلحظة. احترم خصوصية زملائك ومتكتبش بيانات شخصية.</p>
+    </div>
+  </aside>
 </main>
 
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <button class="nav-btn active" onclick="goHome()" data-nav="home">
-      <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </button>
-    <button class="nav-btn" onclick="openSearchSheet()" data-nav="search">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </button>
-    <button class="nav-btn" onclick="openComposer()" data-nav="create">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    </button>
-    <button class="nav-btn" onclick="openNotifications()" data-nav="activity">
-      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      <span class="nav-badge" id="navBadge"></span>
-    </button>
-    <button class="nav-btn" onclick="openProfile()" data-nav="profile">
-      <div class="nav-avatar" id="navAvatar">م</div>
-    </button>
-  </div>
+<nav class="mobile-nav">
+  <button class="active" onclick="goHome()"><span>🏠</span><span>الرئيسية</span></button>
+  <button onclick="scrollToTrending()"><span>🔥</span><span>الترند</span></button>
+  <button class="add-btn" onclick="openComposer()"><span>+</span></button>
+  <button onclick="openMySchool()"><span>🏫</span><span>مدرستي</span></button>
+  <button onclick="openProfile()"><span>👤</span><span>حسابي</span></button>
 </nav>
 
-</div><!-- /#faslApp -->
-
-<!-- ============ STORY VIEWER ============ -->
-<div class="story-viewer" id="storyViewer">
-  <div class="story-progress" id="storyProgress"></div>
-  <div class="story-header">
-    <div class="post-avatar"><div class="post-avatar-inner" id="storyAvatar">ط</div></div>
-    <div class="story-header-info">
-      <strong id="storyUser">طالب</strong>
-      <span id="storyTime">دلوقتي</span>
-    </div>
-    <button class="story-close" onclick="closeStory()">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="story-content" id="storyContent"></div>
 </div>
 
-<!-- ============ COMPOSER SHEET ============ -->
-<div class="sheet-overlay" id="composerModal">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <h2>منشور جديد</h2>
-      <button class="sheet-close" onclick="closeComposer()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+<!-- CREATE POST -->
+<div class="modal-layer" id="composerModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>قول اللي عندك 👀</h2>
+      <button class="close" onclick="closeComposer()">✕</button>
     </div>
-    <div class="sheet-body">
-      <div class="field">
-        <label>نوع البوست</label>
-        <select id="postType">
-          <option value="story">😂 موقف</option>
-          <option value="teacher">👨‍🏫 موقف مع مدرس</option>
-          <option value="question">🤔 سؤال</option>
-          <option value="trend">🔥 ترند</option>
-          <option value="school">🏫 حاجة حصلت في المدرسة</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>العنوان</label>
-        <input id="postTitle" maxlength="100" placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها">
-      </div>
-      <div class="field">
-        <label>البوست</label>
-        <textarea id="postBody" maxlength="1000" placeholder="احكيلنا اللي حصل..."></textarea>
-      </div>
-      <label class="anonymous" style="display:flex;align-items:center;gap:8px;color:var(--ig-text-2);font-size:13px;margin:12px 0;cursor:pointer">
-        <input type="checkbox" id="anonymousPost" style="width:18px;height:18px;accent-color:var(--gold)">
-        نشر بشكل مجهول 👤
-      </label>
-      <button class="btn btn-primary" onclick="createPost()">نشر 🚀</button>
+    <div class="field">
+      <label>نوع البوست</label>
+      <select id="postType">
+        <option value="story">😂 موقف</option>
+        <option value="teacher">👨‍🏫 موقف مع مدرس</option>
+        <option value="question">🤔 سؤال</option>
+        <option value="trend">🔥 ترند</option>
+        <option value="school">🏫 حاجة حصلت في المدرسة</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>العنوان</label>
+      <input id="postTitle" maxlength="100" placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها">
+    </div>
+    <div class="field">
+      <label>البوست</label>
+      <textarea id="postBody" maxlength="1000" placeholder="احكيلنا اللي حصل..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <label class="anonymous"><input type="checkbox" id="anonymousPost">نشر بشكل مجهول 👤</label>
+      <button class="post-btn" onclick="createPost()">نشر 🚀</button>
     </div>
   </div>
 </div>
 
-<!-- ============ AUTH SHEET ============ -->
-<div class="sheet-overlay" id="authModal">
-  <div class="sheet auth-sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="auth-brand">
-      <div class="auth-brand-logo">ف</div>
-      <h1>فَ<span>ص</span>ل</h1>
-      <p id="authSubtitle">سجّل دخولك وادخل مجتمع مدرستك</p>
+<!-- AUTH -->
+<div class="modal-layer" id="authModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="authTitle">تسجيل الدخول</h2>
+      <button class="close" onclick="closeAuth()">✕</button>
+    </div>
+    <div class="auth-tabs">
+      <button id="loginTab" class="auth-tab active" onclick="openAuth('login')">دخول</button>
+      <button id="registerTab" class="auth-tab" onclick="openAuth('register')">حساب جديد</button>
     </div>
 
-    <div class="auth-tabs" id="authTabs" data-mode="login">
-      <div class="slider"></div>
-      <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">دخول</button>
-      <button class="auth-tab" data-tab="register" onclick="switchAuthTab('register')">حساب جديد</button>
+    <div id="loginFields">
+      <div class="field"><label>البريد الإلكتروني</label><input id="loginEmail" type="email" placeholder="example@email.com" autocomplete="email"></div>
+      <div class="field"><label>كلمة المرور</label><input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="post-btn" style="width:100%;padding:14px" onclick="submitLogin()">دخول 🚀</button>
     </div>
 
-    <div class="auth-form" id="loginForm">
-      <div class="field">
-        <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" autocomplete="email">
-      </div>
-      <div class="field">
-        <input id="loginPassword" type="password" placeholder="كلمة المرور" autocomplete="current-password">
-      </div>
-      <button class="btn btn-primary" onclick="submitLogin()">دخول 🚀</button>
-    </div>
+    <div id="registerFields" class="hidden">
+      <div class="field"><label>اسم المستخدم</label><input id="regUsername" maxlength="30" placeholder="مثلاً: mazen123"></div>
+      <div class="field"><label>البريد الإلكتروني</label><input id="regEmail" type="email" placeholder="example@email.com"></div>
+      <div class="field"><label>كلمة المرور</label><input id="regPassword" type="password" placeholder="6 حروف أو أكثر"></div>
+      <div class="field"><label>المحافظة</label><select id="regGovernorate"></select></div>
 
-    <div class="auth-form hidden" id="registerForm">
       <div class="field">
-        <input id="regUsername" maxlength="30" placeholder="اسم المستخدم">
-      </div>
-      <div class="field">
-        <input id="regEmail" type="email" placeholder="البريد الإلكتروني">
-      </div>
-      <div class="field">
-        <input id="regPassword" type="password" placeholder="كلمة المرور (6+ حروف)" oninput="checkPw()">
-        <div style="height:3px;border-radius:3px;background:var(--ig-surface-2);margin-top:6px;overflow:hidden">
-          <div id="pwFill" style="height:100%;width:0;background:var(--gold);transition:.3s"></div>
+        <label>اسم المدرسة</label>
+        <div class="school-search-wrap">
+          <input
+            id="regSchool"
+            class="school-input"
+            placeholder="اكتب اسم المدرسة (مثلاً: Pyramids أو النيل)"
+            autocomplete="off"
+            oninput="onSchoolInput()"
+            onfocus="onSchoolFocus()"
+          >
+          <div id="schoolSuggestions" class="school-suggestions"></div>
         </div>
+        <div id="schoolSelectedBox" class="school-selected hidden">
+          <span>✅ <b id="schoolSelectedName"></b></span>
+          <button type="button" onclick="clearSchoolSelection()">تغيير</button>
+        </div>
+        <div class="school-picker-hint" id="schoolHint">اختار مدرستك من النتائج عشان تنضم لجروب صحابك.</div>
       </div>
-      <div class="field">
-        <select id="regGovernorate"></select>
-      </div>
-      <div class="field">
-        <input id="regSchool" list="schoolDirectory" placeholder="اسم المدرسة">
-        <datalist id="schoolDirectory"></datalist>
-      </div>
-      <div class="field">
-        <select id="regGrade"></select>
-      </div>
-      <button class="btn btn-primary" onclick="submitRegister()">إنشاء الحساب ✨</button>
-    </div>
 
-    <p class="auth-terms">بالمتابعة، أنت توافق على شروط الاستخدام وسياسة الخصوصية.</p>
+      <div class="field"><label>الصف</label><select id="regGrade"></select></div>
+      <div class="auth-note">استخدم اسم المدرسة فقط. متكتبش بيانات شخصية.</div>
+      <button class="post-btn" style="width:100%;padding:14px" onclick="submitRegister()">إنشاء الحساب ✨</button>
+    </div>
   </div>
 </div>
 
-<!-- ============ NOTIFICATIONS SHEET ============ -->
-<div class="sheet-overlay" id="notificationsModal">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <h2>الإشعارات</h2>
-      <button class="sheet-close" onclick="closeNotifications()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+<!-- NOTIFICATIONS -->
+<div class="modal-layer" id="notificationsModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>الإشعارات 🔔</h2>
+      <button class="close" onclick="closeNotifications()">✕</button>
     </div>
-    <div id="notificationsList">
+    <div id="notificationsList" class="notifications-list">
       <div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>
     </div>
   </div>
 </div>
 
-<!-- ============ PROFILE SHEET ============ -->
-<div class="sheet-overlay" id="profileModal">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
+<!-- PROFILE -->
+<div class="modal-layer" id="profileModal">
+  <div class="modal">
+    <div class="modal-head">
       <h2>حسابي</h2>
-      <button class="sheet-close" onclick="closeProfile()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="close" onclick="closeProfile()">✕</button>
     </div>
     <div id="profileContent">
-      <div class="profile-head">
-        <div class="profile-avatar"><div class="profile-avatar-inner" id="profileLarge">م</div></div>
-        <div class="profile-stats">
-          <div class="profile-stat"><strong id="profilePostsCount">0</strong><span>بوستات</span></div>
-          <div class="profile-stat"><strong>—</strong><span>متابعين</span></div>
-          <div class="profile-stat"><strong>—</strong><span>يتابع</span></div>
+      <div class="profile-box">
+        <div class="profile-large" id="profileLarge">م</div>
+        <h2 id="profileUsername">زائر</h2>
+        <p id="profileEmail">سجّل دخول عشان تدخل مجتمعك.</p>
+        <div id="profileAdminBadge" style="margin-top:12px;display:none"><span class="admin-badge">👑 مدير فَصْل</span></div>
+        <div class="profile-info" id="profileInfo">
+          <div><small>المحافظة</small><strong>—</strong></div>
+          <div><small>المدرسة</small><strong>—</strong></div>
+          <div><small>الصف</small><strong>—</strong></div>
+          <div><small>المجتمع</small><strong>—</strong></div>
         </div>
-      </div>
-      <div class="profile-info">
-        <div class="name" id="profileUsername">زائر</div>
-        <div class="bio" id="profileBio">سجّل دخول عشان تدخل مجتمعك.</div>
-        <div class="meta" id="profileInfo"></div>
-        <div id="profileAdminBadge" style="display:none"><span class="profile-admin-badge">👑 مدير فَصْل</span></div>
-      </div>
-      <div class="profile-actions">
-        <button class="btn btn-ghost" onclick="openMySchool()">🏫 مدرستي</button>
-        <button class="btn btn-primary" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول</button>
+        <button class="post-btn" style="margin-top:22px;width:100%;padding:14px" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول 🚀</button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- ============ SEARCH SHEET ============ -->
-<div class="sheet-overlay" id="searchModal">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <h2>بحث</h2>
-      <button class="sheet-close" onclick="closeSearch()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="sheet-body">
-      <div class="field">
-        <input id="searchInput" type="search" placeholder="دور على موقف، سؤال، ترند..." autocomplete="off">
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ COMMENTS SHEET ============ -->
-<div class="sheet-overlay" id="commentsModal">
-  <div class="sheet" onclick="event.stopPropagation()" style="display:flex;flex-direction:column;max-height:85vh">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <h2>التعليقات</h2>
-      <button class="sheet-close" onclick="closeComments()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div id="commentsList" style="flex:1;overflow:auto"></div>
-    <div class="comment-input-row">
-      <input id="commentInput" placeholder="اكتب تعليق..." maxlength="500">
-      <button id="commentSubmit" onclick="submitComment()">نشر</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============ ADMIN FAB ============ -->
-<button class="admin-fab" id="adminFab" onclick="openMySchool()">👑</button>
 
 <div class="toast" id="toast"></div>
 
-<!-- ============ FIREBASE + APP LOGIC ============ -->
+<!-- ================= MAIN SCRIPT ================= -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
@@ -1181,7 +599,8 @@ window.faslIsAdmin=()=>String(auth.currentUser?.email||"").toLowerCase()===ADMIN
 let currentUser=null, currentProfile=null;
 let activeFilter="all", allPosts=[];
 let unsubscribePosts=null, unsubscribeNotifications=null;
-let currentPostId=null;
+
+let selectedSchool = null;
 
 const demoPosts=[
   {id:"demo-1",type:"teacher",username:"طالب مجهول",avatar:"😂",title:"لما المدرس يقول آخر سؤال بجد",body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",likes:126,comments:18,liked:false,anonymous:true,demo:true},
@@ -1200,44 +619,155 @@ function timeText(ts){if(!ts||!ts.toDate)return"دلوقتي";const d=ts.toDate(
 function showToast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2500)}
 window.showToast=showToast;
 
-// ============ SPLASH ============
+// ================= SCHOOL SEARCH (OpenStreetMap Nominatim) =================
+const NOMINATIM_UA = "Fasl-App/1.0 (contact: mazenshahin639@gmail.com)";
+let schoolDebounceTimer = null;
+let schoolAbortController = null;
+
+function onSchoolFocus(){
+  const v = $("regSchool").value.trim();
+  if(v.length >= 3) onSchoolInput();
+}
+window.onSchoolFocus = onSchoolFocus;
+
+function onSchoolInput(){
+  if(selectedSchool) clearSchoolSelection();
+  clearTimeout(schoolDebounceTimer);
+  const query = $("regSchool").value.trim();
+  const box = $("schoolSuggestions");
+  if(query.length < 3){ box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="school-loading">جاري البحث…</div>`;
+  schoolDebounceTimer = setTimeout(() => searchSchools(query), 550);
+}
+window.onSchoolInput = onSchoolInput;
+
+async function searchSchools(query){
+  const box = $("schoolSuggestions");
+  if(schoolAbortController) schoolAbortController.abort();
+  schoolAbortController = new AbortController();
+
+  const q = /مدرس|مدرسه|school/i.test(query) ? query : query + " school";
+  const url =
+    `https://nominatim.openstreetmap.org/search?` +
+    `q=${encodeURIComponent(q)}` +
+    `&countrycodes=eg` +
+    `&format=jsonv2` +
+    `&addressdetails=1` +
+    `&namedetails=1` +
+    `&limit=8` +
+    `&accept-language=ar,en`;
+
+  try{
+    const res = await fetch(url, {
+      headers: { "User-Agent": NOMINATIM_UA },
+      signal: schoolAbortController.signal
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const results = await res.json();
+    if(!results.length){
+      box.innerHTML = `<div class="school-nomatch">مفيش نتائج. جرّب تكتب الاسم بالإنجليزي كمان، أو اكتبه يدوي وسيبه زي ما هو.</div>`;
+      return;
+    }
+    box.innerHTML = results.map((place, idx) => {
+      const name = extractSchoolName(place);
+      const sub = extractSubtitle(place);
+      return `<div class="school-option" onclick="pickSchool(${idx})">
+        <div>🏫 ${escapeHTML(name)}</div>
+        ${sub ? `<small>${escapeHTML(sub)}</small>` : ""}
+      </div>`;
+    }).join("");
+    window.__faslSchoolResults = results;
+  }catch(err){
+    if(err.name === "AbortError") return;
+    console.warn("Nominatim search failed:", err);
+    box.innerHTML = `<div class="school-nomatch">مش قادر أوصل لخدمة البحث. اكتب اسم المدرسة يدوي وهيتعمل جروب باسمها.</div>`;
+  }
+}
+
+function extractSchoolName(place){
+  return place.namedetails?.name
+    || place.namedetails?.["name:ar"]
+    || place.namedetails?.["name:en"]
+    || (place.display_name || "").split(",")[0]
+    || "مدرسة";
+}
+function extractSubtitle(place){
+  const a = place.address || {};
+  const parts = [a.city || a.town || a.village || a.suburb || a.county, a.state || a.governorate, a.country].filter(Boolean);
+  return parts.join(" · ");
+}
+
+function pickSchool(idx){
+  const results = window.__faslSchoolResults || [];
+  const place = results[idx];
+  if(!place) return;
+  const name = extractSchoolName(place);
+  const cid = `osm/${place.osm_type}/${place.osm_id}`;
+  selectedSchool = {
+    name,
+    communityId: cid,
+    displayName: name,
+    governorate: place.address?.state || place.address?.city || $("regGovernorate").value || ""
+  };
+  const input = $("regSchool");
+  input.value = name;
+  input.classList.add("locked");
+  input.readOnly = true;
+  $("schoolSuggestions").innerHTML = "";
+  $("schoolSelectedBox").classList.remove("hidden");
+  $("schoolSelectedName").textContent = name;
+  $("schoolHint").textContent = "✅ جاهز. الجروب ده مشترك مع كل اللي اختاروا نفس المدرسة.";
+  if(selectedSchool.governorate){
+    const gov = $("regGovernorate");
+    const match = Array.from(gov.options).find(o => o.value.includes(selectedSchool.governorate) || selectedSchool.governorate.includes(o.value));
+    if(match) gov.value = match.value;
+  }
+}
+window.pickSchool = pickSchool;
+
+function clearSchoolSelection(){
+  selectedSchool = null;
+  const input = $("regSchool");
+  input.classList.remove("locked");
+  input.readOnly = false;
+  $("schoolSelectedBox").classList.add("hidden");
+  $("schoolHint").textContent = "اختار مدرستك من النتائج عشان تنضم لجروب صحابك.";
+  $("schoolSuggestions").innerHTML = "";
+}
+window.clearSchoolSelection = clearSchoolSelection;
+
+document.addEventListener("click", e => {
+  const wrap = document.querySelector(".school-search-wrap");
+  if(wrap && !wrap.contains(e.target)){ $("schoolSuggestions").innerHTML = ""; }
+});
+
+// ================= SPLASH =================
 setTimeout(()=>{
-  const splash=$("faslSplash"), app=$("faslApp");
+  const splash=$("igIntro"), app=$("faslApp");
   if(splash) splash.classList.add("hide");
   if(app) app.classList.add("show");
-  setTimeout(()=>{ if(splash) splash.style.display="none"; },600);
-  if(!currentUser){ setTimeout(()=>openAuth("login"),300); }
+  setTimeout(()=>{ if(splash) splash.style.display="none"; },500);
+  if(!currentUser){ setTimeout(()=>openAuth("login"),400); }
 },2200);
 
-// ============ FILL SELECTS ============
+// ================= SELECTS =================
 function fillSelect(id,arr,ph){const el=$(id);if(!el)return;el.innerHTML=`<option value="">${ph}</option>`+arr.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("")}
 fillSelect("regGovernorate",governorates,"اختار المحافظة");
 fillSelect("regGrade",grades,"اختار الصف");
 
-// ============ AUTH ============
-function openAuth(mode="login"){$("authModal").classList.add("show");switchAuthTab(mode==="register"?"register":"login")}
+// ================= AUTH =================
+function openAuth(mode="login"){
+  $("authModal").classList.add("show");
+  const reg = mode==="register";
+  $("loginFields").classList.toggle("hidden",reg);
+  $("registerFields").classList.toggle("hidden",!reg);
+  $("loginTab").classList.toggle("active",!reg);
+  $("registerTab").classList.toggle("active",reg);
+  $("authTitle").textContent = reg?"إنشاء حساب":"تسجيل الدخول";
+}
 window.openAuth=openAuth;
 function closeAuth(){$("authModal").classList.remove("show")}
 window.closeAuth=closeAuth;
-function switchAuthTab(mode){
-  const tabs=$("authTabs");
-  tabs.dataset.mode=mode;
-  document.querySelectorAll(".auth-tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===mode));
-  $("loginForm").classList.toggle("hidden",mode==="register");
-  $("registerForm").classList.toggle("hidden",mode!=="register");
-  $("authSubtitle").textContent=mode==="register"?"انضم لمجتمع الطلاب المصريين":"سجّل دخولك وادخل مجتمع مدرستك";
-}
-window.switchAuthTab=switchAuthTab;
-function checkPw(){
-  const pw=$("regPassword").value;const fill=$("pwFill");
-  let score=0;
-  if(pw.length>=6)score++;if(pw.length>=10)score++;
-  if(/[A-Z]/.test(pw))score++;if(/[0-9]/.test(pw))score++;if(/[^A-Za-z0-9]/.test(pw))score++;
-  const pct=(score/5)*100;
-  fill.style.width=pct+"%";
-  fill.style.background=["#ed4956","#ed4956","#f5cb6a","#63e0a0","#63e0a0"][Math.max(0,score-1)]||"#ed4956";
-}
-window.checkPw=checkPw;
 
 async function submitLogin(){
   const email=$("loginEmail").value.trim();
@@ -1249,8 +779,7 @@ async function submitLogin(){
     if(email.toLowerCase()===ADMIN_EMAIL){
       try{await setDoc(doc(db,"users",cred.user.uid),{moderator:true,admin:true,adminEmail:email,promotedAt:serverTimestamp()},{merge:true})}catch(e){console.warn(e)}
     }
-    closeAuth();
-    showToast("أهلاً بيك 👋");
+    closeAuth(); showToast("أهلاً بيك 👋");
   }catch(err){
     const m={"auth/invalid-credential":"الإيميل أو كلمة المرور غلط","auth/invalid-email":"الإيميل مش صحيح","auth/network-request-failed":"مشكلة في الإنترنت"};
     showToast(m[err.code]||"حصل خطأ. جرّب تاني.");
@@ -1263,22 +792,59 @@ async function submitRegister(){
   const email=$("regEmail").value.trim();
   const password=$("regPassword").value;
   const governorate=$("regGovernorate").value;
-  const school=$("regSchool").value.trim();
   const grade=$("regGrade").value;
+  const typedSchool=$("regSchool").value.trim();
+
   if(!username||username.length<3)return showToast("اسم المستخدم قصير.");
   if(!email)return showToast("اكتب الإيميل.");
   if(password.length<6)return showToast("كلمة المرور 6+ حروف.");
-  if(!governorate||!school||!grade)return showToast("كمّل المحافظة والمدرسة والصف.");
+  if(!governorate||!typedSchool||!grade)return showToast("كمّل المحافظة والمدرسة والصف.");
+
+  if(!selectedSchool){
+    selectedSchool = {
+      name: typedSchool,
+      displayName: typedSchool,
+      communityId: communityId(governorate, typedSchool),
+      governorate
+    };
+  }
+
   try{
     const cred=await createUserWithEmailAndPassword(auth,email,password);
     const isAdmin=email.toLowerCase()===ADMIN_EMAIL;
-    await setDoc(doc(db,"users",cred.user.uid),{
-      username,governorate,school,grade,
-      communityId:communityId(governorate,school),
-      moderator:isAdmin,admin:isAdmin,
-      createdAt:serverTimestamp()
-    });
+
+    const profileData = {
+      username,
+      governorate: selectedSchool.governorate || governorate,
+      school: selectedSchool.name,
+      schoolDisplayName: selectedSchool.displayName,
+      schoolSource: selectedSchool.communityId.startsWith("osm/") ? "osm" : "manual",
+      grade,
+      communityId: selectedSchool.communityId,
+      moderator: isAdmin,
+      admin: isAdmin,
+      createdAt: serverTimestamp()
+    };
+    await setDoc(doc(db,"users",cred.user.uid), profileData);
+
+    try{
+      await setDoc(
+        doc(db, "schools", selectedSchool.communityId.replace(/[\/]/g, "-")),
+        {
+          school: selectedSchool.name,
+          displayName: selectedSchool.displayName,
+          governorate: profileData.governorate,
+          communityId: selectedSchool.communityId,
+          source: profileData.schoolSource,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        },
+        { merge: true }
+      );
+    }catch(e){ console.warn("schools write failed:", e); }
+
     closeAuth();
+    clearSchoolSelection();
     showToast(isAdmin?"أهلاً يا مدير 👑":"الحساب اتعمل! 🎉");
   }catch(err){
     const m={"auth/email-already-in-use":"الإيميل ده مستخدم","auth/invalid-email":"الإيميل مش صحيح","auth/weak-password":"كلمة المرور ضعيفة"};
@@ -1287,7 +853,7 @@ async function submitRegister(){
 }
 window.submitRegister=submitRegister;
 
-// ============ PROFILE ============
+// ================= PROFILE =================
 async function loadProfile(user){
   if(!user)return null;
   const snap=await getDoc(doc(db,"users",user.uid));
@@ -1298,28 +864,43 @@ async function loadProfile(user){
 function updateUI(){
   const username=currentProfile?.username||"م";
   const initial=username.trim().charAt(0)||"م";
-  const navAvatar=$("navAvatar");
-  if(navAvatar)navAvatar.textContent=initial;
+  $("profileMini").textContent=initial;
+  $("composerAvatar").textContent=initial;
   $("profileLarge").textContent=initial;
 
   const isAdmin=String(currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
   const badge=$("profileAdminBadge");
   if(badge)badge.style.display=isAdmin?"block":"none";
-  const fab=$("adminFab");
-  if(fab)fab.classList.toggle("show",isAdmin);
 
   if(currentProfile){
+    $("sideSchoolName").textContent=currentProfile.school||"مدرستك";
+    $("sideSchoolMeta").textContent=`${currentProfile.governorate||""} • ${currentProfile.grade||""}`;
+    $("communityName").textContent=`جروب ${currentProfile.school||"مدرستك"} — ${currentProfile.grade||""} 👥`;
+    $("communityMeta").textContent=`${currentProfile.governorate||""} • مجتمع مدرستك`;
     $("profileUsername").textContent=currentProfile.username;
-    $("profileBio").textContent=`${currentProfile.school} — ${currentProfile.grade}`;
-    $("profileInfo").innerHTML=`<span>📍 ${escapeHTML(currentProfile.governorate)}</span><span>🏫 ${escapeHTML(currentProfile.school)}</span>`;
-    $("profileMainButton").textContent="تسجيل الخروج";
+    $("profileEmail").textContent=currentUser?.email||"";
+    $("profileInfo").innerHTML=`
+      <div><small>المحافظة</small><strong>${escapeHTML(currentProfile.governorate||"—")}</strong></div>
+      <div><small>المدرسة</small><strong>${escapeHTML(currentProfile.school||"—")}</strong></div>
+      <div><small>الصف</small><strong>${escapeHTML(currentProfile.grade||"—")}</strong></div>
+      <div><small>المجتمع</small><strong>${isAdmin?"👑 مدير":"طالب"}</strong></div>
+    `;
+    $("profileMainButton").textContent="تسجيل الخروج 👋";
   }else{
+    $("sideSchoolName").textContent="لسه هنختار 👀";
+    $("sideSchoolMeta").textContent="سجّل دخول واختار مدرستك.";
+    $("communityName").textContent="سجّل دخول عشان تدخل جروب مدرستك 👥";
+    $("communityMeta").textContent="المحافظة • المدرسة • الصف";
     $("profileUsername").textContent="زائر";
-    $("profileBio").textContent="سجّل دخول عشان تدخل مجتمعك.";
-    $("profileInfo").innerHTML="";
-    $("profileMainButton").textContent="تسجيل الدخول";
+    $("profileEmail").textContent="سجّل دخول عشان تدخل مجتمعك.";
+    $("profileInfo").innerHTML=`
+      <div><small>المحافظة</small><strong>—</strong></div>
+      <div><small>المدرسة</small><strong>—</strong></div>
+      <div><small>الصف</small><strong>—</strong></div>
+      <div><small>المجتمع</small><strong>—</strong></div>
+    `;
+    $("profileMainButton").textContent="تسجيل الدخول 🚀";
   }
-  renderStoryBar();
 }
 
 function openProfile(){$("profileModal").classList.add("show")}
@@ -1334,66 +915,11 @@ async function profileMainAction(){
 }
 window.profileMainAction=profileMainAction;
 
-// ============ STORY BAR ============
-function renderStoryBar(){
-  const bar=$("storyBar");
-  if(!bar)return;
-  const base=`<div class="story-item add" onclick="openComposer()" style="position:relative"><div class="story-ring"><div class="story-avatar">👤</div></div><div class="story-name">قصتك</div></div>`;
-  if(!allPosts.length||!currentProfile){bar.innerHTML=base;return}
-  const users=new Map();
-  allPosts.forEach(p=>{
-    if(!p.anonymous&&p.username&&!users.has(p.username)){
-      users.set(p.username,{username:p.username,post:p});
-    }
-  });
-  const items=Array.from(users.values()).slice(0,12).map(u=>`
-    <div class="story-item" onclick="openStoryFromUser('${escapeHTML(u.username)}')">
-      <div class="story-ring"><div class="story-avatar">${escapeHTML(u.username.charAt(0).toUpperCase())}</div></div>
-      <div class="story-name">${escapeHTML(u.username)}</div>
-    </div>`).join("");
-  bar.innerHTML=base+items;
-}
-window.renderStoryBar=renderStoryBar;
-
-let storyTimer=null;
-let storyIndex=0;
-let storyList=[];
-
-function openStoryFromUser(username){
-  storyList=allPosts.filter(p=>p.username===username&&!p.anonymous).slice(0,10);
-  if(!storyList.length)return;
-  storyIndex=0;
-  $("storyViewer").classList.add("show");
-  renderStory();
-}
-window.openStoryFromUser=openStoryFromUser;
-
-function renderStory(){
-  const post=storyList[storyIndex];
-  if(!post){closeStory();return}
-  $("storyAvatar").textContent=post.username?post.username.charAt(0).toUpperCase():"ط";
-  $("storyUser").textContent=post.username||"طالب";
-  $("storyTime").textContent=timeText(post.createdAt);
-  $("storyContent").innerHTML=`${post.title?`<div style="font-size:22px;font-weight:900;margin-bottom:14px">${escapeHTML(post.title)}</div>`:""}<div>${escapeHTML(post.body)}</div>`;
-  const progress=$("storyProgress");
-  progress.innerHTML=storyList.map((_,i)=>`<div class="story-progress-bar"><div class="story-progress-fill ${i<storyIndex?"done":""} ${i===storyIndex?"active":""}"></div></div>`).join("");
-  clearTimeout(storyTimer);
-  storyTimer=setTimeout(()=>{
-    if(storyIndex<storyList.length-1){storyIndex++;renderStory()}
-    else closeStory();
-  },4000);
-}
-function closeStory(){
-  clearTimeout(storyTimer);
-  $("storyViewer").classList.remove("show");
-}
-window.closeStory=closeStory;
-
-// ============ POSTS ============
+// ================= POSTS =================
 async function loadPosts(){
   if(unsubscribePosts){unsubscribePosts();unsubscribePosts=null}
-  if(!currentProfile){allPosts=demoPosts;renderFeed();renderStoryBar();return}
-  $("feed").innerHTML=`<div class="sk-post"><div class="sk-row"><div class="skeleton sk-avatar"></div><div style="flex:1"><div class="skeleton sk-line w-30"></div></div></div><div class="skeleton sk-line w-100" style="height:180px"></div></div>`;
+  if(!currentProfile){allPosts=demoPosts;renderFeed();return}
+  $("feed").innerHTML=`<div class="loading"><div class="spinner"></div></div>`;
   try{
     const q=query(collection(db,"posts"),where("communityId","==",currentProfile.communityId),limit(100));
     unsubscribePosts=onSnapshot(q,async snap=>{
@@ -1401,8 +927,7 @@ async function loadPosts(){
       allPosts.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
       await loadLikeStates();
       renderFeed();
-      renderStoryBar();
-    },err=>{console.error(err);allPosts=[];renderFeed()});
+    },err=>{console.error(err);allPosts=[];renderFeed();showToast("تعذر تحميل البوستات.")});
   }catch(e){console.error(e);allPosts=[];renderFeed()}
 }
 
@@ -1431,67 +956,44 @@ function renderFeed(){
 }
 
 function renderPost(post){
-  const name=post.anonymous?"طالب مجهول":escapeHTML(post.username||"طالب");
-  const av=post.anonymous?"👤":escapeHTML((post.username||"ط").charAt(0).toUpperCase());
-  const likeCount=Number(post.likes||0);
-  const commentCount=Number(post.comments||0);
-
+  if(post.demo){
+    return `
+      <article class="post">
+        <div class="post-head">
+          <div class="post-avatar">${post.avatar}</div>
+          <div class="post-user"><strong>${escapeHTML(post.username)}</strong><span>مثال من فَصْل</span></div>
+          <span class="post-type">${typeLabel(post.type)}</span>
+        </div>
+        <h2>${escapeHTML(post.title)}</h2>
+        <p class="post-text">${escapeHTML(post.body)}</p>
+        <div class="post-actions">
+          <button class="post-action" onclick="openAuth('login')">🤍 ${post.likes}</button>
+          <button class="post-action" onclick="openAuth('login')">💬 ${post.comments}</button>
+          <button class="post-action" onclick="openAuth('login')">🚀 شارك</button>
+        </div>
+      </article>`;
+  }
+  const name=post.anonymous?"طالب مجهول":escapeHTML(post.user||post.username||"طالب");
+  const av=post.anonymous?"👤":escapeHTML((post.user||post.username||"ط").charAt(0));
   return `
-    <article class="post" data-id="${escapeHTML(post.id)}" ondblclick="doubleTapLike('${escapeHTML(post.id)}', event)">
+    <article class="post" data-id="${escapeHTML(post.id)}">
       <div class="post-head">
-        <div class="post-avatar"><div class="post-avatar-inner">${av}</div></div>
-        <div class="post-user">
-          <strong>${name}</strong>
-          <span>${escapeHTML(timeText(post.createdAt))}</span>
-        </div>
-        <span class="post-type-badge">${typeLabel(post.type)}</span>
-        <button class="post-menu" onclick="reportPost('${escapeHTML(post.id)}')" aria-label="Report">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-        </button>
+        <div class="post-avatar">${av}</div>
+        <div class="post-user"><strong>${name}</strong><span>${escapeHTML(timeText(post.createdAt))}</span></div>
+        <span class="post-type">${typeLabel(post.type)}</span>
       </div>
-      <div class="post-body" style="position:relative">
-        ${post.title?`<h2>${escapeHTML(post.title)}</h2>`:""}
-        <div class="post-text">${escapeHTML(post.body)}</div>
-        <div class="post-heart-burst" id="burst-${escapeHTML(post.id)}">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-      </div>
+      ${post.title?`<h2>${escapeHTML(post.title)}</h2>`:""}
+      <p class="post-text">${escapeHTML(post.body)}</p>
       <div class="post-actions">
-        <button class="act-btn ${post.liked?"liked":""}" onclick="likePost('${escapeHTML(post.id)}')" aria-label="Like">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
-        <button class="act-btn" onclick="openComments('${escapeHTML(post.id)}')" aria-label="Comment">
-          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        </button>
-        <button class="act-btn" onclick="sharePost('${escapeHTML(post.id)}')" aria-label="Share">
-          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-        <div style="flex:1"></div>
-        <button class="act-btn bookmarked" onclick="bookmarkPost('${escapeHTML(post.id)}')" aria-label="Save">
-          <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-        </button>
+        <button class="post-action ${post.liked?"liked":""}" onclick="likePost('${escapeHTML(post.id)}')">${post.liked?"❤️":"🤍"} ${Number(post.likes||0)}</button>
+        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments||0)}</button>
+        <button class="post-action" onclick="reportPost('${escapeHTML(post.id)}')">🚩 إبلاغ</button>
       </div>
-      <div class="post-likes"><span class="count">${likeCount.toLocaleString("ar-EG")}</span> إعجاب</div>
-      ${post.title?`<div class="post-caption"><b>${name}</b><span>${escapeHTML(post.title)}</span></div>`:""}
-      ${commentCount>0?`<div class="post-comments-link" onclick="openComments('${escapeHTML(post.id)}')">عرض كل ${commentCount} تعليق</div>`:""}
     </article>`;
 }
 
-let lastTap=0;
-function doubleTapLike(postId,event){
-  const now=Date.now();
-  if(now-lastTap<300){
-    const post=allPosts.find(p=>p.id===postId);
-    if(post&&!post.liked)likePost(postId);
-    const burst=$(`burst-${postId}`);
-    if(burst){burst.classList.add("pop");setTimeout(()=>burst.classList.remove("pop"),900)}
-  }
-  lastTap=now;
-}
-window.doubleTapLike=doubleTapLike;
-
 function openComposer(type="story"){
-  if(!currentUser){openAuth("login");showToast("سجّل دخول الأول");return}
+  if(!currentUser){openAuth("login");showToast("سجّل دخول الأول.");return}
   $("composerModal").classList.add("show");
   $("postType").value=type;
 }
@@ -1518,8 +1020,7 @@ async function createPost(){
       likes:0,comments:0,createdAt:serverTimestamp()
     });
     $("postTitle").value="";$("postBody").value="";$("anonymousPost").checked=false;
-    closeComposer();
-    showToast("البوست اتنشر 🚀");
+    closeComposer(); showToast("البوست اتنشر 🚀");
   }catch(e){console.error(e);showToast("مش قادر أنشر.")}
 }
 window.createPost=createPost;
@@ -1542,76 +1043,28 @@ async function likePost(postId){
 }
 window.likePost=likePost;
 
-function bookmarkPost(postId){
-  const post=allPosts.find(p=>p.id===postId);
-  if(!post)return;
-  showToast("تم الحفظ 🔖");
-}
-window.bookmarkPost=bookmarkPost;
-
-function sharePost(postId){
-  const url=window.location.origin+window.location.pathname+"#post-"+postId;
-  if(navigator.share){
-    navigator.share({title:"فَصْل",text:"شوف البوست ده على فَصْل",url}).catch(()=>{});
-  }else{
-    navigator.clipboard?.writeText(url);
-    showToast("تم نسخ الرابط 🔗");
-  }
-}
-window.sharePost=sharePost;
-
-// ============ COMMENTS ============
 async function openComments(postId){
   if(!currentUser){openAuth("login");return}
   if(String(postId).startsWith("demo-")){showToast("التعليقات تظهر بعد تسجيل الدخول.");return}
-  currentPostId=postId;
-  $("commentsModal").classList.add("show");
-  $("commentsList").innerHTML=`<div class="empty"><div class="empty-icon">💬</div><p>جاري التحميل...</p></div>`;
   try{
-    const q=query(collection(db,"posts",postId,"comments"),orderBy("createdAt","desc"),limit(50));
+    const q=query(collection(db,"posts",postId,"comments"),orderBy("createdAt","desc"),limit(30));
     const snap=await getDocs(q);
     const comments=snap.docs.map(i=>({id:i.id,...i.data()}));
-    if(!comments.length){
-      $("commentsList").innerHTML=`<div class="empty"><div class="empty-icon">💬</div><h3>مفيش تعليقات لسه</h3><p>كن أول واحد يعلّق.</p></div>`;
-      return;
-    }
-    $("commentsList").innerHTML=comments.map(c=>`
-      <div class="comment-item">
-        <div class="comment-avatar">${escapeHTML((c.username||"ط").charAt(0).toUpperCase())}</div>
-        <div class="comment-body">
-          <strong>${escapeHTML(c.username||"طالب")}</strong>
-          <span>${escapeHTML(c.body)}</span>
-          <small>${escapeHTML(timeText(c.createdAt))}</small>
-        </div>
-      </div>`).join("");
-  }catch(e){console.error(e);$("commentsList").innerHTML=`<div class="empty"><p>تعذر تحميل التعليقات.</p></div>`}
-}
-window.openComments=openComments;
-function closeComments(){$("commentsModal").classList.remove("show");currentPostId=null}
-window.closeComments=closeComments;
-
-async function submitComment(){
-  if(!currentPostId||!currentUser)return;
-  const input=$("commentInput");
-  const body=input.value.trim();
-  if(!body||body.length<1)return;
-  try{
-    await addDoc(collection(db,"posts",currentPostId,"comments"),{
+    const formatted=comments.length?comments.map(c=>`${c.anonymous?"طالب مجهول":c.username||"طالب"}: ${c.body}`).join("\n\n"):"مفيش تعليقات لسه.";
+    const body=prompt(`تعليقات البوست:\n\n${formatted}\n\nاكتب تعليق جديد:`);
+    if(!body?.trim())return;
+    await addDoc(collection(db,"posts",postId,"comments"),{
       authorId:currentUser.uid,
       username:currentProfile.username,
-      body:body.slice(0,500),
-      anonymous:false,
-      createdAt:serverTimestamp()
+      body:body.trim().slice(0,500),
+      anonymous:false,createdAt:serverTimestamp()
     });
-    await updateDoc(doc(db,"posts",currentPostId),{comments:increment(1)});
-    input.value="";
+    await updateDoc(doc(db,"posts",postId),{comments:increment(1)});
     showToast("تم إضافة التعليق 💬");
-    openComments(currentPostId);
-  }catch(e){console.error(e);showToast("تعذر إضافة التعليق.")}
+  }catch(e){console.error(e);showToast("مش قادر أضيف التعليق.")}
 }
-window.submitComment=submitComment;
+window.openComments=openComments;
 
-// ============ REPORT ============
 async function reportPost(postId){
   if(!currentUser){openAuth("login");return}
   const reason=prompt("ليه عايز تبلغ؟");
@@ -1627,9 +1080,9 @@ async function reportPost(postId){
 }
 window.reportPost=reportPost;
 
-// ============ NOTIFICATIONS ============
+// ================= NOTIFICATIONS =================
 function openNotifications(){
-  if(!currentUser){openAuth("login");return}
+  if(!currentUser){openAuth("login");showToast("سجّل دخول.");return}
   $("notificationsModal").classList.add("show");
 }
 window.openNotifications=openNotifications;
@@ -1646,7 +1099,6 @@ function listenToNotifications(){
       renderNotifications(notifs);
       const unread=notifs.some(i=>i.read===false);
       $("notificationDot").classList.toggle("on",unread);
-      $("navBadge")?.classList.toggle("on",unread);
     },err=>{console.error(err);renderNotifications([])});
   }catch(e){console.error(e)}
 }
@@ -1659,9 +1111,9 @@ function renderNotifications(notifs){
   }
   c.innerHTML=notifs.map(n=>{
     const icon=n.type==="like"?"❤️":n.type==="comment"?"💬":"🔔";
-    return `<div class="notif-item ${n.read===false?"unread":""}">
-      <div class="notif-icon">${icon}</div>
-      <div class="notif-body">
+    return `<div class="notification ${n.read===false?"unread":""}">
+      <div class="notification-icon">${icon}</div>
+      <div class="notification-content">
         <strong>${escapeHTML(n.title||"إشعار جديد")}</strong>
         <p>${escapeHTML(n.body||"")}</p>
         <small>${escapeHTML(timeText(n.createdAt))}</small>
@@ -1670,18 +1122,11 @@ function renderNotifications(notifs){
   }).join("");
 }
 
-// ============ SEARCH ============
-function openSearchSheet(){$("searchModal").classList.add("show");setTimeout(()=>$("searchInput")?.focus(),200)}
-window.openSearchSheet=openSearchSheet;
-function closeSearch(){$("searchModal").classList.remove("show")}
-window.closeSearch=closeSearch;
-
-// ============ NAV ============
-function goHome(e){if(e)e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});closeSearch()}
+// ================= NAV =================
+function goHome(e){if(e)e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})}
 window.goHome=goHome;
-function scrollToTrending(e){if(e)e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})}
+function scrollToTrending(e){if(e)e.preventDefault();$("trending")?.scrollIntoView({behavior:"smooth"})}
 window.scrollToTrending=scrollToTrending;
-
 function openMySchool(e){
   if(e)e.preventDefault();
   if(!currentUser){openAuth("login");return}
@@ -1689,41 +1134,42 @@ function openMySchool(e){
   else showToast(`جروب ${currentProfile?.school||"مدرستك"} 👥`);
 }
 window.openMySchool=openMySchool;
-
-function activateFilter(f){
-  activeFilter=f;
-  document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===f));
+function activateFilter(filter){
+  activeFilter=filter;
+  document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter));
   renderFeed();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 window.activateFilter=activateFilter;
+document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>activateFilter(b.dataset.filter)));
+$("searchInput").addEventListener("input",renderFeed);
 
-// ============ THEME ============
+// ================= THEME =================
 function toggleTheme(){
   document.body.classList.toggle("light");
   const light=document.body.classList.contains("light");
   localStorage.setItem("fasl-theme",light?"light":"dark");
+  showToast(light?"الوضع الفاتح ☀️":"الوضع الداكن 🌙");
 }
 window.toggleTheme=toggleTheme;
 if(localStorage.getItem("fasl-theme")==="light")document.body.classList.add("light");
 
-// ============ OVERLAY CLICKS ============
-["composerModal","authModal","notificationsModal","profileModal","searchModal","commentsModal"].forEach(id=>{
+// ================= MODAL CLOSE OUTSIDE =================
+["composerModal","authModal","notificationsModal","profileModal"].forEach(id=>{
   const el=$(id);
   if(el)el.addEventListener("click",e=>{if(e.target.id===id){
     if(id==="composerModal")closeComposer();
     else if(id==="authModal")closeAuth();
     else if(id==="notificationsModal")closeNotifications();
     else if(id==="profileModal")closeProfile();
-    else if(id==="searchModal")closeSearch();
-    else if(id==="commentsModal")closeComments();
   }});
 });
 document.addEventListener("keydown",e=>{
   if(e.key!=="Escape")return;
-  closeComposer();closeAuth();closeNotifications();closeProfile();closeSearch();closeComments();closeStory();
+  closeComposer();closeAuth();closeNotifications();closeProfile();
 });
 
-// ============ AUTH STATE ============
+// ================= AUTH STATE =================
 onAuthStateChanged(auth,async user=>{
   currentUser=user;
   if(user){
@@ -1745,60 +1191,63 @@ onAuthStateChanged(auth,async user=>{
 updateUI();
 </script>
 
-<!-- ============ V2 SCHOOL HUB LAYER ============ -->
+<div class="fasl-v2-badge">فَصْل · v2</div>
+
+<!-- ================= V2 SCHOOL HUB ================= -->
 <style id="fasl-v2-style">
-:root{--v2-gold:#f5cb6a;--v2-card:rgba(255,255,255,.045)}
-.v2-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);z-index:10000;display:none;align-items:flex-end;justify-content:center;padding:0}
+.v2-overlay{position:fixed;inset:0;background:rgba(3,4,8,.8);backdrop-filter:blur(16px);z-index:10000;display:none;align-items:center;justify-content:center;padding:18px}
 .v2-overlay.show{display:flex}
-.v2-panel{width:100%;max-width:600px;max-height:92vh;overflow:auto;background:#0f0f0f;border:1px solid #262626;border-bottom:0;border-radius:20px 20px 0 0;color:#fff;animation:sheetUp .35s cubic-bezier(.16,1,.3,1);padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
-@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.v2-head{position:sticky;top:0;z-index:3;padding:16px 20px;border-bottom:1px solid #262626;background:#0f0f0f;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.v2-head h2{margin:0;font-size:17px;font-weight:800}.v2-head p{margin:4px 0 0;color:#a8a8a8;font-size:11px}
-.v2-close{width:36px;height:36px;border:0;border-radius:50%;background:#1a1a1a;color:inherit;cursor:pointer;font-size:20px;transition:.2s}
-.v2-close:hover{background:#262626;transform:rotate(90deg)}
-.v2-content{padding:20px}
-.v2-school-hero{border-radius:18px;overflow:hidden;border:1px solid #262626;background:#0a0a0a}
-.v2-cover{height:130px;background:radial-gradient(circle at 75% 25%,rgba(245,203,106,.35),transparent 25%),linear-gradient(135deg,#2c2557,#11131b);position:relative}
-.v2-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.7))}
-.v2-school-meta{padding:0 20px 20px;display:flex;gap:14px;align-items:end;margin-top:-32px;position:relative;z-index:2}
-.v2-avatar{width:68px;height:68px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#16110a;font-weight:900;font-size:28px;border:3px solid #0f0f0f;flex:0 0 auto;box-shadow:0 12px 30px rgba(245,203,106,.25)}
-.v2-school-meta h1{font-size:22px;margin:0;font-weight:900}.v2-school-meta p{margin:4px 0 0;color:#a8a8a8;font-size:12px}
-.v2-tabs{display:flex;gap:6px;overflow:auto;padding:14px 0 0}
-.v2-tab{border:0;background:#1a1a1a;color:#a8a8a8;border-radius:10px;padding:9px 14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit;font-size:12px}
-.v2-tab:hover{background:#262626}
-.v2-tab.active{background:rgba(245,203,106,.15);color:var(--v2-gold)}
-.v2-grid{display:grid;gap:14px;margin-top:14px}
-.v2-box{padding:16px;border:1px solid #262626;border-radius:16px;background:#1a1a1a}
-.v2-box h3{margin:0 0 10px;font-size:14px;font-weight:800}.v2-box p{color:#a8a8a8;font-size:12px;line-height:1.7}
-.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.v2-stat{padding:12px;border-radius:12px;background:#0f0f0f;text-align:center}
-.v2-stat strong{display:block;font-size:18px;font-weight:900;color:var(--v2-gold)}.v2-stat span{color:#737373;font-size:10px}
+.v2-panel{width:min(1000px,100%);max-height:92vh;overflow:auto;background:var(--panel-solid,#141822);border:1px solid var(--glass-border-2);border-radius:26px;box-shadow:var(--shadow-lg);color:var(--text);animation:modalIn .35s var(--ease-out)}
+.v2-head{position:sticky;top:0;z-index:3;padding:20px 24px;border-bottom:1px solid var(--glass-border);background:inherit;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.v2-head h2{margin:0;font-size:19px;font-weight:800;font-family:"Amiri","Cairo",serif}
+.v2-head p{margin:4px 0 0;color:var(--text-2);font-size:11px}
+.v2-close{width:36px;height:36px;border:0;border-radius:11px;background:var(--glass);color:inherit;cursor:pointer;font-size:20px;transition:.2s}
+.v2-close:hover{background:var(--glass-2);transform:rotate(90deg)}
+.v2-content{padding:24px}
+.v2-school-hero{border-radius:20px;overflow:hidden;border:1px solid var(--glass-border);background:var(--glass)}
+.v2-cover{height:140px;background:radial-gradient(circle at 75% 25%,var(--gold-glow),transparent 30%),linear-gradient(135deg,#251d52,#0e1018);position:relative}
+.v2-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.v2-school-meta{padding:0 22px 22px;display:flex;gap:16px;align-items:end;margin-top:-36px;position:relative;z-index:2}
+.v2-avatar{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font-weight:900;font-size:28px;border:4px solid var(--panel-solid,#141822);flex:0 0 auto;box-shadow:0 12px 30px rgba(245,203,106,.32)}
+.v2-school-meta h1{font-size:24px;margin:0;font-family:"Amiri","Cairo",serif;font-weight:700}
+.v2-school-meta p{margin:4px 0 0;color:var(--text-2);font-size:12px}
+.v2-tabs{display:flex;gap:7px;overflow:auto;padding:14px 0 0}
+.v2-tab{border:0;background:var(--glass);color:var(--text-2);border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit;font-size:12px}
+.v2-tab:hover{background:var(--glass-2)}
+.v2-tab.active{background:var(--gold-soft);color:var(--gold)}
+.v2-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,.8fr);gap:16px;margin-top:16px}
+.v2-box{padding:18px;border:1px solid var(--glass-border);border-radius:18px;background:var(--glass)}
+.v2-box h3{margin:0 0 12px;font-size:15px;font-weight:800;font-family:"Amiri","Cairo",serif}
+.v2-box p{color:var(--text-2);font-size:12px;line-height:1.8}
+.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.v2-stat{padding:14px;border-radius:14px;background:var(--glass);text-align:center}
+.v2-stat strong{display:block;font-size:19px;color:var(--gold);font-weight:900}
+.v2-stat span{color:var(--text-3);font-size:10px}
 .v2-actions{display:flex;gap:8px;flex-wrap:wrap}
-.v2-btn{border:0;border-radius:11px;padding:10px 14px;cursor:pointer;font-weight:800;font-family:inherit;transition:.2s;font-size:13px}
-.v2-btn:hover{transform:translateY(-1px)}
-.v2-primary{background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;box-shadow:0 6px 20px rgba(245,203,106,.25)}
-.v2-soft{background:#1a1a1a;color:#fff;border:1px solid #262626}
-.v2-feed-card{border:1px solid #262626;border-radius:16px;padding:14px;margin-bottom:10px;background:#1a1a1a;transition:.2s}
-.v2-feed-card:hover{border-color:rgba(245,203,106,.25);transform:translateY(-2px)}
+.v2-btn{border:0;border-radius:12px;padding:11px 14px;cursor:pointer;font-weight:900;font-family:inherit;transition:.2s;font-size:12px}
+.v2-btn:hover{transform:translateY(-2px)}
+.v2-primary{background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;box-shadow:0 8px 22px rgba(245,203,106,.28)}
+.v2-soft{background:var(--glass);color:var(--text);border:1px solid var(--glass-border)}
+.v2-feed-card{border:1px solid var(--glass-border);border-radius:18px;padding:16px;margin-bottom:10px;background:var(--glass);transition:.22s}
+.v2-feed-card:hover{border-color:rgba(245,203,106,.28);transform:translateY(-2px)}
 .v2-feed-top{display:flex;align-items:center;gap:10px}
-.v2-mini{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;font-weight:900;font-size:14px}
-.v2-feed-card h4{margin:0;font-size:12px;font-weight:800}.v2-feed-card small{color:#737373;font-size:11px}
-.v2-feed-card .body{margin-top:10px;font-size:13px;line-height:1.7}
-.v2-pills{display:flex;gap:6px;flex-wrap:wrap}
-.v2-pill{font-size:10px;padding:6px 10px;border-radius:99px;background:rgba(245,203,106,.1);color:var(--v2-gold)}
-.v2-list{display:flex;flex-direction:column;gap:7px}
-.v2-row{display:flex;justify-content:space-between;gap:12px;padding:11px;border-radius:12px;background:#0f0f0f}
-.v2-row strong{font-size:12px;font-weight:700}.v2-row span{font-size:11px;color:#737373}
-.v2-empty{padding:24px;text-align:center;color:#737373;font-size:12px}
-.v2-admin{border:1px solid rgba(255,107,122,.22);background:rgba(255,107,122,.06)}
+.v2-mini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font-weight:900;font-size:14px}
+.v2-feed-card h4{margin:0;font-size:12px;font-weight:800}
+.v2-feed-card small{color:var(--text-3);font-size:11px}
+.v2-feed-card .body{margin-top:11px;font-size:12px;line-height:1.8}
+.v2-pills{display:flex;gap:7px;flex-wrap:wrap}
+.v2-pill{font-size:10px;padding:6px 10px;border-radius:99px;background:var(--gold-soft);color:var(--gold)}
+.v2-list{display:flex;flex-direction:column;gap:8px}
+.v2-row{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:14px;background:var(--glass)}
+.v2-row strong{font-size:12px;font-weight:700}
+.v2-row span{font-size:11px;color:var(--text-3)}
+.v2-empty{padding:26px;text-align:center;color:var(--text-3);font-size:12px}
+.v2-admin{border:1px solid rgba(255,107,122,.24);background:rgba(255,107,122,.06)}
 .v2-form{display:grid;gap:10px}
-.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid #262626;border-radius:11px;padding:11px 13px;background:#1a1a1a;color:#fff;outline:0;font-family:inherit;font-size:13px}
-.v2-input:focus,.v2-textarea:focus,.v2-select:focus{border-color:var(--v2-gold)}
-.v2-textarea{min-height:90px;resize:vertical}
-body.light .v2-panel{background:#fff;color:#000}
-body.light .v2-head{background:#fff;border-bottom-color:#dbdbdb}
-body.light .v2-box{background:#fafafa;border-color:#dbdbdb}
-body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#fafafa;color:#000;border-color:#dbdbdb}
+.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid var(--glass-border);border-radius:13px;padding:12px 14px;background:var(--glass);color:var(--text);outline:0;font-family:inherit;font-size:13px}
+.v2-input:focus,.v2-textarea:focus,.v2-select:focus{border-color:rgba(245,203,106,.5);box-shadow:0 0 0 4px var(--gold-soft)}
+.v2-textarea{min-height:100px;resize:vertical}
+@media(max-width:800px){.v2-grid{grid-template-columns:1fr}.v2-content{padding:16px}.v2-school-meta{align-items:center}.v2-cover{height:110px}.v2-panel{border-radius:20px}}
 </style>
 
 <div id="v2SchoolHub" class="v2-overlay">
@@ -1814,7 +1263,7 @@ body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#f
           <div id="v2HubAvatar" class="v2-avatar">🏫</div>
           <div><h1 id="v2HubSchool">مدرستك</h1><p id="v2HubGov">مصر</p></div>
         </div>
-        <div style="padding:0 20px 20px">
+        <div style="padding:0 22px 22px">
           <div class="v2-actions">
             <button class="v2-btn v2-primary" onclick="v2OpenPost()">✍️ اكتب بوست</button>
             <button class="v2-btn v2-soft" onclick="v2JoinCurrent()">🚀 دخول</button>
@@ -1834,8 +1283,8 @@ body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#f
 </div>
 
 <div id="v2PostModal" class="v2-overlay">
-  <div class="v2-panel" style="max-width:600px">
-    <div class="v2-head"><div><h2>منشور جديد</h2></div><button class="v2-close" onclick="closeV2('v2PostModal')">×</button></div>
+  <div class="v2-panel" style="max-width:640px">
+    <div class="v2-head"><div><h2>منشور جديد</h2><p>شارك حاجة مفيدة</p></div><button class="v2-close" onclick="closeV2('v2PostModal')">×</button></div>
     <div class="v2-content">
       <div class="v2-form">
         <input id="v2PostTitle" class="v2-input" placeholder="عنوان اختياري">
@@ -1848,14 +1297,14 @@ body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#f
 </div>
 
 <div id="v2AdminModal" class="v2-overlay">
-  <div class="v2-panel" style="max-width:600px">
-    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات المالك</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
+  <div class="v2-panel" style="max-width:720px">
+    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات المالك فقط</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
     <div class="v2-content">
       <div class="v2-box v2-admin">
         <h3>🛡️ الإشراف</h3>
         <p>هذه الواجهة تظهر فقط لمالك الموقع. قواعد Firestore هي طبقة الأمان الأساسية.</p>
       </div>
-      <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()" style="margin-top:8px">تحديث</button></div>
+      <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()" style="margin-top:10px">تحديث</button></div>
     </div>
   </div>
 </div>
@@ -1894,23 +1343,23 @@ body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#f
 
   async function v2Posts(body,type){
     try{
-      const q=window.query(window.collection(window.db,"posts"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.orderBy("createdAt","desc"),window.limit(40));
+      const q=window.query(window.collection(window.db,"posts"),window.where("communityId","==",window.currentProfile?.communityId),window.orderBy("createdAt","desc"),window.limit(40));
       const snap=await window.getDocs(q);
       const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>!type||p.type===type||(type==="announcement"&&p.postType==="announcement"));
-      if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات هنا.</div>';return}
+      if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات. كن أول واحد ✨</div>';return}
       body.innerHTML='<div class="v2-list">'+docs.map(p=>`
         <article class="v2-feed-card">
           <div class="v2-feed-top"><div class="v2-mini">${esc((p.anonymous?"ط":(p.username||"ط")).charAt(0))}</div><div><h4>${p.anonymous?"طالب مجهول":esc(p.username||"طالب")}</h4><small>${esc(p.type||"post")}</small></div></div>
-          ${p.title?`<h3 style="margin:10px 0 0;font-size:14px;font-weight:800">${esc(p.title)}</h3>`:""}
+          ${p.title?`<h3 style="margin:12px 0 0;font-size:14px;font-family:'Amiri',serif;font-weight:700">${esc(p.title)}</h3>`:""}
           <div class="body">${esc(p.body||"")}</div>
-          <div class="v2-pills" style="margin-top:10px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
+          <div class="v2-pills" style="margin-top:12px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
         </article>`).join("")+'</div>';
     }catch(e){console.error(e);body.innerHTML='<div class="v2-box v2-empty">مش قادر أحمّل. راجع Firestore Rules.</div>'}
   }
 
   async function v2Students(body){
     try{
-      const q=window.query(window.collection(window.db,"users"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.limit(60));
+      const q=window.query(window.collection(window.db,"users"),window.where("communityId","==",window.currentProfile?.communityId),window.limit(60));
       const snap=await window.getDocs(q);
       const docs=snap.docs.map(d=>d.data());
       body.innerHTML=`<div class="v2-box"><h3>👥 طلاب ${esc(V2.school)}</h3><div class="v2-statgrid"><div class="v2-stat"><strong>${docs.length}</strong><span>طلاب</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("ثانوي")).length}</strong><span>ثانوي</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("إعدادي")).length}</strong><span>إعدادي</span></div></div><div class="v2-list" style="margin-top:12px">${docs.map(x=>`<div class="v2-row"><strong>${esc(x.username||"طالب")}</strong><span>${esc(x.grade||"")}</span></div>`).join("")||'<div class="v2-empty">مفيش طلاب.</div>'}</div></div>`;
@@ -1920,7 +1369,7 @@ body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#f
   async function v2Events(body){
     let docs=[];
     try{
-      const q=window.query(window.collection(window.db,"events"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.orderBy("startAt","asc"),window.limit(30));
+      const q=window.query(window.collection(window.db,"events"),window.where("communityId","==",window.currentProfile?.communityId),window.orderBy("startAt","asc"),window.limit(30));
       const snap=await window.getDocs(q);
       docs=snap.docs.map(d=>({id:d.id,...d.data()}));
     }catch(e){}
@@ -1938,8 +1387,10 @@ body.light .v2-input,body.light .v2-textarea,body.light .v2-select{background:#f
         title,body,type,postType:type,
         authorId:window.currentUser.uid,
         username:window.currentProfile?.username||"طالب",
-        communityId:window.communityId(V2.gov,V2.school),
-        governorate:V2.gov,school:V2.school,grade:window.currentProfile?.grade||"",
+        communityId:window.currentProfile?.communityId,
+        governorate:window.currentProfile?.governorate,
+        school:window.currentProfile?.school,
+        grade:window.currentProfile?.grade||"",
         likes:0,comments:0,createdAt:window.serverTimestamp()
       });
       document.getElementById("v2PostBody").value="";
