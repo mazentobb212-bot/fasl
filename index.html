@@ -13,6 +13,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+/* Fix for select elements — readable options */
+.field select,
+.field select option,
+#regGovernorate,
+#regGrade,
+#regGovernorate option,
+#regGrade option {
+  color: var(--text);
+  background-color: var(--panel-solid);
+}
+.field select option,
+#regGovernorate option,
+#regGrade option {
+  color: #f6f7fb;
+  background-color: #141822;
+  padding: 8px;
+}
+body.light .field select option,
+body.light #regGovernorate option,
+body.light #regGrade option {
+  color: #171922;
+  background-color: #ffffff;
+}
+/* Force the closed select to show the current value clearly */
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%),
+                    linear-gradient(135deg, var(--text-3) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  padding-right: 16px;
+  cursor: pointer;
+}
+.field select:focus { outline: none; }
+.toast {
+  background: #141822 !important;
+  color: #f6f7fb !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+}
+body.light .toast {
+  background: #ffffff !important;
+  color: #171922 !important;
+}
+
 :root{
   --bg:#05060a; --bg-2:#0a0c13; --bg-3:#10131c;
   --panel:rgba(22,26,38,.55); --panel-2:rgba(30,34,48,.72); --panel-solid:#141822;
@@ -513,7 +561,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 
       <div class="field"><label>الصف</label><select id="regGrade"></select></div>
       <div class="auth-note">استخدم اسم المدرسة فقط. متكتبش بيانات شخصية.</div>
-      <button class="post-btn" style="width:100%;padding:14px" onclick="try {">إنشاء الحساب ✨</button>
+      <button class="post-btn" style="width:100%;padding:14px" onclick="submitRegister()">إنشاء الحساب ✨</button>
     </div>
   </div>
 </div>
