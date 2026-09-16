@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0c10">
+<meta name="theme-color" content="#06070a">
 
 <title>فَصْل — كل فصل عنده حكاية</title>
 <meta name="description" content="فَصْل — مجتمع الطلاب المصريين. مواقف، أسئلة، ترندات وحكايات المدرسة.">
@@ -14,1287 +14,654 @@
 
 <style>
 :root{
-  --bg:#07080b;
-  --bg2:#0d0f14;
-  --surface:#11131a;
-  --surface2:#171a22;
-  --surface3:#1c1f28;
-  --text:#f7f8fb;
-  --muted:#9298a6;
-  --muted2:#656b78;
-  --gold:#f4c968;
-  --gold2:#d99e32;
-  --gold-soft:rgba(244,201,104,.11);
-  --green:#62d99b;
-  --red:#ff6377;
-  --blue:#70a7ff;
-  --purple:#a98cff;
-  --border:rgba(255,255,255,.075);
-  --border2:rgba(255,255,255,.13);
+  --bg:#06070a;
+  --bg2:#0b0d12;
+  --surface:#101219;
+  --surface2:#161923;
+  --surface3:#1d212c;
+  --text:#f8f9fc;
+  --muted:#9aa0ae;
+  --muted2:#6a7080;
+  --gold:#f5cb6a;
+  --gold2:#e0a63a;
+  --gold-soft:rgba(245,203,106,.12);
+  --gold-glow:rgba(245,203,106,.35);
+  --green:#63e0a0;
+  --red:#ff6b7e;
+  --blue:#74a8ff;
+  --purple:#ad91ff;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.14);
   --radius:22px;
+  --radius-sm:14px;
   --max:1280px;
-  --shadow:0 25px 80px rgba(0,0,0,.38);
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+  --shadow-sm:0 10px 30px rgba(0,0,0,.25);
+  --ease:cubic-bezier(.4,0,.2,1);
 }
 
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
-  font-family:"Cairo",sans-serif;
+  font-family:"Cairo",system-ui,sans-serif;
   background:
-    radial-gradient(circle at 5% -5%,rgba(244,201,104,.12),transparent 25%),
-    radial-gradient(circle at 100% 20%,rgba(110,80,255,.09),transparent 28%),
+    radial-gradient(circle at 8% -8%,rgba(245,203,106,.14),transparent 28%),
+    radial-gradient(circle at 100% 15%,rgba(120,90,255,.10),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(99,224,160,.05),transparent 35%),
     var(--bg);
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 
 body.light{
-  --bg:#f4f1ea;
-  --bg2:#ebe7de;
-  --surface:#fff;
-  --surface2:#f8f6f0;
-  --surface3:#eeeae1;
-  --text:#17181c;
-  --muted:#686d77;
-  --muted2:#888d96;
-  --border:rgba(0,0,0,.08);
-  --border2:rgba(0,0,0,.14);
+  --bg:#f5f2ec;
+  --bg2:#ece8df;
+  --surface:#ffffff;
+  --surface2:#faf8f3;
+  --surface3:#f0ede5;
+  --text:#141519;
+  --muted:#5f6470;
+  --muted2:#8b8f99;
+  --border:rgba(0,0,0,.07);
+  --border2:rgba(0,0,0,.13);
+  --gold-soft:rgba(224,166,58,.14);
+  --shadow:0 20px 60px rgba(0,0,0,.08);
+  --shadow-sm:0 8px 24px rgba(0,0,0,.06);
 }
 
-button,input,textarea,select{
-  font:inherit;
-}
+body.light .orb{opacity:.14}
 
-button{
-  border:0;
-  cursor:pointer;
-}
+button,input,textarea,select{font:inherit;color:inherit}
+button{border:0;cursor:pointer;background:transparent}
+a{color:inherit;text-decoration:none}
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
+::selection{background:var(--gold-soft);color:var(--text)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(245,203,106,.35);background-clip:padding-box;border:2px solid transparent}
 
-.hidden{
-  display:none!important;
-}
+.hidden{display:none!important}
 
-/* BACKGROUND */
-
-.background{
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-  z-index:-1;
-}
-
-.orb{
-  position:absolute;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  filter:blur(110px);
-  opacity:.09;
-}
-
-.orb.one{
-  right:-170px;
-  top:-200px;
-  background:var(--gold);
-}
-
-.orb.two{
-  left:-180px;
-  bottom:-220px;
-  background:#765cff;
-}
-
-/* TOPBAR */
+.background{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.10}
+.orb.one{right:-180px;top:-220px;width:520px;height:520px;background:var(--gold);animation:float1 18s ease-in-out infinite}
+.orb.two{left:-200px;bottom:-240px;width:480px;height:480px;background:#765cff;animation:float2 22s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px)}}
 
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  height:72px;
-  background:rgba(7,8,11,.78);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
+  position:sticky;top:0;z-index:100;height:72px;
+  background:rgba(6,7,10,.72);
+  backdrop-filter:blur(24px) saturate(140%);
+  -webkit-backdrop-filter:blur(24px) saturate(140%);
   border-bottom:1px solid var(--border);
 }
-
-.light .topbar{
-  background:rgba(244,241,234,.82);
-}
+.light .topbar{background:rgba(245,242,236,.78)}
 
 .topbar-inner{
-  max-width:var(--max);
-  height:100%;
-  margin:auto;
-  padding:0 20px;
-  display:flex;
-  align-items:center;
-  gap:20px;
+  max-width:var(--max);height:100%;margin:auto;padding:0 20px;
+  display:flex;align-items:center;gap:20px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:max-content;
-}
+.brand{display:flex;align-items:center;gap:11px;min-width:max-content;transition:transform .2s var(--ease)}
+.brand:hover{transform:scale(1.02)}
 
 .logo{
-  width:43px;
-  height:43px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  color:#191307;
-  font-weight:900;
-  font-size:20px;
+  width:44px;height:44px;border-radius:14px;
+  display:grid;place-items:center;
+  color:#191307;font-weight:900;font-size:21px;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  box-shadow:0 8px 28px rgba(244,201,104,.16);
+  box-shadow:0 8px 28px rgba(245,203,106,.25),inset 0 1px 0 rgba(255,255,255,.4);
 }
-
-.brand-name{
-  font-size:22px;
-  font-weight:900;
-}
-
+.brand-name{font-size:23px;font-weight:900;letter-spacing:-.5px}
 .brand-name span{
-  color:var(--gold);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
-.search{
-  flex:1;
-  max-width:470px;
-  margin:auto;
-  position:relative;
-}
-
+.search{flex:1;max-width:480px;margin:auto;position:relative}
 .search input{
-  width:100%;
-  height:44px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  outline:none;
-  padding:0 43px 0 15px;
+  width:100%;height:44px;
+  border:1px solid var(--border);border-radius:14px;outline:none;
+  padding:0 44px 0 15px;
   color:var(--text);
   background:rgba(255,255,255,.045);
-  transition:.2s;
+  transition:.25s var(--ease);
+  font-size:13px;
 }
-
+.search input::placeholder{color:var(--muted2)}
 .search input:focus{
-  border-color:rgba(244,201,104,.4);
+  border-color:rgba(245,203,106,.5);
   background:rgba(255,255,255,.07);
+  box-shadow:0 0 0 4px var(--gold-soft);
 }
+.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
 
-.search-icon{
-  position:absolute;
-  right:15px;
-  top:50%;
-  transform:translateY(-50%);
-  color:var(--muted);
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+.top-actions{display:flex;align-items:center;gap:8px}
 
 .icon-btn{
-  position:relative;
-  width:43px;
-  height:43px;
-  border-radius:14px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
-  color:var(--text);
-  display:grid;
-  place-items:center;
-  transition:.2s;
+  position:relative;width:44px;height:44px;border-radius:14px;
+  background:rgba(255,255,255,.045);border:1px solid var(--border);
+  color:var(--text);display:grid;place-items:center;
+  transition:.22s var(--ease);font-size:17px;
 }
-
-.icon-btn:hover{
-  transform:translateY(-2px);
-  border-color:var(--border2);
-  background:rgba(255,255,255,.08);
-}
+.icon-btn:hover{transform:translateY(-2px);border-color:var(--border2);background:rgba(255,255,255,.09);box-shadow:var(--shadow-sm)}
+.icon-btn:active{transform:translateY(0)}
 
 .notification-dot{
-  position:absolute;
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--red);
-  top:7px;
-  right:7px;
-  box-shadow:0 0 12px rgba(255,99,119,.7);
+  position:absolute;width:9px;height:9px;border-radius:50%;
+  background:var(--red);top:8px;right:8px;
+  box-shadow:0 0 12px rgba(255,107,126,.8);
   display:none;
+  animation:pulse 2s infinite;
 }
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
 
 .profile-mini{
-  width:43px;
-  height:43px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
+  width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  color:#181207;
-  font-weight:900;
-  cursor:pointer;
+  color:#181207;font-weight:900;cursor:pointer;
+  transition:.22s var(--ease);
+  box-shadow:0 6px 20px rgba(245,203,106,.22);
 }
-
-/* MAIN */
+.profile-mini:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 10px 28px rgba(245,203,106,.32)}
 
 .layout{
-  width:min(var(--max),100%);
-  margin:auto;
-  padding:27px 20px 100px;
+  width:min(var(--max),100%);margin:auto;
+  padding:28px 20px 100px;
   display:grid;
   grid-template-columns:220px minmax(0,660px) 270px;
-  justify-content:center;
-  gap:22px;
+  justify-content:center;gap:24px;
 }
 
-.sidebar{
-  position:sticky;
-  top:94px;
-  height:max-content;
-}
-
+.sidebar{position:sticky;top:94px;height:max-content}
 .side-title{
-  color:var(--muted2);
-  font-size:11px;
-  font-weight:900;
-  margin:8px 10px 10px;
+  color:var(--muted2);font-size:11px;font-weight:900;
+  margin:8px 12px 10px;letter-spacing:.5px;text-transform:uppercase;
 }
 
-.nav-list{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-}
+.nav-list{display:flex;flex-direction:column;gap:4px}
 
 .nav-item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 13px;
-  border-radius:14px;
-  color:var(--muted);
-  font-size:13px;
-  font-weight:800;
-  transition:.2s;
+  position:relative;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 13px;border-radius:14px;
+  color:var(--muted);font-size:13px;font-weight:800;
+  transition:.2s var(--ease);
 }
-
-.nav-item:hover{
-  color:var(--text);
-  background:rgba(255,255,255,.05);
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-item.active{color:var(--gold);background:var(--gold-soft)}
+.nav-item.active::before{
+  content:"";position:absolute;right:0;top:20%;bottom:20%;
+  width:3px;border-radius:3px;background:var(--gold);
+  box-shadow:0 0 12px var(--gold-glow);
 }
-
-.nav-item.active{
-  color:var(--gold);
-  background:var(--gold-soft);
-}
-
-.nav-icon{
-  width:23px;
-  text-align:center;
-  font-size:17px;
-}
-
-/* SCHOOL CARD */
+.nav-icon{width:23px;text-align:center;font-size:17px;transition:transform .2s var(--ease)}
+.nav-item:hover .nav-icon{transform:scale(1.15)}
 
 .school-card{
-  margin-top:22px;
-  padding:16px;
-  border-radius:19px;
+  margin-top:22px;padding:16px;border-radius:19px;
   border:1px solid var(--border);
-  background:
-    linear-gradient(145deg,rgba(244,201,104,.09),rgba(255,255,255,.025));
+  background:linear-gradient(145deg,rgba(245,203,106,.10),rgba(255,255,255,.02));
+  transition:.25s var(--ease);
 }
-
-.school-card small{
-  color:var(--muted2);
-  font-size:10px;
-}
-
-.school-card h3{
-  font-size:15px;
-  margin-top:4px;
-}
-
-.school-card p{
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.7;
-  margin-top:4px;
-}
-
-/* HERO */
+.school-card:hover{border-color:rgba(245,203,106,.25)}
+.school-card small{color:var(--muted2);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.school-card h3{font-size:15px;margin-top:5px}
+.school-card p{color:var(--muted);font-size:10px;line-height:1.7;margin-top:5px}
 
 .hero{
-  position:relative;
-  overflow:hidden;
-  min-height:235px;
-  padding:30px;
-  border-radius:28px;
-  border:1px solid rgba(244,201,104,.14);
+  position:relative;overflow:hidden;min-height:240px;
+  padding:32px;border-radius:28px;
+  border:1px solid rgba(245,203,106,.16);
   background:
-    radial-gradient(circle at 90% 20%,rgba(244,201,104,.17),transparent 27%),
-    radial-gradient(circle at 20% 100%,rgba(113,82,255,.08),transparent 35%),
-    linear-gradient(145deg,#181b24,#0f1117);
+    radial-gradient(circle at 88% 18%,rgba(245,203,106,.20),transparent 30%),
+    radial-gradient(circle at 15% 100%,rgba(120,90,255,.10),transparent 38%),
+    linear-gradient(145deg,#191d27,#0e1016);
   box-shadow:var(--shadow);
-  margin-bottom:17px;
+  margin-bottom:18px;
 }
-
-.hero::before,
-.hero::after{
-  content:"";
-  position:absolute;
-  border-radius:50%;
-  border:1px solid rgba(244,201,104,.1);
-  pointer-events:none;
+.hero::before,.hero::after{
+  content:"";position:absolute;border-radius:50%;
+  border:1px solid rgba(245,203,106,.10);pointer-events:none;
 }
-
-.hero::before{
-  width:220px;
-  height:220px;
-  left:-100px;
-  bottom:-140px;
-}
-
-.hero::after{
-  width:130px;
-  height:130px;
-  right:-40px;
-  bottom:-75px;
-}
+.hero::before{width:240px;height:240px;left:-110px;bottom:-150px;animation:float1 14s ease-in-out infinite}
+.hero::after{width:150px;height:150px;right:-50px;bottom:-85px;animation:float2 18s ease-in-out infinite}
 
 .hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 11px;
-  border-radius:30px;
-  color:var(--gold);
-  background:var(--gold-soft);
-  font-size:10px;
-  font-weight:900;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 13px;border-radius:30px;
+  color:var(--gold);background:var(--gold-soft);
+  font-size:10px;font-weight:900;letter-spacing:.5px;
+  border:1px solid rgba(245,203,106,.18);
 }
-
 .hero h1{
-  position:relative;
-  z-index:2;
-  margin-top:15px;
+  position:relative;z-index:2;margin-top:16px;
   max-width:530px;
-  font-size:clamp(28px,5vw,43px);
-  line-height:1.15;
-  letter-spacing:-1.5px;
-  font-weight:900;
+  font-size:clamp(28px,5vw,44px);
+  line-height:1.12;letter-spacing:-1.8px;font-weight:900;
 }
-
 .hero h1 span{
-  color:var(--gold);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-
 .hero p{
-  color:var(--muted);
-  max-width:500px;
-  margin-top:9px;
-  font-size:12px;
-  line-height:1.8;
+  color:var(--muted);max-width:500px;
+  margin-top:11px;font-size:12px;line-height:1.85;
 }
 
 .community-badge{
-  display:inline-flex;
-  flex-direction:column;
-  margin-top:17px;
-  min-width:280px;
-  padding:10px 13px;
-  border-radius:15px;
+  display:inline-flex;flex-direction:column;
+  margin-top:18px;min-width:300px;
+  padding:12px 15px;border-radius:16px;
   background:rgba(255,255,255,.045);
   border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+  transition:.25s var(--ease);
 }
-
-.community-badge small{
-  color:var(--muted2);
-  font-size:9px;
-}
-
-.community-badge strong{
-  margin-top:2px;
-  font-size:12px;
-}
-
-.community-badge span{
-  color:var(--muted);
-  font-size:9px;
-}
-
-/* COMPOSER */
+.community-badge:hover{border-color:rgba(245,203,106,.28);background:rgba(255,255,255,.07)}
+.community-badge small{color:var(--muted2);font-size:9px;letter-spacing:.5px;text-transform:uppercase}
+.community-badge strong{margin-top:3px;font-size:12px}
+.community-badge span{color:var(--muted);font-size:9px;margin-top:2px}
 
 .composer{
-  padding:17px;
-  border:1px solid var(--border);
-  border-radius:22px;
-  background:var(--surface);
-  margin-bottom:16px;
-  box-shadow:0 12px 45px rgba(0,0,0,.14);
+  padding:18px;border:1px solid var(--border);border-radius:22px;
+  background:var(--surface);margin-bottom:16px;
+  box-shadow:var(--shadow-sm);
+  transition:.25s var(--ease);
 }
+.composer:hover{border-color:var(--border2)}
 
-.composer-top{
-  display:flex;
-  gap:11px;
-}
+.composer-top{display:flex;gap:12px}
 
 .avatar{
-  width:44px;
-  height:44px;
-  flex:0 0 44px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  color:white;
-  font-weight:900;
+  width:46px;height:46px;flex:0 0 46px;
+  display:grid;place-items:center;border-radius:50%;
+  color:white;font-weight:900;
   background:linear-gradient(145deg,#8e7cff,#5c4be5);
+  box-shadow:0 8px 24px rgba(142,124,255,.28);
 }
 
 .composer-input{
-  flex:1;
-  min-height:48px;
-  display:flex;
-  align-items:center;
-  padding:0 15px;
+  flex:1;min-height:50px;
+  display:flex;align-items:center;padding:0 16px;
   color:var(--muted);
   background:rgba(255,255,255,.035);
   border:1px solid var(--border);
-  border-radius:16px;
-  cursor:text;
-  transition:.2s;
+  border-radius:16px;cursor:text;
+  transition:.22s var(--ease);font-size:13px;
 }
-
-.composer-input:hover{
-  border-color:var(--border2);
-  background:rgba(255,255,255,.06);
-}
+.composer-input:hover{border-color:var(--border2);background:rgba(255,255,255,.06)}
 
 .composer-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:13px;
-  padding-top:12px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-top:14px;padding-top:13px;
   border-top:1px solid var(--border);
 }
 
-.composer-actions{
-  display:flex;
-  gap:3px;
-}
+.composer-actions{display:flex;gap:3px}
 
 .compose-action{
-  padding:8px 9px;
-  border-radius:10px;
-  background:transparent;
-  color:var(--muted);
-  font-size:11px;
-  font-weight:800;
+  padding:9px 10px;border-radius:10px;
+  background:transparent;color:var(--muted);
+  font-size:11px;font-weight:800;
+  transition:.2s var(--ease);
 }
-
-.compose-action:hover{
-  background:rgba(255,255,255,.05);
-  color:var(--text);
-}
+.compose-action:hover{background:rgba(255,255,255,.06);color:var(--text)}
 
 .post-btn{
-  padding:9px 17px;
-  border-radius:11px;
+  padding:10px 18px;border-radius:12px;
   color:#181207;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
-  font-size:11px;
-  font-weight:900;
-  transition:.2s;
+  font-size:11px;font-weight:900;
+  transition:.22s var(--ease);
+  box-shadow:0 6px 20px rgba(245,203,106,.20);
 }
-
-.post-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 9px 25px rgba(244,201,104,.18);
-}
-
-/* FILTERS */
+.post-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,203,106,.32)}
+.post-btn:active{transform:translateY(0)}
 
 .filters{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  margin-bottom:14px;
+  display:flex;gap:7px;overflow-x:auto;
+  scrollbar-width:none;margin-bottom:14px;padding-bottom:2px;
 }
-
-.filters::-webkit-scrollbar{
-  display:none;
-}
+.filters::-webkit-scrollbar{display:none}
 
 .filter{
-  flex:0 0 auto;
-  padding:8px 13px;
-  border-radius:30px;
+  flex:0 0 auto;padding:9px 14px;border-radius:30px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.03);
-  color:var(--muted);
-  font-size:11px;
-  font-weight:900;
-  transition:.2s;
+  color:var(--muted);font-size:11px;font-weight:900;
+  transition:.22s var(--ease);
 }
-
-.filter.active,
-.filter:hover{
+.filter.active,.filter:hover{
   color:var(--gold);
   background:var(--gold-soft);
-  border-color:rgba(244,201,104,.2);
+  border-color:rgba(245,203,106,.28);
 }
-
-/* POSTS */
 
 .post{
-  padding:18px;
-  margin-bottom:13px;
-  border-radius:22px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  animation:postIn .35s ease both;
-  transition:.2s;
+  padding:19px;margin-bottom:14px;border-radius:22px;
+  background:var(--surface);border:1px solid var(--border);
+  animation:postIn .4s var(--ease) both;
+  transition:.25s var(--ease);
 }
-
 .post:hover{
   border-color:var(--border2);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-sm);
 }
-
 @keyframes postIn{
-  from{
-    opacity:0;
-    transform:translateY(10px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:none}
 }
 
-.post-head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.post-head{display:flex;align-items:center;gap:11px}
 
 .post-avatar{
-  width:41px;
-  height:41px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  color:white;
-  font-weight:900;
+  width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;color:white;font-weight:900;
   background:linear-gradient(145deg,#5d5b68,#302f38);
+  flex:0 0 44px;
 }
 
-.post-user{
-  flex:1;
-}
-
-.post-user strong{
-  display:block;
-  font-size:12px;
-}
-
-.post-user span{
-  display:block;
-  color:var(--muted2);
-  font-size:9px;
-  margin-top:2px;
-}
+.post-user{flex:1}
+.post-user strong{display:block;font-size:13px}
+.post-user span{display:block;color:var(--muted2);font-size:9px;margin-top:2px}
 
 .post-type{
-  padding:5px 8px;
-  border-radius:8px;
-  background:var(--gold-soft);
-  color:var(--gold);
-  font-size:9px;
-  font-weight:900;
+  padding:6px 9px;border-radius:9px;
+  background:var(--gold-soft);color:var(--gold);
+  font-size:9px;font-weight:900;
+  border:1px solid rgba(245,203,106,.15);
+  white-space:nowrap;
 }
 
-.post h2{
-  font-size:17px;
-  line-height:1.5;
-  margin-top:13px;
-}
+.post h2{font-size:17px;line-height:1.5;margin-top:14px;letter-spacing:-.3px}
 
 .post-text{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.9;
-  margin-top:5px;
-  white-space:pre-wrap;
+  color:var(--muted);font-size:12px;line-height:1.9;
+  margin-top:6px;white-space:pre-wrap;
 }
 
 .post-actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:4px;
-  margin-top:13px;
-  padding-top:7px;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:4px;margin-top:14px;padding-top:8px;
   border-top:1px solid var(--border);
 }
 
 .post-action{
-  padding:9px 5px;
-  border-radius:10px;
-  color:var(--muted);
-  background:transparent;
-  font-size:11px;
-  font-weight:800;
-  transition:.2s;
+  padding:10px 6px;border-radius:11px;
+  color:var(--muted);background:transparent;
+  font-size:11px;font-weight:800;
+  transition:.2s var(--ease);
 }
-
-.post-action:hover{
-  background:rgba(255,255,255,.045);
-  color:var(--text);
-}
-
-.post-action.liked{
-  color:var(--red);
-}
+.post-action:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.post-action.liked{color:var(--red)}
 
 .empty{
-  padding:50px 20px;
-  text-align:center;
-  color:var(--muted);
-  border:1px dashed var(--border);
-  border-radius:22px;
+  padding:55px 20px;text-align:center;color:var(--muted);
+  border:1px dashed var(--border);border-radius:22px;
+  background:rgba(255,255,255,.015);
 }
-
-.empty-icon{
-  font-size:38px;
-  margin-bottom:8px;
-}
-
-.empty h3{
-  color:var(--text);
-  font-size:16px;
-}
-
-.empty p{
-  font-size:11px;
-  margin-top:5px;
-}
-
-/* RIGHT */
+.empty-icon{font-size:42px;margin-bottom:10px}
+.empty h3{color:var(--text);font-size:16px}
+.empty p{font-size:11px;margin-top:6px}
 
 .trend-card{
-  padding:17px;
-  border-radius:21px;
-  background:var(--surface);
-  border:1px solid var(--border);
+  padding:18px;border-radius:21px;
+  background:var(--surface);border:1px solid var(--border);
+  transition:.25s var(--ease);
 }
+.trend-card:hover{border-color:var(--border2)}
 
-.trend-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.trend-title h3{
-  font-size:14px;
-}
-
+.trend-title{display:flex;justify-content:space-between;align-items:center}
+.trend-title h3{font-size:14px}
 .trend-title span{
-  color:var(--gold);
-  font-size:10px;
+  color:var(--gold);font-size:10px;font-weight:900;
+  padding:4px 8px;border-radius:8px;background:var(--gold-soft);
 }
 
-.trend{
-  padding:12px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.trend:last-child{
-  border-bottom:0;
-}
-
-.trend small{
-  color:var(--muted2);
-  font-size:9px;
-}
-
-.trend p{
-  margin-top:3px;
-  font-size:11px;
-  font-weight:800;
-  line-height:1.6;
-}
+.trend{padding:13px 0;border-bottom:1px solid var(--border);transition:.2s var(--ease)}
+.trend:last-child{border-bottom:0}
+.trend:hover{padding-right:6px}
+.trend small{color:var(--muted2);font-size:9px;font-weight:800}
+.trend p{margin-top:4px;font-size:11px;font-weight:800;line-height:1.6}
 
 .online-card{
-  margin-top:14px;
-  padding:15px;
-  border-radius:19px;
-  background:rgba(98,217,155,.04);
-  border:1px solid rgba(98,217,155,.11);
+  margin-top:14px;padding:16px;border-radius:19px;
+  background:rgba(99,224,160,.05);
+  border:1px solid rgba(99,224,160,.13);
 }
-
-.online-head{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  font-size:11px;
-  font-weight:900;
-}
-
+.online-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900}
 .online-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
+  width:8px;height:8px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 14px var(--green);
+  animation:pulse 2s infinite;
 }
-
-.online-card p{
-  color:var(--muted);
-  font-size:9px;
-  line-height:1.7;
-  margin-top:5px;
-}
-
-/* MODALS */
+.online-card p{color:var(--muted);font-size:9px;line-height:1.7;margin-top:6px}
 
 .modal-layer{
-  position:fixed;
-  inset:0;
-  z-index:500;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(13px);
+  position:fixed;inset:0;z-index:500;
+  display:none;align-items:center;justify-content:center;
+  padding:18px;background:rgba(0,0,0,.75);
+  backdrop-filter:blur(14px);
 }
-
-.modal-layer.show{
-  display:flex;
-  animation:fadeIn .2s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
+.modal-layer.show{display:flex;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 .modal{
-  width:min(570px,100%);
-  max-height:min(90vh,760px);
-  overflow:auto;
-  padding:21px;
-  border-radius:24px;
-  border:1px solid var(--border2);
-  background:var(--surface);
-  box-shadow:0 30px 100px rgba(0,0,0,.55);
-  animation:modalIn .25s ease;
+  width:min(570px,100%);max-height:min(90vh,780px);
+  overflow:auto;padding:22px;border-radius:24px;
+  border:1px solid var(--border2);background:var(--surface);
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+  animation:modalIn .28s var(--ease);
 }
-
 @keyframes modalIn{
-  from{
-    opacity:0;
-    transform:translateY(18px) scale(.97);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+  from{opacity:0;transform:translateY(20px) scale(.97)}
+  to{opacity:1;transform:none}
 }
 
 .modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:17px;
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:18px;
 }
-
-.modal-head h2{
-  font-size:18px;
-}
+.modal-head h2{font-size:19px;letter-spacing:-.5px}
 
 .close{
-  width:35px;
-  height:35px;
-  border-radius:11px;
-  background:rgba(255,255,255,.055);
-  color:var(--muted);
+  width:36px;height:36px;border-radius:11px;
+  background:rgba(255,255,255,.055);color:var(--muted);
+  font-size:16px;transition:.2s var(--ease);
 }
+.close:hover{background:rgba(255,255,255,.1);color:var(--text);transform:rotate(90deg)}
 
-.field{
-  margin-bottom:12px;
-}
-
+.field{margin-bottom:13px}
 .field label{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  font-weight:900;
-  margin-bottom:6px;
+  display:block;color:var(--muted);font-size:10px;font-weight:900;
+  margin-bottom:7px;letter-spacing:.4px;text-transform:uppercase;
 }
-
-.field input,
-.field textarea,
-.field select{
-  width:100%;
-  border:1px solid var(--border);
-  border-radius:13px;
-  outline:none;
-  padding:11px 12px;
-  color:var(--text);
-  background:var(--bg2);
+.field input,.field textarea,.field select{
+  width:100%;border:1px solid var(--border);border-radius:13px;
+  outline:none;padding:12px 13px;color:var(--text);
+  background:var(--bg2);font-size:13px;
+  transition:.22s var(--ease);
 }
-
-.field textarea{
-  min-height:120px;
-  resize:vertical;
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:rgba(245,203,106,.5);
+  box-shadow:0 0 0 4px var(--gold-soft);
 }
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-  border-color:rgba(244,201,104,.4);
-}
+.field textarea{min-height:120px;resize:vertical}
 
 .modal-footer{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-top:15px;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-top:16px;
 }
 
-.anonymous{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  color:var(--muted);
-  font-size:10px;
-}
+.anonymous{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;cursor:pointer}
+.anonymous input{accent-color:var(--gold);width:16px;height:16px}
 
-.anonymous input{
-  accent-color:var(--gold);
-}
-
-.auth-note{
-  color:var(--muted2);
-  font-size:9px;
-  line-height:1.7;
-  margin-top:6px;
-}
-
-/* AUTH */
+.auth-note{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:8px}
+.school-picker-hint{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:7px}
 
 .auth-tabs{
-  display:flex;
-  padding:4px;
-  margin-bottom:17px;
-  border-radius:13px;
-  background:rgba(255,255,255,.035);
+  display:flex;padding:4px;margin-bottom:18px;
+  border-radius:14px;background:rgba(255,255,255,.035);
 }
-
 .auth-tab{
-  flex:1;
-  padding:9px;
-  border-radius:10px;
-  color:var(--muted);
-  background:transparent;
-  font-size:11px;
-  font-weight:900;
+  flex:1;padding:10px;border-radius:11px;
+  color:var(--muted);font-size:11px;font-weight:900;
+  transition:.22s var(--ease);
 }
+.auth-tab.active{color:var(--gold);background:var(--gold-soft)}
 
-.auth-tab.active{
-  color:var(--gold);
-  background:var(--gold-soft);
-}
-
-/* NOTIFICATIONS */
-
-.notifications-list{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
+.notifications-list{display:flex;flex-direction:column;gap:8px}
 .notification{
-  display:flex;
-  gap:10px;
-  padding:12px;
-  border-radius:14px;
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--border);
+  display:flex;gap:11px;padding:13px;border-radius:14px;
+  background:rgba(255,255,255,.035);border:1px solid var(--border);
+  transition:.2s var(--ease);
 }
-
+.notification:hover{border-color:var(--border2)}
 .notification.unread{
-  border-color:rgba(244,201,104,.18);
-  background:rgba(244,201,104,.055);
+  border-color:rgba(245,203,106,.22);
+  background:rgba(245,203,106,.055);
 }
-
 .notification-icon{
-  width:37px;
-  height:37px;
-  flex:0 0 37px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  background:var(--gold-soft);
+  width:40px;height:40px;flex:0 0 40px;
+  border-radius:12px;display:grid;place-items:center;
+  background:var(--gold-soft);font-size:17px;
 }
+.notification-content{flex:1}
+.notification-content strong{font-size:12px;display:block}
+.notification-content p{color:var(--muted);font-size:10px;line-height:1.6;margin-top:3px}
+.notification-content small{color:var(--muted2);font-size:9px;display:block;margin-top:4px}
 
-.notification-content{
-  flex:1;
-}
-
-.notification-content strong{
-  font-size:11px;
-}
-
-.notification-content p{
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.6;
-}
-
-.notification-content small{
-  color:var(--muted2);
-  font-size:8px;
-}
-
-/* PROFILE */
-
-.profile-box{
-  text-align:center;
-}
-
+.profile-box{text-align:center}
 .profile-large{
-  width:76px;
-  height:76px;
-  margin:0 auto 10px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  color:#191307;
-  font-size:28px;
-  font-weight:900;
+  width:80px;height:80px;margin:0 auto 12px;
+  display:grid;place-items:center;border-radius:50%;
+  color:#191307;font-size:30px;font-weight:900;
   background:linear-gradient(145deg,var(--gold),var(--gold2));
+  box-shadow:0 12px 36px rgba(245,203,106,.28);
 }
-
-.profile-box h2{
-  font-size:19px;
-}
-
-.profile-box p{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:3px;
-}
+.profile-box h2{font-size:20px}
+.profile-box p{color:var(--muted);font-size:10px;margin-top:4px}
 
 .profile-info{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin-top:18px;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:9px;margin-top:20px;
 }
-
 .profile-info div{
-  padding:11px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:rgba(255,255,255,.025);
+  padding:13px;border:1px solid var(--border);
+  border-radius:14px;background:rgba(255,255,255,.025);
 }
+.profile-info small{display:block;color:var(--muted2);font-size:9px;text-transform:uppercase;letter-spacing:.4px}
+.profile-info strong{display:block;font-size:11px;margin-top:4px}
 
-.profile-info small{
-  display:block;
-  color:var(--muted2);
-  font-size:8px;
-}
-
-.profile-info strong{
-  display:block;
-  font-size:10px;
-  margin-top:3px;
-}
-
-/* LOADING */
-
-.loading{
-  display:flex;
-  justify-content:center;
-  padding:35px;
-}
-
+.loading{display:flex;justify-content:center;padding:40px}
 .spinner{
-  width:30px;
-  height:30px;
+  width:32px;height:32px;
   border:3px solid rgba(255,255,255,.1);
-  border-top-color:var(--gold);
-  border-radius:50%;
+  border-top-color:var(--gold);border-radius:50%;
   animation:spin .8s linear infinite;
 }
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-/* TOAST */
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .toast{
-  position:fixed;
-  left:50%;
-  bottom:27px;
-  z-index:900;
+  position:fixed;left:50%;bottom:27px;z-index:900;
   transform:translate(-50%,20px);
-  padding:11px 17px;
-  border-radius:13px;
-  color:#111;
-  background:#f4f4f4;
-  font-size:11px;
-  font-weight:900;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  box-shadow:0 15px 50px rgba(0,0,0,.4);
-  max-width:calc(100vw - 30px);
-  text-align:center;
+  padding:12px 18px;border-radius:14px;
+  color:#111;background:#f4f4f4;
+  font-size:12px;font-weight:900;
+  opacity:0;pointer-events:none;
+  transition:.3s var(--ease);
+  box-shadow:0 15px 50px rgba(0,0,0,.45);
+  max-width:calc(100vw - 30px);text-align:center;
 }
+.toast.show{opacity:1;transform:translate(-50%,0)}
 
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* MOBILE NAV */
-
-.mobile-nav{
-  display:none;
-}
-
-/* MOBILE */
+.mobile-nav{display:none}
 
 @media(max-width:1050px){
-  .layout{
-    grid-template-columns:200px minmax(0,660px);
-  }
-
-  .right-sidebar{
-    display:none;
-  }
+  .layout{grid-template-columns:200px minmax(0,660px)}
+  .right-sidebar{display:none}
 }
 
 @media(max-width:760px){
-  body{
-    padding-bottom:65px;
-  }
-
-  .topbar{
-    height:62px;
-  }
-
-  .topbar-inner{
-    padding:0 12px;
-    gap:8px;
-  }
-
-  .brand-name{
-    font-size:19px;
-  }
-
-  .logo{
-    width:39px;
-    height:39px;
-    border-radius:12px;
-  }
-
-  .search{
-    display:none;
-  }
-
-  .top-actions{
-    margin-right:auto;
-  }
-
-  .top-actions .icon-btn.theme-btn{
-    display:none;
-  }
-
-  .icon-btn,
-  .profile-mini{
-    width:39px;
-    height:39px;
-  }
-
-  .layout{
-    display:block;
-    padding:12px 10px 25px;
-  }
-
-  .left-sidebar{
-    display:none;
-  }
-
-  .hero{
-    min-height:230px;
-    padding:23px 19px;
-    border-radius:22px;
-  }
-
-  .hero h1{
-    font-size:29px;
-  }
-
-  .hero p{
-    font-size:11px;
-  }
-
-  .community-badge{
-    min-width:0;
-    width:100%;
-  }
-
-  .composer{
-    padding:13px;
-    border-radius:19px;
-  }
-
-  .composer-bottom{
-    align-items:flex-start;
-  }
-
-  .composer-actions{
-    max-width:72%;
-    overflow-x:auto;
-    scrollbar-width:none;
-  }
-
-  .composer-actions::-webkit-scrollbar{
-    display:none;
-  }
-
-  .compose-action{
-    white-space:nowrap;
-  }
-
-  .post{
-    padding:14px;
-    border-radius:18px;
-  }
-
-  .post h2{
-    font-size:16px;
-  }
-
-  .post-text{
-    font-size:11px;
-  }
-
-  .post-actions{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .post-action{
-    font-size:10px;
-  }
-
+  body{padding-bottom:65px}
+  .topbar{height:62px}
+  .topbar-inner{padding:0 12px;gap:8px}
+  .brand-name{font-size:19px}
+  .logo{width:40px;height:40px;border-radius:12px;font-size:19px}
+  .search{display:none}
+  .top-actions{margin-right:auto}
+  .top-actions .icon-btn.theme-btn{display:none}
+  .icon-btn,.profile-mini{width:40px;height:40px}
+  .layout{display:block;padding:12px 10px 25px}
+  .left-sidebar{display:none}
+  .hero{min-height:230px;padding:24px 20px;border-radius:22px}
+  .hero h1{font-size:30px;letter-spacing:-1.2px}
+  .hero p{font-size:11px}
+  .community-badge{min-width:0;width:100%}
+  .composer{padding:14px;border-radius:19px}
+  .composer-bottom{align-items:flex-start}
+  .composer-actions{max-width:72%;overflow-x:auto;scrollbar-width:none}
+  .composer-actions::-webkit-scrollbar{display:none}
+  .compose-action{white-space:nowrap}
+  .post{padding:15px;border-radius:18px}
+  .post h2{font-size:16px}
+  .post-text{font-size:11px}
+  .post-actions{grid-template-columns:repeat(3,1fr)}
+  .post-action{font-size:10px}
   .mobile-nav{
-    position:fixed;
-    display:flex;
-    left:0;
-    right:0;
-    bottom:0;
-    height:65px;
-    z-index:300;
-    justify-content:space-around;
-    align-items:center;
-    background:rgba(10,11,15,.93);
-    backdrop-filter:blur(20px);
-    border-top:1px solid var(--border);
-    padding-bottom:2px;
+    position:fixed;display:flex;left:0;right:0;bottom:0;
+    height:65px;z-index:300;justify-content:space-around;align-items:center;
+    background:rgba(8,9,12,.94);
+    backdrop-filter:blur(22px);
+    border-top:1px solid var(--border);padding-bottom:2px;
   }
-
-  .light .mobile-nav{
-    background:rgba(244,241,234,.94);
-  }
-
+  .light .mobile-nav{background:rgba(245,242,236,.95)}
   .mobile-nav button{
-    min-width:48px;
-    background:transparent;
-    color:var(--muted);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:1px;
-    font-size:9px;
-    font-weight:800;
+    min-width:48px;background:transparent;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;
+    gap:2px;font-size:9px;font-weight:800;
+    transition:.2s var(--ease);
   }
-
-  .mobile-nav button.active{
-    color:var(--gold);
-  }
-
+  .mobile-nav button.active{color:var(--gold)}
   .mobile-nav .add{
-    width:43px;
-    height:43px;
-    min-width:43px;
-    border-radius:14px;
+    width:44px;height:44px;min-width:44px;border-radius:14px;
     background:linear-gradient(145deg,var(--gold),var(--gold2));
-    color:#171107;
-    font-size:21px;
-    box-shadow:0 7px 20px rgba(244,201,104,.18);
+    color:#171107;font-size:22px;
+    box-shadow:0 8px 24px rgba(245,203,106,.28);
+    transition:.22s var(--ease);
   }
-
-  .modal-layer{
-    padding:10px;
-    align-items:flex-end;
-  }
-
-  .modal{
-    width:100%;
-    max-height:90vh;
-    border-radius:23px 23px 15px 15px;
-    padding:18px;
-  }
-
-  .modal-footer{
-    flex-wrap:wrap;
-  }
+  .mobile-nav .add:hover{transform:scale(1.08)}
+  .modal-layer{padding:10px;align-items:flex-end}
+  .modal{width:100%;max-height:90vh;border-radius:23px 23px 15px 15px;padding:18px}
+  .modal-footer{flex-wrap:wrap}
 }
 
-/* REDUCED MOTION */
-
 @media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
+  *,*::before,*::after{
     animation-duration:.001ms!important;
     transition-duration:.001ms!important;
     scroll-behavior:auto!important;
   }
 }
 </style>
+
 <style id="fasl-v2-badge">
-.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:8px 11px;border:1px solid rgba(244,201,104,.22);border-radius:999px;background:rgba(18,20,28,.86);backdrop-filter:blur(12px);color:#f4c968;font:800 10px/1 system-ui;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
+.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:8px 11px;border:1px solid rgba(245,203,106,.22);border-radius:999px;background:rgba(18,20,28,.86);backdrop-filter:blur(12px);color:#f5cb6a;font:800 10px/1 system-ui;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
 body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
 @media(max-width:700px){.fasl-v2-badge{left:8px;bottom:8px;font-size:9px}}
 </style>
@@ -1307,694 +674,240 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9)}
   <div class="orb two"></div>
 </div>
 
-<!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-inner">
-
     <a class="brand" href="#" onclick="goHome(event)">
       <div class="logo">ف</div>
       <div class="brand-name">فَ<span>ص</span>ل</div>
     </a>
-
     <div class="search">
       <span class="search-icon">⌕</span>
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="دور على موقف، سؤال، ترند..."
-        autocomplete="off"
-      >
+      <input id="searchInput" type="search" placeholder="دور على موقف، سؤال، ترند..." autocomplete="off">
     </div>
-
     <div class="top-actions">
-
-      <button
-        class="icon-btn"
-        onclick="openNotifications()"
-        aria-label="الإشعارات"
-      >
+      <button class="icon-btn" onclick="openNotifications()" aria-label="الإشعارات">
         🔔
         <span id="notificationDot" class="notification-dot"></span>
       </button>
-
-      <button
-        class="icon-btn theme-btn"
-        onclick="toggleTheme()"
-        aria-label="تغيير الوضع"
-      >
-        ◐
-      </button>
-
-      <div
-        class="profile-mini"
-        id="profileMini"
-        onclick="openProfile()"
-      >
-        م
-      </div>
-
+      <button class="icon-btn theme-btn" onclick="toggleTheme()" aria-label="تغيير الوضع">◐</button>
+      <div class="profile-mini" id="profileMini" onclick="openProfile()">م</div>
     </div>
   </div>
 </header>
 
-
 <main class="layout">
-
-  <!-- LEFT SIDEBAR -->
   <aside class="sidebar left-sidebar">
-
     <div class="side-title">اكتشف</div>
-
     <nav class="nav-list">
-
-      <a href="#" class="nav-item active" onclick="goHome(event)">
-        <span class="nav-icon">🏠</span>
-        الرئيسية
-      </a>
-
-      <a href="#trending" class="nav-item" onclick="scrollToTrending(event)">
-        <span class="nav-icon">🔥</span>
-        الترند
-      </a>
-
-      <a href="#" class="nav-item" onclick="openMySchool(event)">
-        <span class="nav-icon">🏫</span>
-        مدرستي
-      </a>
-
-      <a href="#" class="nav-item" onclick="activateFilter('question')">
-        <span class="nav-icon">❓</span>
-        الأسئلة
-      </a>
-
-      <a href="#" class="nav-item" onclick="activateFilter('story')">
-        <span class="nav-icon">😂</span>
-        المواقف
-      </a>
-
+      <a href="#" class="nav-item active" onclick="goHome(event)"><span class="nav-icon">🏠</span>الرئيسية</a>
+      <a href="#trending" class="nav-item" onclick="scrollToTrending(event)"><span class="nav-icon">🔥</span>الترند</a>
+      <a href="#" class="nav-item" onclick="openMySchool(event)"><span class="nav-icon">🏫</span>مدرستي</a>
+      <a href="#" class="nav-item" onclick="activateFilter('question')"><span class="nav-icon">❓</span>الأسئلة</a>
+      <a href="#" class="nav-item" onclick="activateFilter('story')"><span class="nav-icon">😂</span>المواقف</a>
     </nav>
-
     <div class="school-card">
       <small>مجتمعك</small>
       <h3 id="sideSchoolName">لسه هنختار 👀</h3>
-      <p id="sideSchoolMeta">
-        سجّل دخول واختار مدرستك.
-      </p>
+      <p id="sideSchoolMeta">سجّل دخول واختار مدرستك.</p>
     </div>
-
   </aside>
 
-
-  <!-- FEED -->
   <section>
-
     <div class="hero">
-
-      <div class="hero-badge">
-        🟡 مجتمع الطلاب المصريين
-      </div>
-
-      <h1>
-        إيه اللي حصل
-        <span>في المدرسة</span>
-        النهارده؟
-      </h1>
-
-      <p>
-        مواقف، أسئلة، ترندات وحكايات من قلب المدرسة.
-        قول اللي عندك 👀
-      </p>
-
+      <div class="hero-badge">🟡 مجتمع الطلاب المصريين</div>
+      <h1>إيه اللي حصل <span>في المدرسة</span> النهارده؟</h1>
+      <p>مواقف، أسئلة، ترندات وحكايات من قلب المدرسة. قول اللي عندك 👀</p>
       <div class="community-badge" id="communityBadge">
         <small>مجتمعك</small>
-        <strong id="communityName">
-          سجّل دخول عشان تدخل جروب مدرستك 👥
-        </strong>
-        <span id="communityMeta">
-          المحافظة • المدرسة • الصف
-        </span>
+        <strong id="communityName">سجّل دخول عشان تدخل جروب مدرستك 👥</strong>
+        <span id="communityMeta">المحافظة • المدرسة • الصف</span>
       </div>
-
     </div>
 
-
-    <!-- COMPOSER -->
     <div class="composer">
-
       <div class="composer-top">
-
         <div class="avatar" id="composerAvatar">م</div>
-
-        <div
-          class="composer-input"
-          onclick="openComposer()"
-        >
-          حصل معاك إيه النهارده؟ 😂
-        </div>
-
+        <div class="composer-input" onclick="openComposer()">حصل معاك إيه النهارده؟ 😂</div>
       </div>
-
       <div class="composer-bottom">
-
         <div class="composer-actions">
-
-          <button
-            class="compose-action"
-            onclick="openComposer('story')"
-          >
-            😂 موقف
-          </button>
-
-          <button
-            class="compose-action"
-            onclick="openComposer('question')"
-          >
-            🤔 سؤال
-          </button>
-
-          <button
-            class="compose-action"
-            onclick="openComposer('trend')"
-          >
-            🔥 ترند
-          </button>
-
+          <button class="compose-action" onclick="openComposer('story')">😂 موقف</button>
+          <button class="compose-action" onclick="openComposer('question')">🤔 سؤال</button>
+          <button class="compose-action" onclick="openComposer('trend')">🔥 ترند</button>
         </div>
-
-        <button
-          class="post-btn"
-          onclick="openComposer()"
-        >
-          انشر
-        </button>
-
+        <button class="post-btn" onclick="openComposer()">انشر</button>
       </div>
-
     </div>
 
-
-    <!-- FILTERS -->
     <div class="filters">
-
-      <button class="filter active" data-filter="all">
-        الكل
-      </button>
-
-      <button class="filter" data-filter="story">
-        😂 مواقف
-      </button>
-
-      <button class="filter" data-filter="teacher">
-        👨‍🏫 مدرسين
-      </button>
-
-      <button class="filter" data-filter="question">
-        🤔 أسئلة
-      </button>
-
-      <button class="filter" data-filter="trend">
-        🔥 ترند
-      </button>
-
-      <button class="filter" data-filter="school">
-        🏫 المدرسة
-      </button>
-
+      <button class="filter active" data-filter="all">الكل</button>
+      <button class="filter" data-filter="story">😂 مواقف</button>
+      <button class="filter" data-filter="teacher">👨‍🏫 مدرسين</button>
+      <button class="filter" data-filter="question">🤔 أسئلة</button>
+      <button class="filter" data-filter="trend">🔥 ترند</button>
+      <button class="filter" data-filter="school">🏫 المدرسة</button>
     </div>
 
-
-    <!-- FEED -->
     <div id="feed">
-      <div class="loading">
-        <div class="spinner"></div>
-      </div>
+      <div class="loading"><div class="spinner"></div></div>
     </div>
-
   </section>
 
-
-  <!-- RIGHT SIDEBAR -->
   <aside class="sidebar right-sidebar" id="trending">
-
     <div class="trend-card">
-
-      <div class="trend-title">
-        <h3>🔥 ترند دلوقتي</h3>
-        <span>FASL</span>
-      </div>
-
-      <div class="trend">
-        <small>#مواقف_المدرسة</small>
-        <p>أغرب موقف حصل في الحصة 😂</p>
-      </div>
-
-      <div class="trend">
-        <small>#المدرسة</small>
-        <p>المدرس اللي بيقول آخر سؤال وبعدين يجيب 7 أسئلة 😭</p>
-      </div>
-
-      <div class="trend">
-        <small>#امتحانات</small>
-        <p>مين بدأ يذاكر ولا لسه؟ 👀</p>
-      </div>
-
-      <div class="trend">
-        <small>#فصل</small>
-        <p>احكيلنا أغرب حاجة حصلت النهارده.</p>
-      </div>
-
+      <div class="trend-title"><h3>🔥 ترند دلوقتي</h3><span>FASL</span></div>
+      <div class="trend"><small>#مواقف_المدرسة</small><p>أغرب موقف حصل في الحصة 😂</p></div>
+      <div class="trend"><small>#المدرسة</small><p>المدرس اللي بيقول آخر سؤال وبعدين يجيب 7 أسئلة 😭</p></div>
+      <div class="trend"><small>#امتحانات</small><p>مين بدأ يذاكر ولا لسه؟ 👀</p></div>
+      <div class="trend"><small>#فصل</small><p>احكيلنا أغرب حاجة حصلت النهارده.</p></div>
     </div>
-
     <div class="online-card">
-
-      <div class="online-head">
-        <span class="online-dot"></span>
-        FASL LIVE
-      </div>
-
-      <p>
-        المجتمع بيتحدث لحظة بلحظة مع Firebase.
-        احترم خصوصية زملائك ومتكتبش بيانات شخصية.
-      </p>
-
+      <div class="online-head"><span class="online-dot"></span>FASL LIVE</div>
+      <p>المجتمع بيتحدث لحظة بلحظة مع Firebase. احترم خصوصية زملائك ومتكتبش بيانات شخصية.</p>
     </div>
-
   </aside>
-
 </main>
 
-
-<!-- MOBILE NAV -->
 <nav class="mobile-nav">
-
-  <button class="active" onclick="goHome()">
-    <span>🏠</span>
-    الرئيسية
-  </button>
-
-  <button onclick="scrollToTrending()">
-    <span>🔥</span>
-    الترند
-  </button>
-
-  <button class="add" onclick="openComposer()">
-    +
-  </button>
-
-  <button onclick="openMySchool()">
-    <span>🏫</span>
-    مدرستي
-  </button>
-
-  <button onclick="openProfile()">
-    <span>👤</span>
-    حسابي
-  </button>
-
+  <button class="active" onclick="goHome()"><span>🏠</span>الرئيسية</button>
+  <button onclick="scrollToTrending()"><span>🔥</span>الترند</button>
+  <button class="add" onclick="openComposer()">+</button>
+  <button onclick="openMySchool()"><span>🏫</span>مدرستي</button>
+  <button onclick="openProfile()"><span>👤</span>حسابي</button>
 </nav>
 
-
-<!-- CREATE POST -->
 <div class="modal-layer" id="composerModal">
-
   <div class="modal">
-
     <div class="modal-head">
       <h2>قول اللي عندك 👀</h2>
-
-      <button
-        class="close"
-        onclick="closeComposer()"
-      >
-        ✕
-      </button>
+      <button class="close" onclick="closeComposer()">✕</button>
     </div>
-
     <div class="field">
       <label>نوع البوست</label>
-
       <select id="postType">
-
-        <option value="story">
-          😂 موقف
-        </option>
-
-        <option value="teacher">
-          👨‍🏫 موقف مع مدرس
-        </option>
-
-        <option value="question">
-          🤔 سؤال
-        </option>
-
-        <option value="trend">
-          🔥 ترند
-        </option>
-
-        <option value="school">
-          🏫 حاجة حصلت في المدرسة
-        </option>
-
+        <option value="story">😂 موقف</option>
+        <option value="teacher">👨‍🏫 موقف مع مدرس</option>
+        <option value="question">🤔 سؤال</option>
+        <option value="trend">🔥 ترند</option>
+        <option value="school">🏫 حاجة حصلت في المدرسة</option>
       </select>
     </div>
-
     <div class="field">
       <label>العنوان</label>
-
-      <input
-        id="postTitle"
-        maxlength="100"
-        placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها 😂"
-      >
+      <input id="postTitle" maxlength="100" placeholder="مثلاً: المدرس قال حاجة محدش كان متوقعها 😂">
     </div>
-
     <div class="field">
       <label>البوست</label>
-
-      <textarea
-        id="postBody"
-        maxlength="1000"
-        placeholder="احكيلنا اللي حصل..."
-      ></textarea>
+      <textarea id="postBody" maxlength="1000" placeholder="احكيلنا اللي حصل..."></textarea>
     </div>
-
     <div class="modal-footer">
-
       <label class="anonymous">
-
-        <input
-          type="checkbox"
-          id="anonymousPost"
-        >
-
+        <input type="checkbox" id="anonymousPost">
         نشر بشكل مجهول 👤
-
       </label>
-
-      <button
-        class="post-btn"
-        onclick="createPost()"
-      >
-        نشر البوست 🚀
-      </button>
-
+      <button class="post-btn" onclick="createPost()">نشر البوست 🚀</button>
     </div>
-
   </div>
-
 </div>
 
-
-<!-- AUTH -->
 <div class="modal-layer" id="authModal">
-
   <div class="modal">
-
     <div class="modal-head">
-
       <h2>أهلاً بيك في فَصْل 👋</h2>
-
-      <button
-        class="close"
-        onclick="closeAuth()"
-      >
-        ✕
-      </button>
-
+      <button class="close" onclick="closeAuth()">✕</button>
     </div>
-
     <div class="auth-tabs">
-
-      <button
-        id="loginTab"
-        class="auth-tab active"
-        onclick="openAuth('login')"
-      >
-        تسجيل الدخول
-      </button>
-
-      <button
-        id="registerTab"
-        class="auth-tab"
-        onclick="openAuth('register')"
-      >
-        إنشاء حساب
-      </button>
-
+      <button id="loginTab" class="auth-tab active" onclick="openAuth('login')">تسجيل الدخول</button>
+      <button id="registerTab" class="auth-tab" onclick="openAuth('register')">إنشاء حساب</button>
     </div>
-
-    <div
-      class="field"
-      id="usernameField"
-    >
+    <div class="field" id="usernameField">
       <label>اسم المستخدم</label>
-
-      <input
-        id="authUsername"
-        maxlength="30"
-        placeholder="مثلاً: mazen123"
-      >
+      <input id="authUsername" maxlength="30" placeholder="مثلاً: mazen123">
     </div>
-
     <div class="field">
       <label>البريد الإلكتروني</label>
-
-      <input
-        id="authEmail"
-        type="email"
-        maxlength="120"
-        placeholder="example@email.com"
-      >
+      <input id="authEmail" type="email" maxlength="120" placeholder="example@email.com">
     </div>
-
     <div class="field">
       <label>كلمة المرور</label>
-
-      <input
-        id="authPassword"
-        type="password"
-        maxlength="128"
-        placeholder="6 حروف أو أكثر"
-      >
+      <input id="authPassword" type="password" maxlength="128" placeholder="6 حروف أو أكثر">
     </div>
-
     <div id="schoolFields">
-
       <div class="field">
         <label>المحافظة</label>
-
         <select id="authGovernorate"></select>
       </div>
-
       <div class="field">
         <label>اسم المدرسة</label>
-
-        <input
-          id="authSchool"
-          list="schoolDirectory"
-          maxlength="120"
-          placeholder="اكتب اسم المدرسة وابحث في الدليل…"
-          autocomplete="organization"
-        >
+        <input id="authSchool" list="schoolDirectory" maxlength="120" placeholder="اكتب اسم المدرسة وابحث في الدليل…" autocomplete="organization">
         <datalist id="schoolDirectory"></datalist>
         <div class="school-picker-hint">اختار مدرسة من الدليل أو اكتب اسم مدرسة جديدة — هيتعمل لها جروب تلقائياً.</div>
       </div>
-
       <div class="field">
         <label>الصف</label>
-
         <select id="authGrade"></select>
       </div>
-
-      <div class="auth-note">
-        استخدم اسم المدرسة فقط. متكتبش عنوان بيتك أو رقم تليفونك أو أي بيانات شخصية.
-      </div>
-
+      <div class="auth-note">استخدم اسم المدرسة فقط. متكتبش عنوان بيتك أو رقم تليفونك أو أي بيانات شخصية.</div>
     </div>
-
     <div class="modal-footer">
-
       <span></span>
-
-      <button
-        class="post-btn"
-        id="authSubmit"
-        onclick="submitAuth()"
-      >
-        إنشاء الحساب ✨
-      </button>
-
+      <button class="post-btn" id="authSubmit" onclick="submitAuth()">إنشاء الحساب ✨</button>
     </div>
-
   </div>
-
 </div>
 
-
-<!-- NOTIFICATIONS -->
 <div class="modal-layer" id="notificationsModal">
-
   <div class="modal">
-
     <div class="modal-head">
-
       <h2>الإشعارات 🔔</h2>
-
-      <button
-        class="close"
-        onclick="closeNotifications()"
-      >
-        ✕
-      </button>
-
+      <button class="close" onclick="closeNotifications()">✕</button>
     </div>
-
-    <div
-      id="notificationsList"
-      class="notifications-list"
-    >
+    <div id="notificationsList" class="notifications-list">
       <div class="empty">
         <div class="empty-icon">🔔</div>
         <h3>مفيش إشعارات لسه</h3>
         <p>لما يحصل نشاط مهم هتلاقيه هنا.</p>
       </div>
     </div>
-
   </div>
-
 </div>
 
-
-<!-- PROFILE -->
 <div class="modal-layer" id="profileModal">
-
   <div class="modal">
-
     <div class="modal-head">
-
       <h2>حسابي 👤</h2>
-
-      <button
-        class="close"
-        onclick="closeProfile()"
-      >
-        ✕
-      </button>
-
+      <button class="close" onclick="closeProfile()">✕</button>
     </div>
-
     <div id="profileContent">
-
       <div class="profile-box">
-
-        <div
-          class="profile-large"
-          id="profileLarge"
-        >
-          م
+        <div class="profile-large" id="profileLarge">م</div>
+        <h2 id="profileUsername">زائر</h2>
+        <p id="profileEmail">سجّل دخول عشان تدخل مجتمعك.</p>
+        <div class="profile-info" id="profileInfo">
+          <div><small>المحافظة</small><strong>—</strong></div>
+          <div><small>المدرسة</small><strong>—</strong></div>
+          <div><small>الصف</small><strong>—</strong></div>
+          <div><small>المجتمع</small><strong>—</strong></div>
         </div>
-
-        <h2 id="profileUsername">
-          زائر
-        </h2>
-
-        <p id="profileEmail">
-          سجّل دخول عشان تدخل مجتمعك.
-        </p>
-
-        <div
-          class="profile-info"
-          id="profileInfo"
-        >
-
-          <div>
-            <small>المحافظة</small>
-            <strong>—</strong>
-          </div>
-
-          <div>
-            <small>المدرسة</small>
-            <strong>—</strong>
-          </div>
-
-          <div>
-            <small>الصف</small>
-            <strong>—</strong>
-          </div>
-
-          <div>
-            <small>المجتمع</small>
-            <strong>—</strong>
-          </div>
-
-        </div>
-
-        <button
-          class="post-btn"
-          style="margin-top:18px;width:100%;"
-          onclick="profileMainAction()"
-          id="profileMainButton"
-        >
-          تسجيل الدخول 🚀
-        </button>
-
+        <button class="post-btn" style="margin-top:18px;width:100%;" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول 🚀</button>
       </div>
-
     </div>
-
   </div>
-
 </div>
 
-
-<!-- TOAST -->
-<div
-  class="toast"
-  id="toast"
-></div>
-
+<div class="toast" id="toast"></div>
 
 <script type="module">
-
-/* =========================================================
-   FIREBASE
-========================================================= */
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut
+  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, signOut
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
 import {
-  getFirestore,
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  query,
-  where,
-  orderBy,
-  limit,
-  getDocs,
-  serverTimestamp,
-  increment,
-  onSnapshot
+  getFirestore, collection, doc, getDoc, setDoc, addDoc,
+  updateDoc, deleteDoc, query, where, orderBy, limit,
+  getDocs, serverTimestamp, increment, onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-
-/* =========================================================
-   YOUR FIREBASE WEB CONFIG
-========================================================= */
 
 const firebaseConfig = {
   apiKey: "AIzaSyBe-KrHJjW0dGrb23hJHNxUqlDnCvXU3KI",
@@ -2005,12 +918,10 @@ const firebaseConfig = {
   appId: "1:445694322250:web:2ebab32785583182e828b3"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Shared handles for the School Community v2 layer
 window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp, increment, onSnapshot };
 window.db = db;
 window.auth = auth;
@@ -2028,11 +939,6 @@ window.limit = limit;
 window.getDocs = getDocs;
 window.serverTimestamp = serverTimestamp;
 
-
-/* =========================================================
-   STATE
-========================================================= */
-
 let currentUser = null;
 let currentProfile = null;
 let authMode = "login";
@@ -2042,1857 +948,611 @@ let unsubscribePosts = null;
 let unsubscribeNotifications = null;
 
 const demoPosts = [
-  {
-    id:"demo-1",
-    type:"teacher",
-    username:"طالب مجهول",
-    avatar:"😂",
+  { id:"demo-1", type:"teacher", username:"طالب مجهول", avatar:"😂",
     title:"لما المدرس يقول آخر سؤال بجد",
     body:"قالنا يا جماعة آخر سؤال ونخلص... وبعدها فتح السبورة وكتب سؤالين كمان 😭😂",
-    likes:126,
-    comments:18,
-    liked:false,
-    anonymous:true,
-    demo:true
-  },
-  {
-    id:"demo-2",
-    type:"story",
-    username:"محمد",
-    avatar:"م",
+    likes:126, comments:18, liked:false, anonymous:true, demo:true },
+  { id:"demo-2", type:"story", username:"محمد", avatar:"م",
     title:"موقف حصل في الفسحة",
     body:"واحد من صحابي كان بيجري ورا الكورة ودخل الفصل الغلط وقعد ثانيتين مش فاهم هو فين 😂",
-    likes:89,
-    comments:12,
-    liked:false,
-    anonymous:false,
-    demo:true
-  },
-  {
-    id:"demo-3",
-    type:"question",
-    username:"طالب مجهول",
-    avatar:"🤔",
+    likes:89, comments:12, liked:false, anonymous:false, demo:true },
+  { id:"demo-3", type:"question", username:"طالب مجهول", avatar:"🤔",
     title:"حد فاهم الجزئية دي؟",
     body:"يا جماعة حد يفهمني الجزئية دي بطريقة بسيطة؟ 😭",
-    likes:54,
-    comments:27,
-    liked:false,
-    anonymous:true,
-    demo:true
-  }
+    likes:54, comments:27, liked:false, anonymous:true, demo:true }
 ];
 
+const governorates = ["القاهرة","الجيزة","الإسكندرية","القليوبية","الدقهلية","الشرقية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","شمال سيناء","جنوب سيناء","الفيوم","بني سويف","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","البحر الأحمر","الوادي الجديد","مطروح"];
 
-/* =========================================================
-   EGYPT
-========================================================= */
-
-const governorates = [
-  "القاهرة",
-  "الجيزة",
-  "الإسكندرية",
-  "القليوبية",
-  "الدقهلية",
-  "الشرقية",
-  "الغربية",
-  "المنوفية",
-  "البحيرة",
-  "كفر الشيخ",
-  "دمياط",
-  "بورسعيد",
-  "الإسماعيلية",
-  "السويس",
-  "شمال سيناء",
-  "جنوب سيناء",
-  "الفيوم",
-  "بني سويف",
-  "المنيا",
-  "أسيوط",
-  "سوهاج",
-  "قنا",
-  "الأقصر",
-  "أسوان",
-  "البحر الأحمر",
-  "الوادي الجديد",
-  "مطروح"
-];
-
-const grades = [
-  "ابتدائي 1",
-  "ابتدائي 2",
-  "ابتدائي 3",
-  "ابتدائي 4",
-  "ابتدائي 5",
-  "ابتدائي 6",
-  "إعدادي 1",
-  "إعدادي 2",
-  "إعدادي 3",
-  "ثانوي 1",
-  "ثانوي 2",
-  "ثانوي 3",
-  "فني 1",
-  "فني 2",
-  "فني 3",
-  "فني 4",
-  "فني 5"
-];
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
+const grades = ["ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتدائي 4","ابتدائي 5","ابتدائي 6","إعدادي 1","إعدادي 2","إعدادي 3","ثانوي 1","ثانوي 2","ثانوي 3","فني 1","فني 2","فني 3","فني 4","فني 5"];
 
 const $ = id => document.getElementById(id);
 
 function escapeHTML(value){
-  return String(value ?? "")
-    .replace(/[&<>'"]/g, char => ({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      "'":"&#39;",
-      '"':"&quot;"
-    }[char]));
+  return String(value ?? "").replace(/[&<>'"]/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"
+  }[char]));
 }
 
 function communityId(governorate, school){
-  return `${governorate}__${school}`
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g,"-");
+  return `${governorate}__${school}`.trim().toLowerCase().replace(/\s+/g,"-");
 }
 
 function typeLabel(type){
   return {
-    story:"😂 موقف",
-    teacher:"👨‍🏫 مدرس",
-    question:"🤔 سؤال",
-    trend:"🔥 ترند",
-    school:"🏫 المدرسة"
+    story:"😂 موقف", teacher:"👨‍🏫 مدرس", question:"🤔 سؤال",
+    trend:"🔥 ترند", school:"🏫 المدرسة"
   }[type] || "📝 بوست";
 }
 
 function timeText(timestamp){
-
-  if(!timestamp || !timestamp.toDate){
-    return "دلوقتي";
-  }
-
+  if(!timestamp || !timestamp.toDate) return "دلوقتي";
   const date = timestamp.toDate();
-
-  const diff =
-    Math.max(0,Date.now() - date.getTime()) / 1000;
-
-  if(diff < 60){
-    return "منذ لحظات";
-  }
-
-  if(diff < 3600){
-    return `منذ ${Math.floor(diff / 60)} د`;
-  }
-
-  if(diff < 86400){
-    return `منذ ${Math.floor(diff / 3600)} س`;
-  }
-
-  return date.toLocaleDateString(
-    "ar-EG",
-    {
-      day:"numeric",
-      month:"short"
-    }
-  );
+  const diff = Math.max(0,Date.now() - date.getTime()) / 1000;
+  if(diff < 60) return "منذ لحظات";
+  if(diff < 3600) return `منذ ${Math.floor(diff / 60)} د`;
+  if(diff < 86400) return `منذ ${Math.floor(diff / 3600)} س`;
+  return date.toLocaleDateString("ar-EG",{day:"numeric",month:"short"});
 }
 
 function showToast(message){
-
   const toast = $("toast");
-
   toast.textContent = message;
   toast.classList.add("show");
-
   clearTimeout(window.__toastTimer);
-
-  window.__toastTimer =
-    setTimeout(
-      () => toast.classList.remove("show"),
-      2800
-    );
+  window.__toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
 }
-
 window.showToast = showToast;
 
-
-/* =========================================================
-   SELECTS
-========================================================= */
-
 function fillSelect(id,values,placeholder){
-
   const element = $(id);
-
-  element.innerHTML =
-    `<option value="">${placeholder}</option>` +
-    values
-      .map(value =>
-        `<option value="${escapeHTML(value)}">${escapeHTML(value)}</option>`
-      )
-      .join("");
+  element.innerHTML = `<option value="">${placeholder}</option>` +
+    values.map(value => `<option value="${escapeHTML(value)}">${escapeHTML(value)}</option>`).join("");
 }
-
-fillSelect(
-  "authGovernorate",
-  governorates,
-  "اختار المحافظة"
-);
-
-fillSelect(
-  "authGrade",
-  grades,
-  "اختار الصف"
-);
-
-
-/* =========================================================
-   AUTH
-========================================================= */
+fillSelect("authGovernorate", governorates, "اختار المحافظة");
+fillSelect("authGrade", grades, "اختار الصف");
 
 function openAuth(mode="login"){
-
   authMode = mode;
-
   $("authModal").classList.add("show");
-
-  const register =
-    mode === "register";
-
-  $("usernameField").style.display =
-    register ? "block" : "none";
-
-  $("schoolFields").style.display =
-    register ? "block" : "none";
-
-  $("authSubmit").textContent =
-    register
-      ? "إنشاء الحساب ✨"
-      : "دخول 🚀";
-
-  $("loginTab").classList.toggle(
-    "active",
-    !register
-  );
-
-  $("registerTab").classList.toggle(
-    "active",
-    register
-  );
+  const register = mode === "register";
+  $("usernameField").style.display = register ? "block" : "none";
+  $("schoolFields").style.display = register ? "block" : "none";
+  $("authSubmit").textContent = register ? "إنشاء الحساب ✨" : "دخول 🚀";
+  $("loginTab").classList.toggle("active", !register);
+  $("registerTab").classList.toggle("active", register);
 }
-
 window.openAuth = openAuth;
 
-function closeAuth(){
-  $("authModal").classList.remove("show");
-}
-
+function closeAuth(){ $("authModal").classList.remove("show"); }
 window.closeAuth = closeAuth;
 
-
 async function submitAuth(){
-
-  const email =
-    $("authEmail").value.trim();
-
-  const password =
-    $("authPassword").value;
-
-  if(!email){
-    return showToast("اكتب الإيميل الأول.");
-  }
-
-  if(password.length < 6){
-    return showToast(
-      "كلمة المرور لازم تكون 6 حروف أو أكثر."
-    );
-  }
-
+  const email = $("authEmail").value.trim();
+  const password = $("authPassword").value;
+  if(!email) return showToast("اكتب الإيميل الأول.");
+  if(password.length < 6) return showToast("كلمة المرور لازم تكون 6 حروف أو أكثر.");
   try{
-
     if(authMode === "login"){
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
+      await signInWithEmailAndPassword(auth, email, password);
       closeAuth();
-
-      showToast(
-        "أهلاً بيك تاني في فَصْل 👋"
-      );
-
+      showToast("أهلاً بيك تاني في فَصْل 👋");
     }else{
-
-      const username =
-        $("authUsername").value.trim();
-
-      const governorate =
-        $("authGovernorate").value;
-
-      const school =
-        $("authSchool").value.trim();
-
-      const grade =
-        $("authGrade").value;
-
-      if(!username){
-        return showToast(
-          "اكتب اسم مستخدم."
-        );
-      }
-
-      if(username.length < 3){
-        return showToast(
-          "اسم المستخدم قصير جداً."
-        );
-      }
-
-      if(!governorate || !school || !grade){
-        return showToast(
-          "كمّل المحافظة والمدرسة والصف."
-        );
-      }
-
-      const credential =
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-      await setDoc(
-        doc(
-          db,
-          "users",
-          credential.user.uid
-        ),
-        {
-          username,
-          governorate,
-          school,
-          grade,
-          communityId:
-            communityId(
-              governorate,
-              school,
-              grade
-            ),
-          createdAt:
-            serverTimestamp()
-        }
-      );
-
+      const username = $("authUsername").value.trim();
+      const governorate = $("authGovernorate").value;
+      const school = $("authSchool").value.trim();
+      const grade = $("authGrade").value;
+      if(!username) return showToast("اكتب اسم مستخدم.");
+      if(username.length < 3) return showToast("اسم المستخدم قصير جداً.");
+      if(!governorate || !school || !grade) return showToast("كمّل المحافظة والمدرسة والصف.");
+      const credential = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db,"users",credential.user.uid), {
+        username, governorate, school, grade,
+        communityId: communityId(governorate, school, grade),
+        createdAt: serverTimestamp()
+      });
       closeAuth();
-
-      showToast(
-        "الحساب اتعمل! 🎉 أهلاً بيك في مجتمعك."
-      );
+      showToast("الحساب اتعمل! 🎉 أهلاً بيك في مجتمعك.");
     }
-
   }catch(error){
-
     console.error(error);
-
     const messages = {
-
-      "auth/email-already-in-use":
-        "الإيميل ده مستخدم بالفعل.",
-
-      "auth/invalid-email":
-        "الإيميل مش صحيح.",
-
-      "auth/weak-password":
-        "كلمة المرور ضعيفة.",
-
-      "auth/invalid-credential":
-        "الإيميل أو كلمة المرور غلط.",
-
-      "auth/operation-not-allowed":
-        "فعّل Email/Password من Firebase.",
-
-      "auth/network-request-failed":
-        "مشكلة في الإنترنت. جرّب تاني."
+      "auth/email-already-in-use":"الإيميل ده مستخدم بالفعل.",
+      "auth/invalid-email":"الإيميل مش صحيح.",
+      "auth/weak-password":"كلمة المرور ضعيفة.",
+      "auth/invalid-credential":"الإيميل أو كلمة المرور غلط.",
+      "auth/operation-not-allowed":"فعّل Email/Password من Firebase.",
+      "auth/network-request-failed":"مشكلة في الإنترنت. جرّب تاني."
     };
-
-    showToast(
-      messages[error.code] ||
-      "حصل خطأ. جرّب تاني."
-    );
+    showToast(messages[error.code] || "حصل خطأ. جرّب تاني.");
   }
 }
-
 window.submitAuth = submitAuth;
 
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
 async function loadProfile(user){
-
-  if(!user){
-    return null;
-  }
-
-  const snapshot =
-    await getDoc(
-      doc(db,"users",user.uid)
-    );
-
-  if(!snapshot.exists()){
-    return null;
-  }
-
-  return {
-    id:snapshot.id,
-    ...snapshot.data()
-  };
+  if(!user) return null;
+  const snapshot = await getDoc(doc(db,"users",user.uid));
+  if(!snapshot.exists()) return null;
+  return { id:snapshot.id, ...snapshot.data() };
 }
-
 
 function updateUI(){
-
-  const username =
-    currentProfile?.username ||
-    "م";
-
-  const initial =
-    username.trim().charAt(0) ||
-    "م";
-
-  $("profileMini").textContent =
-    initial;
-
-  $("composerAvatar").textContent =
-    initial;
-
-  $("profileLarge").textContent =
-    initial;
+  const username = currentProfile?.username || "م";
+  const initial = username.trim().charAt(0) || "م";
+  $("profileMini").textContent = initial;
+  $("composerAvatar").textContent = initial;
+  $("profileLarge").textContent = initial;
 
   if(currentProfile){
-
-    $("sideSchoolName").textContent =
-      currentProfile.school;
-
-    $("sideSchoolMeta").textContent =
-      `${currentProfile.governorate} • ${currentProfile.grade}`;
-
-    $("communityName").textContent =
-      `جروب ${currentProfile.school} — ${currentProfile.grade} 👥`;
-
-    $("communityMeta").textContent =
-      `${currentProfile.governorate} • مجتمع مدرستك`;
-
-    $("profileUsername").textContent =
-      currentProfile.username;
-
-    $("profileEmail").textContent =
-      currentUser?.email || "";
-
+    $("sideSchoolName").textContent = currentProfile.school;
+    $("sideSchoolMeta").textContent = `${currentProfile.governorate} • ${currentProfile.grade}`;
+    $("communityName").textContent = `جروب ${currentProfile.school} — ${currentProfile.grade} 👥`;
+    $("communityMeta").textContent = `${currentProfile.governorate} • مجتمع مدرستك`;
+    $("profileUsername").textContent = currentProfile.username;
+    $("profileEmail").textContent = currentUser?.email || "";
     $("profileInfo").innerHTML = `
-
-      <div>
-        <small>المحافظة</small>
-        <strong>${escapeHTML(currentProfile.governorate)}</strong>
-      </div>
-
-      <div>
-        <small>المدرسة</small>
-        <strong>${escapeHTML(currentProfile.school)}</strong>
-      </div>
-
-      <div>
-        <small>الصف</small>
-        <strong>${escapeHTML(currentProfile.grade)}</strong>
-      </div>
-
-      <div>
-        <small>المجتمع</small>
-        <strong>جروب المدرسة</strong>
-      </div>
-
+      <div><small>المحافظة</small><strong>${escapeHTML(currentProfile.governorate)}</strong></div>
+      <div><small>المدرسة</small><strong>${escapeHTML(currentProfile.school)}</strong></div>
+      <div><small>الصف</small><strong>${escapeHTML(currentProfile.grade)}</strong></div>
+      <div><small>المجتمع</small><strong>جروب المدرسة</strong></div>
     `;
-
-    $("profileMainButton").textContent =
-      "تسجيل الخروج 👋";
-
+    $("profileMainButton").textContent = "تسجيل الخروج 👋";
   }else{
-
-    $("sideSchoolName").textContent =
-      "لسه هنختار 👀";
-
-    $("sideSchoolMeta").textContent =
-      "سجّل دخول واختار مدرستك.";
-
-    $("communityName").textContent =
-      "سجّل دخول عشان تدخل جروب مدرستك 👥";
-
-    $("communityMeta").textContent =
-      "المحافظة • المدرسة • الصف";
-
-    $("profileUsername").textContent =
-      "زائر";
-
-    $("profileEmail").textContent =
-      "سجّل دخول عشان تدخل مجتمعك.";
-
-    $("profileMainButton").textContent =
-      "تسجيل الدخول 🚀";
+    $("sideSchoolName").textContent = "لسه هنختار 👀";
+    $("sideSchoolMeta").textContent = "سجّل دخول واختار مدرستك.";
+    $("communityName").textContent = "سجّل دخول عشان تدخل جروب مدرستك 👥";
+    $("communityMeta").textContent = "المحافظة • المدرسة • الصف";
+    $("profileUsername").textContent = "زائر";
+    $("profileEmail").textContent = "سجّل دخول عشان تدخل مجتمعك.";
+    $("profileMainButton").textContent = "تسجيل الدخول 🚀";
   }
 }
-
 
 function openProfile(){
-
   $("profileModal").classList.add("show");
-
-  if(!currentUser){
-    $("profileMainButton").textContent =
-      "تسجيل الدخول 🚀";
-  }
+  if(!currentUser) $("profileMainButton").textContent = "تسجيل الدخول 🚀";
 }
-
 window.openProfile = openProfile;
 
-
-function closeProfile(){
-  $("profileModal").classList.remove("show");
-}
-
+function closeProfile(){ $("profileModal").classList.remove("show"); }
 window.closeProfile = closeProfile;
 
-
 async function profileMainAction(){
-
   if(!currentUser){
-
     closeProfile();
-
     openAuth("login");
-
     return;
   }
-
   try{
-
     await signOut(auth);
-
     closeProfile();
-
-    showToast(
-      "تم تسجيل الخروج 👋"
-    );
-
+    showToast("تم تسجيل الخروج 👋");
   }catch(error){
-
     console.error(error);
-
-    showToast(
-      "تعذر تسجيل الخروج."
-    );
+    showToast("تعذر تسجيل الخروج.");
   }
 }
-
-window.profileMainAction =
-  profileMainAction;
-
-
-/* =========================================================
-   POSTS
-========================================================= */
+window.profileMainAction = profileMainAction;
 
 async function loadPosts(){
-
-  if(unsubscribePosts){
-    unsubscribePosts();
-    unsubscribePosts = null;
-  }
-
+  if(unsubscribePosts){ unsubscribePosts(); unsubscribePosts = null; }
   if(!currentProfile){
-
     allPosts = demoPosts;
-
     renderFeed();
-
     return;
   }
-
-  $("feed").innerHTML = `
-    <div class="loading">
-      <div class="spinner"></div>
-    </div>
-  `;
-
+  $("feed").innerHTML = `<div class="loading"><div class="spinner"></div></div>`;
   try{
-
-    const postsQuery =
-      query(
-        collection(db,"posts"),
-        where(
-          "communityId",
-          "==",
-          currentProfile.communityId
-        ),
-        limit(100)
-      );
-
-    unsubscribePosts =
-      onSnapshot(
-        postsQuery,
-        async snapshot => {
-
-          allPosts =
-            snapshot.docs.map(
-              item => ({
-                id:item.id,
-                ...item.data()
-              })
-            );
-
-          allPosts.sort(
-            (a,b) =>
-              (b.createdAt?.seconds || 0) -
-              (a.createdAt?.seconds || 0)
-          );
-
-          await loadLikeStates();
-
-          renderFeed();
-        },
-        error => {
-
-          console.error(error);
-
-          allPosts = [];
-
-          renderFeed();
-
-          showToast(
-            "تعذر تحميل البوستات حالياً."
-          );
-        }
-      );
-
+    const postsQuery = query(
+      collection(db,"posts"),
+      where("communityId","==",currentProfile.communityId),
+      limit(100)
+    );
+    unsubscribePosts = onSnapshot(postsQuery, async snapshot => {
+      allPosts = snapshot.docs.map(item => ({ id:item.id, ...item.data() }));
+      allPosts.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      await loadLikeStates();
+      renderFeed();
+    }, error => {
+      console.error(error);
+      allPosts = [];
+      renderFeed();
+      showToast("تعذر تحميل البوستات حالياً.");
+    });
   }catch(error){
-
     console.error(error);
-
     allPosts = [];
-
     renderFeed();
   }
 }
-
 
 async function loadLikeStates(){
-
-  if(!currentUser){
-    return;
-  }
-
-  const results =
-    await Promise.all(
-      allPosts.map(
-        async post => {
-
-          try{
-
-            const snapshot =
-              await getDoc(
-                doc(
-                  db,
-                  "posts",
-                  post.id,
-                  "likes",
-                  currentUser.uid
-                )
-              );
-
-            return [
-              post.id,
-              snapshot.exists()
-            ];
-
-          }catch{
-            return [
-              post.id,
-              false
-            ];
-          }
-        }
-      )
-    );
-
-  const liked =
-    new Set(
-      results
-        .filter(item => item[1])
-        .map(item => item[0])
-    );
-
-  allPosts =
-    allPosts.map(
-      post => ({
-        ...post,
-        liked:liked.has(post.id)
-      })
-    );
+  if(!currentUser) return;
+  const results = await Promise.all(allPosts.map(async post => {
+    try{
+      const snapshot = await getDoc(doc(db,"posts",post.id,"likes",currentUser.uid));
+      return [post.id, snapshot.exists()];
+    }catch{ return [post.id, false]; }
+  }));
+  const liked = new Set(results.filter(item => item[1]).map(item => item[0]));
+  allPosts = allPosts.map(post => ({ ...post, liked: liked.has(post.id) }));
 }
-
 
 function renderFeed(){
-
-  const search =
-    $("searchInput").value
-      .trim()
-      .toLowerCase();
-
-  let posts =
-    allPosts.filter(post => {
-
-      const filterOk =
-        activeFilter === "all" ||
-        post.type === activeFilter;
-
-      const text =
-        `${post.title || ""} ${post.body || ""}`
-          .toLowerCase();
-
-      const searchOk =
-        !search ||
-        text.includes(search);
-
-      return filterOk && searchOk;
-    });
-
+  const search = $("searchInput").value.trim().toLowerCase();
+  let posts = allPosts.filter(post => {
+    const filterOk = activeFilter === "all" || post.type === activeFilter;
+    const text = `${post.title || ""} ${post.body || ""}`.toLowerCase();
+    const searchOk = !search || text.includes(search);
+    return filterOk && searchOk;
+  });
   if(!posts.length){
-
-    $("feed").innerHTML = `
-      <div class="empty">
-
-        <div class="empty-icon">👀</div>
-
-        <h3>
-          مفيش بوستات هنا لسه
-        </h3>
-
-        <p>
-          كن أول واحد يحكي حاجة في مجتمعك.
-        </p>
-
-      </div>
-    `;
-
+    $("feed").innerHTML = `<div class="empty"><div class="empty-icon">👀</div><h3>مفيش بوستات هنا لسه</h3><p>كن أول واحد يحكي حاجة في مجتمعك.</p></div>`;
     return;
   }
-
-  $("feed").innerHTML =
-    posts.map(renderPost).join("");
+  $("feed").innerHTML = posts.map(renderPost).join("");
 }
-
 
 function renderPost(post){
-
   if(post.demo){
-
     return `
       <article class="post">
-
         <div class="post-head">
-
-          <div class="post-avatar">
-            ${post.avatar}
-          </div>
-
+          <div class="post-avatar">${post.avatar}</div>
           <div class="post-user">
-
-            <strong>
-              ${escapeHTML(post.username)}
-            </strong>
-
-            <span>
-              مثال من فَصْل
-            </span>
-
+            <strong>${escapeHTML(post.username)}</strong>
+            <span>مثال من فَصْل</span>
           </div>
-
-          <span class="post-type">
-            ${typeLabel(post.type)}
-          </span>
-
+          <span class="post-type">${typeLabel(post.type)}</span>
         </div>
-
-        <h2>
-          ${escapeHTML(post.title)}
-        </h2>
-
-        <p class="post-text">
-          ${escapeHTML(post.body)}
-        </p>
-
+        <h2>${escapeHTML(post.title)}</h2>
+        <p class="post-text">${escapeHTML(post.body)}</p>
         <div class="post-actions">
-
-          <button
-            class="post-action"
-            onclick="openAuth('login')"
-          >
-            🤍 ${post.likes}
-          </button>
-
-          <button
-            class="post-action"
-            onclick="openAuth('login')"
-          >
-            💬 ${post.comments}
-          </button>
-
-          <button
-            class="post-action"
-            onclick="openAuth('login')"
-          >
-            🚀 شارك
-          </button>
-
+          <button class="post-action" onclick="openAuth('login')">🤍 ${post.likes}</button>
+          <button class="post-action" onclick="openAuth('login')">💬 ${post.comments}</button>
+          <button class="post-action" onclick="openAuth('login')">🚀 شارك</button>
         </div>
-
-      </article>
-    `;
+      </article>`;
   }
 
-  const displayName =
-    post.anonymous
-      ? "طالب مجهول"
-      : escapeHTML(
-          post.user ||
-          post.username ||
-          "طالب"
-        );
-
-  const avatar =
-    post.anonymous
-      ? "👤"
-      : escapeHTML(
-          (
-            post.user ||
-            post.username ||
-            "ط"
-          ).charAt(0)
-        );
+  const displayName = post.anonymous ? "طالب مجهول" : escapeHTML(post.user || post.username || "طالب");
+  const avatar = post.anonymous ? "👤" : escapeHTML((post.user || post.username || "ط").charAt(0));
 
   return `
-    <article
-      class="post"
-      data-id="${escapeHTML(post.id)}"
-    >
-
+    <article class="post" data-id="${escapeHTML(post.id)}">
       <div class="post-head">
-
-        <div class="post-avatar">
-          ${avatar}
-        </div>
-
+        <div class="post-avatar">${avatar}</div>
         <div class="post-user">
-
-          <strong>
-            ${displayName}
-          </strong>
-
-          <span>
-            ${escapeHTML(timeText(post.createdAt))}
-          </span>
-
+          <strong>${displayName}</strong>
+          <span>${escapeHTML(timeText(post.createdAt))}</span>
         </div>
-
-        <span class="post-type">
-          ${typeLabel(post.type)}
-        </span>
-
+        <span class="post-type">${typeLabel(post.type)}</span>
       </div>
-
-      ${
-        post.title
-          ? `
-            <h2>
-              ${escapeHTML(post.title)}
-            </h2>
-          `
-          : ""
-      }
-
-      <p class="post-text">
-        ${escapeHTML(post.body)}
-      </p>
-
+      ${post.title ? `<h2>${escapeHTML(post.title)}</h2>` : ""}
+      <p class="post-text">${escapeHTML(post.body)}</p>
       <div class="post-actions">
-
-        <button
-          class="post-action ${post.liked ? "liked" : ""}"
-          onclick="likePost('${escapeHTML(post.id)}')"
-        >
-          ${post.liked ? "❤️" : "🤍"}
-          ${Number(post.likes || 0)}
+        <button class="post-action ${post.liked ? "liked" : ""}" onclick="likePost('${escapeHTML(post.id)}')">
+          ${post.liked ? "❤️" : "🤍"} ${Number(post.likes || 0)}
         </button>
-
-        <button
-          class="post-action"
-          onclick="openComments('${escapeHTML(post.id)}')"
-        >
-          💬
-          ${Number(post.comments || 0)}
-        </button>
-
-        <button
-          class="post-action"
-          onclick="reportPost('${escapeHTML(post.id)}')"
-        >
-          🚩 إبلاغ
-        </button>
-
+        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments || 0)}</button>
+        <button class="post-action" onclick="reportPost('${escapeHTML(post.id)}')">🚩 إبلاغ</button>
       </div>
-
-    </article>
-  `;
+    </article>`;
 }
-
-
-/* =========================================================
-   CREATE POST
-========================================================= */
 
 function openComposer(type="story"){
-
   if(!currentUser){
-
     openAuth("login");
-
-    showToast(
-      "سجّل دخول الأول عشان تنشر."
-    );
-
+    showToast("سجّل دخول الأول عشان تنشر.");
     return;
   }
-
   $("composerModal").classList.add("show");
-
   $("postType").value = type;
 }
-
 window.openComposer = openComposer;
 
-
-function closeComposer(){
-  $("composerModal").classList.remove("show");
-}
-
+function closeComposer(){ $("composerModal").classList.remove("show"); }
 window.closeComposer = closeComposer;
 
-
 async function createPost(){
-
   if(!currentUser || !currentProfile){
-
     closeComposer();
-
     openAuth("login");
-
     return;
   }
-
-  const type =
-    $("postType").value;
-
-  const title =
-    $("postTitle").value.trim();
-
-  const body =
-    $("postBody").value.trim();
-
-  const anonymous =
-    $("anonymousPost").checked;
-
-  if(!body){
-
-    return showToast(
-      "اكتب البوست الأول ✍️"
-    );
-  }
-
-  if(body.length < 3){
-
-    return showToast(
-      "البوست قصير جداً."
-    );
-  }
-
+  const type = $("postType").value;
+  const title = $("postTitle").value.trim();
+  const body = $("postBody").value.trim();
+  const anonymous = $("anonymousPost").checked;
+  if(!body) return showToast("اكتب البوست الأول ✍️");
+  if(body.length < 3) return showToast("البوست قصير جداً.");
   try{
-
-    await addDoc(
-      collection(db,"posts"),
-      {
-        type,
-        title,
-        body,
-        anonymous,
-
-        authorId:
-          currentUser.uid,
-
-        username:
-          currentProfile.username,
-
-        communityId:
-          currentProfile.communityId,
-
-        governorate:
-          currentProfile.governorate,
-
-        school:
-          currentProfile.school,
-
-        grade:
-          currentProfile.grade,
-
-        likes:0,
-        comments:0,
-
-        createdAt:
-          serverTimestamp()
-      }
-    );
-
+    await addDoc(collection(db,"posts"), {
+      type, title, body, anonymous,
+      authorId: currentUser.uid,
+      username: currentProfile.username,
+      communityId: currentProfile.communityId,
+      governorate: currentProfile.governorate,
+      school: currentProfile.school,
+      grade: currentProfile.grade,
+      likes:0, comments:0,
+      createdAt: serverTimestamp()
+    });
     $("postTitle").value = "";
     $("postBody").value = "";
     $("anonymousPost").checked = false;
-
     closeComposer();
-
-    showToast(
-      "البوست اتنشر 🚀"
-    );
-
+    showToast("البوست اتنشر 🚀");
   }catch(error){
-
     console.error(error);
-
-    showToast(
-      "مش قادر أنشر. راجع Firestore Rules."
-    );
+    showToast("مش قادر أنشر. راجع Firestore Rules.");
   }
 }
-
 window.createPost = createPost;
 
-
-/* =========================================================
-   LIKE
-========================================================= */
-
 async function likePost(postId){
-
-  if(!currentUser){
-
-    openAuth("login");
-
-    return;
-  }
-
-  if(String(postId).startsWith("demo-")){
-
-    openAuth("login");
-
-    return;
-  }
-
-  const likeReference =
-    doc(
-      db,
-      "posts",
-      postId,
-      "likes",
-      currentUser.uid
-    );
-
-  const postReference =
-    doc(
-      db,
-      "posts",
-      postId
-    );
-
+  if(!currentUser){ openAuth("login"); return; }
+  if(String(postId).startsWith("demo-")){ openAuth("login"); return; }
+  const likeReference = doc(db,"posts",postId,"likes",currentUser.uid);
+  const postReference = doc(db,"posts",postId);
   try{
-
-    const snapshot =
-      await getDoc(likeReference);
-
+    const snapshot = await getDoc(likeReference);
     if(snapshot.exists()){
-
-      await deleteDoc(
-        likeReference
-      );
-
-      await updateDoc(
-        postReference,
-        {
-          likes:
-            increment(-1)
-        }
-      );
-
+      await deleteDoc(likeReference);
+      await updateDoc(postReference, { likes: increment(-1) });
     }else{
-
-      await setDoc(
-        likeReference,
-        {
-          userId:
-            currentUser.uid,
-
-          createdAt:
-            serverTimestamp()
-        }
-      );
-
-      await updateDoc(
-        postReference,
-        {
-          likes:
-            increment(1)
-        }
-      );
+      await setDoc(likeReference, { userId: currentUser.uid, createdAt: serverTimestamp() });
+      await updateDoc(postReference, { likes: increment(1) });
     }
-
   }catch(error){
-
     console.error(error);
-
-    showToast(
-      "التفاعل مش متاح حالياً."
-    );
+    showToast("التفاعل مش متاح حالياً.");
   }
 }
-
 window.likePost = likePost;
 
-
-/* =========================================================
-   COMMENTS
-========================================================= */
-
 async function openComments(postId){
-
-  if(!currentUser){
-
-    openAuth("login");
-
-    return;
-  }
-
+  if(!currentUser){ openAuth("login"); return; }
   if(String(postId).startsWith("demo-")){
-
-    showToast(
-      "التعليقات الحقيقية تظهر بعد تسجيل الدخول."
-    );
-
+    showToast("التعليقات الحقيقية تظهر بعد تسجيل الدخول.");
     return;
   }
-
   try{
-
-    const commentsQuery =
-      query(
-        collection(
-          db,
-          "posts",
-          postId,
-          "comments"
-        ),
-        orderBy(
-          "createdAt",
-          "desc"
-        ),
-        limit(30)
-      );
-
-    const snapshot =
-      await getDocs(commentsQuery);
-
-    const comments =
-      snapshot.docs.map(
-        item => ({
-          id:item.id,
-          ...item.data()
-        })
-      );
-
-    let formatted =
-      comments.length
-        ? comments
-            .map(
-              comment =>
-                `${comment.anonymous ? "طالب مجهول" : comment.username || "طالب"}: ${comment.body}`
-            )
-            .join("\n\n")
-        : "مفيش تعليقات لسه.";
-
-    const body =
-      prompt(
-        `تعليقات البوست:\n\n${formatted}\n\nاكتب تعليق جديد:`
-      );
-
-    if(!body?.trim()){
-      return;
-    }
-
-    const commentText =
-      body.trim().slice(0,500);
-
-    await addDoc(
-      collection(
-        db,
-        "posts",
-        postId,
-        "comments"
-      ),
-      {
-        authorId:
-          currentUser.uid,
-
-        username:
-          currentProfile.username,
-
-        body:
-          commentText,
-
-        anonymous:false,
-
-        createdAt:
-          serverTimestamp()
-      }
+    const commentsQuery = query(
+      collection(db,"posts",postId,"comments"),
+      orderBy("createdAt","desc"),
+      limit(30)
     );
-
-    await updateDoc(
-      doc(
-        db,
-        "posts",
-        postId
-      ),
-      {
-        comments:
-          increment(1)
-      }
-    );
-
-    showToast(
-      "تم إضافة التعليق 💬"
-    );
-
+    const snapshot = await getDocs(commentsQuery);
+    const comments = snapshot.docs.map(item => ({ id:item.id, ...item.data() }));
+    let formatted = comments.length
+      ? comments.map(comment => `${comment.anonymous ? "طالب مجهول" : comment.username || "طالب"}: ${comment.body}`).join("\n\n")
+      : "مفيش تعليقات لسه.";
+    const body = prompt(`تعليقات البوست:\n\n${formatted}\n\nاكتب تعليق جديد:`);
+    if(!body?.trim()) return;
+    const commentText = body.trim().slice(0,500);
+    await addDoc(collection(db,"posts",postId,"comments"), {
+      authorId: currentUser.uid,
+      username: currentProfile.username,
+      body: commentText,
+      anonymous:false,
+      createdAt: serverTimestamp()
+    });
+    await updateDoc(doc(db,"posts",postId), { comments: increment(1) });
+    showToast("تم إضافة التعليق 💬");
   }catch(error){
-
     console.error(error);
-
-    showToast(
-      "مش قادر أضيف التعليق حالياً."
-    );
+    showToast("مش قادر أضيف التعليق حالياً.");
   }
 }
-
 window.openComments = openComments;
 
-
-/* =========================================================
-   REPORT
-========================================================= */
-
 async function reportPost(postId){
-
-  if(!currentUser){
-
-    openAuth("login");
-
-    return;
-  }
-
-  const reason =
-    prompt(
-      "ليه عايز تبلغ عن البوست؟\nاكتب السبب باختصار:"
-    );
-
-  if(!reason?.trim()){
-    return;
-  }
-
+  if(!currentUser){ openAuth("login"); return; }
+  const reason = prompt("ليه عايز تبلغ عن البوست؟\nاكتب السبب باختصار:");
+  if(!reason?.trim()) return;
   try{
-
-    await addDoc(
-      collection(
-        db,
-        "reports"
-      ),
-      {
-        postId,
-        reporterId:
-          currentUser.uid,
-
-        reason:
-          reason.trim().slice(0,300),
-
-        createdAt:
-          serverTimestamp()
-      }
-    );
-
-    showToast(
-      "وصل البلاغ لفريق المراجعة 🚩"
-    );
-
+    await addDoc(collection(db,"reports"), {
+      postId,
+      reporterId: currentUser.uid,
+      reason: reason.trim().slice(0,300),
+      createdAt: serverTimestamp()
+    });
+    showToast("وصل البلاغ لفريق المراجعة 🚩");
   }catch(error){
-
     console.error(error);
-
-    showToast(
-      "تعذر إرسال البلاغ."
-    );
+    showToast("تعذر إرسال البلاغ.");
   }
 }
-
 window.reportPost = reportPost;
 
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
 function openNotifications(){
-
   if(!currentUser){
-
     openAuth("login");
-
-    showToast(
-      "سجّل دخول عشان تشوف إشعاراتك."
-    );
-
+    showToast("سجّل دخول عشان تشوف إشعاراتك.");
     return;
   }
-
-  $("notificationsModal")
-    .classList.add("show");
+  $("notificationsModal").classList.add("show");
 }
+window.openNotifications = openNotifications;
 
-window.openNotifications =
-  openNotifications;
-
-
-function closeNotifications(){
-
-  $("notificationsModal")
-    .classList.remove("show");
-
-}
-
-window.closeNotifications =
-  closeNotifications;
-
+function closeNotifications(){ $("notificationsModal").classList.remove("show"); }
+window.closeNotifications = closeNotifications;
 
 function listenToNotifications(){
-
-  if(unsubscribeNotifications){
-
-    unsubscribeNotifications();
-
-    unsubscribeNotifications = null;
-  }
-
-  if(!currentUser){
-    $("notificationDot").style.display = "none";
-    return;
-  }
-
+  if(unsubscribeNotifications){ unsubscribeNotifications(); unsubscribeNotifications = null; }
+  if(!currentUser){ $("notificationDot").style.display = "none"; return; }
   try{
-
-    const notificationsQuery =
-      query(
-        collection(
-          db,
-          "users",
-          currentUser.uid,
-          "notifications"
-        ),
-        orderBy(
-          "createdAt",
-          "desc"
-        ),
-        limit(30)
-      );
-
-    unsubscribeNotifications =
-      onSnapshot(
-        notificationsQuery,
-        snapshot => {
-
-          const notifications =
-            snapshot.docs.map(
-              item => ({
-                id:item.id,
-                ...item.data()
-              })
-            );
-
-          renderNotifications(
-            notifications
-          );
-
-          const unread =
-            notifications.some(
-              item => item.read === false
-            );
-
-          $("notificationDot").style.display =
-            unread ? "block" : "none";
-        },
-        error => {
-
-          console.error(error);
-
-          renderNotifications([]);
-        }
-      );
-
-  }catch(error){
-
-    console.error(error);
-  }
+    const notificationsQuery = query(
+      collection(db,"users",currentUser.uid,"notifications"),
+      orderBy("createdAt","desc"),
+      limit(30)
+    );
+    unsubscribeNotifications = onSnapshot(notificationsQuery, snapshot => {
+      const notifications = snapshot.docs.map(item => ({ id:item.id, ...item.data() }));
+      renderNotifications(notifications);
+      const unread = notifications.some(item => item.read === false);
+      $("notificationDot").style.display = unread ? "block" : "none";
+    }, error => {
+      console.error(error);
+      renderNotifications([]);
+    });
+  }catch(error){ console.error(error); }
 }
 
-
-function renderNotifications(
-  notifications
-){
-
-  const container =
-    $("notificationsList");
-
+function renderNotifications(notifications){
+  const container = $("notificationsList");
   if(!notifications.length){
-
-    container.innerHTML = `
-      <div class="empty">
-
-        <div class="empty-icon">
-          🔔
-        </div>
-
-        <h3>
-          مفيش إشعارات لسه
-        </h3>
-
-        <p>
-          لما يحصل نشاط مهم هتلاقيه هنا.
-        </p>
-
-      </div>
-    `;
-
+    container.innerHTML = `<div class="empty"><div class="empty-icon">🔔</div><h3>مفيش إشعارات لسه</h3><p>لما يحصل نشاط مهم هتلاقيه هنا.</p></div>`;
     return;
   }
-
-  container.innerHTML =
-    notifications
-      .map(notification => {
-
-        const icon =
-          notification.type === "like"
-            ? "❤️"
-            : notification.type === "comment"
-              ? "💬"
-              : "🔔";
-
-        return `
-          <div
-            class="notification ${
-              notification.read === false
-                ? "unread"
-                : ""
-            }"
-          >
-
-            <div class="notification-icon">
-              ${icon}
-            </div>
-
-            <div class="notification-content">
-
-              <strong>
-                ${escapeHTML(
-                  notification.title ||
-                  "إشعار جديد"
-                )}
-              </strong>
-
-              <p>
-                ${escapeHTML(
-                  notification.body ||
-                  ""
-                )}
-              </p>
-
-              <small>
-                ${escapeHTML(
-                  timeText(
-                    notification.createdAt
-                  )
-                )}
-              </small>
-
-            </div>
-
-          </div>
-        `;
-      })
-      .join("");
+  container.innerHTML = notifications.map(notification => {
+    const icon = notification.type === "like" ? "❤️" : notification.type === "comment" ? "💬" : "🔔";
+    return `
+      <div class="notification ${notification.read === false ? "unread" : ""}">
+        <div class="notification-icon">${icon}</div>
+        <div class="notification-content">
+          <strong>${escapeHTML(notification.title || "إشعار جديد")}</strong>
+          <p>${escapeHTML(notification.body || "")}</p>
+          <small>${escapeHTML(timeText(notification.createdAt))}</small>
+        </div>
+      </div>`;
+  }).join("");
 }
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
 
 function goHome(event){
-
-  if(event){
-    event.preventDefault();
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  if(event) event.preventDefault();
+  window.scrollTo({ top:0, behavior:"smooth" });
 }
-
 window.goHome = goHome;
 
-
 function scrollToTrending(event){
-
-  if(event){
-    event.preventDefault();
-  }
-
-  const target =
-    $("trending");
-
-  if(target){
-
-    target.scrollIntoView({
-      behavior:"smooth"
-    });
-  }
+  if(event) event.preventDefault();
+  const target = $("trending");
+  if(target) target.scrollIntoView({ behavior:"smooth" });
 }
-
-window.scrollToTrending =
-  scrollToTrending;
-
+window.scrollToTrending = scrollToTrending;
 
 function openMySchool(event){
-
-  if(event){
-    event.preventDefault();
+  if(event) event.preventDefault();
+  if(!currentUser){ openAuth("login"); return; }
+  if(window.openV2SchoolHub){
+    window.openV2SchoolHub(currentProfile?.school, currentProfile?.governorate);
+  }else{
+    showToast(`جروب ${currentProfile?.school || "مدرستك"} 👥`);
   }
-
-  if(!currentUser){
-
-    openAuth("login");
-
-    return;
-  }
-
-  showToast(
-    `جروب ${currentProfile?.school || "مدرستك"} 👥`
-  );
 }
-
-window.openMySchool =
-  openMySchool;
-
-
-/* =========================================================
-   FILTERS
-========================================================= */
+window.openMySchool = openMySchool;
 
 function activateFilter(filter){
-
-  activeFilter =
-    filter;
-
-  document
-    .querySelectorAll(".filter")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.filter === filter
-      );
-
-    });
-
+  activeFilter = filter;
+  document.querySelectorAll(".filter").forEach(button => {
+    button.classList.toggle("active", button.dataset.filter === filter);
+  });
   renderFeed();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  window.scrollTo({ top:0, behavior:"smooth" });
 }
+window.activateFilter = activateFilter;
 
-window.activateFilter =
-  activateFilter;
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => activateFilter(button.dataset.filter));
+});
 
-
-document
-  .querySelectorAll(".filter")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-        activateFilter(
-          button.dataset.filter
-        );
-      }
-    );
-
-  });
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-$("searchInput")
-  .addEventListener(
-    "input",
-    renderFeed
-  );
-
-
-/* =========================================================
-   THEME
-========================================================= */
+$("searchInput").addEventListener("input", renderFeed);
 
 function toggleTheme(){
+  document.body.classList.toggle("light");
+  const light = document.body.classList.contains("light");
+  localStorage.setItem("fasl-theme", light ? "light" : "dark");
+  showToast(light ? "الوضع الفاتح ☀️" : "الوضع الداكن 🌙");
+}
+window.toggleTheme = toggleTheme;
 
-  document.body.classList.toggle(
-    "light"
-  );
-
-  const light =
-    document.body.classList.contains(
-      "light"
-    );
-
-  localStorage.setItem(
-    "fasl-theme",
-    light ? "light" : "dark"
-  );
-
-  showToast(
-    light
-      ? "الوضع الفاتح ☀️"
-      : "الوضع الداكن 🌙"
-  );
+if(localStorage.getItem("fasl-theme") === "light"){
+  document.body.classList.add("light");
 }
 
-window.toggleTheme =
-  toggleTheme;
+$("composerModal").addEventListener("click", event => { if(event.target.id === "composerModal") closeComposer(); });
+$("authModal").addEventListener("click", event => { if(event.target.id === "authModal") closeAuth(); });
+$("notificationsModal").addEventListener("click", event => { if(event.target.id === "notificationsModal") closeNotifications(); });
+$("profileModal").addEventListener("click", event => { if(event.target.id === "profileModal") closeProfile(); });
 
+document.addEventListener("keydown", event => {
+  if(event.key !== "Escape") return;
+  closeComposer();
+  closeAuth();
+  closeNotifications();
+  closeProfile();
+});
 
-if(
-  localStorage.getItem(
-    "fasl-theme"
-  ) === "light"
-){
-
-  document.body.classList.add(
-    "light"
-  );
-}
-
-
-/* =========================================================
-   MODAL CLICK OUTSIDE
-========================================================= */
-
-$("composerModal")
-  .addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target.id ===
-        "composerModal"
-      ){
-        closeComposer();
-      }
-
-    }
-  );
-
-
-$("authModal")
-  .addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target.id ===
-        "authModal"
-      ){
-        closeAuth();
-      }
-
-    }
-  );
-
-
-$("notificationsModal")
-  .addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target.id ===
-        "notificationsModal"
-      ){
-        closeNotifications();
-      }
-
-    }
-  );
-
-
-$("profileModal")
-  .addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target.id ===
-        "profileModal"
-      ){
-        closeProfile();
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key !== "Escape"){
-      return;
-    }
-
-    closeComposer();
-    closeAuth();
-    closeNotifications();
-    closeProfile();
-
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  if(user){
+    try{ currentProfile = await loadProfile(user); }
+    catch(error){ console.error(error); currentProfile = null; }
+  }else{
+    currentProfile = null;
   }
-);
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
-onAuthStateChanged(
-  auth,
-  async user => {
-
-    currentUser = user;
-
-    if(user){
-
-      try{
-
-        currentProfile =
-          await loadProfile(user);
-
-      }catch(error){
-
-        console.error(error);
-
-        currentProfile = null;
-      }
-
-    }else{
-
-      currentProfile = null;
-    }
-
-    updateUI();
-
-    listenToNotifications();
-
-    await loadPosts();
-
-  }
-);
-
-
-/* =========================================================
-   INITIAL UI
-========================================================= */
+  updateUI();
+  listenToNotifications();
+  await loadPosts();
+});
 
 updateUI();
-
 </script>
 
-
-<!-- Fَصْل v2 — Next Level School Community Layer -->
 <div class="fasl-v2-badge">فَصْل • School Community v2</div>
 
 <style id="fasl-v2-style">
-:root{--v2-gold:#f4c968;--v2-purple:#7966ff;--v2-green:#5ee0a0;--v2-red:#ff6b7a;--v2-card:rgba(255,255,255,.045)}
-.v2-overlay{position:fixed;inset:0;background:rgba(4,6,10,.72);backdrop-filter:blur(10px);z-index:10000;display:none;align-items:center;justify-content:center;padding:18px}
+:root{--v2-gold:#f5cb6a;--v2-purple:#7966ff;--v2-green:#5ee0a0;--v2-red:#ff6b7a;--v2-card:rgba(255,255,255,.045)}
+.v2-overlay{position:fixed;inset:0;background:rgba(4,6,10,.75);backdrop-filter:blur(14px);z-index:10000;display:none;align-items:center;justify-content:center;padding:18px}
 .v2-overlay.show{display:flex}
-.v2-panel{width:min(1100px,100%);max-height:min(92vh,900px);overflow:auto;background:#11141c;border:1px solid rgba(244,201,104,.18);border-radius:28px;box-shadow:0 30px 100px rgba(0,0,0,.55);color:#fff}
+.v2-panel{width:min(1100px,100%);max-height:min(92vh,900px);overflow:auto;background:#11141c;border:1px solid rgba(245,203,106,.18);border-radius:28px;box-shadow:0 30px 100px rgba(0,0,0,.6);color:#fff;animation:modalIn .3s cubic-bezier(.4,0,.2,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
 body.light .v2-panel{background:#fff;color:#171922}
 .v2-head{position:sticky;top:0;z-index:3;padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08);background:inherit;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .v2-head h2{margin:0;font-size:20px}.v2-head p{margin:5px 0 0;color:#9da3b3;font-size:11px}
-.v2-close{width:38px;height:38px;border:0;border-radius:12px;background:rgba(255,255,255,.07);color:inherit;cursor:pointer;font-size:20px}
+.v2-close{width:38px;height:38px;border:0;border-radius:12px;background:rgba(255,255,255,.07);color:inherit;cursor:pointer;font-size:20px;transition:.2s}
+.v2-close:hover{background:rgba(255,255,255,.12);transform:rotate(90deg)}
 .v2-content{padding:22px}
 .v2-school-hero{border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,#191d2b,#10121a)}
-.v2-cover{height:150px;background:radial-gradient(circle at 75% 25%,rgba(244,201,104,.35),transparent 25%),linear-gradient(135deg,#2c2557,#11131b);position:relative}
-.v2-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.v2-cover{height:150px;background:radial-gradient(circle at 75% 25%,rgba(245,203,106,.38),transparent 25%),linear-gradient(135deg,#2c2557,#11131b);position:relative}
+.v2-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.7))}
 .v2-school-meta{padding:0 22px 22px;display:flex;gap:16px;align-items:end;margin-top:-36px;position:relative;z-index:2}
-.v2-avatar{width:78px;height:78px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#16110a;font-weight:1000;font-size:30px;border:4px solid #11141c;flex:0 0 auto}
+.v2-avatar{width:78px;height:78px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#16110a;font-weight:1000;font-size:30px;border:4px solid #11141c;flex:0 0 auto;box-shadow:0 12px 36px rgba(245,203,106,.28)}
 .v2-school-meta h1{font-size:25px;margin:0}.v2-school-meta p{margin:5px 0 0;color:#a8adba;font-size:12px}
-.v2-tabs{display:flex;gap:7px;overflow:auto;padding:14px 0 0}.v2-tab{border:0;background:rgba(255,255,255,.06);color:#b9bdc8;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap}.v2-tab.active{background:rgba(244,201,104,.15);color:var(--v2-gold)}
+.v2-tabs{display:flex;gap:7px;overflow:auto;padding:14px 0 0}
+.v2-tab{border:0;background:rgba(255,255,255,.06);color:#b9bdc8;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.2s;font-family:inherit}
+.v2-tab:hover{background:rgba(255,255,255,.1)}
+.v2-tab.active{background:rgba(245,203,106,.15);color:var(--v2-gold)}
 .v2-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(250px,.8fr);gap:16px;margin-top:16px}
 .v2-box{padding:17px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:var(--v2-card)}
 .v2-box h3{margin:0 0 12px;font-size:15px}.v2-box p{color:#aeb3c0;font-size:11px;line-height:1.8}
-.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.v2-stat{padding:13px;border-radius:14px;background:rgba(255,255,255,.045);text-align:center}.v2-stat strong{display:block;font-size:19px}.v2-stat span{color:#8e94a3;font-size:9px}
-.v2-actions{display:flex;gap:8px;flex-wrap:wrap}.v2-btn{border:0;border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:900}.v2-primary{background:var(--v2-gold);color:#181208}.v2-soft{background:rgba(255,255,255,.07);color:inherit}
-.v2-feed-card{border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:15px;margin-bottom:10px;background:rgba(255,255,255,.035)}.v2-feed-top{display:flex;align-items:center;gap:10px}.v2-mini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;font-weight:1000}.v2-feed-card h4{margin:0;font-size:12px}.v2-feed-card small{color:#818796}.v2-feed-card .body{margin-top:11px;font-size:12px;line-height:1.8}.v2-pills{display:flex;gap:7px;flex-wrap:wrap}.v2-pill{font-size:10px;padding:7px 10px;border-radius:999px;background:rgba(121,102,255,.12);color:#b9afff}
-.v2-list{display:flex;flex-direction:column;gap:8px}.v2-row{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.04)}.v2-row strong{font-size:11px}.v2-row span{font-size:10px;color:#8e94a3}
+.v2-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.v2-stat{padding:13px;border-radius:14px;background:rgba(255,255,255,.045);text-align:center}
+.v2-stat strong{display:block;font-size:19px}.v2-stat span{color:#8e94a3;font-size:9px}
+.v2-actions{display:flex;gap:8px;flex-wrap:wrap}
+.v2-btn{border:0;border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:900;font-family:inherit;transition:.2s}
+.v2-btn:hover{transform:translateY(-2px)}
+.v2-primary{background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;box-shadow:0 8px 24px rgba(245,203,106,.25)}
+.v2-soft{background:rgba(255,255,255,.07);color:inherit}
+.v2-feed-card{border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:15px;margin-bottom:10px;background:rgba(255,255,255,.035);transition:.2s}
+.v2-feed-card:hover{border-color:rgba(245,203,106,.22);transform:translateY(-2px)}
+.v2-feed-top{display:flex;align-items:center;gap:10px}
+.v2-mini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--v2-gold),#d79536);color:#181208;font-weight:1000}
+.v2-feed-card h4{margin:0;font-size:12px}.v2-feed-card small{color:#818796}
+.v2-feed-card .body{margin-top:11px;font-size:12px;line-height:1.8}
+.v2-pills{display:flex;gap:7px;flex-wrap:wrap}
+.v2-pill{font-size:10px;padding:7px 10px;border-radius:999px;background:rgba(121,102,255,.12);color:#b9afff}
+.v2-list{display:flex;flex-direction:column;gap:8px}
+.v2-row{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.04)}
+.v2-row strong{font-size:11px}.v2-row span{font-size:10px;color:#8e94a3}
 .v2-empty{padding:25px;text-align:center;color:#8e94a3;font-size:12px}
 .v2-admin{border:1px solid rgba(255,107,122,.22);background:rgba(255,107,122,.06)}
-.v2-form{display:grid;gap:9px}.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:11px;background:rgba(255,255,255,.05);color:inherit;outline:0}.v2-textarea{min-height:90px;resize:vertical}
+.v2-form{display:grid;gap:9px}
+.v2-input,.v2-textarea,.v2-select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:11px;background:rgba(255,255,255,.05);color:inherit;outline:0;font-family:inherit;font-size:13px}
+.v2-input:focus,.v2-textarea:focus,.v2-select:focus{border-color:rgba(245,203,106,.5)}
+.v2-textarea{min-height:90px;resize:vertical}
 @media(max-width:800px){.v2-grid{grid-template-columns:1fr}.v2-school-meta{align-items:center}.v2-cover{height:115px}.v2-content{padding:14px}.v2-panel{border-radius:20px}.v2-statgrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.v2-school-meta h1{font-size:18px}.v2-avatar{width:62px;height:62px;border-radius:17px;font-size:23px}.v2-stat strong{font-size:16px}.v2-head{padding:15px}.v2-head h2{font-size:17px}}
 </style>
@@ -3958,11 +1618,7 @@ body.light .v2-panel{background:#fff;color:#171922}
 
 <script>
 (function(){
-  const V2 = {
-    school: null,
-    gov: null,
-    tab: "posts"
-  };
+  const V2 = { school: null, gov: null, tab: "posts" };
   window.__FASL_V2 = V2;
 
   function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
@@ -3970,12 +1626,8 @@ body.light .v2-panel{background:#fff;color:#171922}
   function hide(id){const e=document.getElementById(id); if(e)e.classList.remove("show");}
   window.closeV2=hide;
 
-  function currentSchool(){
-    return window.currentProfile?.school || "";
-  }
-  function currentGov(){
-    return window.currentProfile?.governorate || "";
-  }
+  function currentSchool(){ return window.currentProfile?.school || ""; }
+  function currentGov(){ return window.currentProfile?.governorate || ""; }
 
   window.openV2SchoolHub = async function(school, gov){
     if(!window.currentUser){
@@ -4004,30 +1656,42 @@ body.light .v2-panel{background:#fff;color:#171922}
   };
 
   async function v2Posts(body,type){
-    const q=window.query(window.collection(window.db,"posts"), window.where("communityId","==",window.communityId(V2.gov,V2.school)), window.orderBy("createdAt","desc"), window.limit(40));
-    const snap=await window.getDocs(q);
-    const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>!type || p.type===type || (type==="announcement" && p.postType==="announcement"));
-    if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات هنا. كن أول واحد يشارك حاجة مفيدة ✨</div>';return;}
-    body.innerHTML='<div class="v2-grid"><main>'+docs.map(p=>`
-      <article class="v2-feed-card">
-        <div class="v2-feed-top"><div class="v2-mini">${esc((p.anonymous?"ط":(p.username||"ط")).charAt(0))}</div><div><h4>${p.anonymous?"طالب مجهول":esc(p.username||"طالب")}</h4><small>${esc(p.type||"post")}</small></div></div>
-        ${p.title?`<h3 style="margin:12px 0 0;font-size:14px">${esc(p.title)}</h3>`:""}
-        <div class="body">${esc(p.body||"")}</div>
-        <div class="v2-pills" style="margin-top:11px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
-      </article>`).join("")+'</main><aside><div class="v2-box"><h3>📌 مجتمع المدرسة</h3><p>احترم زملاءك، ومتشاركش بيانات شخصية زي رقم التليفون أو العنوان.</p></div><div class="v2-box" style="margin-top:10px"><h3>✨ اختصارات</h3><div class="v2-actions"><button class="v2-btn v2-soft" onclick="v2OpenPost()">منشور</button><button class="v2-btn v2-soft" onclick="v2Tab(\'events\')">فعالية</button></div></div></aside></div>';
+    try{
+      const q=window.query(window.collection(window.db,"posts"), window.where("communityId","==",window.communityId(V2.gov,V2.school)), window.orderBy("createdAt","desc"), window.limit(40));
+      const snap=await window.getDocs(q);
+      const docs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>!type || p.type===type || (type==="announcement" && p.postType==="announcement"));
+      if(!docs.length){body.innerHTML='<div class="v2-box v2-empty">لسه مفيش منشورات هنا. كن أول واحد يشارك حاجة مفيدة ✨</div>';return;}
+      body.innerHTML='<div class="v2-grid"><main>'+docs.map(p=>`
+        <article class="v2-feed-card">
+          <div class="v2-feed-top"><div class="v2-mini">${esc((p.anonymous?"ط":(p.username||"ط")).charAt(0))}</div><div><h4>${p.anonymous?"طالب مجهول":esc(p.username||"طالب")}</h4><small>${esc(p.type||"post")}</small></div></div>
+          ${p.title?`<h3 style="margin:12px 0 0;font-size:14px">${esc(p.title)}</h3>`:""}
+          <div class="body">${esc(p.body||"")}</div>
+          <div class="v2-pills" style="margin-top:11px"><span class="v2-pill">❤️ ${Number(p.likes||0)}</span><span class="v2-pill">💬 ${Number(p.comments||0)}</span></div>
+        </article>`).join("")+'</main><aside><div class="v2-box"><h3>📌 مجتمع المدرسة</h3><p>احترم زملاءك، ومتشاركش بيانات شخصية زي رقم التليفون أو العنوان.</p></div><div class="v2-box" style="margin-top:10px"><h3>✨ اختصارات</h3><div class="v2-actions"><button class="v2-btn v2-soft" onclick="v2OpenPost()">منشور</button><button class="v2-btn v2-soft" onclick="v2Tab(\'events\')">فعالية</button></div></div></aside></div>';
+    }catch(e){
+      console.error(e);
+      body.innerHTML='<div class="v2-box v2-empty">مش قادر أحمّل المنشورات. راجع Firestore Rules.</div>';
+    }
   }
 
   async function v2Students(body){
-    const q=window.query(window.collection(window.db,"users"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.limit(60));
-    const snap=await window.getDocs(q);
-    const docs=snap.docs.map(d=>d.data());
-    body.innerHTML=`<div class="v2-box"><h3>👥 طلاب ${esc(V2.school)}</h3><div class="v2-statgrid"><div class="v2-stat"><strong>${docs.length}</strong><span>طلاب ظاهرون</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("ثانوي")).length}</strong><span>ثانوي</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("إعدادي")).length}</strong><span>إعدادي</span></div></div><div class="v2-list" style="margin-top:12px">${docs.map(x=>`<div class="v2-row"><strong>${esc(x.username||"طالب")}</strong><span>${esc(x.grade||"طالب")}</span></div>`).join("") || '<div class="v2-empty">مفيش طلاب ظاهرين لسه.</div>'}</div>`;
+    try{
+      const q=window.query(window.collection(window.db,"users"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.limit(60));
+      const snap=await window.getDocs(q);
+      const docs=snap.docs.map(d=>d.data());
+      body.innerHTML=`<div class="v2-box"><h3>👥 طلاب ${esc(V2.school)}</h3><div class="v2-statgrid"><div class="v2-stat"><strong>${docs.length}</strong><span>طلاب ظاهرون</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("ثانوي")).length}</strong><span>ثانوي</span></div><div class="v2-stat"><strong>${docs.filter(x=>String(x.grade||"").includes("إعدادي")).length}</strong><span>إعدادي</span></div></div><div class="v2-list" style="margin-top:12px">${docs.map(x=>`<div class="v2-row"><strong>${esc(x.username||"طالب")}</strong><span>${esc(x.grade||"طالب")}</span></div>`).join("") || '<div class="v2-empty">مفيش طلاب ظاهرين لسه.</div>'}</div></div>`;
+    }catch(e){
+      body.innerHTML='<div class="v2-box v2-empty">مش قادر أحمّل الطلاب.</div>';
+    }
   }
 
   async function v2Events(body){
-    const q=window.query(window.collection(window.db,"events"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.orderBy("startAt","asc"),window.limit(30));
     let docs=[];
-    try{const snap=await window.getDocs(q);docs=snap.docs.map(d=>({id:d.id,...d.data()}));}catch(e){}
+    try{
+      const q=window.query(window.collection(window.db,"events"),window.where("communityId","==",window.communityId(V2.gov,V2.school)),window.orderBy("startAt","asc"),window.limit(30));
+      const snap=await window.getDocs(q);
+      docs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    }catch(e){}
     body.innerHTML=`<div class="v2-box"><h3>📅 فعاليات المدرسة</h3>${docs.map(x=>`<div class="v2-row"><strong>${esc(x.title||"فعالية")}</strong><span>${esc(x.dateLabel||x.startAt||"موعد لاحق")}</span></div>`).join("")||'<div class="v2-empty">مفيش فعاليات مضافة لسه.</div>'}</div>`;
   }
 
@@ -4039,8 +1703,7 @@ body.light .v2-panel{background:#fff;color:#171922}
     const type=document.getElementById("v2PostType").value;
     try{
       await window.addDoc(window.collection(window.db,"posts"),{
-        title,body,type,
-        postType:type,
+        title,body,type, postType:type,
         authorId:window.currentUser.uid,
         username:window.currentProfile?.username||"طالب",
         communityId:window.communityId(V2.gov,V2.school),
@@ -4055,7 +1718,7 @@ body.light .v2-panel{background:#fff;color:#171922}
     }catch(e){console.error(e);alert("النشر فشل. راجع Firestore Rules.");}
   };
 
-  window.v2JoinCurrent=async function(){
+  window.v2JoinCurrent=function(){
     if(window.showToast)window.showToast("أنت داخل مجتمع المدرسة الحالي.");
   };
 
@@ -4073,28 +1736,22 @@ body.light .v2-panel{background:#fff;color:#171922}
     }catch(e){box.innerHTML='<h3>🚩 البلاغات</h3><div class="v2-empty">حسابك مش عنده صلاحية عرض البلاغات.</div>'; }
   };
 
-  // Upgrade the old school button to the real hub.
   window.openMySchool=function(event){
     if(event)event.preventDefault();
     if(!window.currentUser){if(window.openAuth)window.openAuth("login");return;}
     window.openV2SchoolHub(currentSchool(),currentGov());
   };
 
-  // Close on backdrop click.
   ["v2SchoolHub","v2PostModal","v2AdminModal"].forEach(id=>{
     const el=document.getElementById(id);
-    el.addEventListener("click",e=>{if(e.target===el)hide(id);});
+    if(el) el.addEventListener("click",e=>{if(e.target===el)hide(id);});
   });
 })();
 </script>
 
-
-<!-- Fَصْل • Directory + Admin Upgrade -->
 <style id="fasl-directory-admin-style">
 .school-picker-hint{color:var(--muted2);font-size:9px;line-height:1.7;margin-top:6px}
-.fasl-admin-btn{display:none!important}
-.fasl-admin-btn.show{display:flex!important}
-.directory-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(98,217,155,.08);border:1px solid rgba(98,217,155,.16);color:var(--green);font-size:9px;font-weight:900}
+.directory-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(99,224,160,.08);border:1px solid rgba(99,224,160,.16);color:var(--green);font-size:9px;font-weight:900}
 .fasl-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
 .fasl-admin-stat{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--border);text-align:center}
 .fasl-admin-stat strong{display:block;font-size:22px;color:var(--gold)}
@@ -4110,9 +1767,6 @@ body.light .v2-panel{background:#fff;color:#171922}
 (function(){
   const ADMIN_EMAIL = "mazenshahin639@gmail.com";
 
-  // A practical national starter directory. The important part is that FASL is not
-  // limited to this list: any school typed during signup is automatically normalized
-  // into its own Firestore school/group document.
   const SCHOOL_DIRECTORY = [
     ["القاهرة",["Cairo American College","American International School in Egypt","British International School in Cairo","New Cairo British International School","Deutsche Evangelische Oberschule","Collège-des-Frères","Collège du Sacré-Cœur","Ramses College","Saint Fatima School","Saint George's College","Manor House School","Malvern College Egypt","Modern Education Schools","Orouba Language School","El Zahrat Language School","Misr American College","Dar El Tarbiah School","Lycée Français du Caire","Lycée Al Horreya Heliopolis","Nefertari International School","Manaret El Mostaqbal American School","Nile Egyptian Schools - New Cairo","Nile Egyptian Schools - Jasmine","Nile Egyptian Schools - El Shorouk"]],
     ["الجيزة",["Cairo Japanese School","British International School - Cairo","Green Land Pré Vert International School","Nile Egyptian Schools - Sheikh Zayed","Nile Egyptian Schools - 6 October","The British International School of Cairo - West Campus","Al Ahram Language School","Narmer American College","Orman Secondary School","Al Saeedia Secondary School","Gamal Abdel Nasser Official Language School"]],
@@ -4146,22 +1800,17 @@ body.light .v2-panel{background:#fff;color:#171922}
   const directory = [];
   SCHOOL_DIRECTORY.forEach(([gov,schools])=>schools.forEach(school=>directory.push({gov,school})));
 
-  function norm(v){
-    return String(v||"").trim().replace(/\s+/g," ");
-  }
-  function cid(gov,school){
-    return `${norm(gov)}__${norm(school)}`.trim().toLowerCase().replace(/\s+/g,"-");
-  }
+  function norm(v){ return String(v||"").trim().replace(/\s+/g," "); }
+  function cid(gov,school){ return `${norm(gov)}__${norm(school)}`.trim().toLowerCase().replace(/\s+/g,"-"); }
+  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
 
   function fillSchoolDirectory(){
     const dl=document.getElementById("schoolDirectory");
     if(!dl)return;
     dl.innerHTML=directory.map(x=>`<option value="${esc(x.school)}" label="${esc(x.gov)}"></option>`).join("");
   }
-  function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
   fillSchoolDirectory();
 
-  // When a known school is selected, auto-fill its governorate.
   const schoolInput=document.getElementById("authSchool");
   if(schoolInput){
     schoolInput.addEventListener("change",()=>{
@@ -4177,8 +1826,6 @@ body.light .v2-panel{background:#fff;color:#171922}
   window.FASL_ADMIN_EMAIL=ADMIN_EMAIL;
   window.faslIsAdmin=()=>String(window.currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
 
-  // Create/maintain one Firestore group record per school. This means every school
-  // entered by a student gets a real persistent community, even if it wasn't in the starter list.
   window.ensureSchoolGroup=async function(profile){
     if(!profile || !window.db || !window.setDoc || !window.doc)return;
     const school=norm(profile.school), gov=norm(profile.governorate);
@@ -4193,22 +1840,10 @@ body.light .v2-panel{background:#fff;color:#171922}
     },{merge:true});
   };
 
-  // Patch auth submission once the original function exists.
-  const originalSubmit=window.submitAuth;
-  if(originalSubmit){
-    window.submitAuth=async function(){
-      await originalSubmit();
-      // onAuthStateChanged will populate the profile; this is intentionally a no-op here
-      // if the profile is not available yet.
-      setTimeout(()=>window.ensureSchoolGroup?.(window.currentProfile),350);
-    };
-  }
-
-  // Admin UI: secure-looking UX, but the real permission must still be enforced by Firestore Rules.
   const adminModal=document.getElementById("v2AdminModal");
   if(adminModal){
     const content=adminModal.querySelector(".v2-content");
-    if(content){
+    if(content && !document.getElementById("faslAdminDashboard")){
       content.insertAdjacentHTML("afterbegin",`<div id="faslAdminDashboard" class="v2-box" style="margin-bottom:12px">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
           <div><h3>👑 لوحة مدير فَصْل</h3><p>إدارة مجموعات المدارس والنشاط العام.</p></div>
@@ -4239,8 +1874,6 @@ body.light .v2-panel{background:#fff;color:#171922}
         list.innerHTML=filtered.slice(0,200).map(x=>`<div class="fasl-admin-row"><strong>🏫 ${esc(x.school||"مدرسة")}</strong><span>${esc(x.governorate||"—")} • ${esc(x.communityId||x.id)}</span></div>`).join("") || `<div class="v2-empty">مفيش نتائج.</div>`;
       };
       render();
-      document.getElementById("faslAdminSearch")?.addEventListener("input",render,{once:true});
-      // Re-bind search continuously without stacking handlers.
       const search=document.getElementById("faslAdminSearch");
       if(search){search.oninput=render;}
     }catch(e){
@@ -4249,7 +1882,7 @@ body.light .v2-panel{background:#fff;color:#171922}
     }
   }
 
-  const oldAdmin=window.v2OpenAdmin;
+  const origV2OpenAdmin=window.v2OpenAdmin;
   window.v2OpenAdmin=async function(){
     if(!window.currentUser){window.openAuth?.("login");return;}
     if(!window.faslIsAdmin?.()){
@@ -4260,7 +1893,6 @@ body.light .v2-panel{background:#fff;color:#171922}
     await adminLoad();
   };
 
-  // Automatically create a school group whenever the profile becomes available.
   const observer=setInterval(()=>{
     if(window.currentProfile?.school && window.currentProfile?.governorate){
       window.ensureSchoolGroup?.(window.currentProfile).catch(()=>{});
