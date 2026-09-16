@@ -437,6 +437,57 @@ body.light .grain{opacity:.02}
 .school-selected button{font-size:10px;font-weight:800;color:var(--red);padding:4px 10px;border-radius:8px;background:rgba(255,107,126,.1);border:1px solid rgba(255,107,126,.2)}
 .school-selected button:hover{background:rgba(255,107,126,.18)}
 
+/* ===== COMMENTS SHEET ===== */
+.comment-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--glass-border)}
+.comment-item:last-child{border-bottom:0}
+.comment-avatar{
+  width:38px;height:38px;flex:0 0 38px;
+  border-radius:50%;display:grid;place-items:center;
+  font-weight:900;font-size:14px;color:#0a0805;
+  background:linear-gradient(145deg,var(--gold),var(--gold-2));
+  box-shadow:0 4px 14px rgba(245,203,106,.25);
+}
+.comment-avatar.anonymous{background:linear-gradient(145deg,#3a3f4d,#232733);color:var(--text)}
+.comment-body{flex:1;min-width:0}
+.comment-body .cb-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.comment-body strong{font-size:12px;font-weight:800}
+.comment-body .cb-time{font-size:10px;color:var(--text-3)}
+.comment-body p{font-size:12px;line-height:1.7;color:var(--text-2);word-break:break-word}
+.comment-body .cb-actions{display:flex;gap:12px;margin-top:6px;align-items:center}
+.comment-like-btn{
+  background:transparent;border:0;padding:0;
+  color:var(--text-3);font-size:10px;font-weight:800;
+  display:flex;align-items:center;gap:4px;cursor:pointer;
+  transition:.2s var(--ease);
+}
+.comment-like-btn:hover{color:var(--red)}
+.comment-like-btn.liked{color:var(--red)}
+.comment-reply-btn{
+  background:transparent;border:0;padding:0;
+  color:var(--text-3);font-size:10px;font-weight:800;
+  cursor:pointer;transition:.2s var(--ease);
+}
+.comment-reply-btn:hover{color:var(--gold)}
+.comment-reply{
+  margin-top:10px;padding:10px 12px;
+  border-radius:12px;background:var(--glass);
+  border:1px solid var(--glass-border);
+  display:flex;gap:10px;
+}
+.comment-reply .comment-avatar{width:30px;height:30px;flex:0 0 30px;font-size:12px}
+.comment-input-row{display:flex;gap:10px;align-items:center;width:100%}
+.comment-replying-to{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;margin-bottom:8px;
+  border-radius:10px;background:var(--gold-soft);
+  border:1px solid rgba(245,203,106,.22);
+  font-size:11px;color:var(--gold);font-weight:800;
+}
+.comment-replying-to button{
+  margin-inline-start:auto;
+  background:transparent;border:0;color:var(--gold);
+  font-size:12px;cursor:pointer;padding:0 4px;
+}
 /* ===== AUTH TABS ===== */
 .auth-tabs{display:flex;padding:4px;margin-bottom:20px;border-radius:14px;background:var(--glass);border:1px solid var(--glass-border);position:relative}
 .auth-tab{flex:1;padding:11px;border-radius:11px;font-size:12px;font-weight:900;color:var(--text-2);transition:.22s var(--ease)}
@@ -752,7 +803,23 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
     </div>
   </div>
 </div>
-
+<!-- COMMENTS SHEET -->
+<div class="modal-layer" id="commentsModal">
+  <div class="modal" style="display:flex;flex-direction:column;padding:0;max-height:85vh">
+    <div class="modal-head" style="padding:20px 22px 14px;border-bottom:1px solid var(--glass-border);margin:0">
+      <h2>التعليقات 💬</h2>
+      <button class="close" onclick="closeComments()">✕</button>
+    </div>
+    <div id="commentsList" style="flex:1;overflow-y:auto;padding:14px 22px">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+    <div style="padding:14px 18px;border-top:1px solid var(--glass-border);display:flex;gap:10px;align-items:center;background:var(--panel-solid)">
+      <div class="comment-avatar" id="myCommentAvatar">م</div>
+      <input id="commentInput" placeholder="اكتب تعليق..." maxlength="500" style="flex:1;padding:12px 16px;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text);font-size:13px;outline:none">
+      <button class="post-btn" onclick="submitComment()" id="commentSubmitBtn" style="padding:12px 20px">نشر</button>
+    </div>
+  </div>
+</div>
 <!-- ===== NOTIFICATIONS ===== -->
 <div class="modal-layer" id="notificationsModal">
   <div class="modal">
@@ -1381,24 +1448,159 @@ async function likePost(postId){
 }
 window.likePost=likePost;
 
+// ================= COMMENTS (real UI) =================
+let currentPostId = null;
+let currentReplyTo = null;
+let unsubscribeComments = null;
+
 async function openComments(postId){
   if(!currentUser){openAuth("login");return}
+  currentPostId = postId;
+  currentReplyTo = null;
+  const modal = document.getElementById("commentsModal");
+  modal.classList.add("show");
+  document.getElementById("myCommentAvatar").textContent =
+    (currentProfile?.username || "م").charAt(0);
+  loadComments(postId);
+}
+window.openComments = openComments;
+
+function closeComments(){
+  const modal = document.getElementById("commentsModal");
+  modal.classList.remove("show");
+  if(unsubscribeComments){unsubscribeComments();unsubscribeComments=null}
+  currentPostId = null;
+  currentReplyTo = null;
+}
+window.closeComments = closeComments;
+
+function loadComments(postId){
+  const list = document.getElementById("commentsList");
+  list.innerHTML = `<div class="loading"><div class="spinner"></div></div>`;
+  if(unsubscribeComments){unsubscribeComments();unsubscribeComments=null}
+
   try{
-    const q=query(collection(db,"posts",postId,"comments"),orderBy("createdAt","desc"),limit(30));
-    const snap=await getDocs(q);
-    const comments=snap.docs.map(i=>({id:i.id,...i.data()}));
-    const formatted=comments.length?comments.map(c=>`${c.anonymous?"طالب مجهول":c.username||"طالب"}: ${c.body}`).join("\n\n"):"مفيش تعليقات لسه.";
-    const body=prompt(`تعليقات البوست:\n\n${formatted}\n\nاكتب تعليق جديد:`);
-    if(!body?.trim())return;
-    await addDoc(collection(db,"posts",postId,"comments"),{
-      authorId:currentUser.uid,
-      username:currentProfile.username,
-      body:body.trim().slice(0,500),
-      anonymous:false,createdAt:serverTimestamp()
+    const q = query(
+      collection(db,"posts",postId,"comments"),
+      orderBy("createdAt","desc"),
+      limit(60)
+    );
+    unsubscribeComments = onSnapshot(q, snap => {
+      const comments = snap.docs.map(d => ({id:d.id,...d.data()}));
+      const topLevel = comments.filter(c => !c.replyTo);
+      const replies = comments.filter(c => c.replyTo);
+
+      if(!comments.length){
+        list.innerHTML = `<div class="empty" style="padding:40px 20px">
+          <div class="empty-icon">💬</div>
+          <h3>مفيش تعليقات لسه</h3>
+          <p>كن أول واحد يعلّق.</p>
+        </div>`;
+        return;
+      }
+
+      list.innerHTML = topLevel.map(c => {
+        const childReplies = replies.filter(r => r.replyTo === c.id);
+        return `
+          <div class="comment-item">
+            <div class="comment-avatar ${c.anonymous?"anonymous":""}">
+              ${c.anonymous ? "👤" : escapeHTML((c.username||"ط").charAt(0))}
+            </div>
+            <div class="comment-body">
+              <div class="cb-head">
+                <strong>${c.anonymous ? "طالب مجهول" : escapeHTML(c.username||"طالب")}</strong>
+                <span class="cb-time">${escapeHTML(timeText(c.createdAt))}</span>
+              </div>
+              <p>${escapeHTML(c.body)}</p>
+              <div class="cb-actions">
+                <button class="comment-like-btn ${c.likes>0?"liked":""}" onclick="likeComment('${c.id}')">
+                  ${c.likes>0 ? "❤️" : "🤍"} ${Number(c.likes||0)}
+                </button>
+                <button class="comment-reply-btn" onclick="replyToComment('${c.id}','${escapeHTML(c.username||"طالب")}')">
+                  رد
+                </button>
+              </div>
+              ${childReplies.map(r => `
+                <div class="comment-reply">
+                  <div class="comment-avatar ${r.anonymous?"anonymous":""}">
+                    ${r.anonymous ? "👤" : escapeHTML((r.username||"ط").charAt(0))}
+                  </div>
+                  <div class="comment-body">
+                    <div class="cb-head">
+                      <strong>${r.anonymous ? "طالب مجهول" : escapeHTML(r.username||"طالب")}</strong>
+                      <span class="cb-time">${escapeHTML(timeText(r.createdAt))}</span>
+                    </div>
+                    <p>${escapeHTML(r.body)}</p>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }, err => {
+      console.error(err);
+      list.innerHTML = `<div class="empty"><p>تعذر تحميل التعليقات.</p></div>`;
     });
-    await updateDoc(doc(db,"posts",postId),{comments:increment(1)});
+  }catch(e){
+    console.error(e);
+    list.innerHTML = `<div class="empty"><p>تعذر تحميل التعليقات.</p></div>`;
+  }
+}
+
+function replyToComment(commentId, username){
+  currentReplyTo = commentId;
+  const input = document.getElementById("commentInput");
+  input.placeholder = `رد على ${username}...`;
+  input.focus();
+
+  // show a small chip above the input
+  let chip = document.getElementById("replyChip");
+  if(!chip){
+    chip = document.createElement("div");
+    chip.id = "replyChip";
+    chip.className = "comment-replying-to";
+    input.parentElement.parentElement.insertBefore(chip, input.parentElement);
+  }
+  chip.innerHTML = `↩ رد على ${escapeHTML(username)} <button onclick="cancelReply()">✕</button>`;
+}
+window.replyToComment = replyToComment;
+
+function cancelReply(){
+  currentReplyTo = null;
+  document.getElementById("commentInput").placeholder = "اكتب تعليق...";
+  const chip = document.getElementById("replyChip");
+  if(chip) chip.remove();
+}
+window.cancelReply = cancelReply;
+
+async function submitComment(){
+  if(!currentUser || !currentPostId) return;
+  const input = document.getElementById("commentInput");
+  const body = input.value.trim();
+  if(!body || body.length < 1) return;
+  if(body.length > 500) return showToast("التعليق طويل جدًا.");
+
+  const btn = document.getElementById("commentSubmitBtn");
+  btn.disabled = true;
+  btn.textContent = "...";
+
+  try{
+    const commentData = {
+      authorId: currentUser.uid,
+      username: currentProfile.username,
+      body: body,
+      anonymous: false,
+      likes: 0,
+      createdAt: serverTimestamp()
+    };
+    if(currentReplyTo) commentData.replyTo = currentReplyTo;
+
+    await addDoc(collection(db,"posts",currentPostId,"comments"), commentData);
+    await updateDoc(doc(db,"posts",currentPostId),{comments:increment(1)});
+
     try{
-      const postSnap = await getDoc(doc(db,"posts",postId));
+      const postSnap = await getDoc(doc(db,"posts",currentPostId));
       if(postSnap.exists()){
         const p = postSnap.data();
         await notifyAuthor({
@@ -1406,15 +1608,40 @@ async function openComments(postId){
           type: "comment",
           title: "تعليق جديد 💬",
           body: `${currentProfile?.username || "حد"} علّق على بوستك`,
-          postId
+          postId: currentPostId
         });
       }
     }catch(e){}
-    showToast("تم إضافة التعليق 💬");
-  }catch(e){console.error(e);showToast("مش قادر أضيف التعليق.")}
-}
-window.openComments=openComments;
 
+    input.value = "";
+    cancelReply();
+    showToast("تم إضافة التعليق 💬");
+  }catch(e){
+    console.error(e);
+    showToast("مش قادر أضيف التعليق.");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "نشر";
+  }
+}
+window.submitComment = submitComment;
+
+async function likeComment(commentId){
+  if(!currentUser || !currentPostId) return;
+  const likeRef = doc(db,"posts",currentPostId,"comments",commentId,"likes",currentUser.uid);
+  const commentRef = doc(db,"posts",currentPostId,"comments",commentId);
+  try{
+    const snap = await getDoc(likeRef);
+    if(snap.exists()){
+      await deleteDoc(likeRef);
+      await updateDoc(commentRef,{likes:increment(-1)});
+    }else{
+      await setDoc(likeRef,{userId:currentUser.uid,createdAt:serverTimestamp()});
+      await updateDoc(commentRef,{likes:increment(1)});
+    }
+  }catch(e){ console.error(e); }
+}
+window.likeComment = likeComment;
 async function reportPost(postId){
   if(!currentUser){openAuth("login");return}
   const reason=prompt("ليه عايز تبلغ؟");
@@ -1521,20 +1748,28 @@ window.toggleTheme=toggleTheme;
 if(localStorage.getItem("fasl-theme")==="light")document.body.classList.add("light");
 
 // ================= MODAL CLOSE OUTSIDE =================
-["composerModal","authModal","notificationsModal","profileModal"].forEach(id=>{
+["composerModal","authModal","notificationsModal","profileModal","commentsModal"].forEach(id=>{
   const el=$(id);
   if(el)el.addEventListener("click",e=>{if(e.target.id===id){
     if(id==="composerModal")closeComposer();
     else if(id==="authModal")closeAuth();
     else if(id==="notificationsModal")closeNotifications();
     else if(id==="profileModal")closeProfile();
+    else if(id==="commentsModal")closeComments();
   }});
 });
 document.addEventListener("keydown",e=>{
-  if(e.key!=="Escape")return;
-  closeComposer();closeAuth();closeNotifications();closeProfile();
+  if(e.key==="Escape"){
+    closeComposer();closeAuth();closeNotifications();closeProfile();
+    if(typeof closeComments === "function") closeComments();
+  }
 });
-
+document.addEventListener("keydown", e => {
+  if(e.key === "Enter" && document.activeElement?.id === "commentInput"){
+    e.preventDefault();
+    submitComment();
+  }
+});
 // ================= AUTH STATE =================
 onAuthStateChanged(auth,async user=>{
   currentUser=user;
