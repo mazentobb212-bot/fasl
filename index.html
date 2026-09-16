@@ -7,10 +7,16 @@
 
 <title>فَصْل — كل فصل عنده حكاية</title>
 <meta name="description" content="فَصْل — مجتمع الطلاب المصريين. مواقف، أسئلة، ترندات وحكايات المدرسة.">
+<meta name="author" content="Mazen Haytham">
+<meta property="og:title" content="فَصْل — مجتمع الطلاب المصريين">
+<meta property="og:description" content="مواقف، أسئلة، ترندات وحكايات من قلب المدرسة.">
+<meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23f5cb6a'/%3E%3Ctext x='50' y='68' font-size='62' font-weight='900' text-anchor='middle' fill='%230a0805'%3E%D9%81%3C/text%3E%3C/svg%3E">
 
 <style>
 .field select,
@@ -95,47 +101,152 @@ a{color:inherit;text-decoration:none}
 .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 body.light .grain{opacity:.02}
 
-/* ===== INTRO (dual CTA) ===== */
-#igIntro{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:opacity .55s ease}
-#igIntro.hide{opacity:0;pointer-events:none}
-.ig-logo{width:120px;height:120px;display:grid;place-items:center;position:relative;opacity:0;transform:scale(.6);animation:igPop .8s cubic-bezier(.2,.9,.3,1.35) .05s forwards}
-@keyframes igPop{0%{opacity:0;transform:scale(.6)}55%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
-.ig-logo-core{width:100px;height:100px;border-radius:28px;display:grid;place-items:center;font-size:56px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 1px rgba(245,203,106,.4),0 22px 70px rgba(245,203,106,.4),inset 0 2px 0 rgba(255,255,255,.35);position:relative}
-.ig-logo-core::after{content:"";position:absolute;inset:-16px;border-radius:40px;border:2px solid var(--gold);opacity:0;animation:igRing 1.6s ease-out .4s infinite}
-@keyframes igRing{0%{transform:scale(.8);opacity:0}20%{opacity:.75}100%{transform:scale(1.3);opacity:0}}
-.ig-name{margin-top:22px;font-family:"Amiri","Cairo",serif;font-size:46px;font-weight:700;letter-spacing:-1px;line-height:1;color:#fff;opacity:0;transform:translateY(8px);animation:igFade .6s ease .45s forwards}
-.ig-name span{background:linear-gradient(135deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.ig-tag{margin-top:10px;font-size:13px;color:#7a7a7a;letter-spacing:.3px;opacity:0;animation:igFade .6s ease .7s forwards;text-align:center}
+/* ===== CINEMATIC INTRO ===== */
+#igIntro{
+  position:fixed;inset:0;z-index:99999;background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;overflow:hidden;
+  transition:opacity .65s ease, visibility .65s ease;
+}
+#igIntro.hide{opacity:0;visibility:hidden;pointer-events:none}
+#igIntro::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(245,203,106,.10),transparent 40%),
+    radial-gradient(circle at 80% 70%,rgba(139,107,255,.10),transparent 40%);
+  animation:bgShift 12s ease-in-out infinite alternate;
+}
+@keyframes bgShift{0%{transform:scale(1)}100%{transform:scale(1.15)}}
+
+.ig-logo{width:130px;height:130px;display:grid;place-items:center;position:relative;opacity:0;transform:scale(.5);animation:igPop .9s cubic-bezier(.2,.9,.3,1.4) .1s forwards}
+@keyframes igPop{0%{opacity:0;transform:scale(.5)}55%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
+.ig-logo-core{
+  width:110px;height:110px;border-radius:32px;
+  display:grid;place-items:center;
+  font-size:62px;font-weight:900;color:#0a0805;
+  background:linear-gradient(145deg,var(--gold),var(--gold-2));
+  box-shadow:
+    0 0 0 1px rgba(245,203,106,.5),
+    0 25px 80px rgba(245,203,106,.45),
+    inset 0 2px 0 rgba(255,255,255,.4);
+  position:relative;
+}
+.ig-logo-core::after{
+  content:"";position:absolute;inset:-20px;border-radius:44px;
+  border:2px solid var(--gold);opacity:0;
+  animation:igRing 1.8s ease-out .5s infinite;
+}
+@keyframes igRing{0%{transform:scale(.85);opacity:0}20%{opacity:.8}100%{transform:scale(1.35);opacity:0}}
+
+.ig-name{
+  margin-top:26px;
+  font-family:"Amiri","Cairo",serif;
+  font-size:52px;font-weight:700;letter-spacing:-1.5px;line-height:1;color:#fff;
+  opacity:0;transform:translateY(10px);
+  animation:igFade .7s ease .5s forwards;
+}
+.ig-name span{
+  background:linear-gradient(135deg,var(--gold),var(--gold-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.ig-tag{
+  margin-top:12px;font-size:14px;color:#8a8a8a;letter-spacing:.4px;
+  opacity:0;animation:igFade .7s ease .75s forwards;text-align:center;
+  min-height:20px;
+}
+.ig-tag .word-swap{display:inline-block;transition:opacity .4s ease}
 @keyframes igFade{to{opacity:1;transform:translateY(0)}}
-.ig-cta{margin-top:32px;display:flex;gap:12px;flex-direction:column;width:min(340px,100%);opacity:0;animation:igFade .6s ease .95s forwards}
+
+.ig-founder{
+  margin-top:22px;
+  padding:8px 16px;border-radius:99px;
+  background:rgba(245,203,106,.08);
+  border:1px solid rgba(245,203,106,.25);
+  color:var(--gold);font-size:12px;font-weight:800;letter-spacing:.3px;
+  display:inline-flex;align-items:center;gap:8px;
+  opacity:0;animation:igFade .7s ease 1s forwards;
+}
+.ig-founder::before{content:"👑";font-size:14px}
+
+.ig-cta{
+  margin-top:34px;display:flex;gap:12px;flex-direction:column;
+  width:min(360px,100%);
+  opacity:0;animation:igFade .7s ease 1.2s forwards;
+}
 .ig-btn{
-  padding:14px 22px;border-radius:14px;font-size:14px;font-weight:900;
+  padding:15px 24px;border-radius:16px;
+  font-size:14px;font-weight:900;
   transition:.25s var(--ease);font-family:inherit;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
 }
 .ig-btn-primary{
   color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));
-  box-shadow:0 12px 34px rgba(245,203,106,.35);
+  box-shadow:0 14px 40px rgba(245,203,106,.4);
 }
-.ig-btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(245,203,106,.5)}
+.ig-btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(245,203,106,.55)}
+.ig-btn-primary:active{transform:translateY(0)}
 .ig-btn-ghost{
   color:#c4c8d2;background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.14);
 }
 .ig-btn-ghost:hover{background:rgba(255,255,255,.11);color:#fff;transform:translateY(-2px)}
-.ig-from{position:absolute;bottom:calc(30px + var(--safe-bottom));font-size:10px;color:#3a3a3a;letter-spacing:3px;font-weight:800;opacity:0;animation:igFade .6s ease 1.15s forwards}
+
+.ig-from{
+  position:absolute;bottom:calc(34px + var(--safe-bottom));
+  font-size:10px;color:#3a3a3a;letter-spacing:4px;font-weight:800;
+  opacity:0;animation:igFade .7s ease 1.5s forwards;
+}
 .ig-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.06);overflow:hidden}
-.ig-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0;animation:igLoad 2.1s cubic-bezier(.5,0,.2,1) .2s forwards}
+.ig-progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));
+  width:0;animation:igLoad 2.4s cubic-bezier(.5,0,.2,1) .2s forwards;
+}
 @keyframes igLoad{to{width:100%}}
+
 @media(max-width:520px){
-  .ig-name{font-size:38px}
-  .ig-logo-core{width:88px;height:88px;font-size:48px;border-radius:24px}
-  .ig-logo{width:100px;height:100px}
+  .ig-name{font-size:42px}
+  .ig-logo-core{width:92px;height:92px;font-size:52px;border-radius:26px}
+  .ig-logo{width:110px;height:110px}
+  .ig-founder{font-size:11px;padding:7px 13px}
+  .ig-btn{padding:14px 20px;font-size:13px}
 }
 
-#faslApp{opacity:0;transition:opacity .5s var(--ease)}
+#faslApp{opacity:0;transition:opacity .6s var(--ease)}
 #faslApp.show{opacity:1}
 
+/* ===== WELCOME STRIP (first visit) ===== */
+.welcome-strip{
+  display:none;
+  padding:14px 18px;margin-bottom:16px;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(245,203,106,.12),rgba(139,107,255,.08));
+  border:1px solid rgba(245,203,106,.22);
+  backdrop-filter:blur(12px);
+  animation:postIn .5s var(--ease-out) both;
+}
+.welcome-strip.show{display:flex;align-items:center;gap:12px}
+.welcome-strip .ws-ico{
+  width:38px;height:38px;flex:0 0 38px;
+  border-radius:12px;display:grid;place-items:center;
+  background:var(--gold-soft);font-size:19px;
+}
+.welcome-strip .ws-body{flex:1;min-width:0}
+.welcome-strip strong{display:block;font-size:13px;font-weight:900}
+.welcome-strip p{font-size:11px;color:var(--text-2);margin-top:3px;line-height:1.6}
+.welcome-strip button{
+  padding:8px 14px;border-radius:10px;
+  font-size:11px;font-weight:800;color:#0a0805;
+  background:linear-gradient(145deg,var(--gold),var(--gold-2));
+  flex:0 0 auto;
+}
+.welcome-strip .ws-close{
+  width:28px;height:28px;flex:0 0 28px;
+  border-radius:8px;color:var(--text-3);
+  display:grid;place-items:center;font-size:14px;
+}
+.welcome-strip .ws-close:hover{background:var(--glass);color:var(--text)}
+
+/* ===== TOPBAR ===== */
 .topbar{position:sticky;top:0;z-index:100;padding-top:var(--safe-top);background:linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 82%,transparent) 70%,transparent 100%);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%)}
 .topbar-inner{max-width:var(--max);margin:auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
 .brand{display:flex;align-items:center;gap:11px;min-width:max-content;transition:transform .25s var(--ease)}
@@ -154,9 +265,17 @@ body.light .grain{opacity:.02}
 .icon-btn .notif-dot{position:absolute;width:9px;height:9px;border-radius:50%;top:8px;right:8px;background:var(--red);box-shadow:0 0 12px rgba(255,107,126,.7);display:none}
 .icon-btn .notif-dot.on{display:block;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.15)}}
-.profile-chip{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font-weight:900;font-size:15px;display:grid;place-items:center;cursor:pointer;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.28);border:2px solid transparent}
+.profile-chip{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font-weight:900;font-size:15px;display:grid;place-items:center;cursor:pointer;transition:.22s var(--ease);box-shadow:0 6px 20px rgba(245,203,106,.28);border:2px solid transparent;position:relative}
 .profile-chip:hover{transform:translateY(-2px) scale(1.05);border-color:rgba(245,203,106,.5)}
+.profile-chip.founder::after{
+  content:"👑";position:absolute;top:-6px;right:-6px;
+  font-size:14px;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+  animation:crownFloat 3s ease-in-out infinite;
+}
+@keyframes crownFloat{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-3px) rotate(8deg)}}
 
+/* ===== LAYOUT ===== */
 .layout{width:min(var(--max),100%);margin:auto;padding:24px 20px 120px;display:grid;grid-template-columns:220px minmax(0,680px) 260px;justify-content:center;gap:24px}
 .sidebar{position:sticky;top:96px;height:max-content}
 .side-title{font-size:11px;font-weight:900;color:var(--text-3);letter-spacing:.5px;margin:6px 14px 12px;text-transform:uppercase}
@@ -173,6 +292,7 @@ body.light .grain{opacity:.02}
 .school-card h3{font-size:14px;font-weight:800;margin-top:6px;line-height:1.4}
 .school-card p{font-size:11px;color:var(--text-2);line-height:1.7;margin-top:5px}
 
+/* ===== HERO ===== */
 .hero{position:relative;overflow:hidden;min-height:250px;padding:36px;border-radius:var(--radius-lg);background:radial-gradient(circle at 88% 18%,var(--gold-glow),transparent 32%),radial-gradient(circle at 12% 100%,var(--violet-glow),transparent 40%),var(--panel-2);border:1px solid var(--glass-border-2);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow);margin-bottom:20px;isolation:isolate}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(245,203,106,.05) 100%);pointer-events:none}
 .hero-rings{position:absolute;inset:0;overflow:hidden;pointer-events:none}
@@ -192,10 +312,12 @@ body.light .grain{opacity:.02}
 .community-badge strong{margin-top:4px;font-size:13px;font-weight:800}
 .community-badge span{color:var(--text-2);font-size:10px;margin-top:3px}
 
+/* ===== COMPOSER ===== */
 .composer{padding:20px;border-radius:var(--radius-lg);background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow-sm);margin-bottom:16px;transition:.25s var(--ease)}
 .composer:hover{border-color:var(--glass-border-2)}
 .composer-top{display:flex;gap:12px;align-items:center}
-.avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:15px;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 6px 20px rgba(245,203,106,.28)}
+.avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:15px;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 6px 20px rgba(245,203,106,.28);position:relative}
+.avatar.founder::after{content:"👑";position:absolute;top:-5px;right:-5px;font-size:12px}
 .composer-input{flex:1;min-height:48px;display:flex;align-items:center;padding:0 18px;font-size:13px;color:var(--text-3);background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;cursor:text;transition:.22s var(--ease)}
 .composer-input:hover{border-color:var(--glass-border-2);color:var(--text-2);background:var(--glass-2)}
 .composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--glass-border)}
@@ -205,21 +327,31 @@ body.light .grain{opacity:.02}
 .post-btn{padding:11px 22px;border-radius:12px;font-size:12px;font-weight:900;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 8px 24px rgba(245,203,106,.28);transition:.22s var(--ease)}
 .post-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,203,106,.4)}
 
+/* ===== FILTERS ===== */
 .filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px;padding-bottom:2px}
 .filters::-webkit-scrollbar{display:none}
 .filter{flex:0 0 auto;padding:9px 16px;border-radius:30px;font-size:11px;font-weight:900;color:var(--text-2);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(10px);transition:.22s var(--ease)}
 .filter:hover{color:var(--text);border-color:var(--glass-border-2);background:var(--glass-2)}
 .filter.active{color:var(--gold);background:var(--gold-soft);border-color:rgba(245,203,106,.32);box-shadow:0 0 0 3px var(--gold-soft)}
 
+/* ===== POSTS ===== */
 .post{position:relative;padding:22px;margin-bottom:16px;border-radius:var(--radius-lg);background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow-sm);animation:postIn .45s var(--ease-out) both;transition:.28s var(--ease);overflow:hidden}
 .post::before{content:"";position:absolute;right:0;top:20%;bottom:20%;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold),transparent);opacity:0;transition:opacity .3s var(--ease)}
 .post:hover::before{opacity:1}
 .post:hover{border-color:var(--glass-border-2);transform:translateY(-3px);box-shadow:var(--shadow)}
+.post.founder-post{
+  background:linear-gradient(145deg,rgba(245,203,106,.08),rgba(139,107,255,.04)),var(--panel);
+  border-color:rgba(245,203,106,.28);
+}
+.post.founder-post::before{opacity:1;background:linear-gradient(180deg,var(--gold),var(--gold-2),transparent)}
 @keyframes postIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .post-head{display:flex;align-items:center;gap:12px}
-.post-avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:14px;color:var(--text);background:linear-gradient(145deg,#2c3040,#1a1e28);border:1px solid var(--glass-border-2)}
+.post-avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:14px;color:var(--text);background:linear-gradient(145deg,#2c3040,#1a1e28);border:1px solid var(--glass-border-2);position:relative}
+.post-avatar.founder{background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805}
+.post-avatar.founder::after{content:"👑";position:absolute;top:-5px;right:-5px;font-size:13px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
 .post-user{flex:1;min-width:0}
-.post-user strong{display:block;font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post-user strong{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post-user strong .founder-tag{font-size:9px;color:var(--gold);background:var(--gold-soft);padding:2px 7px;border-radius:99px;border:1px solid rgba(245,203,106,.3);font-weight:900}
 .post-user span{display:block;font-size:10px;color:var(--text-3);margin-top:2px}
 .post-type{padding:6px 11px;border-radius:10px;font-size:10px;font-weight:900;color:var(--gold);background:var(--gold-soft);border:1px solid rgba(245,203,106,.18);white-space:nowrap}
 .post h2{margin-top:16px;font-family:"Amiri","Cairo",serif;font-size:20px;font-weight:700;line-height:1.4;letter-spacing:-.3px}
@@ -229,6 +361,7 @@ body.light .grain{opacity:.02}
 .post-action:hover{color:var(--text);background:var(--glass)}
 .post-action.liked{color:var(--red)}
 
+/* ===== EMPTY / LOADING ===== */
 .empty{padding:60px 24px;text-align:center;color:var(--text-2);border:1px dashed var(--glass-border-2);border-radius:var(--radius-lg);background:var(--glass);backdrop-filter:blur(12px)}
 .empty-icon{font-size:44px;margin-bottom:12px}
 .empty h3{font-size:16px;font-weight:800;color:var(--text)}
@@ -238,6 +371,7 @@ body.light .grain{opacity:.02}
 .spinner{width:32px;height:32px;border:3px solid var(--glass-border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* ===== RIGHT SIDEBAR ===== */
 .trend-card{padding:20px;border-radius:var(--radius-lg);background:var(--panel);border:1px solid var(--glass-border);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:var(--shadow-sm);transition:.25s var(--ease)}
 .trend-card:hover{border-color:var(--glass-border-2)}
 .trend-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
@@ -252,7 +386,21 @@ body.light .grain{opacity:.02}
 .online-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900;color:var(--green)}
 .online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}
 .online-card p{font-size:11px;line-height:1.7;color:var(--text-2);margin-top:8px}
+.founder-card{margin-top:16px;padding:18px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(245,203,106,.08),rgba(139,107,255,.04));border:1px solid rgba(245,203,106,.22);backdrop-filter:blur(12px);text-align:center}
+.founder-card .fc-avatar{
+  width:54px;height:54px;margin:0 auto 10px;
+  border-radius:50%;display:grid;place-items:center;
+  font-family:"Amiri","Cairo",serif;
+  font-size:22px;font-weight:700;color:#0a0805;
+  background:linear-gradient(145deg,var(--gold),var(--gold-2));
+  box-shadow:0 8px 24px rgba(245,203,106,.35);
+  position:relative;
+}
+.founder-card .fc-avatar::after{content:"👑";position:absolute;top:-6px;right:-6px;font-size:16px}
+.founder-card strong{display:block;font-size:13px;font-weight:900;color:var(--gold)}
+.founder-card p{font-size:10px;color:var(--text-3);margin-top:4px;line-height:1.6}
 
+/* ===== MODALS ===== */
 .modal-layer{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,4,8,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .modal-layer.show{display:flex;animation:fadeIn .25s var(--ease)}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -273,6 +421,7 @@ body.light .grain{opacity:.02}
 .anonymous input{accent-color:var(--gold);width:16px;height:16px}
 .auth-note,.school-picker-hint{font-size:10px;line-height:1.7;color:var(--text-3);margin-top:8px}
 
+/* ===== SCHOOL SEARCH ===== */
 .school-search-wrap{position:relative}
 .school-input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text);font-size:13px;outline:none;transition:.22s var(--ease)}
 .school-input:focus{border-color:rgba(245,203,106,.5);background:var(--glass-2);box-shadow:0 0 0 4px var(--gold-soft)}
@@ -288,10 +437,12 @@ body.light .grain{opacity:.02}
 .school-selected button{font-size:10px;font-weight:800;color:var(--red);padding:4px 10px;border-radius:8px;background:rgba(255,107,126,.1);border:1px solid rgba(255,107,126,.2)}
 .school-selected button:hover{background:rgba(255,107,126,.18)}
 
+/* ===== AUTH TABS ===== */
 .auth-tabs{display:flex;padding:4px;margin-bottom:20px;border-radius:14px;background:var(--glass);border:1px solid var(--glass-border);position:relative}
 .auth-tab{flex:1;padding:11px;border-radius:11px;font-size:12px;font-weight:900;color:var(--text-2);transition:.22s var(--ease)}
 .auth-tab.active{color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 1px rgba(245,203,106,.18)}
 
+/* ===== NOTIFICATIONS ===== */
 .notifications-list{display:flex;flex-direction:column;gap:8px}
 .notification{display:flex;gap:12px;padding:14px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-border);transition:.22s var(--ease);cursor:pointer}
 .notification:hover{background:var(--glass-2);border-color:var(--glass-border-2)}
@@ -302,8 +453,10 @@ body.light .grain{opacity:.02}
 .notification-content p{font-size:11px;line-height:1.6;color:var(--text-2);margin-top:3px}
 .notification-content small{display:block;font-size:9px;color:var(--text-3);margin-top:4px}
 
+/* ===== PROFILE ===== */
 .profile-box{text-align:center}
-.profile-large{width:88px;height:88px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-family:"Amiri","Cairo",serif;font-size:36px;font-weight:700;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 4px var(--bg),0 0 0 6px rgba(245,203,106,.3),0 20px 50px rgba(245,203,106,.32)}
+.profile-large{width:88px;height:88px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-family:"Amiri","Cairo",serif;font-size:36px;font-weight:700;color:#0a0805;background:linear-gradient(145deg,var(--gold),var(--gold-2));box-shadow:0 0 0 4px var(--bg),0 0 0 6px rgba(245,203,106,.3),0 20px 50px rgba(245,203,106,.32);position:relative}
+.profile-large.founder::after{content:"👑";position:absolute;top:-8px;right:-8px;font-size:22px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
 .profile-box h2{font-family:"Amiri","Cairo",serif;font-size:24px;font-weight:700}
 .profile-box p{font-size:12px;color:var(--text-2);margin-top:5px}
 .profile-info{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
@@ -311,13 +464,16 @@ body.light .grain{opacity:.02}
 .profile-info > div:hover{border-color:var(--glass-border-2);background:var(--glass-2)}
 .profile-info small{display:block;font-size:9px;font-weight:900;color:var(--text-3);letter-spacing:.4px;text-transform:uppercase}
 .profile-info strong{display:block;font-size:12px;font-weight:800;margin-top:5px}
-.admin-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;background:linear-gradient(135deg,rgba(245,203,106,.2),rgba(224,166,58,.15));border:1px solid rgba(245,203,106,.4);color:var(--gold);font-size:10px;font-weight:900;letter-spacing:.5px}
+.admin-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:99px;background:linear-gradient(135deg,rgba(245,203,106,.22),rgba(224,166,58,.15));border:1px solid rgba(245,203,106,.45);color:var(--gold);font-size:11px;font-weight:900;letter-spacing:.4px}
+.founder-line{font-size:10px;color:var(--text-3);margin-top:8px;letter-spacing:.3px}
 
+/* ===== TOAST ===== */
 .toast{position:fixed;left:50%;bottom:calc(30px + var(--safe-bottom));transform:translate(-50%,20px);padding:13px 22px;border-radius:14px;background:var(--panel-solid);border:1px solid var(--glass-border-2);color:var(--text);font-size:12px;font-weight:900;opacity:0;pointer-events:none;transition:.3s var(--ease-out);box-shadow:var(--shadow);max-width:calc(100vw - 40px);text-align:center;z-index:900;backdrop-filter:blur(12px)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 .mobile-nav{display:none}
 
+/* ===== RESPONSIVE ===== */
 @media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,660px)}.right-sidebar{display:none}}
 @media(max-width:760px){
   body{padding-bottom:calc(72px + var(--safe-bottom))}
@@ -343,6 +499,8 @@ body.light .grain{opacity:.02}
   .post h2{font-size:18px}
   .post-text{font-size:12px}
   .post-action{font-size:10px}
+  .welcome-strip{padding:12px 14px;flex-wrap:wrap}
+  .welcome-strip .ws-body{min-width:150px}
   .mobile-nav{position:fixed;left:0;right:0;bottom:0;height:calc(64px + var(--safe-bottom));padding-bottom:var(--safe-bottom);background:var(--panel-2);border-top:1px solid var(--glass-border);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);display:flex;align-items:center;justify-content:space-around;z-index:300}
   .mobile-nav button{flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:800;color:var(--text-3);transition:.22s var(--ease)}
   .mobile-nav button.active{color:var(--gold)}
@@ -354,7 +512,11 @@ body.light .grain{opacity:.02}
   .modal-footer{flex-wrap:wrap}
   .school-suggestions{max-height:220px}
 }
-@media(max-width:420px){.hero h1{font-size:26px;letter-spacing:-.6px}.brand-name{font-size:20px}.post h2{font-size:17px}}
+@media(max-width:420px){
+  .hero h1{font-size:26px;letter-spacing:-.6px}
+  .brand-name{font-size:20px}
+  .post h2{font-size:17px}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
 
@@ -370,11 +532,12 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 <div class="aurora"></div>
 <div class="grain"></div>
 
-<!-- INTRO with dual CTA -->
+<!-- ===== CINEMATIC INTRO ===== -->
 <div id="igIntro">
   <div class="ig-logo"><div class="ig-logo-core">ف</div></div>
   <div class="ig-name">فَ<span>ص</span>ل</div>
-  <div class="ig-tag">كل فصل عنده حكاية</div>
+  <div class="ig-tag"><span class="word-swap" id="igTagText">كل فصل عنده حكاية</span></div>
+  <div class="ig-founder">أسسه مازن هيثم</div>
   <div class="ig-cta">
     <button class="ig-btn ig-btn-primary" onclick="enterExplore()">استكشف فَصْل 🚀</button>
     <button class="ig-btn ig-btn-ghost" onclick="enterLogin()">عندي حساب • تسجيل الدخول</button>
@@ -383,7 +546,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
   <div class="ig-progress"><div class="ig-progress-fill"></div></div>
 </div>
 
-<!-- APP -->
+<!-- ===== APP ===== -->
 <div id="faslApp">
 
 <header class="topbar">
@@ -425,6 +588,17 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
   </aside>
 
   <section>
+    <!-- Welcome strip (first visit) -->
+    <div class="welcome-strip" id="welcomeStrip">
+      <div class="ws-ico">👋</div>
+      <div class="ws-body">
+        <strong>أهلاً بيك في فَصْل</strong>
+        <p>انضم لجروب مدرستك وشارك مواقفك مع زملائك.</p>
+      </div>
+      <button onclick="openAuth('register')">انضم الآن</button>
+      <button class="ws-close" onclick="dismissWelcome()">✕</button>
+    </div>
+
     <div class="hero">
       <div class="hero-rings"><span></span><span></span><span></span></div>
       <div class="hero-badge">🟡 مجتمع الطلاب المصريين</div>
@@ -478,6 +652,11 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
       <div class="online-head"><span class="online-dot"></span>FASL LIVE</div>
       <p>المجتمع بيتحدث لحظة بلحظة. احترم خصوصية زملائك ومتكتبش بيانات شخصية.</p>
     </div>
+    <div class="founder-card">
+      <div class="fc-avatar">م</div>
+      <strong>مازن هيثم</strong>
+      <p>مؤسس فَصْل · صانع المجتمع</p>
+    </div>
   </aside>
 </main>
 
@@ -491,7 +670,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 
 </div>
 
-<!-- CREATE POST -->
+<!-- ===== CREATE POST ===== -->
 <div class="modal-layer" id="composerModal">
   <div class="modal">
     <div class="modal-head">
@@ -523,7 +702,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
   </div>
 </div>
 
-<!-- AUTH -->
+<!-- ===== AUTH ===== -->
 <div class="modal-layer" id="authModal">
   <div class="modal">
     <div class="modal-head">
@@ -574,7 +753,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
   </div>
 </div>
 
-<!-- NOTIFICATIONS -->
+<!-- ===== NOTIFICATIONS ===== -->
 <div class="modal-layer" id="notificationsModal">
   <div class="modal">
     <div class="modal-head">
@@ -587,7 +766,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
   </div>
 </div>
 
-<!-- PROFILE -->
+<!-- ===== PROFILE ===== -->
 <div class="modal-layer" id="profileModal">
   <div class="modal">
     <div class="modal-head">
@@ -599,7 +778,10 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
         <div class="profile-large" id="profileLarge">م</div>
         <h2 id="profileUsername">زائر</h2>
         <p id="profileEmail">سجّل دخول عشان تدخل مجتمعك.</p>
-        <div id="profileAdminBadge" style="margin-top:12px;display:none"><span class="admin-badge">👑 مدير فَصْل</span></div>
+        <div id="profileAdminBadge" style="margin-top:14px;display:none">
+          <span class="admin-badge">👑 مؤسس فَصْل</span>
+          <div class="founder-line">Mazen Haytham · Founder</div>
+        </div>
         <div class="profile-info" id="profileInfo">
           <div><small>المحافظة</small><strong>—</strong></div>
           <div><small>المدرسة</small><strong>—</strong></div>
@@ -641,6 +823,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const ADMIN_EMAIL = "mazenshahin639@gmail.com";
+const FOUNDER_NAME = "Mazen Haytham";
 
 window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp, increment, onSnapshot };
 window.db=db; window.auth=auth;
@@ -650,6 +833,7 @@ window.deleteDoc=deleteDoc; window.query=query; window.where=where;
 window.orderBy=orderBy; window.limit=limit; window.getDocs=getDocs;
 window.serverTimestamp=serverTimestamp;
 window.FASL_ADMIN_EMAIL=ADMIN_EMAIL;
+window.FASL_FOUNDER_NAME=FOUNDER_NAME;
 window.faslIsAdmin=()=>String(auth.currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
 
 let currentUser=null, currentProfile=null;
@@ -667,6 +851,26 @@ function typeLabel(t){return {story:"😂 موقف",teacher:"👨‍🏫 مدر�
 function timeText(ts){if(!ts||!ts.toDate)return"دلوقتي";const d=ts.toDate();const diff=Math.max(0,Date.now()-d.getTime())/1000;if(diff<60)return"منذ لحظات";if(diff<3600)return`منذ ${Math.floor(diff/60)} د`;if(diff<86400)return`منذ ${Math.floor(diff/3600)} س`;return d.toLocaleDateString("ar-EG",{day:"numeric",month:"short"})}
 function showToast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2500)}
 window.showToast=showToast;
+
+// ================= INTRO TAGLINE ROTATOR =================
+const introTaglines = [
+  "كل فصل عنده حكاية",
+  "مواقف، أسئلة، وترندات",
+  "انضم لجروب مدرستك",
+  "شارك، اسأل، واعرف كل حاجة",
+  "مجتمع الطلاب المصريين"
+];
+let introTagIndex = 0;
+const introTagTimer = setInterval(()=>{
+  const el = document.getElementById("igTagText");
+  if(!el || !document.getElementById("igIntro") || document.getElementById("igIntro").classList.contains("hide")) return;
+  el.style.opacity = "0";
+  setTimeout(()=>{
+    introTagIndex = (introTagIndex + 1) % introTaglines.length;
+    el.textContent = introTaglines[introTagIndex];
+    el.style.opacity = "1";
+  }, 350);
+}, 2400);
 
 // ================= SCHOOL SEARCH =================
 const NOMINATIM_UA = "Fasl-App/1.0 (contact: mazenshahin639@gmail.com)";
@@ -790,38 +994,52 @@ document.addEventListener("click", e => {
   if(wrap && !wrap.contains(e.target)){ $("schoolSuggestions").innerHTML = ""; }
 });
 
-// ================= INTRO ACTIONS (dual CTA) =================
+// ================= WELCOME STRIP =================
+function dismissWelcome(){
+  const strip = $("welcomeStrip");
+  if(strip) strip.classList.remove("show");
+  localStorage.setItem("fasl-welcome-dismissed","1");
+}
+window.dismissWelcome = dismissWelcome;
+
+function showWelcomeIfFirstVisit(){
+  if(localStorage.getItem("fasl-welcome-dismissed") === "1") return;
+  if(currentProfile) return;
+  const strip = $("welcomeStrip");
+  if(strip) strip.classList.add("show");
+}
+window.showWelcomeIfFirstVisit = showWelcomeIfFirstVisit;
+
+// ================= INTRO ACTIONS =================
 function hideIntro(){
   const splash=$("igIntro"), app=$("faslApp");
   if(splash) splash.classList.add("hide");
   if(app) app.classList.add("show");
-  setTimeout(()=>{ if(splash) splash.style.display="none"; },600);
+  setTimeout(()=>{ if(splash) splash.style.display="none"; },700);
 }
 window.hideIntro = hideIntro;
 
-// "Explore" — no auth required, just show the app
 function enterExplore(){
   hideIntro();
-  // If already logged in, no need to show anything else
   if(!currentUser){
+    showWelcomeIfFirstVisit();
     showToast("استكشف براحتك 👀 سجّل دخول لما تحب تشارك");
   }
 }
 window.enterExplore = enterExplore;
 
-// "Login" — open auth modal right away
 function enterLogin(){
   hideIntro();
-  setTimeout(()=>openAuth("login"), 300);
+  setTimeout(()=>openAuth("login"), 350);
 }
 window.enterLogin = enterLogin;
 
-// Auto-hide intro after 8 seconds if user does nothing (fall back to explore)
+// Auto-hide intro after 9 seconds
 setTimeout(()=>{
   if(!$("igIntro").classList.contains("hide")){
     enterExplore();
   }
-}, 8000);
+}, 9000);
 
 // ================= SELECTS =================
 function fillSelect(id,arr,ph){const el=$(id);if(!el)return;el.innerHTML=`<option value="">${ph}</option>`+arr.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("")}
@@ -850,7 +1068,7 @@ async function submitLogin(){
   try{
     const cred=await signInWithEmailAndPassword(auth,email,password);
     if(email.toLowerCase()===ADMIN_EMAIL){
-      try{await setDoc(doc(db,"users",cred.user.uid),{moderator:true,admin:true,adminEmail:email,promotedAt:serverTimestamp()},{merge:true})}catch(e){console.warn(e)}
+      try{await setDoc(doc(db,"users",cred.user.uid),{moderator:true,admin:true,founder:true,adminEmail:email,promotedAt:serverTimestamp()},{merge:true})}catch(e){console.warn(e)}
     }
     closeAuth(); showToast("أهلاً بيك 👋");
   }catch(err){
@@ -896,6 +1114,7 @@ async function submitRegister(){
       communityId: selectedSchool.communityId,
       moderator: isAdmin,
       admin: isAdmin,
+      founder: isAdmin,
       createdAt: serverTimestamp()
     };
     await setDoc(doc(db,"users",cred.user.uid), profileData);
@@ -918,7 +1137,8 @@ async function submitRegister(){
 
     closeAuth();
     clearSchoolSelection();
-    showToast(isAdmin?"أهلاً يا مدير 👑":"الحساب اتعمل! 🎉");
+    dismissWelcome();
+    showToast(isAdmin?"أهلاً يا مؤسس فَصْل 👑":"الحساب اتعمل! 🎉");
   }catch(err){
     const m={"auth/email-already-in-use":"الإيميل ده مستخدم","auth/invalid-email":"الإيميل مش صحيح","auth/weak-password":"كلمة المرور ضعيفة"};
     showToast(m[err.code]||"حصل خطأ.");
@@ -937,11 +1157,16 @@ async function loadProfile(user){
 function updateUI(){
   const username=currentProfile?.username||"م";
   const initial=username.trim().charAt(0)||"م";
+  const isAdmin=String(currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
+
   $("profileMini").textContent=initial;
   $("composerAvatar").textContent=initial;
   $("profileLarge").textContent=initial;
 
-  const isAdmin=String(currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
+  $("profileMini").classList.toggle("founder",isAdmin);
+  $("composerAvatar").classList.toggle("founder",isAdmin);
+  $("profileLarge").classList.toggle("founder",isAdmin);
+
   const badge=$("profileAdminBadge");
   if(badge)badge.style.display=isAdmin?"block":"none";
 
@@ -956,9 +1181,10 @@ function updateUI(){
       <div><small>المحافظة</small><strong>${escapeHTML(currentProfile.governorate||"—")}</strong></div>
       <div><small>المدرسة</small><strong>${escapeHTML(currentProfile.school||"—")}</strong></div>
       <div><small>الصف</small><strong>${escapeHTML(currentProfile.grade||"—")}</strong></div>
-      <div><small>المجتمع</small><strong>${isAdmin?"👑 مدير":"طالب"}</strong></div>
+      <div><small>المجتمع</small><strong>${isAdmin?"👑 مؤسس":"طالب"}</strong></div>
     `;
     $("profileMainButton").textContent="تسجيل الخروج 👋";
+    dismissWelcome();
   }else{
     $("sideSchoolName").textContent="لسه هنختار 👀";
     $("sideSchoolMeta").textContent="سجّل دخول واختار مدرستك.";
@@ -1049,13 +1275,23 @@ function renderFeed(){
 }
 
 function renderPost(post){
+  const isFounderPost = String(post.authorId || "").toLowerCase() === String(post.authorId || "").toLowerCase() &&
+    post.username && String(post.user || post.username).length &&
+    String(post.creatorEmail||"").toLowerCase() === ADMIN_EMAIL;
   const name=post.anonymous?"طالب مجهول":escapeHTML(post.user||post.username||"طالب");
   const av=post.anonymous?"👤":escapeHTML((post.user||post.username||"ط").charAt(0));
+  const founderClass = post.creatorEmail && String(post.creatorEmail).toLowerCase() === ADMIN_EMAIL;
   return `
-    <article class="post" data-id="${escapeHTML(post.id)}">
+    <article class="post ${founderClass?"founder-post":""}" data-id="${escapeHTML(post.id)}">
       <div class="post-head">
-        <div class="post-avatar">${av}</div>
-        <div class="post-user"><strong>${name}</strong><span>${escapeHTML(timeText(post.createdAt))}</span></div>
+        <div class="post-avatar ${founderClass?"founder":""}">${av}</div>
+        <div class="post-user">
+          <strong>
+            ${name}
+            ${founderClass?'<span class="founder-tag">👑 المؤسس</span>':""}
+          </strong>
+          <span>${escapeHTML(timeText(post.createdAt))}</span>
+        </div>
         <span class="post-type">${typeLabel(post.type)}</span>
       </div>
       ${post.title?`<h2>${escapeHTML(post.title)}</h2>`:""}
@@ -1085,10 +1321,13 @@ async function createPost(){
   const anonymous=$("anonymousPost").checked;
   if(!body||body.length<3)return showToast("اكتب البوست ✍️");
   try{
+    const isAdmin = String(currentUser.email||"").toLowerCase()===ADMIN_EMAIL;
     await addDoc(collection(db,"posts"),{
       type,title,body,anonymous,
       authorId:currentUser.uid,
       username:currentProfile.username,
+      creatorEmail: currentUser.email || "",
+      isFounderPost: isAdmin,
       communityId:currentProfile.communityId,
       governorate:currentProfile.governorate,
       school:currentProfile.school,
@@ -1303,8 +1542,9 @@ onAuthStateChanged(auth,async user=>{
     try{currentProfile=await loadProfile(user)}catch(e){console.error(e);currentProfile=null}
     if(String(user.email).toLowerCase()===ADMIN_EMAIL){
       try{
-        await setDoc(doc(db,"users",user.uid),{moderator:true,admin:true,adminEmail:user.email,promotedAt:serverTimestamp()},{merge:true});
+        await setDoc(doc(db,"users",user.uid),{moderator:true,admin:true,founder:true,adminEmail:user.email,promotedAt:serverTimestamp()},{merge:true});
         if(!currentProfile)currentProfile=await loadProfile(user);
+        currentProfile = { ...(currentProfile||{}), founder:true, admin:true };
       }catch(e){console.warn(e)}
     }
   }else{
@@ -1425,11 +1665,11 @@ updateUI();
 
 <div id="v2AdminModal" class="v2-overlay">
   <div class="v2-panel" style="max-width:720px">
-    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات المالك فقط</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
+    <div class="v2-head"><div><h2>إدارة المجتمع</h2><p>أدوات المؤسس فقط · Mazen Haytham</p></div><button class="v2-close" onclick="closeV2('v2AdminModal')">×</button></div>
     <div class="v2-content">
       <div class="v2-box v2-admin">
         <h3>🛡️ الإشراف</h3>
-        <p>هذه الواجهة تظهر فقط لمالك الموقع. قواعد Firestore هي طبقة الأمان الأساسية.</p>
+        <p>هذه الواجهة تظهر فقط لمؤسس فَصْل. قواعد Firestore هي طبقة الأمان الأساسية.</p>
       </div>
       <div id="v2Reports" class="v2-box" style="margin-top:12px"><h3>🚩 البلاغات</h3><div class="v2-empty">اضغط تحديث لعرض البلاغات.</div><button class="v2-btn v2-soft" onclick="v2LoadReports()" style="margin-top:10px">تحديث</button></div>
     </div>
@@ -1514,6 +1754,7 @@ updateUI();
         title,body,type,postType:type,
         authorId:window.currentUser.uid,
         username:window.currentProfile?.username||"طالب",
+        creatorEmail:window.currentUser?.email||"",
         communityId:window.currentProfile?.communityId,
         governorate:window.currentProfile?.governorate,
         school:window.currentProfile?.school,
@@ -1532,7 +1773,7 @@ updateUI();
 
   window.v2OpenAdmin=function(){
     if(!window.currentUser){window.openAuth?.("login");return}
-    if(!window.faslIsAdmin?.()){window.showToast?.("👑 الإدارة للمالك فقط.");return}
+    if(!window.faslIsAdmin?.()){window.showToast?.("👑 الإدارة للمؤسس فقط.");return}
     show("v2AdminModal");
   };
 
