@@ -360,6 +360,44 @@ body.light .grain{opacity:.02}
 .post-action{padding:10px 6px;border-radius:11px;font-size:11px;font-weight:800;color:var(--text-2);transition:.22s var(--ease)}
 .post-action:hover{color:var(--text);background:var(--glass)}
 .post-action.liked{color:var(--red)}
+/* ===== PINNED POST ===== */
+.post.pinned{
+  background:
+    radial-gradient(circle at 88% 10%,rgba(245,203,106,.14),transparent 40%),
+    linear-gradient(145deg,rgba(245,203,106,.10),rgba(139,107,255,.05)),
+    var(--panel);
+  border-color:rgba(245,203,106,.42);
+  box-shadow:
+    0 0 0 1px rgba(245,203,106,.20),
+    0 20px 60px rgba(245,203,106,.12);
+}
+.post.pinned::before{
+  opacity:1 !important;
+  background:linear-gradient(180deg,var(--gold),var(--gold-2),transparent);
+  box-shadow:0 0 16px var(--gold-glow);
+}
+.pinned-badge{
+  position:absolute;
+  top:14px;
+  left:14px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:99px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-2));
+  color:#0a0805;font-size:9px;font-weight:900;
+  letter-spacing:.4px;
+  box-shadow:0 4px 14px rgba(245,203,106,.45);
+  animation:pinnedFloat 3s ease-in-out infinite;
+}
+@keyframes pinnedFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-2px)}
+}
+.pin-action{
+  color:var(--gold) !important;
+}
+.pin-action:hover{
+  background:var(--gold-soft) !important;
+}
 
 /* ===== EMPTY / LOADING ===== */
 .empty{padding:60px 24px;text-align:center;color:var(--text-2);border:1px dashed var(--glass-border-2);border-radius:var(--radius-lg);background:var(--glass);backdrop-filter:blur(12px)}
@@ -1294,7 +1332,12 @@ async function loadPosts(){
     const q=query(collection(db,"posts"),where("communityId","==",currentProfile.communityId),limit(100));
     unsubscribePosts=onSnapshot(q,async snap=>{
       allPosts=snap.docs.map(i=>({id:i.id,...i.data()}));
-      allPosts.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+allPosts.sort((a,b)=>{
+  // Pinned posts always float to the top
+  if(!!b.pinned !== !!a.pinned) return (b.pinned?1:0) - (a.pinned?1:0);
+  // Otherwise newest first
+  return (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0);
+});
       await loadLikeStates();
       renderFeed();
     },err=>{console.error(err);allPosts=[];renderFeed();showToast("تعذر تحميل البوستات.")});
@@ -1342,35 +1385,51 @@ function renderFeed(){
 }
 
 function renderPost(post){
-  const isFounderPost = String(post.authorId || "").toLowerCase() === String(post.authorId || "").toLowerCase() &&
-    post.username && String(post.user || post.username).length &&
-    String(post.creatorEmail||"").toLowerCase() === ADMIN_EMAIL;
-  const name=post.anonymous?"طالب مجهول":escapeHTML(post.user||post.username||"طالب");
-  const av=post.anonymous?"👤":escapeHTML((post.user||post.username||"ط").charAt(0));
-  const founderClass = post.creatorEmail && String(post.creatorEmail).toLowerCase() === ADMIN_EMAIL;
+  const isFounder = String(post.creatorEmail||"").toLowerCase() === ADMIN_EMAIL;
+  const isPinned = !!post.pinned;
+  const name = post.anonymous ? "طالب مجهول" : escapeHTML(post.user || post.username || "طالب");
+  const av = post.anonymous ? "👤" : escapeHTML((post.user || post.username || "ط").charAt(0));
+
+  const founderClass = isFounder ? "founder" : "";
+  const postClass = [
+    "post",
+    isPinned ? "pinned" : "",
+    isFounder && !isPinned ? "founder-post" : ""
+  ].filter(Boolean).join(" ");
+
+  const pinBtn = isFounder
+    ? `<button class="post-action pin-action" onclick="togglePin('${escapeHTML(post.id)}', ${isPinned})">
+         ${isPinned ? "📌 إلغاء التثبيت" : "📌 تثبيت"}
+       </button>`
+    : `<button class="post-action" onclick="reportPost('${escapeHTML(post.id)}')">🚩 إبلاغ</button>`;
+
   return `
-    <article class="post ${founderClass?"founder-post":""}" data-id="${escapeHTML(post.id)}">
+    <article class="${postClass}" data-id="${escapeHTML(post.id)}">
+      ${isPinned ? `<span class="pinned-badge">📌 مثبّت من الإدارة</span>` : ""}
       <div class="post-head">
-        <div class="post-avatar ${founderClass?"founder":""}">${av}</div>
+        <div class="post-avatar ${founderClass}">${av}</div>
         <div class="post-user">
           <strong>
             ${name}
-            ${founderClass?'<span class="founder-tag">👑 المؤسس</span>':""}
+            ${isFounder ? '<span class="founder-tag">👑 المؤسس</span>' : ""}
           </strong>
           <span>${escapeHTML(timeText(post.createdAt))}</span>
         </div>
         <span class="post-type">${typeLabel(post.type)}</span>
       </div>
-      ${post.title?`<h2>${escapeHTML(post.title)}</h2>`:""}
+      ${post.title ? `<h2>${escapeHTML(post.title)}</h2>` : ""}
       <p class="post-text">${escapeHTML(post.body)}</p>
       <div class="post-actions">
-        <button class="post-action ${post.liked?"liked":""}" onclick="likePost('${escapeHTML(post.id)}')">${post.liked?"❤️":"🤍"} ${Number(post.likes||0)}</button>
-        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">💬 ${Number(post.comments||0)}</button>
-        <button class="post-action" onclick="reportPost('${escapeHTML(post.id)}')">🚩 إبلاغ</button>
+        <button class="post-action ${post.liked?"liked":""}" onclick="likePost('${escapeHTML(post.id)}')">
+          ${post.liked ? "❤️" : "🤍"} ${Number(post.likes||0)}
+        </button>
+        <button class="post-action" onclick="openComments('${escapeHTML(post.id)}')">
+          💬 ${Number(post.comments||0)}
+        </button>
+        ${pinBtn}
       </div>
     </article>`;
 }
-
 function openComposer(type="story"){
   if(!currentUser){openAuth("register");showToast("سجّل دخول الأول عشان تنشر.");return}
   $("composerModal").classList.add("show");
@@ -1447,6 +1506,44 @@ async function likePost(postId){
   }catch(e){console.error(e);showToast("التفاعل مش متاح.")}
 }
 window.likePost=likePost;
+// ================= FOUNDER PIN =================
+async function togglePin(postId, currentlyPinned){
+  if(!currentUser){openAuth("login");return}
+  if(String(currentUser.email||"").toLowerCase() !== ADMIN_EMAIL){
+    showToast("📌 التثبيت للمؤسس فقط.");
+    return;
+  }
+  try{
+    const postRef = doc(db,"posts",postId);
+    if(currentlyPinned){
+      await updateDoc(postRef,{ pinned:false, pinnedAt:null, pinnedBy:null });
+      showToast("تم إلغاء التثبيت 📌");
+    }else{
+      // Unpin any other post in the same community first (only 1 pinned per school)
+      const q = query(
+        collection(db,"posts"),
+        where("communityId","==",currentProfile.communityId),
+        where("pinned","==",true),
+        limit(5)
+      );
+      const snap = await getDocs(q);
+      await Promise.all(snap.docs.map(d =>
+        updateDoc(d.ref,{ pinned:false, pinnedAt:null, pinnedBy:null })
+      ));
+
+      await updateDoc(postRef,{
+        pinned: true,
+        pinnedAt: serverTimestamp(),
+        pinnedBy: currentUser.uid
+      });
+      showToast("تم تثبيت البوست 📌");
+    }
+  }catch(e){
+    console.error(e);
+    showToast("مش قادر أعدّل التثبيت.");
+  }
+}
+window.togglePin = togglePin;
 
 // ================= COMMENTS (real UI) =================
 let currentPostId = null;
