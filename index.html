@@ -978,68 +978,135 @@ const introTagTimer = setInterval(()=>{
 }, 2400);
 
 // ================= SCHOOL SEARCH =================
-const NOMINATIM_UA = "Fasl-App/1.0 (contact: mazenshahin639@gmail.com)";
+// Uses OpenStreetMap + Overpass to load MANY schools in the selected
+// governorate instead of relying on Nominatim's text-search limit.
+const NOMINATIM_UA = "Fasl-App/2.0 (school-directory)";
+const OVERPASS_ENDPOINTS = [
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter"
+];
 let schoolDebounceTimer = null;
 let schoolAbortController = null;
+let schoolDirectoryCache = {};
 
 function onSchoolFocus(){
   const v = $("regSchool").value.trim();
-  if(v.length >= 3) onSchoolInput();
+  if(v.length >= 1) onSchoolInput();
+  else if($("regGovernorate").value) searchSchools("");
 }
 window.onSchoolFocus = onSchoolFocus;
+
+function renderSchoolResults(results, query="") {
+  const box = $("schoolSuggestions");
+  const q = String(query||"").trim().toLowerCase();
+  let filtered = results;
+  if(q) filtered = results.filter(x => {
+    const n = extractSchoolName(x).toLowerCase();
+    const d = extractSubtitle(x).toLowerCase();
+    return n.includes(q) || d.includes(q);
+  });
+
+  if(!filtered.length){
+    box.innerHTML = `<div class="school-nomatch">مفيش مدرسة بالاسم ده في المحافظة. جرّب الاسم بالعربي أو الإنجليزي.</div>`;
+    return;
+  }
+
+  window.__faslSchoolResults = filtered;
+  box.innerHTML = filtered.slice(0, 80).map((place, idx) => {
+    const name = extractSchoolName(place);
+    const sub = extractSubtitle(place);
+    return `<div class="school-option" onclick="pickSchool(${idx})">
+      <div>🏫 ${escapeHTML(name)}</div>
+      ${sub ? `<small>${escapeHTML(sub)}</small>` : ""}
+    </div>`;
+  }).join("") + (filtered.length > 80 ? `<div class="school-loading">عرضنا أول 80 نتيجة — اكتب جزءًا من الاسم للبحث بشكل أدق.</div>` : "");
+}
 
 function onSchoolInput(){
   if(selectedSchool) clearSchoolSelection();
   clearTimeout(schoolDebounceTimer);
   const query = $("regSchool").value.trim();
   const box = $("schoolSuggestions");
-  if(query.length < 3){ box.innerHTML = ""; return; }
-  box.innerHTML = `<div class="school-loading">جاري البحث…</div>`;
-  schoolDebounceTimer = setTimeout(() => searchSchools(query), 550);
+  if(!$("regGovernorate").value){
+    box.innerHTML = `<div class="school-nomatch">اختار المحافظة الأول عشان نجيب مدارسها.</div>`;
+    return;
+  }
+  const cached = schoolDirectoryCache[$("regGovernorate").value];
+  if(cached){ renderSchoolResults(cached, query); return; }
+  box.innerHTML = `<div class="school-loading">جاري تحميل مدارس المحافظة… 🏫</div>`;
+  schoolDebounceTimer = setTimeout(() => searchSchools(query), 300);
 }
 window.onSchoolInput = onSchoolInput;
 
+async function getGovernorateBbox(governorate, signal){
+  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=eg&limit=1&addressdetails=1&q=${encodeURIComponent(governorate + ", Egypt")}`;
+  const res = await fetch(url, {headers:{"Accept-Language":"ar,en"}, signal});
+  if(!res.ok) throw new Error("Nominatim HTTP " + res.status);
+  const data = await res.json();
+  if(!data[0]?.boundingbox) throw new Error("Governorate boundary not found");
+  const b=data[0].boundingbox.map(Number);
+  return {south:b[0], north:b[1], west:b[2], east:b[3]};
+}
+
+async function fetchOverpassSchools(bbox, signal){
+  const {south,north,west,east}=bbox;
+  const query=`[out:json][timeout:35];(nwr["amenity"="school"](${south},${west},${north},${east});nwr["building"="school"](${south},${west},${north},${east});nwr["education"="school"](${south},${west},${north},${east}););out center tags;`;
+  let lastError=null;
+  for(const endpoint of OVERPASS_ENDPOINTS){
+    try{
+      const res=await fetch(endpoint,{method:"POST",body:query,signal,headers:{"Content-Type":"text/plain;charset=UTF-8"}});
+      if(!res.ok) throw new Error("Overpass HTTP "+res.status);
+      const json=await res.json();
+      return (json.elements||[]).filter(x=>x.tags && (x.tags.name || x.tags["name:ar"] || x.tags["name:en"]));
+    }catch(e){ lastError=e; if(e.name==="AbortError") throw e; }
+  }
+  throw lastError || new Error("All Overpass servers failed");
+}
+
+function overpassToPlace(x, governorate){
+  const t=x.tags||{};
+  const lat=x.lat ?? x.center?.lat;
+  const lon=x.lon ?? x.center?.lon;
+  return {
+    osm_type:x.type, osm_id:x.id, lat, lon,
+    namedetails:{name:t.name,"name:ar":t["name:ar"],"name:en":t["name:en"]},
+    address:{state:governorate,country:"مصر"},
+    display_name:[t.name || t["name:ar"] || t["name:en"] || "مدرسة", governorate, "مصر"].join(", ")
+  };
+}
+
 async function searchSchools(query){
   const box = $("schoolSuggestions");
+  const governorate=$("regGovernorate").value;
+  if(!governorate){ box.innerHTML=`<div class="school-nomatch">اختار المحافظة الأول.</div>`; return; }
   if(schoolAbortController) schoolAbortController.abort();
-  schoolAbortController = new AbortController();
-
-  const q = /مدرس|مدرسه|school/i.test(query) ? query : query + " school";
-  const url =
-    `https://nominatim.openstreetmap.org/search?` +
-    `q=${encodeURIComponent(q)}` +
-    `&countrycodes=eg` +
-    `&format=jsonv2` +
-    `&addressdetails=1` +
-    `&namedetails=1` +
-    `&limit=8` +
-    `&accept-language=ar,en`;
-
+  schoolAbortController=new AbortController();
   try{
-    const res = await fetch(url, {
-      headers: { "User-Agent": NOMINATIM_UA },
-      signal: schoolAbortController.signal
-    });
-    if(!res.ok) throw new Error("HTTP " + res.status);
-    const results = await res.json();
-    if(!results.length){
-      box.innerHTML = `<div class="school-nomatch">مفيش نتائج. جرّب تكتب الاسم بالإنجليزي كمان، أو اكتبه يدوي وسيبه زي ما هو.</div>`;
-      return;
+    let raw=schoolDirectoryCache[governorate];
+    if(!raw){
+      const bbox=await getGovernorateBbox(governorate,schoolAbortController.signal);
+      const elements=await fetchOverpassSchools(bbox,schoolAbortController.signal);
+      const seen=new Set();
+      raw=elements.map(x=>overpassToPlace(x,governorate)).filter(x=>{
+        const key=(x.namedetails?.name||"").trim().toLowerCase();
+        if(!key || seen.has(key)) return false; seen.add(key); return true;
+      }).sort((a,b)=>extractSchoolName(a).localeCompare(extractSchoolName(b),"ar"));
+      schoolDirectoryCache[governorate]=raw;
+      try{sessionStorage.setItem("faslSchools_"+governorate,JSON.stringify(raw));}catch(_){}
     }
-    box.innerHTML = results.map((place, idx) => {
-      const name = extractSchoolName(place);
-      const sub = extractSubtitle(place);
-      return `<div class="school-option" onclick="pickSchool(${idx})">
-        <div>🏫 ${escapeHTML(name)}</div>
-        ${sub ? `<small>${escapeHTML(sub)}</small>` : ""}
-      </div>`;
-    }).join("");
-    window.__faslSchoolResults = results;
+    renderSchoolResults(raw,query);
   }catch(err){
-    if(err.name === "AbortError") return;
-    console.warn("Nominatim search failed:", err);
-    box.innerHTML = `<div class="school-nomatch">مش قادر أوصل لخدمة البحث. اكتب اسم المدرسة يدوي وهيتعمل جروب باسمها.</div>`;
+    if(err.name==="AbortError") return;
+    console.warn("School directory failed:",err);
+    box.innerHTML=`<div class="school-nomatch">تعذر تحميل دليل المدارس الآن. جرّب مرة أخرى أو اكتب اسم المدرسة يدويًا.</div>`;
   }
+}
+
+// Restore a previously downloaded governorate directory instantly.
+function restoreSchoolCache(){
+  const gov=$("regGovernorate")?.value; if(!gov) return;
+  if(schoolDirectoryCache[gov]) return;
+  try{const x=sessionStorage.getItem("faslSchools_"+gov);if(x) schoolDirectoryCache[gov]=JSON.parse(x);}catch(_){}
 }
 
 function extractSchoolName(place){
@@ -1150,6 +1217,12 @@ setTimeout(()=>{
 function fillSelect(id,arr,ph){const el=$(id);if(!el)return;el.innerHTML=`<option value="">${ph}</option>`+arr.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("")}
 fillSelect("regGovernorate",governorates,"اختار المحافظة");
 fillSelect("regGrade",grades,"اختار الصف");
+$("regGovernorate")?.addEventListener("change",()=>{
+  clearSchoolSelection();
+  restoreSchoolCache();
+  const q=$("regSchool").value.trim();
+  if($("regGovernorate").value) searchSchools(q);
+});
 
 // ================= AUTH =================
 function openAuth(mode="login"){
