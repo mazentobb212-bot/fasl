@@ -686,6 +686,21 @@ body{background:radial-gradient(circle at 70% -10%,rgba(91,92,226,.08),transpare
 @media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,700px)}}
 @media(max-width:760px){.layout{padding:12px 10px 28px}.hero{padding:24px 20px;border-radius:22px}.hero h1{font-size:28px}.directory-search-row{grid-template-columns:1fr}.school-stats{gap:7px}.school-stat{padding:10px 6px}.school-stat strong{font-size:16px}.school-explorer-head{padding:16px}.post{padding:17px}.topbar-inner{height:62px}.brand-name{font-size:20px}}
 </style>
+
+<style id="fasl-intro-upgrade">
+.ig-features{width:min(760px,92vw);display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px auto 2px;opacity:0;transform:translateY(14px);animation:igRise .8s ease .9s forwards}
+.ig-feature{display:flex;align-items:center;gap:10px;text-align:left;padding:12px 13px;border:1px solid var(--glass-border-2);background:rgba(255,255,255,.045);backdrop-filter:blur(14px);border-radius:17px;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.ig-feature>b{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--gold-soft);font-size:18px;flex:0 0 auto}.ig-feature span{display:flex;flex-direction:column;min-width:0}.ig-feature strong{font-size:12px;color:var(--text)}.ig-feature small{font-size:9px;color:var(--text-3);margin-top:2px;white-space:nowrap}
+.ig-from{margin-top:12px}.ig-btn{transition:transform .2s ease,box-shadow .2s ease}.ig-btn:hover{transform:translateY(-2px)}
+@media(max-width:760px){.ig-features{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:13px}.ig-feature{padding:10px}.ig-feature small{font-size:8px}.ig-stats{gap:7px!important}.ig-stat{padding:10px 7px!important}.ig-stat strong{font-size:16px!important}}
+@media(max-width:430px){.ig-features{grid-template-columns:1fr 1fr}.ig-feature>b{width:32px;height:32px;font-size:16px}.ig-feature strong{font-size:11px}.ig-feature small{font-size:8px}}
+</style>
+
+<style id="fasl-quickstart">
+.quick-launch{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:17px 18px;margin:0 0 14px;border:1px solid var(--glass-border-2);border-radius:22px;background:linear-gradient(135deg,rgba(100,102,241,.12),rgba(124,58,237,.06));box-shadow:var(--shadow-sm)}
+.quick-launch h3{margin:2px 0 3px;font-size:17px}.quick-launch p{margin:0;color:var(--text-3);font-size:11px}.ql-label{font-size:9px;letter-spacing:1.5px;font-weight:800;color:var(--gold)}.ql-actions{display:flex;gap:8px;flex-shrink:0}.ql-actions button{border:0;border-radius:13px;padding:10px 13px;background:linear-gradient(135deg,#6466f1,#7c3aed);color:white;font-weight:800;cursor:pointer}.ql-actions button.soft{background:var(--bg-2);color:var(--text);border:1px solid var(--glass-border-2)}
+@media(max-width:650px){.quick-launch{align-items:flex-start;flex-direction:column}.ql-actions{width:100%}.ql-actions button{flex:1}}
+</style>
 </head>
 
 <body>
@@ -705,6 +720,12 @@ body{background:radial-gradient(circle at 70% -10%,rgba(91,92,226,.08),transpare
     <div class="ig-stat"><strong id="introSchoolCount">71.8K+</strong><span>مدرسة ومعهد</span><small>مصر · 2022/23</small></div>
     <div class="ig-stat"><strong id="introStudentCount">28M+</strong><span>طالب في مصر</span><small>تعليم ما قبل الجامعة</small></div>
     <div class="ig-stat"><strong id="introJoinedCount">0</strong><span>انضموا لفَصْل</span><small>يتحدث لحظيًا</small></div>
+  </div>
+  <div class="ig-features">
+    <div class="ig-feature"><b>🏫</b><span><strong>مدرستك</strong><small>جروبك ومجتمعك</small></span></div>
+    <div class="ig-feature"><b>💬</b><span><strong>اتكلم</strong><small>مواقف وأسئلة وترند</small></span></div>
+    <div class="ig-feature"><b>📚</b><span><strong>ذاكر</strong><small>شارك وساعد زملاءك</small></span></div>
+    <div class="ig-feature"><b>🔥</b><span><strong>اكتشف</strong><small>شوف إيه اللي حاصل</small></span></div>
   </div>
   <div class="ig-cta">
     <button class="ig-btn ig-btn-primary" onclick="enterExplore()">استكشف فَصْل <span>↗</span></button>
@@ -766,6 +787,11 @@ body{background:radial-gradient(circle at 70% -10%,rgba(91,92,226,.08),transpare
       </div>
       <button onclick="openAuth('register')">انضم الآن</button>
       <button class="ws-close" onclick="dismissWelcome()">✕</button>
+    </div>
+
+    <div class="quick-launch">
+      <div><span class="ql-label">FASL QUICK START</span><h3>ابدأ من هنا 👇</h3><p>اختار مدرستك، ادخل مجتمعك، وبعدها شارك أول بوست.</p></div>
+      <div class="ql-actions"><button onclick="document.getElementById('schoolExplorer')?.scrollIntoView({behavior:'smooth'})">🏫 اختار مدرستي</button><button class="soft" onclick="openAuth('register')">✨ اعمل حساب</button></div>
     </div>
 
     <div class="hero">
