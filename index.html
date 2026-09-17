@@ -477,9 +477,8 @@ body.light .grain{opacity:.02}
 .school-explorer-title h2{font-size:18px;font-weight:900}.school-explorer-title p{font-size:11px;color:var(--text-2);margin-top:2px}
 .school-explorer-actions{display:flex;gap:8px;flex-wrap:wrap}.mini-action{padding:9px 12px;border-radius:12px;background:var(--glass-2);border:1px solid var(--border-2);font-size:11px;font-weight:800;transition:.2s}.mini-action:hover{transform:translateY(-1px);border-color:rgba(245,203,106,.35)}
 .school-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 18px}.school-stat{padding:12px;border-radius:16px;background:var(--glass);border:1px solid var(--border);text-align:center}.school-stat strong{display:block;font-size:20px;font-weight:900;color:var(--gold)}.school-stat span{display:block;margin-top:2px;font-size:10px;color:var(--text-2)}
-.school-explorer-body{display:grid;grid-template-columns:1.15fr .85fr;min-height:330px}.school-map{min-height:330px;background:#d9d9d9}.school-map #schoolMap{height:100%;min-height:330px;direction:ltr}.school-list-panel{padding:16px;display:flex;flex-direction:column;min-width:0}.school-list-toolbar{display:flex;gap:8px;margin-bottom:10px}.school-list-toolbar input,.school-list-toolbar select{min-width:0;flex:1;padding:10px 12px;border-radius:12px;background:var(--glass);border:1px solid var(--border-2);outline:none;font-size:11px}.school-list{overflow:auto;max-height:255px;padding-left:2px}.school-list-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px;border-radius:13px;border:1px solid transparent;transition:.2s;cursor:pointer}.school-list-item:hover,.school-list-item.active{background:var(--gold-soft);border-color:rgba(245,203,106,.18)}.school-list-item strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.school-list-item small{display:block;color:var(--text-3);font-size:9px;margin-top:2px}.school-pin{width:30px;height:30px;border-radius:10px;background:var(--glass-2);display:grid;place-items:center;flex:0 0 auto}.school-explorer-foot{padding:11px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-3);display:flex;justify-content:space-between;gap:10px}
-.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--panel-solid);color:var(--text)}.leaflet-popup-content{font-family:Cairo,sans-serif;font-size:11px;line-height:1.6}.leaflet-control-zoom a{color:#222!important}
-@media(max-width:700px){.school-explorer-head{align-items:flex-start;flex-direction:column}.school-explorer-body{grid-template-columns:1fr}.school-map{order:1}.school-list-panel{order:2}.school-list{max-height:230px}.school-stats{grid-template-columns:repeat(3,1fr);padding:12px}.school-stat strong{font-size:17px}}
+.school-explorer-body{display:block}.school-list-panel{padding:16px;display:flex;flex-direction:column;min-width:0}.no-map-panel{padding:18px 20px}.school-list-toolbar{display:flex;gap:8px;margin-bottom:10px}.school-list-toolbar input,.school-list-toolbar select{min-width:0;flex:1;padding:10px 12px;border-radius:12px;background:var(--glass);border:1px solid var(--border-2);outline:none;font-size:11px}.school-list{overflow:auto;max-height:255px;padding-left:2px}.school-list-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px;border-radius:13px;border:1px solid transparent;transition:.2s;cursor:pointer}.school-list-item:hover,.school-list-item.active{background:var(--gold-soft);border-color:rgba(245,203,106,.18)}.school-list-item strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.school-list-item small{display:block;color:var(--text-3);font-size:9px;margin-top:2px}.school-pin{width:30px;height:30px;border-radius:10px;background:var(--glass-2);display:grid;place-items:center;flex:0 0 auto}.school-explorer-foot{padding:11px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-3);display:flex;justify-content:space-between;gap:10px}
+@media(max-width:700px){.school-explorer-head{align-items:flex-start;flex-direction:column}.school-explorer-body{display:block}.school-list-panel{order:2}.school-list{max-height:230px}.school-stats{grid-template-columns:repeat(3,1fr);padding:12px}.school-stat strong{font-size:17px}}
 
 .school-suggestions{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--panel-solid);border:1px solid var(--glass-border-2);border-radius:16px;box-shadow:var(--shadow-lg);max-height:260px;overflow-y:auto;z-index:50;padding:6px;animation:modalIn .18s var(--ease-out)}
 .school-suggestions:empty{display:none}
@@ -631,14 +630,62 @@ body.light .grain{opacity:.02}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
 
-<style id="fasl-v2-badge">
-.fasl-v2-badge{position:fixed;left:14px;bottom:14px;z-index:9998;padding:7px 12px;border:1px solid rgba(245,203,106,.24);border-radius:99px;background:rgba(15,18,26,.88);backdrop-filter:blur(12px);color:#f5cb6a;font:800 10px/1 system-ui;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
-body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
-@media(max-width:700px){.fasl-v2-badge{left:8px;bottom:calc(78px + env(safe-area-inset-bottom,0px));font-size:9px}}
-</style>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3kF7w3HqkXc5qgZ0cX1j4X0w6nX0Q=" crossorigin="">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style id="fasl-ultimate-ui">
+/* FASL ULTIMATE UI — clean, realistic social-app system */
+:root{
+  --bg:#f6f7fb;--bg-2:#eef1f7;--bg-3:#e6eaf2;
+  --panel:#ffffff;--panel-2:#ffffff;--panel-solid:#ffffff;
+  --glass:rgba(255,255,255,.82);--glass-2:rgba(248,250,255,.96);
+  --glass-border:rgba(19,28,52,.09);--glass-border-2:rgba(19,28,52,.14);
+  --text:#111827;--text-2:#667085;--text-3:#98a2b3;
+  --gold:#5b5ce2;--gold-2:#7c3aed;--gold-soft:rgba(91,92,226,.10);--gold-glow:rgba(91,92,226,.25);
+  --violet:#7c3aed;--violet-soft:rgba(124,58,237,.09);--violet-glow:rgba(124,58,237,.22);
+  --green:#12b76a;--red:#f04438;--blue:#3b82f6;
+  --border:rgba(19,28,52,.08);--border-2:rgba(19,28,52,.13);
+  --radius:18px;--radius-lg:24px;--radius-sm:12px;--max:1240px;
+  --shadow-sm:0 5px 20px rgba(16,24,40,.06);--shadow:0 16px 45px rgba(16,24,40,.08);--shadow-lg:0 28px 80px rgba(16,24,40,.16);
+}
+body:not(.light){
+  --bg:#080a10;--bg-2:#0e1119;--bg-3:#151a25;--panel:#10141d;--panel-2:#121722;--panel-solid:#11151f;
+  --glass:rgba(18,23,34,.86);--glass-2:rgba(25,31,44,.96);--glass-border:rgba(255,255,255,.075);--glass-border-2:rgba(255,255,255,.12);
+  --text:#f7f8fb;--text-2:#a7afbf;--text-3:#687184;--border:rgba(255,255,255,.07);--border-2:rgba(255,255,255,.12);
+}
+body{background:radial-gradient(circle at 70% -10%,rgba(91,92,226,.08),transparent 32%),var(--bg);}
+.aurora{opacity:.55}.aurora::before{background:radial-gradient(circle,rgba(91,92,226,.18),transparent 70%)}.aurora::after{background:radial-gradient(circle,rgba(124,58,237,.14),transparent 70%)}
+/* calmer splash */
+#igIntro{background:var(--bg);color:var(--text)}#igIntro::before{background:radial-gradient(circle at 50% 35%,rgba(91,92,226,.12),transparent 42%)}
+.ig-logo-core{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 22px 70px rgba(91,92,226,.32),inset 0 1px 0 rgba(255,255,255,.3)}
+.ig-logo-core::after{border-color:#7778ef}.ig-name{color:var(--text)}.ig-name span{background:linear-gradient(135deg,#6466f1,#7c3aed);-webkit-background-clip:text;background-clip:text}.ig-tag{color:var(--text-2)}.ig-founder{background:var(--gold-soft);border-color:var(--glass-border-2);color:var(--gold)}.ig-founder b{color:var(--text)}
+.ig-stat{background:var(--glass);border-color:var(--glass-border);box-shadow:var(--shadow-sm)}.ig-stat strong{color:var(--text)}.ig-stat span{color:var(--text-2)}.ig-stat small{color:var(--text-3)}
+.ig-btn-primary{color:#fff;background:linear-gradient(135deg,#6466f1,#7c3aed);box-shadow:0 12px 32px rgba(91,92,226,.25)}.ig-btn-ghost{color:var(--text-2);background:var(--glass);border-color:var(--glass-border)}
+.ig-progress{background:var(--glass-border)}.ig-progress-fill{background:linear-gradient(90deg,#6466f1,#7c3aed)}.ig-from{color:var(--text-3)}.ig-topline{color:var(--text-3)}.ig-topline span{color:#7778ef}
+/* header */
+.topbar{background:rgba(246,247,251,.72);border-bottom:1px solid var(--glass-border)}body:not(.light) .topbar{background:rgba(8,10,16,.72)}
+.topbar-inner{height:72px;padding:10px 18px}.brand-logo{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 8px 22px rgba(91,92,226,.24)}.brand-name span{background:linear-gradient(135deg,#6466f1,#7c3aed);-webkit-background-clip:text;background-clip:text}
+.search-wrap{max-width:500px}.search-wrap input{height:42px;border-radius:13px;background:var(--glass);border-color:var(--glass-border)}.search-wrap input:focus{border-color:rgba(91,92,226,.4);box-shadow:0 0 0 4px var(--gold-soft)}.icon-btn{background:var(--glass);border-color:var(--glass-border)}.icon-btn:hover{border-color:rgba(91,92,226,.28);box-shadow:0 7px 22px rgba(16,24,40,.08)}.profile-chip{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 7px 22px rgba(91,92,226,.22)}
+/* main shell */
+.layout{max-width:1240px;grid-template-columns:220px minmax(0,700px) 270px;gap:26px;padding-top:26px}.sidebar{top:92px}.side-title{font-size:10px;letter-spacing:1px;color:var(--text-3)}.nav-list{gap:3px}.nav-item{padding:11px 13px;border-radius:12px;font-size:12px}.nav-item.active{background:var(--gold-soft);box-shadow:none}.nav-item.active::before{right:auto;left:-5px;width:3px}.school-card{background:linear-gradient(145deg,var(--gold-soft),var(--violet-soft));border-color:rgba(91,92,226,.16);box-shadow:var(--shadow-sm)}
+/* hero */
+.hero{min-height:226px;padding:32px;border-radius:26px;background:linear-gradient(135deg,rgba(91,92,226,.13),rgba(124,58,237,.07) 55%,var(--panel));border-color:var(--glass-border);box-shadow:var(--shadow)}.hero h1{font-family:"Cairo",sans-serif;font-size:38px;letter-spacing:-1.2px}.hero h1 span{background:linear-gradient(135deg,#6466f1,#7c3aed);-webkit-background-clip:text;background-clip:text}.hero p{font-size:12px;max-width:590px}.hero-badge{background:var(--gold-soft);border-color:rgba(91,92,226,.16);color:var(--gold)}.community-badge{min-width:280px;background:rgba(255,255,255,.45);border-color:var(--glass-border)}body:not(.light) .community-badge{background:rgba(255,255,255,.035)}
+/* composer */
+.composer,.post,.trend-card,.online-card,.founder-card{background:var(--panel);border-color:var(--glass-border);box-shadow:var(--shadow-sm)}.composer{border-radius:20px}.avatar,.post-avatar{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 6px 18px rgba(91,92,226,.18)}.composer-input{background:var(--bg-2);border-color:var(--glass-border)}.post-btn{background:linear-gradient(135deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 8px 22px rgba(91,92,226,.2)}.compose-action:hover{color:var(--gold);background:var(--gold-soft)}
+/* feed */
+.filters{margin-bottom:12px}.filter{background:var(--panel);border-color:var(--glass-border);padding:8px 14px}.filter.active{background:var(--gold-soft);border-color:rgba(91,92,226,.18);box-shadow:none}.post{padding:20px;border-radius:20px}.post:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.post::before{background:linear-gradient(180deg,#6466f1,transparent)}.post h2{font-family:"Cairo",sans-serif;font-size:18px}.post-text{font-size:12.5px;color:var(--text-2)}.post-action{border-radius:10px}.post-action:hover{background:var(--bg-2)}.post-action.liked{color:var(--red)}
+/* right rail */
+.trend-title h3{font-family:"Cairo",sans-serif;font-size:15px}.trend-title span{color:var(--gold);background:var(--gold-soft)}.trend small{color:var(--gold)}.online-card{background:rgba(18,183,106,.045)}.founder-card{background:linear-gradient(135deg,var(--gold-soft),var(--violet-soft));border-color:rgba(91,92,226,.14)}.founder-card .fc-avatar{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 8px 22px rgba(91,92,226,.2)}.founder-card strong{color:var(--text)}
+/* school directory */
+.ultimate-directory{background:var(--panel);border-color:var(--glass-border);box-shadow:var(--shadow-sm)}.school-explorer-head{padding:18px 20px}.school-explorer-title h2{font-size:16px}.school-explorer-title p{font-size:10px}.school-explorer-icon{background:linear-gradient(145deg,#6466f1,#7c3aed);border:0;color:#fff;box-shadow:0 7px 20px rgba(91,92,226,.2)}.school-stats{padding:12px 16px}.school-stat{background:var(--bg-2);border-color:var(--glass-border)}.school-stat strong{color:var(--gold)}.school-explorer-body{min-height:0}.no-map-panel{padding:16px 18px}.directory-search-row{display:grid;grid-template-columns:1fr 180px;gap:9px}.directory-search{display:flex;align-items:center;gap:9px;padding:0 13px;border:1px solid var(--glass-border);border-radius:13px;background:var(--bg-2)}.directory-search span{font-size:17px;color:var(--text-3)}.directory-search input{width:100%;height:44px;border:0;outline:0;background:transparent;color:var(--text);font-size:12px}.school-list-toolbar input,.school-list-toolbar select,.directory-search-row select{height:44px;border-radius:13px;background:var(--bg-2);border:1px solid var(--glass-border);padding:0 12px;font-size:12px;outline:0}.directory-label{display:flex;justify-content:space-between;margin:14px 2px 7px;color:var(--text-2);font-size:10px;font-weight:800}.school-list{max-height:270px;padding:2px}.school-list-item{padding:12px;border-radius:12px}.school-list-item strong{font-size:12px}.school-list-item small{font-size:10px}.school-pin{background:var(--gold-soft);color:var(--gold)}.school-explorer-foot{padding:10px 16px}.school-suggestions{border-color:var(--glass-border);background:var(--panel);box-shadow:var(--shadow-lg)}
+/* modals */
+.modal-layer,.v2-overlay{background:rgba(7,9,15,.58);backdrop-filter:blur(18px)}.modal,.v2-panel{background:var(--panel-solid);border-color:var(--glass-border-2);box-shadow:var(--shadow-lg);border-radius:24px}.modal-head,.v2-head{border-color:var(--glass-border)}.field input,.field textarea,.field select,.v2-input,.v2-textarea,.v2-select{background:var(--bg-2);border-color:var(--glass-border)}.field input:focus,.field textarea:focus,.field select:focus,.v2-input:focus,.v2-textarea:focus,.v2-select:focus{border-color:rgba(91,92,226,.4);box-shadow:0 0 0 4px var(--gold-soft)}
+/* school hub */
+.v2-cover{background:radial-gradient(circle at 80% 20%,rgba(91,92,226,.32),transparent 35%),linear-gradient(135deg,#171b2b,#0b0d14)}.v2-avatar{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 12px 30px rgba(91,92,226,.24)}.v2-tab.active{background:var(--gold-soft);color:var(--gold)}.v2-primary{background:linear-gradient(135deg,#6466f1,#7c3aed);color:#fff}.v2-box,.v2-feed-card,.v2-row{background:var(--bg-2);border-color:var(--glass-border)}
+.profile-large{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff;box-shadow:0 0 0 4px var(--bg),0 0 0 6px rgba(91,92,226,.18),0 18px 45px rgba(91,92,226,.2)}
+.mobile-nav{background:rgba(255,255,255,.88);border-color:var(--glass-border)}body:not(.light) .mobile-nav{background:rgba(15,18,27,.9)}.mobile-nav .add-btn{background:linear-gradient(145deg,#6466f1,#7c3aed);color:#fff}
+@media(max-width:1050px){.layout{grid-template-columns:200px minmax(0,700px)}}
+@media(max-width:760px){.layout{padding:12px 10px 28px}.hero{padding:24px 20px;border-radius:22px}.hero h1{font-size:28px}.directory-search-row{grid-template-columns:1fr}.school-stats{gap:7px}.school-stat{padding:10px 6px}.school-stat strong{font-size:16px}.school-explorer-head{padding:16px}.post{padding:17px}.topbar-inner{height:62px}.brand-name{font-size:20px}}
+</style>
 </head>
 
 <body>
@@ -733,33 +780,33 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
       </div>
     </div>
 
-    <section class="school-explorer" id="schoolExplorer">
+    <section class="school-explorer ultimate-directory" id="schoolExplorer">
       <div class="school-explorer-head">
         <div class="school-explorer-title">
-          <div class="school-explorer-icon">🗺️</div>
-          <div><h2>دليل المدارس</h2><p>استكشف المدارس على الخريطة واختار مجتمعك بسهولة · الدليل بيتوسع مع كل عضو جديد</p></div>
+          <div class="school-explorer-icon">⌘</div>
+          <div><h2>Find your school</h2><p>Choose your school to unlock its private student community.</p></div>
         </div>
         <div class="school-explorer-actions">
-          <button class="mini-action" onclick="focusMySchool()">📍 مدرستي</button>
-          <button class="mini-action" onclick="refreshSchoolExplorer()">↻ تحديث</button>
+          <button class="mini-action" onclick="focusMySchool()">🏫 My school</button>
+          <button class="mini-action" onclick="refreshSchoolExplorer()">↻ Refresh</button>
         </div>
       </div>
       <div class="school-stats">
-        <div class="school-stat"><strong id="schoolCountStat">—</strong><span>مدرسة مكتشفة</span></div>
-        <div class="school-stat"><strong>27</strong><span>محافظة</span></div>
-        <div class="school-stat"><strong>OSM + FASL</strong><span>مصادر الدليل</span></div>
+        <div class="school-stat"><strong id="schoolCountStat">—</strong><span>Schools indexed</span></div>
+        <div class="school-stat"><strong>27</strong><span>Governorates</span></div>
+        <div class="school-stat"><strong>FASL</strong><span>School communities</span></div>
       </div>
       <div class="school-explorer-body">
-        <div class="school-map"><div id="schoolMap"></div></div>
-        <div class="school-list-panel">
-          <div class="school-list-toolbar">
-            <input id="explorerSearch" placeholder="ابحث عن مدرسة..." oninput="filterExplorerSchools()">
-            <select id="explorerGov" onchange="changeExplorerGov()"><option value="">كل المحافظات</option></select>
+        <div class="school-list-panel no-map-panel">
+          <div class="directory-search-row">
+            <div class="directory-search"><span>⌕</span><input id="explorerSearch" placeholder="Search schools, areas, or names..." oninput="filterExplorerSchools()"></div>
+            <select id="explorerGov" onchange="changeExplorerGov()"><option value="">All governorates</option></select>
           </div>
-          <div class="school-list" id="explorerList"><div class="school-nomatch">اختار محافظة من التسجيل لعرض المدارس هنا.</div></div>
+          <div class="directory-label"><span>Available schools</span><span id="directoryResultCount"></span></div>
+          <div class="school-list" id="explorerList"><div class="school-nomatch">Choose a governorate or start typing to find a school.</div></div>
         </div>
       </div>
-      <div class="school-explorer-foot"><span id="schoolExplorerStatus">دليل المدارس يعتمد على بيانات OpenStreetMap المتاحة.</span><span>FASL MAPS</span></div>
+      <div class="school-explorer-foot"><span id="schoolExplorerStatus">FASL School Directory · no map · direct community access.</span><span>FASL DIRECTORY</span></div>
     </section>
 
     <div class="composer">
@@ -956,7 +1003,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
           <div><small>الصف</small><strong>—</strong></div>
           <div><small>المجتمع</small><strong>—</strong></div>
         </div>
-        <button class="post-btn" style="margin-top:22px;width:100%;padding:14px" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول 🚀</button>
+        <button class="post-btn" style="margin-top:22px;width:100%;padding:14px" onclick="profileMainAction()" id="profileMainButton">تسجيل الدخول 🚀</button><button class="v2-btn v2-soft" style="margin-top:8px;width:100%" onclick="openSettings()">⚙️ الإعدادات</button>
       </div>
     </div>
   </div>
@@ -1345,21 +1392,12 @@ document.addEventListener("click", e => {
   if(wrap && !wrap.contains(e.target)){ $("schoolSuggestions").innerHTML = ""; }
 });
 
-// ================= SCHOOL EXPLORER MAP =================
-let faslSchoolMap = null;
-let faslSchoolMarkers = [];
+// ================= SCHOOL EXPLORER / DIRECTORY =================
 let explorerSchools = [];
 
 function initSchoolExplorer(){
-  const mapEl=document.getElementById("schoolMap");
-  if(!mapEl || typeof L === "undefined") return;
-  if(!faslSchoolMap){
-    faslSchoolMap=L.map(mapEl,{zoomControl:true,scrollWheelZoom:true}).setView([30.0444,31.2357],10);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap contributors"}).addTo(faslSchoolMap);
-  }
   const govSel=document.getElementById("explorerGov");
   if(govSel && govSel.options.length===1) governorates.forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;govSel.appendChild(o)});
-  setTimeout(()=>faslSchoolMap.invalidateSize(),250);
 }
 function renderExplorerSchools(){
   initSchoolExplorer();
@@ -1367,43 +1405,32 @@ function renderExplorerSchools(){
   const gov=document.getElementById("explorerGov")?.value||"";
   let source=[];
   if(gov && schoolDirectoryCache[gov]) source=schoolDirectoryCache[gov];
-  else if(!gov){ Object.values(schoolDirectoryCache).forEach(a=>source.push(...(a||[]))); }
+  else if(!gov) Object.values(schoolDirectoryCache).forEach(a=>source.push(...(a||[])));
   const seen=new Set();
-  explorerSchools=source.filter(x=>{const name=extractSchoolName(x);const key=(name+"|"+(x.lat||"")+"|"+(x.lon||"")).toLowerCase();if(seen.has(key))return false;seen.add(key);return (!q || name.toLowerCase().includes(q) || extractSubtitle(x).toLowerCase().includes(q));}).slice(0,250);
+  explorerSchools=source.filter(x=>{const name=extractSchoolName(x);const key=(name+"|"+(x.lat||"")+"|"+(x.lon||"")).toLowerCase();if(seen.has(key))return false;seen.add(key);return (!q||name.toLowerCase().includes(q)||extractSubtitle(x).toLowerCase().includes(q));}).slice(0,300);
   const list=document.getElementById("explorerList");
-  if(list) list.innerHTML=explorerSchools.length?explorerSchools.slice(0,100).map((x,i)=>`<div class="school-list-item" onclick="focusExplorerSchool(${i})"><span style="min-width:0"><strong>${escapeHTML(extractSchoolName(x))}</strong><small>${escapeHTML(extractSubtitle(x)||"مدرسة")}</small></span><span class="school-pin">📍</span></div>`).join(""):"<div class='school-nomatch'>مفيش نتائج. جرّب اسم مختلف أو حمّل محافظة.</div>";
+  if(list) list.innerHTML=explorerSchools.length?explorerSchools.map((x,i)=>`<div class="school-list-item" onclick="selectExplorerSchool(${i})"><span style="min-width:0"><strong>${escapeHTML(extractSchoolName(x))}</strong><small>${escapeHTML(extractSubtitle(x)||"مدرسة")}</small></span><span class="school-pin">🏫</span></div>`).join(""):"<div class='school-nomatch'>مفيش نتائج. جرّب اسم مختلف أو حمّل محافظة.</div>";
   document.getElementById("schoolCountStat")?.replaceChildren(document.createTextNode(String(explorerSchools.length||0)));
-  drawExplorerMarkers(explorerSchools);
 }
-function drawExplorerMarkers(schools){
-  initSchoolExplorer(); if(!faslSchoolMap)return;
-  faslSchoolMarkers.forEach(m=>m.remove()); faslSchoolMarkers=[];
-  const bounds=[];
-  schools.slice(0,150).forEach((x,i)=>{const lat=Number(x.lat),lon=Number(x.lon);if(!Number.isFinite(lat)||!Number.isFinite(lon))return;const m=L.marker([lat,lon]).addTo(faslSchoolMap).bindPopup(`<b>${escapeHTML(extractSchoolName(x))}</b><br><span>${escapeHTML(extractSubtitle(x)||"مدرسة")}</span><br><button style="margin-top:6px;padding:5px 8px;border-radius:8px;background:#f5cb6a;color:#111;border:0;font-weight:800;cursor:pointer" onclick="selectExplorerSchool(${i})">اختيار المدرسة</button>`);m.on("click",()=>{});faslSchoolMarkers.push(m);bounds.push([lat,lon]);});
-  if(bounds.length && !document.getElementById("explorerSearch")?.value) faslSchoolMap.fitBounds(bounds,{padding:[25,25],maxZoom:13});
-}
-function focusExplorerSchool(i){const x=explorerSchools[i];if(!x||!faslSchoolMap)return;const lat=Number(x.lat),lon=Number(x.lon);if(!Number.isFinite(lat)||!Number.isFinite(lon))return;faslSchoolMap.setView([lat,lon],16,{animate:true});const m=faslSchoolMarkers.find(mm=>{const p=mm.getLatLng();return Math.abs(p.lat-lat)<1e-7&&Math.abs(p.lng-lon)<1e-7});if(m)m.openPopup();}
 function selectExplorerSchool(i){
   const x=explorerSchools[i]; if(!x)return;
   const name=extractSchoolName(x);
   const gov=x.address?.state||document.getElementById("explorerGov")?.value||"";
   selectedSchool={name,communityId:`osm/${x.osm_type}/${x.osm_id}`,displayName:name,governorate:gov};
-  const input=document.getElementById("regSchool");
-  const govInput=document.getElementById("regGovernorate");
+  const input=document.getElementById("regSchool"), govInput=document.getElementById("regGovernorate");
   if(input){input.value=name;input.classList.add("locked");input.readOnly=true;}
-  if(govInput && gov){
-    const opt=Array.from(govInput.options).find(o=>o.value===gov || o.textContent===gov);
-    if(opt)govInput.value=opt.value;
-  }
+  if(govInput&&gov){const opt=Array.from(govInput.options).find(o=>o.value===gov||o.textContent===gov);if(opt)govInput.value=opt.value;}
   document.getElementById("schoolSelectedBox")?.classList.remove("hidden");
-  const sn=document.getElementById("schoolSelectedName"); if(sn)sn.textContent=name;
+  const sn=document.getElementById("schoolSelectedName");if(sn)sn.textContent=name;
   showToast(`تم اختيار ${name} ✅`);
+  document.getElementById("authModal")?.classList.add("show");
+  openAuth("register");
 }
-function focusMySchool(){const gov=document.getElementById("explorerGov");const myGov=window.currentProfile?.governorate;if(myGov){gov.value=myGov; if(!schoolDirectoryCache[myGov]){searchSchools("").then(()=>renderExplorerSchools()).catch(()=>{});return;}renderExplorerSchools();}else{document.getElementById("schoolExplorer")?.scrollIntoView({behavior:"smooth"});showToast("سجّل دخول واختار مدرستك الأول 👀");}}
+function focusMySchool(){const gov=document.getElementById("explorerGov");const myGov=window.currentProfile?.governorate;if(myGov){gov.value=myGov;if(!schoolDirectoryCache[myGov]){searchSchools("").then(()=>renderExplorerSchools()).catch(()=>{});return;}renderExplorerSchools();}else{document.getElementById("schoolExplorer")?.scrollIntoView({behavior:"smooth"});showToast("سجّل دخول واختار مدرستك الأول 👀");}}
 function filterExplorerSchools(){renderExplorerSchools()}
 function changeExplorerGov(){const gov=document.getElementById("explorerGov")?.value;if(gov&&!schoolDirectoryCache[gov]){document.getElementById("schoolExplorerStatus").textContent="جاري تحميل مدارس المحافظة…";searchSchools("").then(()=>{renderExplorerSchools();document.getElementById("schoolExplorerStatus").textContent="تم تحديث الدليل للمحافظة المختارة."}).catch(()=>{});}else renderExplorerSchools();}
-function refreshSchoolExplorer(){const gov=document.getElementById("explorerGov")?.value||document.getElementById("regGovernorate")?.value;if(!gov){showToast("اختار محافظة الأول 👀");return;}delete schoolDirectoryCache[gov];try{sessionStorage.removeItem("faslSchools_"+gov)}catch(_){};searchSchools("").then(()=>{document.getElementById("explorerGov").value=gov;renderExplorerSchools();showToast("الدليل اتحدث 🔄")}).catch(()=>{});}
-window.initSchoolExplorer=initSchoolExplorer;window.focusMySchool=focusMySchool;window.filterExplorerSchools=filterExplorerSchools;window.changeExplorerGov=changeExplorerGov;window.refreshSchoolExplorer=refreshSchoolExplorer;window.focusExplorerSchool=focusExplorerSchool;window.selectExplorerSchool=selectExplorerSchool;
+function refreshSchoolExplorer(){const gov=document.getElementById("explorerGov")?.value||document.getElementById("regGovernorate")?.value;if(!gov){showToast("اختار محافظة الأول 👀");return;}delete schoolDirectoryCache[gov];try{sessionStorage.removeItem("faslSchools_"+gov)}catch(_){}searchSchools("").then(()=>{document.getElementById("explorerGov").value=gov;renderExplorerSchools();showToast("الدليل اتحدث 🔄")}).catch(()=>{});}
+window.initSchoolExplorer=initSchoolExplorer;window.focusMySchool=focusMySchool;window.filterExplorerSchools=filterExplorerSchools;window.changeExplorerGov=changeExplorerGov;window.refreshSchoolExplorer=refreshSchoolExplorer;window.selectExplorerSchool=selectExplorerSchool;
 
 // ================= WELCOME STRIP =================
 function dismissWelcome(){
@@ -2212,8 +2239,6 @@ onAuthStateChanged(auth,async user=>{
 updateUI();
 </script>
 
-<div class="fasl-v2-badge">فَصْل · v3</div>
-
 <!-- ================= V2 SCHOOL HUB ================= -->
 <style id="fasl-v2-style">
 .v2-overlay{position:fixed;inset:0;background:rgba(3,4,8,.8);backdrop-filter:blur(16px);z-index:10000;display:none;align-items:center;justify-content:center;padding:18px}
@@ -2460,5 +2485,19 @@ updateUI();
 })();
 </script>
 
+
+<style id="fasl-v3-upgrades">
+.v3-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.v3-pill{padding:9px 13px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);font-size:11px;font-weight:900}.v3-pill.active{background:var(--gold-soft);color:var(--gold)}
+.v3-profile-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.v3-section{margin-top:18px}.v3-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.v3-setting{padding:14px;border:1px solid var(--glass-border);border-radius:16px;background:var(--glass);display:flex;justify-content:space-between;align-items:center;gap:12px}.v3-setting strong{font-size:12px}.v3-setting small{display:block;color:var(--text-3);font-size:10px;margin-top:3px}.v3-toggle{width:46px;height:26px;border-radius:99px;background:var(--text-3);padding:3px}.v3-toggle i{display:block;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}.v3-toggle.on{background:var(--green)}.v3-toggle.on i{transform:translateX(-20px)}
+@media(max-width:600px){.v3-grid{grid-template-columns:1fr}}
+</style>
+<div class="modal-layer" id="settingsModal"><div class="modal"><div class="modal-head"><h2>الإعدادات ⚙️</h2><button class="close" onclick="closeSettings()">✕</button></div><div class="v3-grid"><div class="v3-setting"><div><strong>الوضع الليلي</strong><small>تغيير مظهر فَصْل</small></div><button id="settingsThemeToggle" class="v3-toggle" onclick="toggleTheme();syncSettingsTheme()"><i></i></button></div><div class="v3-setting"><div><strong>الإشعارات</strong><small>إشعارات التفاعل</small></div><button id="settingsNotifToggle" class="v3-toggle on" onclick="this.classList.toggle('on');localStorage.setItem('fasl-notifs',this.classList.contains('on')?'1':'0')"><i></i></button></div></div><div class="v3-section"><button class="post-btn" style="width:100%" onclick="openProfile();closeSettings()">👤 تعديل/عرض الحساب</button></div><div class="v3-section"><button class="v2-btn v2-soft" style="width:100%" onclick="showToast('إعدادات الخصوصية قيد التوسيع في النسخة القادمة 🔒')">🔒 الخصوصية والأمان</button></div></div></div>
+<script>
+function openSettings(){document.getElementById('settingsModal')?.classList.add('show');syncSettingsTheme()}
+function closeSettings(){document.getElementById('settingsModal')?.classList.remove('show')}
+function syncSettingsTheme(){const b=document.getElementById('settingsThemeToggle');if(b)b.classList.toggle('on',document.body.classList.contains('light')===false)}
+window.openSettings=openSettings;window.closeSettings=closeSettings;window.syncSettingsTheme=syncSettingsTheme;
+document.getElementById('settingsModal')?.addEventListener('click',e=>{if(e.target.id==='settingsModal')closeSettings()});
+</script>
 </body>
 </html>
