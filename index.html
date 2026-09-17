@@ -203,8 +203,13 @@ body.light .grain{opacity:.02}
 }
 @keyframes igLoad{to{width:100%}}
 
+/* ===== PREMIUM INTRO UPGRADE ===== */
+.ig-topline{position:absolute;top:28px;left:50%;transform:translateX(-50%);font:800 9px/1 system-ui,sans-serif;letter-spacing:2.5px;color:#666;white-space:nowrap;z-index:2}.ig-topline span{color:#c89a3a;margin:0 7px}
+.ig-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(2px);opacity:.55}.orb-one{width:260px;height:260px;top:8%;right:7%;background:radial-gradient(circle,rgba(245,203,106,.18),transparent 68%);animation:orbFloat 8s ease-in-out infinite}.orb-two{width:320px;height:320px;bottom:4%;left:5%;background:radial-gradient(circle,rgba(139,107,255,.14),transparent 68%);animation:orbFloat 10s ease-in-out infinite reverse}@keyframes orbFloat{50%{transform:translate(-20px,18px) scale(1.08)}}
+.ig-founder{gap:7px}.ig-founder b{color:#fff;font-weight:900}.founder-star{color:var(--gold);font-size:15px}
+.ig-stats{width:min(720px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;opacity:0;animation:igFade .7s ease 1.08s forwards;direction:rtl}.ig-stat{padding:13px 10px 11px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);border-radius:16px;backdrop-filter:blur(12px);box-shadow:0 10px 40px rgba(0,0,0,.2)}.ig-stat strong{display:block;font-size:21px;font-weight:900;color:#fff;letter-spacing:-.5px}.ig-stat span{display:block;margin-top:2px;font-size:10px;font-weight:800;color:#bbb}.ig-stat small{display:block;margin-top:3px;font-size:8px;color:#626262}.ig-btn span{opacity:.7}.ig-from{letter-spacing:1.5px;color:#4b4b4b}
 @media(max-width:520px){
-  .ig-name{font-size:42px}
+  .ig-topline{top:20px;font-size:7px;letter-spacing:1.6px}.ig-stats{gap:7px;margin-top:18px}.ig-stat{padding:10px 5px}.ig-stat strong{font-size:17px}.ig-stat span{font-size:8px}.ig-stat small{font-size:7px}.ig-name{font-size:42px}
   .ig-logo-core{width:92px;height:92px;font-size:52px;border-radius:26px}
   .ig-logo{width:110px;height:110px}
   .ig-founder{font-size:11px;padding:7px 13px}
@@ -538,6 +543,9 @@ body.light .grain{opacity:.02}
   background:transparent;border:0;color:var(--gold);
   font-size:12px;cursor:pointer;padding:0 4px;
 }
+/* ===== AUTH BRAND ===== */
+.auth-brandline{display:flex;align-items:center;gap:10px;margin:-4px 0 16px;padding:11px 12px;border-radius:16px;background:linear-gradient(135deg,var(--gold-soft),var(--violet-soft));border:1px solid rgba(245,203,106,.15)}.auth-mini-logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--gold-2));color:#0a0805;font:900 22px "Amiri",serif}.auth-brandline strong{display:block;font-size:14px;font-weight:900}.auth-brandline span{display:block;color:var(--text-3);font-size:9px;margin-top:1px}
+
 /* ===== AUTH TABS ===== */
 .auth-tabs{display:flex;padding:4px;margin-bottom:20px;border-radius:14px;background:var(--glass);border:1px solid var(--glass-border);position:relative}
 .auth-tab{flex:1;padding:11px;border-radius:11px;font-size:12px;font-weight:900;color:var(--text-2);transition:.22s var(--ease)}
@@ -629,6 +637,11 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3kF7w3HqkXc5qgZ0cX1j4X0w6nX0Q=" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+.school-community-badge{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:12px 15px;border:1px solid var(--gold-soft);background:linear-gradient(135deg,rgba(245,203,106,.10),rgba(139,107,255,.08));border-radius:16px;font-size:12px}
+.school-community-badge span{color:var(--text-2)}
+.school-community-badge b{margin-inline-start:auto;color:var(--gold)}
+</style>
 </head>
 
 <body>
@@ -638,15 +651,22 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 
 <!-- ===== CINEMATIC INTRO ===== -->
 <div id="igIntro">
+  <div class="ig-orb orb-one"></div><div class="ig-orb orb-two"></div>
+  <div class="ig-topline">FASL <span>•</span> EGYPT <span>•</span> STUDENT COMMUNITY</div>
   <div class="ig-logo"><div class="ig-logo-core">ف</div></div>
   <div class="ig-name">فَ<span>ص</span>ل</div>
   <div class="ig-tag"><span class="word-swap" id="igTagText">كل فصل عنده حكاية</span></div>
-  <div class="ig-founder">أسسه مازن هيثم</div>
-  <div class="ig-cta">
-    <button class="ig-btn ig-btn-primary" onclick="enterExplore()">استكشف فَصْل 🚀</button>
-    <button class="ig-btn ig-btn-ghost" onclick="enterLogin()">عندي حساب • تسجيل الدخول</button>
+  <div class="ig-founder"><span class="founder-star">✦</span> Founded by <b>Mazen Haytham</b></div>
+  <div class="ig-stats">
+    <div class="ig-stat"><strong id="introSchoolCount">71.8K+</strong><span>مدرسة ومعهد</span><small>مصر · 2022/23</small></div>
+    <div class="ig-stat"><strong id="introStudentCount">28M+</strong><span>طالب في مصر</span><small>تعليم ما قبل الجامعة</small></div>
+    <div class="ig-stat"><strong id="introJoinedCount">0</strong><span>انضموا لفَصْل</span><small>يتحدث لحظيًا</small></div>
   </div>
-  <div class="ig-from">FASL · EGYPT</div>
+  <div class="ig-cta">
+    <button class="ig-btn ig-btn-primary" onclick="enterExplore()">استكشف فَصْل <span>↗</span></button>
+    <button class="ig-btn ig-btn-ghost" onclick="enterLogin()">عندي حساب <span>•</span> تسجيل الدخول</button>
+  </div>
+  <div class="ig-from">كل فصل عنده حكاية ✦</div>
   <div class="ig-progress"><div class="ig-progress-fill"></div></div>
 </div>
 
@@ -719,7 +739,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
       <div class="school-explorer-head">
         <div class="school-explorer-title">
           <div class="school-explorer-icon">🗺️</div>
-          <div><h2>دليل المدارس</h2><p>استكشف المدارس على الخريطة واختار مجتمعك بسهولة</p></div>
+          <div><h2>دليل المدارس</h2><p>استكشف المدارس على الخريطة واختار مجتمعك بسهولة · الدليل بيتوسع مع كل عضو جديد</p></div>
         </div>
         <div class="school-explorer-actions">
           <button class="mini-action" onclick="focusMySchool()">📍 مدرستي</button>
@@ -727,9 +747,9 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
         </div>
       </div>
       <div class="school-stats">
-        <div class="school-stat"><strong id="schoolCountStat">—</strong><span>مدرسة محمّلة</span></div>
-        <div class="school-stat"><strong id="schoolGovStat">27</strong><span>محافظة</span></div>
-        <div class="school-stat"><strong>24/7</strong><span>دليل متاح</span></div>
+        <div class="school-stat"><strong id="schoolCountStat">—</strong><span>مدرسة مكتشفة</span></div>
+        <div class="school-stat"><strong>27</strong><span>محافظة</span></div>
+        <div class="school-stat"><strong>OSM + FASL</strong><span>مصادر الدليل</span></div>
       </div>
       <div class="school-explorer-body">
         <div class="school-map"><div id="schoolMap"></div></div>
@@ -842,6 +862,7 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
       <h2 id="authTitle">تسجيل الدخول</h2>
       <button class="close" onclick="closeAuth()">✕</button>
     </div>
+    <div class="auth-brandline"><div class="auth-mini-logo">ف</div><div><strong>فَصْل</strong><span>مجتمع الطلاب المصريين</span></div></div>
     <div class="auth-tabs">
       <button id="loginTab" class="auth-tab active" onclick="openAuth('login')">دخول</button>
       <button id="registerTab" class="auth-tab" onclick="openAuth('register')">حساب جديد</button>
@@ -955,7 +976,7 @@ import {
 import {
   getFirestore, collection, doc, getDoc, setDoc, addDoc,
   updateDoc, deleteDoc, query, where, orderBy, limit,
-  getDocs, serverTimestamp, increment, onSnapshot
+  getDocs, getCountFromServer, serverTimestamp, increment, onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -974,15 +995,16 @@ const db = getFirestore(app);
 const ADMIN_EMAIL = "mazenshahin639@gmail.com";
 const FOUNDER_NAME = "Mazen Haytham";
 
-window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, serverTimestamp, increment, onSnapshot };
+window.faslFirebase = { app, auth, db, collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, getDocs, getCountFromServer, serverTimestamp, increment, onSnapshot };
 window.db=db; window.auth=auth;
 window.collection=collection; window.doc=doc; window.getDoc=getDoc;
 window.setDoc=setDoc; window.addDoc=addDoc; window.updateDoc=updateDoc;
 window.deleteDoc=deleteDoc; window.query=query; window.where=where;
-window.orderBy=orderBy; window.limit=limit; window.getDocs=getDocs;
+window.orderBy=orderBy; window.limit=limit; window.getDocs=getDocs; window.getCountFromServer=getCountFromServer;
 window.serverTimestamp=serverTimestamp;
 window.FASL_ADMIN_EMAIL=ADMIN_EMAIL;
 window.FASL_FOUNDER_NAME=FOUNDER_NAME;
+setTimeout(refreshJoinedCount, 900);
 window.faslIsAdmin=()=>String(auth.currentUser?.email||"").toLowerCase()===ADMIN_EMAIL;
 
 let currentUser=null, currentProfile=null;
@@ -996,6 +1018,26 @@ const grades=["ابتدائي 1","ابتدائي 2","ابتدائي 3","ابتد
 const $=id=>document.getElementById(id);
 function escapeHTML(v){return String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
 function communityId(g,s){return `${g}__${s}`.trim().toLowerCase().replace(/\s+/g,"-")}
+
+async function ensureSchoolCommunity(schoolObj){
+  if(!schoolObj?.communityId) return;
+  const safeId=String(schoolObj.communityId).replace(/[\/]/g,"-");
+  try{
+    await setDoc(doc(db,"schoolGroups",safeId),{
+      school:schoolObj.name||schoolObj.displayName||"مدرسة",
+      displayName:schoolObj.displayName||schoolObj.name||"مدرسة",
+      governorate:schoolObj.governorate||"",
+      communityId:schoolObj.communityId,
+      avatar:(schoolObj.name||"م").trim().charAt(0),
+      description:`جروب طلاب ${schoolObj.displayName||schoolObj.name||"المدرسة"} على فَصْل`,
+      memberCount:increment(0),
+      postsCount:increment(0),
+      createdAt:serverTimestamp(),
+      updatedAt:serverTimestamp()
+    },{merge:true});
+  }catch(e){ console.warn("school community create failed",e); }
+}
+window.ensureSchoolCommunity=ensureSchoolCommunity;
 function typeLabel(t){return {story:"😂 موقف",teacher:"👨‍🏫 مدرس",question:"🤔 سؤال",trend:"🔥 ترند",school:"🏫 المدرسة"}[t]||"📝 بوست"}
 function timeText(ts){if(!ts||!ts.toDate)return"دلوقتي";const d=ts.toDate();const diff=Math.max(0,Date.now()-d.getTime())/1000;if(diff<60)return"منذ لحظات";if(diff<3600)return`منذ ${Math.floor(diff/60)} د`;if(diff<86400)return`منذ ${Math.floor(diff/3600)} س`;return d.toLocaleDateString("ar-EG",{day:"numeric",month:"short"})}
 function showToast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2500)}
@@ -1020,6 +1062,30 @@ const introTagTimer = setInterval(()=>{
     el.style.opacity = "1";
   }, 350);
 }, 2400);
+
+// ================= LIVE INTRO STATS =================
+const OFFICIAL_SCHOOL_COUNT = 71800;
+const OFFICIAL_STUDENT_COUNT = 28000000;
+function formatCompact(n){
+  n=Number(n)||0;
+  if(n>=1000000) return (n/1000000).toFixed(n>=10000000?0:1).replace(/\.0$/,'')+'M+';
+  if(n>=1000) return (n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,'')+'K+';
+  return String(n);
+}
+function setIntroStats(){
+  const sc=$("introSchoolCount"), st=$("introStudentCount");
+  if(sc) sc.textContent=formatCompact(OFFICIAL_SCHOOL_COUNT);
+  if(st) st.textContent=formatCompact(OFFICIAL_STUDENT_COUNT);
+}
+async function refreshJoinedCount(){
+  try{
+    const snap=await getCountFromServer(collection(db,"users"));
+    const n=snap.data().count||0;
+    const el=$("introJoinedCount");
+    if(el) el.textContent=n>999?formatCompact(n):String(n);
+  }catch(e){ console.warn("intro member count unavailable",e); }
+}
+setIntroStats();
 
 // ================= SCHOOL SEARCH =================
 // Uses OpenStreetMap + Overpass to load MANY schools in the selected
@@ -1133,6 +1199,23 @@ async function searchSchools(query){
   const signal=schoolAbortController.signal;
 
   try{
+    // FASL registry first: schools saved by the community stay searchable
+    // even when OpenStreetMap has no listing.
+    let registry=[];
+    try{
+      const snap=await getDocs(query(collection(db,"schools"),where("governorate","==",governorate),limit(500)));
+      registry=snap.docs.map(d=>{const x=d.data();return {
+        ...x,
+        namedetails:{name:x.school||x.displayName},
+        address:{state:x.governorate,country:"مصر"},
+        display_name:x.displayName||x.school
+      };}).filter(x=>x.school||x.displayName);
+    }catch(e){ console.warn("FASL school registry unavailable",e); }
+    if(registry.length && q){
+      const qq=q.toLowerCase();
+      const hits=registry.filter(x=>(extractSchoolName(x)+" "+extractSubtitle(x)).toLowerCase().includes(qq));
+      if(hits.length){ renderSchoolResults(hits,q); return; }
+    }
     // 1) If we already downloaded this governorate, search it locally.
     const cached=schoolDirectoryCache[governorate];
     if(cached && cached.length){
@@ -1264,7 +1347,7 @@ function pickSchool(idx){
   $("schoolSelectedBox").classList.remove("hidden");
   $("schoolSelectedName").textContent = name;
   $("schoolHint").textContent = "✅ جاهز. الجروب ده مشترك مع كل اللي اختاروا نفس المدرسة.";
-  if(selectedSchool.governorate){
+  ensureSchoolCommunity(selectedSchool);\n  if(selectedSchool.governorate){
     const gov = $("regGovernorate");
     const match = Array.from(gov.options).find(o => o.value.includes(selectedSchool.governorate) || selectedSchool.governorate.includes(o.value));
     if(match) gov.value = match.value;
@@ -1331,7 +1414,7 @@ function selectExplorerSchool(i){
   const name=extractSchoolName(x);
   const gov=x.address?.state||document.getElementById("explorerGov")?.value||"";
   selectedSchool={name,communityId:`osm/${x.osm_type}/${x.osm_id}`,displayName:name,governorate:gov};
-  const input=document.getElementById("regSchool");
+  ensureSchoolCommunity(selectedSchool);\n  const input=document.getElementById("regSchool");
   const govInput=document.getElementById("regGovernorate");
   if(input){input.value=name;input.classList.add("locked");input.readOnly=true;}
   if(govInput && gov){
@@ -1480,7 +1563,7 @@ async function submitRegister(){
       createdAt: serverTimestamp()
     };
     await setDoc(doc(db,"users",cred.user.uid), profileData);
-
+    try{ await setDoc(doc(db,"stats","global"),{usersJoined:increment(1),updatedAt:serverTimestamp()},{merge:true}); }catch(e){ console.warn("stats update failed:",e); }
     try{
       await setDoc(
         doc(db, "schools", selectedSchool.communityId.replace(/[\/]/g, "-")),
@@ -1496,6 +1579,7 @@ async function submitRegister(){
         { merge: true }
       );
     }catch(e){ console.warn("schools write failed:", e); }
+    await ensureSchoolCommunity(selectedSchool);
 
     closeAuth();
     clearSchoolSelection();
@@ -2213,6 +2297,7 @@ updateUI();
       <button class="v2-close" onclick="closeV2('v2SchoolHub')">×</button>
     </div>
     <div class="v2-content">
+    <div class="school-community-badge">🏫 <span>FASL School Community</span><b id="v2CommunityStatus">جروب المدرسة</b></div>
       <div class="v2-school-hero">
         <div class="v2-cover"></div>
         <div class="v2-school-meta">
