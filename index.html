@@ -464,6 +464,18 @@ body.light .grain{opacity:.02}
 .school-input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text);font-size:13px;outline:none;transition:.22s var(--ease)}
 .school-input:focus{border-color:rgba(245,203,106,.5);background:var(--glass-2);box-shadow:0 0 0 4px var(--gold-soft)}
 .school-input.locked{border-color:rgba(99,224,160,.5);background:rgba(99,224,160,.06)}
+
+/* ===== SCHOOL EXPLORER / APP DASHBOARD ===== */
+.school-explorer{margin-bottom:20px;border:1px solid var(--glass-border-2);border-radius:var(--radius-lg);background:var(--panel-2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--shadow);overflow:hidden}
+.school-explorer-head{padding:20px 22px 14px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--border)}
+.school-explorer-title{display:flex;align-items:center;gap:12px}.school-explorer-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--gold-soft);border:1px solid rgba(245,203,106,.25);font-size:21px}
+.school-explorer-title h2{font-size:18px;font-weight:900}.school-explorer-title p{font-size:11px;color:var(--text-2);margin-top:2px}
+.school-explorer-actions{display:flex;gap:8px;flex-wrap:wrap}.mini-action{padding:9px 12px;border-radius:12px;background:var(--glass-2);border:1px solid var(--border-2);font-size:11px;font-weight:800;transition:.2s}.mini-action:hover{transform:translateY(-1px);border-color:rgba(245,203,106,.35)}
+.school-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 18px}.school-stat{padding:12px;border-radius:16px;background:var(--glass);border:1px solid var(--border);text-align:center}.school-stat strong{display:block;font-size:20px;font-weight:900;color:var(--gold)}.school-stat span{display:block;margin-top:2px;font-size:10px;color:var(--text-2)}
+.school-explorer-body{display:grid;grid-template-columns:1.15fr .85fr;min-height:330px}.school-map{min-height:330px;background:#d9d9d9}.school-map #schoolMap{height:100%;min-height:330px;direction:ltr}.school-list-panel{padding:16px;display:flex;flex-direction:column;min-width:0}.school-list-toolbar{display:flex;gap:8px;margin-bottom:10px}.school-list-toolbar input,.school-list-toolbar select{min-width:0;flex:1;padding:10px 12px;border-radius:12px;background:var(--glass);border:1px solid var(--border-2);outline:none;font-size:11px}.school-list{overflow:auto;max-height:255px;padding-left:2px}.school-list-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px;border-radius:13px;border:1px solid transparent;transition:.2s;cursor:pointer}.school-list-item:hover,.school-list-item.active{background:var(--gold-soft);border-color:rgba(245,203,106,.18)}.school-list-item strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.school-list-item small{display:block;color:var(--text-3);font-size:9px;margin-top:2px}.school-pin{width:30px;height:30px;border-radius:10px;background:var(--glass-2);display:grid;place-items:center;flex:0 0 auto}.school-explorer-foot{padding:11px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-3);display:flex;justify-content:space-between;gap:10px}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--panel-solid);color:var(--text)}.leaflet-popup-content{font-family:Cairo,sans-serif;font-size:11px;line-height:1.6}.leaflet-control-zoom a{color:#222!important}
+@media(max-width:700px){.school-explorer-head{align-items:flex-start;flex-direction:column}.school-explorer-body{grid-template-columns:1fr}.school-map{order:1}.school-list-panel{order:2}.school-list{max-height:230px}.school-stats{grid-template-columns:repeat(3,1fr);padding:12px}.school-stat strong{font-size:17px}}
+
 .school-suggestions{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--panel-solid);border:1px solid var(--glass-border-2);border-radius:16px;box-shadow:var(--shadow-lg);max-height:260px;overflow-y:auto;z-index:50;padding:6px;animation:modalIn .18s var(--ease-out)}
 .school-suggestions:empty{display:none}
 .school-option{padding:11px 14px;border-radius:11px;cursor:pointer;font-size:12px;line-height:1.5;color:var(--text-2);transition:.15s var(--ease)}
@@ -614,6 +626,9 @@ body.light .grain{opacity:.02}
 body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
 @media(max-width:700px){.fasl-v2-badge{left:8px;bottom:calc(78px + env(safe-area-inset-bottom,0px));font-size:9px}}
 </style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3kF7w3HqkXc5qgZ0cX1j4X0w6nX0Q=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 
 <body>
@@ -699,6 +714,35 @@ body.light .fasl-v2-badge{background:rgba(255,255,255,.9);color:#8a6a1a}
         <span id="communityMeta">المحافظة • المدرسة • الصف</span>
       </div>
     </div>
+
+    <section class="school-explorer" id="schoolExplorer">
+      <div class="school-explorer-head">
+        <div class="school-explorer-title">
+          <div class="school-explorer-icon">🗺️</div>
+          <div><h2>دليل المدارس</h2><p>استكشف المدارس على الخريطة واختار مجتمعك بسهولة</p></div>
+        </div>
+        <div class="school-explorer-actions">
+          <button class="mini-action" onclick="focusMySchool()">📍 مدرستي</button>
+          <button class="mini-action" onclick="refreshSchoolExplorer()">↻ تحديث</button>
+        </div>
+      </div>
+      <div class="school-stats">
+        <div class="school-stat"><strong id="schoolCountStat">—</strong><span>مدرسة محمّلة</span></div>
+        <div class="school-stat"><strong id="schoolGovStat">27</strong><span>محافظة</span></div>
+        <div class="school-stat"><strong>24/7</strong><span>دليل متاح</span></div>
+      </div>
+      <div class="school-explorer-body">
+        <div class="school-map"><div id="schoolMap"></div></div>
+        <div class="school-list-panel">
+          <div class="school-list-toolbar">
+            <input id="explorerSearch" placeholder="ابحث عن مدرسة..." oninput="filterExplorerSchools()">
+            <select id="explorerGov" onchange="changeExplorerGov()"><option value="">كل المحافظات</option></select>
+          </div>
+          <div class="school-list" id="explorerList"><div class="school-nomatch">اختار محافظة من التسجيل لعرض المدارس هنا.</div></div>
+        </div>
+      </div>
+      <div class="school-explorer-foot"><span id="schoolExplorerStatus">دليل المدارس يعتمد على بيانات OpenStreetMap المتاحة.</span><span>FASL MAPS</span></div>
+    </section>
 
     <div class="composer">
       <div class="composer-top">
@@ -1078,27 +1122,105 @@ function overpassToPlace(x, governorate){
 async function searchSchools(query){
   const box = $("schoolSuggestions");
   const governorate=$("regGovernorate").value;
-  if(!governorate){ box.innerHTML=`<div class="school-nomatch">اختار المحافظة الأول.</div>`; return; }
+  const q=String(query||"").trim();
+  if(!governorate){
+    box.innerHTML=`<div class="school-nomatch">اختار المحافظة الأول عشان نجيب مدارسها.</div>`;
+    return;
+  }
+
   if(schoolAbortController) schoolAbortController.abort();
   schoolAbortController=new AbortController();
+  const signal=schoolAbortController.signal;
+
   try{
-    let raw=schoolDirectoryCache[governorate];
-    if(!raw){
-      const bbox=await getGovernorateBbox(governorate,schoolAbortController.signal);
-      const elements=await fetchOverpassSchools(bbox,schoolAbortController.signal);
-      const seen=new Set();
-      raw=elements.map(x=>overpassToPlace(x,governorate)).filter(x=>{
-        const key=(x.namedetails?.name||"").trim().toLowerCase();
-        if(!key || seen.has(key)) return false; seen.add(key); return true;
-      }).sort((a,b)=>extractSchoolName(a).localeCompare(extractSchoolName(b),"ar"));
-      schoolDirectoryCache[governorate]=raw;
-      try{sessionStorage.setItem("faslSchools_"+governorate,JSON.stringify(raw));}catch(_){}
+    // 1) If we already downloaded this governorate, search it locally.
+    const cached=schoolDirectoryCache[governorate];
+    if(cached && cached.length){
+      renderSchoolResults(cached,q);
+      return;
     }
-    renderSchoolResults(raw,query);
+
+    // 2) For typed searches, use Nominatim directly. This is much more
+    // reliable than waiting for a huge Overpass request.
+    async function nominatimSchools(text){
+      const searchText = text
+        ? `${text}, ${governorate}, Egypt`
+        : `school, ${governorate}, Egypt`;
+      const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=eg&limit=50&addressdetails=1&namedetails=1&q=${encodeURIComponent(searchText)}`;
+      const res=await fetch(url,{signal,headers:{"Accept-Language":"ar,en"}});
+      if(!res.ok) throw new Error("Nominatim HTTP "+res.status);
+      const data=await res.json();
+      return (Array.isArray(data)?data:[]).filter(x=>{
+        const n=String(x?.name||x?.namedetails?.name||x?.namedetails?.["name:ar"]||x?.namedetails?.["name:en"]||"");
+        return n && (
+          /school|college|academy|university|مدرس|مدرسة|كلية|أكاديمية|معهد|معهد/.test(
+            (n+" "+String(x?.type||"")+" "+String(x?.class||"")).toLowerCase()
+          ) || x?.type==="school"
+        );
+      }).map(x=>({
+        osm_type:x.osm_type||"node",
+        osm_id:x.osm_id||x.place_id,
+        lat:Number(x.lat), lon:Number(x.lon),
+        namedetails:{
+          name:x.name,
+          "name:ar":x.namedetails?.["name:ar"],
+          "name:en":x.namedetails?.["name:en"]
+        },
+        address:x.address||{state:governorate,country:"مصر"},
+        display_name:x.display_name||x.name
+      }));
+    }
+
+    let raw=[];
+    let overpassError=null;
+
+    // 3) Blank search: try Overpass first for a broad directory.
+    if(!q){
+      try{
+        const bbox=await getGovernorateBbox(governorate,signal);
+        const elements=await fetchOverpassSchools(bbox,signal);
+        raw=elements.map(x=>overpassToPlace(x,governorate));
+      }catch(e){
+        overpassError=e;
+      }
+      // Always have a fallback if Overpass is unavailable.
+      if(!raw.length) raw=await nominatimSchools("");
+    }else{
+      // Typed search: fast direct search first.
+      raw=await nominatimSchools(q);
+      // If it returned nothing, search the broad directory and filter locally.
+      if(!raw.length){
+        try{
+          const bbox=await getGovernorateBbox(governorate,signal);
+          const elements=await fetchOverpassSchools(bbox,signal);
+          raw=elements.map(x=>overpassToPlace(x,governorate));
+        }catch(e){ overpassError=e; }
+      }
+    }
+
+    // Deduplicate by OSM id when available, otherwise by normalized name.
+    const seen=new Set();
+    raw=raw.filter(x=>{
+      const name=extractSchoolName(x).trim().toLowerCase();
+      const key=x.osm_id ? `osm:${x.osm_type}:${x.osm_id}` : `name:${name}`;
+      if(!name || seen.has(key)) return false;
+      seen.add(key); return true;
+    }).sort((a,b)=>extractSchoolName(a).localeCompare(extractSchoolName(b),"ar"));
+
+    if(!raw.length) throw new Error("No schools found");
+
+    schoolDirectoryCache[governorate]=raw;
+    try{sessionStorage.setItem("faslSchools_"+governorate,JSON.stringify(raw));}catch(_){}
+    renderSchoolResults(raw,q);
+
+    if(overpassError) console.warn("Overpass unavailable; Nominatim fallback used.",overpassError);
   }catch(err){
     if(err.name==="AbortError") return;
     console.warn("School directory failed:",err);
-    box.innerHTML=`<div class="school-nomatch">تعذر تحميل دليل المدارس الآن. جرّب مرة أخرى أو اكتب اسم المدرسة يدويًا.</div>`;
+    box.innerHTML=`<div class="school-nomatch">
+      مش قادر أحمّل المدارس دلوقتي.<br>
+      <button type="button" style="margin-top:8px;padding:8px 12px;border-radius:10px;background:var(--gold);color:#111;font-weight:800" onclick="searchSchools('')">🔄 حاول تاني</button>
+    </div>`;
   }
 }
 
@@ -1166,6 +1288,66 @@ document.addEventListener("click", e => {
   if(wrap && !wrap.contains(e.target)){ $("schoolSuggestions").innerHTML = ""; }
 });
 
+// ================= SCHOOL EXPLORER MAP =================
+let faslSchoolMap = null;
+let faslSchoolMarkers = [];
+let explorerSchools = [];
+
+function initSchoolExplorer(){
+  const mapEl=document.getElementById("schoolMap");
+  if(!mapEl || typeof L === "undefined") return;
+  if(!faslSchoolMap){
+    faslSchoolMap=L.map(mapEl,{zoomControl:true,scrollWheelZoom:true}).setView([30.0444,31.2357],10);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap contributors"}).addTo(faslSchoolMap);
+  }
+  const govSel=document.getElementById("explorerGov");
+  if(govSel && govSel.options.length===1) governorates.forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;govSel.appendChild(o)});
+  setTimeout(()=>faslSchoolMap.invalidateSize(),250);
+}
+function renderExplorerSchools(){
+  initSchoolExplorer();
+  const q=(document.getElementById("explorerSearch")?.value||"").trim().toLowerCase();
+  const gov=document.getElementById("explorerGov")?.value||"";
+  let source=[];
+  if(gov && schoolDirectoryCache[gov]) source=schoolDirectoryCache[gov];
+  else if(!gov){ Object.values(schoolDirectoryCache).forEach(a=>source.push(...(a||[]))); }
+  const seen=new Set();
+  explorerSchools=source.filter(x=>{const name=extractSchoolName(x);const key=(name+"|"+(x.lat||"")+"|"+(x.lon||"")).toLowerCase();if(seen.has(key))return false;seen.add(key);return (!q || name.toLowerCase().includes(q) || extractSubtitle(x).toLowerCase().includes(q));}).slice(0,250);
+  const list=document.getElementById("explorerList");
+  if(list) list.innerHTML=explorerSchools.length?explorerSchools.slice(0,100).map((x,i)=>`<div class="school-list-item" onclick="focusExplorerSchool(${i})"><span style="min-width:0"><strong>${escapeHTML(extractSchoolName(x))}</strong><small>${escapeHTML(extractSubtitle(x)||"مدرسة")}</small></span><span class="school-pin">📍</span></div>`).join(""):"<div class='school-nomatch'>مفيش نتائج. جرّب اسم مختلف أو حمّل محافظة.</div>";
+  document.getElementById("schoolCountStat")?.replaceChildren(document.createTextNode(String(explorerSchools.length||0)));
+  drawExplorerMarkers(explorerSchools);
+}
+function drawExplorerMarkers(schools){
+  initSchoolExplorer(); if(!faslSchoolMap)return;
+  faslSchoolMarkers.forEach(m=>m.remove()); faslSchoolMarkers=[];
+  const bounds=[];
+  schools.slice(0,150).forEach((x,i)=>{const lat=Number(x.lat),lon=Number(x.lon);if(!Number.isFinite(lat)||!Number.isFinite(lon))return;const m=L.marker([lat,lon]).addTo(faslSchoolMap).bindPopup(`<b>${escapeHTML(extractSchoolName(x))}</b><br><span>${escapeHTML(extractSubtitle(x)||"مدرسة")}</span><br><button style="margin-top:6px;padding:5px 8px;border-radius:8px;background:#f5cb6a;color:#111;border:0;font-weight:800;cursor:pointer" onclick="selectExplorerSchool(${i})">اختيار المدرسة</button>`);m.on("click",()=>{});faslSchoolMarkers.push(m);bounds.push([lat,lon]);});
+  if(bounds.length && !document.getElementById("explorerSearch")?.value) faslSchoolMap.fitBounds(bounds,{padding:[25,25],maxZoom:13});
+}
+function focusExplorerSchool(i){const x=explorerSchools[i];if(!x||!faslSchoolMap)return;const lat=Number(x.lat),lon=Number(x.lon);if(!Number.isFinite(lat)||!Number.isFinite(lon))return;faslSchoolMap.setView([lat,lon],16,{animate:true});const m=faslSchoolMarkers.find(mm=>{const p=mm.getLatLng();return Math.abs(p.lat-lat)<1e-7&&Math.abs(p.lng-lon)<1e-7});if(m)m.openPopup();}
+function selectExplorerSchool(i){
+  const x=explorerSchools[i]; if(!x)return;
+  const name=extractSchoolName(x);
+  const gov=x.address?.state||document.getElementById("explorerGov")?.value||"";
+  selectedSchool={name,communityId:`osm/${x.osm_type}/${x.osm_id}`,displayName:name,governorate:gov};
+  const input=document.getElementById("regSchool");
+  const govInput=document.getElementById("regGovernorate");
+  if(input){input.value=name;input.classList.add("locked");input.readOnly=true;}
+  if(govInput && gov){
+    const opt=Array.from(govInput.options).find(o=>o.value===gov || o.textContent===gov);
+    if(opt)govInput.value=opt.value;
+  }
+  document.getElementById("schoolSelectedBox")?.classList.remove("hidden");
+  const sn=document.getElementById("schoolSelectedName"); if(sn)sn.textContent=name;
+  showToast(`تم اختيار ${name} ✅`);
+}
+function focusMySchool(){const gov=document.getElementById("explorerGov");const myGov=window.currentProfile?.governorate;if(myGov){gov.value=myGov; if(!schoolDirectoryCache[myGov]){searchSchools("").then(()=>renderExplorerSchools()).catch(()=>{});return;}renderExplorerSchools();}else{document.getElementById("schoolExplorer")?.scrollIntoView({behavior:"smooth"});showToast("سجّل دخول واختار مدرستك الأول 👀");}}
+function filterExplorerSchools(){renderExplorerSchools()}
+function changeExplorerGov(){const gov=document.getElementById("explorerGov")?.value;if(gov&&!schoolDirectoryCache[gov]){document.getElementById("schoolExplorerStatus").textContent="جاري تحميل مدارس المحافظة…";searchSchools("").then(()=>{renderExplorerSchools();document.getElementById("schoolExplorerStatus").textContent="تم تحديث الدليل للمحافظة المختارة."}).catch(()=>{});}else renderExplorerSchools();}
+function refreshSchoolExplorer(){const gov=document.getElementById("explorerGov")?.value||document.getElementById("regGovernorate")?.value;if(!gov){showToast("اختار محافظة الأول 👀");return;}delete schoolDirectoryCache[gov];try{sessionStorage.removeItem("faslSchools_"+gov)}catch(_){};searchSchools("").then(()=>{document.getElementById("explorerGov").value=gov;renderExplorerSchools();showToast("الدليل اتحدث 🔄")}).catch(()=>{});}
+window.initSchoolExplorer=initSchoolExplorer;window.focusMySchool=focusMySchool;window.filterExplorerSchools=filterExplorerSchools;window.changeExplorerGov=changeExplorerGov;window.refreshSchoolExplorer=refreshSchoolExplorer;window.focusExplorerSchool=focusExplorerSchool;window.selectExplorerSchool=selectExplorerSchool;
+
 // ================= WELCOME STRIP =================
 function dismissWelcome(){
   const strip = $("welcomeStrip");
@@ -1216,6 +1398,8 @@ setTimeout(()=>{
 // ================= SELECTS =================
 function fillSelect(id,arr,ph){const el=$(id);if(!el)return;el.innerHTML=`<option value="">${ph}</option>`+arr.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("")}
 fillSelect("regGovernorate",governorates,"اختار المحافظة");
+setTimeout(()=>{initSchoolExplorer(); const g=document.getElementById("regGovernorate"); if(g?.value) changeExplorerGov();},500);
+
 fillSelect("regGrade",grades,"اختار الصف");
 $("regGovernorate")?.addEventListener("change",()=>{
   clearSchoolSelection();
