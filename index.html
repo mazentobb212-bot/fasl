@@ -1428,9 +1428,65 @@ function selectExplorerSchool(i){
 }
 function focusMySchool(){const gov=document.getElementById("explorerGov");const myGov=window.currentProfile?.governorate;if(myGov){gov.value=myGov;if(!schoolDirectoryCache[myGov]){searchSchools("").then(()=>renderExplorerSchools()).catch(()=>{});return;}renderExplorerSchools();}else{document.getElementById("schoolExplorer")?.scrollIntoView({behavior:"smooth"});showToast("سجّل دخول واختار مدرستك الأول 👀");}}
 function filterExplorerSchools(){renderExplorerSchools()}
-function changeExplorerGov(){const gov=document.getElementById("explorerGov")?.value;if(gov&&!schoolDirectoryCache[gov]){document.getElementById("schoolExplorerStatus").textContent="جاري تحميل مدارس المحافظة…";searchSchools("").then(()=>{renderExplorerSchools();document.getElementById("schoolExplorerStatus").textContent="تم تحديث الدليل للمحافظة المختارة."}).catch(()=>{});}else renderExplorerSchools();}
-function refreshSchoolExplorer(){const gov=document.getElementById("explorerGov")?.value||document.getElementById("regGovernorate")?.value;if(!gov){showToast("اختار محافظة الأول 👀");return;}delete schoolDirectoryCache[gov];try{sessionStorage.removeItem("faslSchools_"+gov)}catch(_){}searchSchools("").then(()=>{document.getElementById("explorerGov").value=gov;renderExplorerSchools();showToast("الدليل اتحدث 🔄")}).catch(()=>{});}
-window.initSchoolExplorer=initSchoolExplorer;window.focusMySchool=focusMySchool;window.filterExplorerSchools=filterExplorerSchools;window.changeExplorerGov=changeExplorerGov;window.refreshSchoolExplorer=refreshSchoolExplorer;window.selectExplorerSchool=selectExplorerSchool;
+async function loadExplorerSchools(gov, force=false){
+  if(!gov) return [];
+  if(!force && Array.isArray(schoolDirectoryCache[gov]) && schoolDirectoryCache[gov].length) return schoolDirectoryCache[gov];
+  const status=document.getElementById("schoolExplorerStatus");
+  if(status) status.textContent="جاري تحميل مدارس المحافظة…";
+  try{
+    const cached=sessionStorage.getItem("faslSchools_"+gov);
+    if(!force && cached){
+      const parsed=JSON.parse(cached);
+      if(Array.isArray(parsed) && parsed.length){schoolDirectoryCache[gov]=parsed;return parsed;}
+    }
+  }catch(_){}
+
+  if(schoolAbortController) schoolAbortController.abort();
+  schoolAbortController=new AbortController();
+  const signal=schoolAbortController.signal;
+  try{
+    let raw=[];
+    try{
+      const bbox=await getGovernorateBbox(gov,signal);
+      const elements=await fetchOverpassSchools(bbox,signal);
+      raw=elements.map(x=>overpassToPlace(x,gov));
+    }catch(e){
+      console.warn("Explorer Overpass unavailable:",e);
+    }
+    if(!raw.length){
+      const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=eg&limit=50&addressdetails=1&namedetails=1&q=${encodeURIComponent("school, "+gov+", Egypt")}`;
+      const res=await fetch(url,{signal,headers:{"Accept-Language":"ar,en"}});
+      if(!res.ok) throw new Error("Nominatim HTTP "+res.status);
+      const data=await res.json();
+      raw=(Array.isArray(data)?data:[]).filter(x=>{
+        const n=String(x?.name||x?.namedetails?.name||x?.namedetails?.["name:ar"]||x?.namedetails?.["name:en"]||"");
+        return n && (x?.type==="school" || /school|college|academy|university|مدرس|مدرسة|كلية|أكاديمية|معهد/i.test(n+" "+String(x?.type||"")));
+      }).map(x=>({
+        osm_type:x.osm_type||"node",osm_id:x.osm_id||x.place_id,lat:Number(x.lat),lon:Number(x.lon),
+        namedetails:{name:x.name,"name:ar":x.namedetails?.["name:ar"],"name:en":x.namedetails?.["name:en"]},
+        address:x.address||{state:gov,country:"مصر"},display_name:x.display_name||x.name
+      }));
+    }
+    const seen=new Set();
+    raw=raw.filter(x=>{
+      const name=extractSchoolName(x).trim().toLowerCase();
+      const key=x.osm_id?`osm:${x.osm_type}:${x.osm_id}`:`name:${name}`;
+      if(!name||seen.has(key)) return false; seen.add(key); return true;
+    }).sort((a,b)=>extractSchoolName(a).localeCompare(extractSchoolName(b),"ar"));
+    schoolDirectoryCache[gov]=raw;
+    try{sessionStorage.setItem("faslSchools_"+gov,JSON.stringify(raw));}catch(_){}
+    if(status) status.textContent=`تم تحميل ${raw.length} مدرسة في ${gov}.`;
+    return raw;
+  }catch(e){
+    if(e.name!=="AbortError") console.warn("Explorer school directory failed:",e);
+    if(status) status.textContent="تعذر تحميل المدارس. جرّب تحديث الدليل.";
+    return [];
+  }
+}
+async function changeExplorerGov(){const gov=document.getElementById("explorerGov")?.value;if(!gov){renderExplorerSchools();return;}await loadExplorerSchools(gov);renderExplorerSchools();}
+async function refreshSchoolExplorer(){const gov=document.getElementById("explorerGov")?.value||document.getElementById("regGovernorate")?.value;if(!gov){showToast("اختار محافظة الأول 👀");return;}delete schoolDirectoryCache[gov];try{sessionStorage.removeItem("faslSchools_"+gov)}catch(_){}await loadExplorerSchools(gov,true);document.getElementById("explorerGov").value=gov;renderExplorerSchools();showToast("الدليل اتحدث 🔄");}
+window.initSchoolExplorer=initSchoolExplorer;window.focusMySchool=focusMySchool;window.filterExplorerSchools=filterExplorerSchools;window.changeExplorerGov=changeExplorerGov;window.refreshSchoolExplorer=refreshSchoolExplorer;window.selectExplorerSchool=selectExplorerSchool;window.loadExplorerSchools=loadExplorerSchools;
+setTimeout(()=>{initSchoolExplorer();renderExplorerSchools();},0);
 
 // ================= WELCOME STRIP =================
 function dismissWelcome(){
